@@ -5,7 +5,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { logger } from 'redux-logger';
 
 /* slice module */
-import counterSlice from './modules/counter';
+import counterSlice from './modules/counterSlice';
 
 export const history = createBrowserHistory();
 
