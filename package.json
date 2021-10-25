@@ -21,7 +21,9 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "airbnb",
+      "prettier"
     ]
   },
   "browserslist": {
@@ -37,7 +39,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^8.1.0",
+    "eslint": "^7.11.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.20.2",
