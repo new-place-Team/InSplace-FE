@@ -1,7 +1,8 @@
 import React from 'react';
 
 const Test = () => {
-  const a = 1;
+  const b = 111;
+  const test = 'test';
 
   return (
     <div>
