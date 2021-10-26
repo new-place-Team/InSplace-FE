@@ -1,5 +1,9 @@
+/* eslint-disable import/no-unresolved */
 import React, { useEffect } from 'react';
-import './App.css';
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import { history } from './redux/configureStore';
+import Test from './pages/TestPage';
 
 function App() {
   console.log('첫 스타트! 1');
@@ -9,9 +13,11 @@ function App() {
   console.log('컴포넌트 렌더링3');
   console.log('컴포넌트 렌더링4');
   return (
-    <>
-      <div>hello</div>
-    </>
+    <ConnectedRouter history={history}>
+      <Switch>
+        <Route path="/" exact component={Test} />
+      </Switch>
+    </ConnectedRouter>
   );
 }
 
