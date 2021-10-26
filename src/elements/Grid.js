@@ -74,12 +74,6 @@ Grid.defaultProps = {
 };
 
 const DefaultGrid = styled.div`
-  ${props =>
-    props.justify
-      ? `display:flex; justify-content:${props.justify}; align-items:center`
-      : ''};
-  ${props => (props.flex ? `flex:1` : '')};
-  ${props => (props.direction ? ` flex-direction:${props.direction}` : '')};
   width: ${props => props.width};
   height: ${props => props.height};
   margin: ${props => props.margin};
