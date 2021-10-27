@@ -85,8 +85,9 @@ const DefaultGrid = styled.div`
   border: ${props => props.border};
   position: relative;
   ${props => props.isFlex && `display:flex`};
-  box-sizing: border-box;
+  ${props => props.isFlex && `flex-direction:${props.direction}`};
   ${props => (props.flex ? `flex:1` : '')};
+  box-sizing: border-box;
 `;
 const BetweenGrid = styled.div`
   ${props =>
