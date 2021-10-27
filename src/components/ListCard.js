@@ -4,12 +4,13 @@ import React from 'react';
 import { Grid, Image, Text } from '../elements/index';
 
 const ListCard = props => {
-  const { type, title, likeCnt, address, category } = props;
+  const { type, title, likeCnt, address, category, src } = props;
 
   const styles = {
     width: `${type}` === 'detail' ? '246px' : '158px',
     height: `${type}` === 'detail' ? '406px' : '294px',
     imgHeight: `${type}` === 'detail' ? '306px' : '196px',
+    src,
   };
   console.log(type, styles);
 
@@ -17,7 +18,7 @@ const ListCard = props => {
   if (type === 'main') {
     return (
       <Grid width="247px" height="382px" isFlex direction="column">
-        <Image type="bg" width="247px" height="320px" />
+        <Image type="bg" width="247px" height="320px" src={src} />
         <Grid margin="16px 0 0 0">
           <Text fontSize="16px" color="#272727">
             {title}
@@ -37,7 +38,12 @@ const ListCard = props => {
 
   return (
     <Grid width={styles.width} height={styles.height} isFlex direction="column">
-      <Image type="bg" width={styles.width} height={styles.imgHeight} />
+      <Image
+        type="bg"
+        width={styles.width}
+        height={styles.imgHeight}
+        src={styles.src}
+      />
       <Grid margin="12px 0 0 0">
         <Text fontSize="14px" color="#646464">
           {category}
