@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Image = props => {
-  const { shape, width, height, margin, src } = props;
+  const { type, width, height, margin, src } = props;
 
   const styles = {
     width,
@@ -13,7 +13,7 @@ const Image = props => {
     src,
   };
 
-  if (shape === 'circle') {
+  if (type === 'circle') {
     return (
       <>
         <ProfileImage {...styles} />
@@ -21,10 +21,10 @@ const Image = props => {
     );
   }
 
-  if (shape === 'rectangle') {
+  if (type === 'bg') {
     return (
       <>
-        <EntireImage {...styles} />
+        <BgImage {...styles} />
       </>
     );
   }
@@ -51,10 +51,10 @@ const DefaultImage = styled.image`
   display: block;
 `;
 
-// background Image 전체
-const EntireImage = styled.div`
-  width: 100%;
-  height: 100vh;
+// background Image
+const BgImage = styled.div`
+  width: ${props => props.width};
+  height: ${props => props.height};
   background-image: url('${props => props.src}');
   background-size: cover;
   background-position: center;
