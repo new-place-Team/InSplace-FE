@@ -6,6 +6,7 @@ import theme from '../styles/theme';
 
 const Text = props => {
   const { fontSize, bold, color, others, children, margin, textAlign } = props;
+
   const styles = {
     fontSize,
     bold,
@@ -24,7 +25,7 @@ const Text = props => {
 
 Text.defaultProps = {
   fontSize: `${theme.fontSize.normal}`,
-  bold: `${theme.fontWeight.regular}`,
+  bold: false,
   color: `${theme.color.mainColor}`,
   children: 'child',
   others: '',

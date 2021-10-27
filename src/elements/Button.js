@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const Button = props => {
+  console.log('props === ', props);
   // props로 전달받을 값들
   const {
     type,
@@ -52,6 +53,7 @@ const Button = props => {
       </>
     );
   }
+
   if (type === 'type') {
     return (
       <>
@@ -61,6 +63,7 @@ const Button = props => {
       </>
     );
   }
+
   if (type === 'tag') {
     return (
       <>
@@ -98,6 +101,8 @@ Button.defaultProps = {
   radius: 0,
   size: '14px',
   bold: false,
+  bg: 'transparent',
+  border: 'none',
   _onClick: () => {},
 };
 
@@ -135,12 +140,14 @@ const FullSizeWhite = styled.button`
   border: 1px solid ${theme.color.mainColor};
 `;
 const TypeButton = styled.button`
+  width: ${props => (props.width ? props.width : 'auto')};
+  margin: ${props => props.margin};
   padding: 12px 20px;
   font-size: 16px;
   font-weight: 700;
   color: ${props => (props.color ? props.color : '#646464')};
   background-color: ${props => (props.bg ? props.bg : `#fff`)};
-  border: ${props => (props.border ? props.border : '1px solid #646464')};
+  border: 1px solid #646464;
 `;
 // Text가 들어간 tag 버튼
 const TagButton = styled.button`

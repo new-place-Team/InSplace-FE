@@ -8,6 +8,7 @@ import Test from './pages/TestPage';
 import Main from './pages/Main';
 import UI from './pages/UI';
 import theme from './styles/theme';
+import SelectedContents from './components/SelectedContents';
 
 function App() {
   console.log('첫 스타트! 1');
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" exact component={Test} />
           <Route path="/main" exact component={Main} />
           <Route path="/ui" exact component={UI} />
+          <Route path="/test" exact component={SelectedContents} />
         </Switch>
       </ThemeProvider>
     </ConnectedRouter>
