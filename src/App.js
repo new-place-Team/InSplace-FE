@@ -12,6 +12,7 @@ import theme from './styles/theme';
 import MapCard from './components/MapCard';
 import SelectedCategory from './components/SelectedCategory';
 import SelectedContents from './components/SelectedContents';
+import ContentsTitle from './components/ContentsTitle';
 
 function App() {
   console.log('첫 스타트! 1');
@@ -30,6 +31,7 @@ function App() {
           <Route path="/category" exact component={SelectedCategory} />
           <Route path="/test" exact component={SelectedContents} />
           <Route path="/map" exact component={MapCard} />
+          <Route path="/title" exact component={ContentsTitle} />
         </Switch>
       </ThemeProvider>
     </ConnectedRouter>
