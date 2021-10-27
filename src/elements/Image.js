@@ -39,13 +39,16 @@ Image.defaultProps = {
   type: false,
   margin: false,
   src: 'https://tistory4.daumcdn.net/tistory/4367973/attach/059c57a4a960451fad4115308781a782',
+  height: '',
 };
 
 // 기본 사각 이미지들
 const DefaultImage = styled.image`
   width: ${props => props.width};
-  height: ${props => props.width};
+  height: ${props => props.height};
+  background-image: url('${props => props.src}');
   ${props => (props.margin ? `margin:${props.margin}` : '')};
+  display: block;
 `;
 
 // background Image 전체
@@ -56,6 +59,7 @@ const EntireImage = styled.div`
   background-size: cover;
   background-position: center;
   ${props => (props.margin ? `margin:${props.margin}` : '')};
+  display: block;
 `;
 
 // 프로필 이미지 (원형)
@@ -67,6 +71,7 @@ const ProfileImage = styled.div`
   background-size: cover;
   background-position: center;
   ${props => (props.margin ? `margin:${props.margin}` : '')};
+  display: block;
 `;
 
 export default Image;

@@ -24,7 +24,7 @@ const Text = props => {
 
 Text.defaultProps = {
   fontSize: `${theme.fontSize.normal}`,
-  bold: `${theme.fontWeight.regular}`,
+  bold: false,
   color: `${theme.color.mainColor}`,
   children: 'child',
   others: '',

@@ -9,6 +9,8 @@ import Test from './pages/TestPage';
 import Main from './pages/Main';
 import UI from './pages/UI';
 import theme from './styles/theme';
+import MapCard from './components/MapCard';
+import SelectedCategory from './components/SelectedCategory';
 
 function App() {
   console.log('첫 스타트! 1');
@@ -21,9 +23,10 @@ function App() {
     <ConnectedRouter history={history}>
       <ThemeProvider theme={theme}>
         <Switch>
-          <Route path="/" exact component={Test} />
+          <Route path="/" exact component={MapCard} />
           <Route path="/main" exact component={Main} />
           <Route path="/ui" exact component={UI} />
+          <Route path="/category" exact component={SelectedCategory} />
         </Switch>
       </ThemeProvider>
     </ConnectedRouter>
