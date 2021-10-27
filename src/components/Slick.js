@@ -11,7 +11,7 @@ export const Slick = props => {
     className: 'center',
     centerMode: true,
     infinite: false,
-    centerPadding: '60px',
+    centerPadding: '46px',
     slidesToShow: 1,
     speed: 500,
   };
