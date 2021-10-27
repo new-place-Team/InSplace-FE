@@ -153,8 +153,12 @@ const TypeButton = styled.button`
 const TagButton = styled.button`
   padding: 6px 16px;
   font-size: ${props => props.size};
-  background-color: ${props => (props.bg ? props.bg : `#F0F0F0`)};
+  background-color: ${props => (props.bg ? props.bg : '#F0F0F0')};
   border: ${props => (props.border ? props.border : 'none')};
+  margin: ${props => props.margin};
+  &:last-child {
+    margin-right: 0;
+  }
 `;
 // 정사각형 이동 버튼
 const RecButton = styled.button`

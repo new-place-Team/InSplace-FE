@@ -10,6 +10,7 @@ const Image = props => {
     width,
     height,
     margin,
+    src,
   };
 
   if (shape === 'circle') {
@@ -30,7 +31,7 @@ const Image = props => {
 
   return (
     <>
-      <DefaultImage {...styles} src={src} />
+      <DefaultImage {...styles} />
     </>
   );
 };
@@ -38,15 +39,14 @@ const Image = props => {
 Image.defaultProps = {
   type: false,
   margin: false,
-  src: 'https://tistory4.daumcdn.net/tistory/4367973/attach/059c57a4a960451fad4115308781a782',
   height: '',
+  src: 'https://i.pinimg.com/originals/1e/36/6e/1e366e54a8a8a8769f950ca2dad6ff60.png',
 };
 
 // 기본 사각 이미지들
 const DefaultImage = styled.image`
   width: ${props => props.width};
   height: ${props => props.height};
-  background-image: url('${props => props.src}');
   ${props => (props.margin ? `margin:${props.margin}` : '')};
   display: block;
 `;

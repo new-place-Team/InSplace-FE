@@ -14,6 +14,7 @@ const Grid = props => {
     margin,
     padding,
     bg,
+    wrap,
     border,
     _onClick,
     children,
@@ -29,6 +30,7 @@ const Grid = props => {
     margin,
     padding,
     bg,
+    wrap,
     border,
   };
 
@@ -67,6 +69,7 @@ Grid.defaultProps = {
   justify: 'flex-start',
   isFlex: false,
   flex: false,
+  wrap: false,
   direction: 'row',
   width: 'auto',
   height: 'auto',
@@ -85,8 +88,10 @@ const DefaultGrid = styled.div`
   border: ${props => props.border};
   position: relative;
   ${props => props.isFlex && `display:flex`};
+  ${props => props.wrap && `flex-wrap:wrap`};
   box-sizing: border-box;
   ${props => (props.flex ? `flex:1` : '')};
+  ${props => (props.direction ? ` flex-direction:${props.direction}` : '')};
 `;
 const BetweenGrid = styled.div`
   ${props =>
@@ -101,6 +106,7 @@ const BetweenGrid = styled.div`
   padding: ${props => props.padding};
   background-color: ${props => props.bg};
   border: ${props => props.border};
+  ${props => props.wrap && `flex-wrap:wrap`};
 `;
 const CenterGrid = styled.div`
   ${props =>
@@ -115,6 +121,7 @@ const CenterGrid = styled.div`
   padding: ${props => props.padding};
   background-color: ${props => props.bg};
   border: ${props => props.border};
+  ${props => props.wrap && `flex-wrap:wrap`};
 `;
 const EndGrid = styled.div`
   ${props =>
@@ -129,5 +136,6 @@ const EndGrid = styled.div`
   padding: ${props => props.padding};
   background-color: ${props => props.bg};
   border: ${props => props.border};
+  ${props => props.wrap && `flex-wrap:wrap`};
 `;
 export default Grid;
