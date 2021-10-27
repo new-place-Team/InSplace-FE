@@ -8,15 +8,14 @@ const Main = () => {
   return (
     <>
       <h2>Main Page</h2>
-      <div>
-        <Slick>
-          <ListCard />
-          <ListCard />
-          <ListCard />
-          <ListCard />
-          <ListCard />
-        </Slick>
-      </div>
+
+      <Slick>
+        <ListCard type="main" />
+        <ListCard type="main" />
+        <ListCard type="main" />
+        <ListCard type="main" />
+        <ListCard type="main" />
+      </Slick>
     </>
   );
 };

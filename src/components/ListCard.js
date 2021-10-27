@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import React from 'react';
@@ -16,22 +17,39 @@ const ListCard = props => {
   /* 메인 카드 */
   if (type === 'main') {
     return (
-      <Grid width="247px" height="382px" isFlex direction="column">
-        <Image type="bg" width="247px" height="320px" />
-        <Grid margin="16px 0 0 0">
-          <Text fontSize="16px" color="#272727">
-            {title}
-          </Text>
-        </Grid>
-        <Grid margin="6px 0 0 0" isFlex>
-          <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
-            ♥︎{likeCnt}
-          </Text>
-          <Text fontSize="14px" color="#646464">
-            {address}
-          </Text>
-        </Grid>
-      </Grid>
+      <>
+        <div
+          style={{
+            width: 247,
+            height: 382,
+          }}
+        >
+          <img
+            src="https://i.pinimg.com/originals/1e/36/6e/1e366e54a8a8a8769f950ca2dad6ff60.png"
+            style={{
+              width: 'auto',
+              border: '1px solid red',
+              objectFit: 'cover',
+            }}
+          />
+        </div>
+      </>
+      // <Grid width="247px" height="382px" isFlex direction="column">
+      //   <Image type="bg" width="247px" height="320px" />
+      //   <Grid margin="16px 0 0 0">
+      //     <Text fontSize="16px" color="#272727">
+      //       {title}
+      //     </Text>
+      //   </Grid>
+      //   <Grid margin="6px 0 0 0" isFlex>
+      //     <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
+      //       ♥︎{likeCnt}
+      //     </Text>
+      //     <Text fontSize="14px" color="#646464">
+      //       {address}
+      //     </Text>
+      //   </Grid>
+      // </Grid>
     );
   }
 
