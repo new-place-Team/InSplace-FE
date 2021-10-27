@@ -11,6 +11,7 @@ import UI from './pages/UI';
 import theme from './styles/theme';
 import MapCard from './components/MapCard';
 import SelectedCategory from './components/SelectedCategory';
+import SelectedContents from './components/SelectedContents';
 
 function App() {
   console.log('첫 스타트! 1');
@@ -27,6 +28,8 @@ function App() {
           <Route path="/main" exact component={Main} />
           <Route path="/ui" exact component={UI} />
           <Route path="/category" exact component={SelectedCategory} />
+          <Route path="/test" exact component={SelectedContents} />
+          <Route path="/map" exact component={MapCard} />
         </Switch>
       </ThemeProvider>
     </ConnectedRouter>
