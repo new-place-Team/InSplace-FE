@@ -1,5 +1,7 @@
 import React from 'react';
 
-const Icons = () => {};
+const Icons = () => {
+  return <></>;
+};
 
 export default Icons;
