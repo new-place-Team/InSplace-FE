@@ -6,6 +6,7 @@ import styled from 'styled-components';
 const Grid = props => {
   const {
     justify,
+    isFlex,
     flex,
     direction,
     width,
@@ -20,6 +21,7 @@ const Grid = props => {
 
   const styles = {
     justify,
+    isFlex,
     flex,
     direction,
     width,
@@ -63,6 +65,7 @@ const Grid = props => {
 
 Grid.defaultProps = {
   justify: 'flex-start',
+  isFlex: false,
   flex: false,
   direction: 'row',
   width: 'auto',
@@ -80,6 +83,9 @@ const DefaultGrid = styled.div`
   padding: ${props => props.padding};
   background-color: ${props => props.bg};
   border: ${props => props.border};
+  position: relative;
+  ${props => props.isFlex && `display:flex`};
+  box-sizing: border-box;
 `;
 const BetweenGrid = styled.div`
   ${props =>

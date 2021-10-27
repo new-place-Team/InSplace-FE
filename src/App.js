@@ -1,4 +1,5 @@
-/* eslint-disable import/no-unresolved */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
@@ -8,7 +9,8 @@ import Test from './pages/TestPage';
 import Main from './pages/Main';
 import UI from './pages/UI';
 import theme from './styles/theme';
-import SelectedContents from './components/SelectedContents';
+import MapCard from './components/MapCard';
+import SelectedCategory from './components/SelectedCategory';
 
 function App() {
   console.log('첫 스타트! 1');
@@ -21,10 +23,10 @@ function App() {
     <ConnectedRouter history={history}>
       <ThemeProvider theme={theme}>
         <Switch>
-          <Route path="/" exact component={Test} />
+          <Route path="/" exact component={MapCard} />
           <Route path="/main" exact component={Main} />
           <Route path="/ui" exact component={UI} />
-          <Route path="/test" exact component={SelectedContents} />
+          <Route path="/category" exact component={SelectedCategory} />
         </Switch>
       </ThemeProvider>
     </ConnectedRouter>
