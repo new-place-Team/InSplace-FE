@@ -92,6 +92,7 @@ const DefaultGrid = styled.div`
   box-sizing: border-box;
   ${props => (props.flex ? `flex:1` : '')};
   ${props => (props.direction ? ` flex-direction:${props.direction}` : '')};
+  align-items: center;
   flex-wrap: wrap;
 `;
 const BetweenGrid = styled.div`

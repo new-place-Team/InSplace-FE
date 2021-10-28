@@ -4,6 +4,7 @@ import { Container, Grid, Text } from '../elements';
 import SearchBar from '../components/SearchBar';
 import SelectedCategory from '../components/SelectedCategory';
 import ListCard from '../components/ListCard';
+import Header from '../components/Header';
 
 const SearchList = props => {
   const data = {
@@ -34,20 +35,23 @@ const SearchList = props => {
   const type = data.type === 'all';
 
   return (
-    <Container>
-      <SearchBar />
-      {!type && <SelectedCategory tag={tag} />}
-      <Grid margin="24px 0">
-        <Text fontSize="20px" bold>
-          {type ? '전체' : '실내'}
-        </Text>
-      </Grid>
-      <Grid justify="space-between" wrap>
-        {data.list.map(item => {
-          return <ListCard type="search" {...item} />;
-        })}
-      </Grid>
-    </Container>
+    <>
+      <Container>
+        <Header _back _content="검색결과" _type="search" />
+        <SearchBar />
+        {!type && <SelectedCategory tag={tag} />}
+        <Grid margin="24px 0">
+          <Text fontSize="20px" bold>
+            {type ? '전체' : '실내'}
+          </Text>
+        </Grid>
+        <Grid justify="space-between" wrap>
+          {data.list.map(item => {
+            return <ListCard type="search" {...item} />;
+          })}
+        </Grid>
+      </Container>
+    </>
   );
 };
 
