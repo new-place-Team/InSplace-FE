@@ -11,6 +11,7 @@ import theme from './styles/theme';
 import MapCard from './components/MapCard';
 import SearchTypeList from './pages/SearchTypeList';
 import SearchList from './pages/SearchList';
+import SelectedType from './pages/SelectedType';
 
 function App() {
   console.log('첫 스타트! 1');
@@ -28,6 +29,7 @@ function App() {
           <Route path="/map" exact component={MapCard} />
           <Route path="/searchtypelist" exact component={SearchTypeList} />
           <Route path="/searchlist" exact component={SearchList} />
+          <Route path="/selectedtype" exact component={SelectedType} />
         </Switch>
       </ThemeProvider>
     </ConnectedRouter>
