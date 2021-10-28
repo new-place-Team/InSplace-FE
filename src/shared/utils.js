@@ -15,3 +15,10 @@ export const getToken = () => {
   }
   return null;
 };
+
+// 현재 위치에 관한 위도,경도 받아오기
+// export const getLocation = () => {
+//   window.navigator.geolocation.getCurrentPosition(function (pos) {
+//     console.log(pos);
+//   });
+// };

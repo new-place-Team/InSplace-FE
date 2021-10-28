@@ -14,14 +14,15 @@ import SelectedCategory from './components/SelectedCategory';
 import SelectedContents from './components/SelectedContents';
 import ContentsTitle from './components/ContentsTitle';
 import SearchBar from './components/SearchBar';
+import DetailMap from './pages/DetailMap';
 
 function App() {
-  console.log('첫 스타트! 1');
-  useEffect(() => {
-    console.log('2');
-  }, []);
-  console.log('컴포넌트 렌더링3');
-  console.log('컴포넌트 렌더링4');
+  // console.log('첫 스타트! 1');
+  // useEffect(() => {
+  //   console.log('2');
+  // }, []);
+  // console.log('컴포넌트 렌더링3');
+  // console.log('컴포넌트 렌더링4');
   return (
     <ConnectedRouter history={history}>
       <ThemeProvider theme={theme}>
@@ -30,7 +31,7 @@ function App() {
           <Route path="/ui" exact component={UI} />
           <Route path="/category" exact component={SelectedCategory} />
           <Route path="/test" exact component={SelectedContents} />
-          <Route path="/map" exact component={MapCard} />
+          <Route path="/map" exact component={DetailMap} />
           <Route path="/title" exact component={ContentsTitle} />
           <Route path="/searchbar" exact component={SearchBar} />
         </Switch>

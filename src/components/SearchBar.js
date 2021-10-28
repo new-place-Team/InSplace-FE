@@ -3,7 +3,7 @@ import { Grid, Text } from '../elements';
 
 const SearchBar = props => {
   return (
-    <Grid justify="space-between">
+    <Grid justify="space-between" padding="20px">
       <Grid isFlex>
         <Grid margin="0 10px 0 0">⬅</Grid>
         <Text fontSize="18px" bold>

@@ -4,7 +4,7 @@ import { Grid, Image, Text } from '../elements';
 
 const MapCard = () => {
   return (
-    <Grid padding="20px">
+    <MapCardCotainer>
       <Grid justify="space-between">
         {/* 이미지 부분 */}
         <Grid width="96px" height="100px" border="1px solid red">
@@ -59,7 +59,7 @@ const MapCard = () => {
           ❤️
         </AbsoluteBox>
       </Grid> */}
-    </Grid>
+    </MapCardCotainer>
   );
 };
 
@@ -69,6 +69,17 @@ const AbsoluteBox = styled.div`
   bottom: ${props => props.bottom};
   left: ${props => props.left};
   right: ${props => props.right};
+`;
+
+const MapCardCotainer = styled.div`
+  width: 80%;
+  padding: 20px;
+  background-color: white;
+  position: fixed;
+  left: 50%;
+  bottom: 1px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
 `;
 
 export default MapCard;
