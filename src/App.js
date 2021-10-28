@@ -11,8 +11,7 @@ import theme from './styles/theme';
 import DetailMap from './pages/DetailMap';
 import SearchTypeList from './pages/SearchTypeList';
 import SearchList from './pages/SearchList';
-import MapSlick from './components/MapSlick';
-import SelectedCategory from './components/SelectedCategory';
+import SelectedType from './pages/SelectedType';
 
 function App() {
   // console.log('첫 스타트! 1');
@@ -30,8 +29,7 @@ function App() {
           <Route path="/map" exact component={DetailMap} />
           <Route path="/searchtypelist" exact component={SearchTypeList} />
           <Route path="/searchlist" exact component={SearchList} />
-          {/* <Route path="/slick" exact component={MapSlick} /> */}
-          {/* <Route path="/category" exact component={SelectedCategory} /> */}
+          <Route path="/selectedtype" exact component={SelectedType} />
         </Switch>
       </ThemeProvider>
     </ConnectedRouter>
