@@ -11,6 +11,7 @@ const ListCard = props => {
     width: `${type}` === 'detail' ? '210px' : '158px',
     height: `${type}` === 'detail' ? '406px' : '294px',
     imgHeight: `${type}` === 'detail' ? '306px' : '196px',
+    src,
   };
   console.log(type, styles);
 
