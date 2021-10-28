@@ -18,7 +18,7 @@ const ListCard = props => {
   if (type === 'main') {
     return (
       <>
-        <Grid width="247px" height="382px">
+        <Grid width="247px" height="320px">
           <Image src={src} />
           <Tag>
             <Text color="#fff" fontSize="14px">
@@ -73,7 +73,7 @@ const ListCard = props => {
 
   return (
     <>
-      <Grid width="247px" height="382px">
+      <Grid width="247px" height="306px">
         <Image src={src} />
       </Grid>
       <Grid margin="16px 0 0 0">
