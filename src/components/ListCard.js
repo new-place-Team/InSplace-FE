@@ -45,7 +45,7 @@ const ListCard = props => {
 
   return (
     <>
-      <Grid width="210px" height="382px">
+      <Grid width="247px" height="382px">
         <Image />
       </Grid>
       <Grid margin="16px 0 0 0">
