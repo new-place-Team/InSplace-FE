@@ -123,7 +123,7 @@ ListCard.defaultProps = {
   type: 'list',
   title: '상호명을 적어주세요.',
   likeCnt: 3,
-  address: '강남구|역삼동',
+  address: '강남구 · 역삼동',
   category: '카페',
 };
 const Tag = styled.div`

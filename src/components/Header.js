@@ -11,7 +11,7 @@ const Header = props => {
   const { back, search, content, map, close } = props;
 
   return (
-    <Grid width="375px" height="56px" isFlex>
+    <Grid width="375px" height="56px" isFlex zIndex="1">
       {/* 뒤로가기 */}
       {back && (
         <Icon left="24px">
@@ -21,7 +21,9 @@ const Header = props => {
       {/* 컨텐츠명 */}
       {content && (
         <ContentArea back>
-          <Text>{content}</Text>
+          <Text fontSize="20px" bold>
+            {content}
+          </Text>
         </ContentArea>
       )}
       {/* 지도 */}
