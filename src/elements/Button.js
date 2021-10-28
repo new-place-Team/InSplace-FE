@@ -5,11 +5,6 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const Button = props => {
-<<<<<<< HEAD
-  // console.log('props === ', props);
-=======
->>>>>>> 557eb3ce6109ad51845e4e9fb3f3f9420e2271d7
-  // props로 전달받을 값들
   const {
     type,
     width,
@@ -24,7 +19,7 @@ const Button = props => {
     _onClick,
     children,
   } = props;
-  // props 중에서 style 속성들
+
   const styles = {
     width,
     margin,
