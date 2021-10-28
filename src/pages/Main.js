@@ -17,14 +17,20 @@ const Main = () => {
   return (
     <>
       <h2>Main Page</h2>
-      <WeatherBox />
+      {/* <WeatherBox />
       <div>
         <Slick>
           {srcList.map((_src, index) => {
             return <ListCard src={_src} type="main" />;
           })}
         </Slick>
-      </div>
+      </div> */}
+      <Slick>
+        <ListCard type="main" />
+        <ListCard type="main" />
+        <ListCard type="main" />
+        <ListCard type="main" />
+      </Slick>
     </>
   );
 };
