@@ -5,7 +5,7 @@ import { Grid, Button, Text } from '../elements';
 const SelectedCategory = () => {
   return (
     <>
-      <Grid padding=" 24px" isFlex wrap="true">
+      <Grid padding=" 24px" isFlex>
         <Button margin="0 8px 8px 0" type="tag" bg="#F0F0F0">
           두명
         </Button>
