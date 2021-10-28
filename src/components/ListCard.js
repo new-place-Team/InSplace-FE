@@ -5,38 +5,37 @@ import styled from 'styled-components';
 import { Grid, Image, Text } from '../elements/index';
 
 const ListCard = props => {
-  const { type, title, likeCnt, address, category } = props;
+  const { type, title, likeCnt, address, category, src } = props;
 
   const styles = {
-    width: `${type}` === 'detail' ? '246px' : '158px',
+    width: `${type}` === 'detail' ? '210px' : '158px',
     height: `${type}` === 'detail' ? '406px' : '294px',
     imgHeight: `${type}` === 'detail' ? '306px' : '196px',
   };
   console.log(type, styles);
 
   /* 메인 카드 */
-  if (type === 'main') {
+
+  if (type === 'search') {
     return (
       <>
-        <Grid width="210px" height="382px">
-          <Image />
-          <Tag>
-            <Text color="#fff" fontSize="14px">
-              {category}
+        <Grid width="49%" margin="0 0 32px 0">
+          <Grid width="100%" height="195px" margin="0 0 8px 0">
+            <Image src={src} />
+          </Grid>
+          <Text fontSize="13px">{category}</Text>
+          <Grid>
+            <Text fontSize="16px" color="#000" bold>
+              {title}
             </Text>
-          </Tag>
-        </Grid>
-        <Grid margin="16px 0 0 0">
-          <Text fontSize="16px" color="#272727" bold>
-            {title}
-          </Text>
-        </Grid>
-        <Grid margin="6px 0 0 0" isFlex>
+          </Grid>
+          <Grid margin="5px 0">
+            <Text fontSize="14px" color="#646464">
+              {address}
+            </Text>
+          </Grid>
           <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
             ♥︎{likeCnt}
-          </Text>
-          <Text fontSize="14px" color="#646464">
-            {address}
           </Text>
         </Grid>
       </>
@@ -46,7 +45,14 @@ const ListCard = props => {
   return (
     <>
       <Grid width="210px" height="382px">
-        <Image />
+        <Image src={src} />
+        {type === 'main' && (
+          <Tag>
+            <Text color="#fff" fontSize="14px">
+              {category}
+            </Text>
+          </Tag>
+        )}
       </Grid>
       <Grid margin="16px 0 0 0">
         <Text fontSize="16px" color="#272727" bold>
@@ -63,6 +69,56 @@ const ListCard = props => {
       </Grid>
     </>
   );
+
+  // if (type === 'main') {
+  //   return (
+  //     <>
+  //       <Grid width="210px" height="382px">
+  //         <Image />
+
+  //         <Tag>
+  //           <Text color="#fff" fontSize="14px">
+  //             {category}
+  //           </Text>
+  //         </Tag>
+  //       </Grid>
+  //       <Grid margin="16px 0 0 0">
+  //         <Text fontSize="16px" color="#272727" bold>
+  //           {title}
+  //         </Text>
+  //       </Grid>
+  //       <Grid margin="6px 0 0 0" isFlex>
+  //         <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
+  //           ♥︎{likeCnt}
+  //         </Text>
+  //         <Text fontSize="14px" color="#646464">
+  //           {address}
+  //         </Text>
+  //       </Grid>
+  //     </>
+  //   );
+  // }
+
+  // return (
+  //   <>
+  //     <Grid width="210px" height="382px">
+  //       <Image />
+  //     </Grid>
+  //     <Grid margin="16px 0 0 0">
+  //       <Text fontSize="16px" color="#272727" bold>
+  //         {title}
+  //       </Text>
+  //     </Grid>
+  //     <Grid margin="6px 0 0 0" isFlex>
+  //       <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
+  //         ♥︎{likeCnt}
+  //       </Text>
+  //       <Text fontSize="14px" color="#646464">
+  //         {address}
+  //       </Text>
+  //     </Grid>
+  //   </>
+  // );
 
   // return (
   //   <Grid width={styles.width} height={styles.height} isFlex direction="column">
@@ -95,7 +151,7 @@ ListCard.defaultProps = {
   type: 'list',
   title: '상호명을 적어주세요.',
   likeCnt: 3,
-  address: '강남구|역삼동',
+  address: '강남구 | 역삼동',
   category: '카페',
 };
 const Tag = styled.div`

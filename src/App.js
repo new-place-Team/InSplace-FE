@@ -10,6 +10,7 @@ import UI from './pages/UI';
 import theme from './styles/theme';
 import MapCard from './components/MapCard';
 import SearchTypeList from './pages/SearchTypeList';
+import SearchList from './pages/SearchList';
 
 function App() {
   console.log('첫 스타트! 1');
@@ -26,6 +27,7 @@ function App() {
           <Route path="/ui" exact component={UI} />
           <Route path="/map" exact component={MapCard} />
           <Route path="/searchtypelist" exact component={SearchTypeList} />
+          <Route path="/searchlist" exact component={SearchList} />
         </Switch>
       </ThemeProvider>
     </ConnectedRouter>
