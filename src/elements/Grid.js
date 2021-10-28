@@ -15,7 +15,7 @@ const Grid = props => {
     margin,
     padding,
     bg,
-    wrap,
+    // wrap,
     border,
     _onClick,
     children,
@@ -32,7 +32,7 @@ const Grid = props => {
     margin,
     padding,
     bg,
-    wrap,
+    // wrap,
     border,
   };
 

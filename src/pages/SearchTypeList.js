@@ -2,7 +2,7 @@
 import React from 'react';
 import { Container } from '../elements';
 import SearchBar from '../components/SearchBar';
-// import SelectedCategory from '../components/SelectedCategory';
+import SelectedCategory from '../components/SelectedCategory';
 import { Slick } from '../components/Slick';
 import ListCard from '../components/ListCard';
 import ContentsTitle from '../components/ContentsTitle';

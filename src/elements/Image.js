@@ -41,7 +41,7 @@ Image.defaultProps = {
   height: 'auto',
   type: false,
   margin: false,
-  src: 'https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/5qTh/image/6Ah-3OKTO23vuyxSu4tIgEulQBw.jpg',
+  src: 'http://www.bizhankook.com/upload/bk/article/201806/thumb/15753-31552-sampleM.jpg',
 };
 
 // 기본 사각 이미지들
@@ -49,6 +49,7 @@ const DefaultImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  ${props => props.margin && `margin:${props.margin}`};
 `;
 
 // background Image
