@@ -10,30 +10,36 @@ export const Slick = props => {
   const { children } = props;
   const settings = {
     centerMode: true,
-    infinite: true,
+    centerPadding: '30px',
+    infinite: false,
     slidesToShow: 1,
     slidesToScroll: 1,
     speed: 500,
   };
 
   return (
-    <Test>
+    <Wrap>
       <StyledSlider>
         <Slider {...settings}>{children}</Slider>
       </StyledSlider>
-    </Test>
+    </Wrap>
   );
 };
 
-const Test = styled.div`
-  width: 375px;
-  border: 1px solid black;
+const Wrap = styled.div`
+  width: 100%;
+  overflow: hidden;
 `;
 
 const StyledSlider = styled(Slider)`
   .slick-list {
     width: 100%;
     padding: 0 !important;
-    margin: 0;
+  }
+  /* .slick-initialized, */
+  .slick-slide {
+    width: 100%;
+    padding: 0 !important;
+    overflow: hidden;
   }
 `;

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Grid, Image, Text } from '../elements/index';
 
 const ListCard = props => {
-  const { type, title, likeCnt, address, category } = props;
+  const { type, title, likeCnt, address, category, src } = props;
 
   const styles = {
     width: `${type}` === 'detail' ? '246px' : '158px',
@@ -18,8 +18,8 @@ const ListCard = props => {
   if (type === 'main') {
     return (
       <>
-        <Grid width="247px" height="382px">
-          <Image />
+        <Grid width="247px" height="320px">
+          <Image src={src} />
           <Tag>
             <Text color="#fff" fontSize="14px">
               {category}
@@ -43,31 +43,80 @@ const ListCard = props => {
     );
   }
 
+  if (type === 'search') {
+    return (
+      <>
+        <Grid width="49%" margin="0 0 32px 0">
+          <Grid height="195px">
+            <Image src={src} />
+          </Grid>
+          <Grid margin="11px 0 0 0">
+            <Text fontSize="13px" color="#949494">
+              {category}
+            </Text>
+          </Grid>
+          <Text fontSize="16px" color="#272727" bold>
+            {title}
+          </Text>
+          <Grid margin="6px 0 0 0">
+            <Text fontSize="14px" color="#646464">
+              {address}
+            </Text>
+          </Grid>
+          <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
+            ♥︎{likeCnt}
+          </Text>
+        </Grid>
+      </>
+    );
+  }
+
   return (
-    <Grid width={styles.width} height={styles.height} isFlex direction="column">
-      <Image type="bg" width={styles.width} height={styles.imgHeight} />
-      <Grid margin="12px 0 0 0">
-        <Text fontSize="14px" color="#646464">
-          {category}
-        </Text>
+    <>
+      <Grid width="247px" height="306px">
+        <Image src={src} />
       </Grid>
-      <Grid margin="2px 0 0 0">
-        <Text fontSize="16px" color="#272727">
+      <Grid margin="16px 0 0 0">
+        <Text fontSize="16px" color="#272727" bold>
           {title}
         </Text>
       </Grid>
       <Grid margin="6px 0 0 0" isFlex>
+        <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
+          ♥︎{likeCnt}
+        </Text>
         <Text fontSize="14px" color="#646464">
           {address}
         </Text>
       </Grid>
-      <Grid margin="5px 0 0 0" isFlex>
-        <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
-          ♥︎{likeCnt}
-        </Text>
-      </Grid>
-    </Grid>
+    </>
   );
+
+  // return (
+  //   <Grid width={styles.width} height={styles.height} isFlex direction="column">
+  //     <Image type="bg" width={styles.width} height={styles.imgHeight} />
+  //     <Grid margin="12px 0 0 0">
+  //       <Text fontSize="14px" color="#646464">
+  //         {category}
+  //       </Text>
+  //     </Grid>
+  //     <Grid margin="2px 0 0 0">
+  //       <Text fontSize="16px" color="#272727">
+  //         {title}
+  //       </Text>
+  //     </Grid>
+  //     <Grid margin="6px 0 0 0" isFlex>
+  //       <Text fontSize="14px" color="#646464">
+  //         {address}
+  //       </Text>
+  //     </Grid>
+  //     <Grid margin="5px 0 0 0" isFlex>
+  //       <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
+  //         ♥︎{likeCnt}
+  //       </Text>
+  //     </Grid>
+  //   </Grid>
+  // );
 };
 
 ListCard.defaultProps = {

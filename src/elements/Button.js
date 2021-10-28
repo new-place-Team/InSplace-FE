@@ -5,7 +5,10 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const Button = props => {
+<<<<<<< HEAD
   // console.log('props === ', props);
+=======
+>>>>>>> 557eb3ce6109ad51845e4e9fb3f3f9420e2271d7
   // props로 전달받을 값들
   const {
     type,
@@ -152,10 +155,12 @@ const TypeButton = styled.button`
 // Text가 들어간 tag 버튼
 const TagButton = styled.button`
   padding: 6px 16px;
-  font-size: ${props => props.size};
-  background-color: ${props => (props.bg ? props.bg : '#F0F0F0')};
+  margin-right: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #646464;
+  background-color: #f0f0f0;
   border: ${props => (props.border ? props.border : 'none')};
-  margin: ${props => props.margin};
   &:last-child {
     margin-right: 0;
   }
