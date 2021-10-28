@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import React from 'react';
+import styled from 'styled-components';
 import { Grid, Image, Text } from '../elements/index';
 
 const ListCard = props => {
@@ -16,10 +17,17 @@ const ListCard = props => {
   /* 메인 카드 */
   if (type === 'main') {
     return (
-      <Grid width="247px" height="382px" isFlex direction="column">
-        <Image type="bg" width="247px" height="320px" />
+      <>
+        <Grid width="247px" height="382px">
+          <Image />
+          <Tag>
+            <Text color="#fff" fontSize="14px">
+              {category}
+            </Text>
+          </Tag>
+        </Grid>
         <Grid margin="16px 0 0 0">
-          <Text fontSize="16px" color="#272727">
+          <Text fontSize="16px" color="#272727" bold>
             {title}
           </Text>
         </Grid>
@@ -31,7 +39,7 @@ const ListCard = props => {
             {address}
           </Text>
         </Grid>
-      </Grid>
+      </>
     );
   }
 
@@ -69,5 +77,11 @@ ListCard.defaultProps = {
   address: '강남구|역삼동',
   category: '카페',
 };
-
+const Tag = styled.div`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 8px 12px;
+  background-color: #000;
+`;
 export default ListCard;

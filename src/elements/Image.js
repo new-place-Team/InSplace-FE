@@ -31,24 +31,24 @@ const Image = props => {
 
   return (
     <>
-      <DefaultImage {...styles} />
+      <DefaultImage src={src} />
     </>
   );
 };
 
 Image.defaultProps = {
+  width: 'auto',
+  height: 'auto',
   type: false,
   margin: false,
-  height: '',
-  src: 'https://i.pinimg.com/originals/1e/36/6e/1e366e54a8a8a8769f950ca2dad6ff60.png',
+  src: 'https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/5qTh/image/6Ah-3OKTO23vuyxSu4tIgEulQBw.jpg',
 };
 
 // 기본 사각 이미지들
-const DefaultImage = styled.image`
-  width: ${props => props.width};
-  height: ${props => props.height};
-  ${props => (props.margin ? `margin:${props.margin}` : '')};
-  display: block;
+const DefaultImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 // background Image
