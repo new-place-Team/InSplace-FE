@@ -9,23 +9,31 @@ import styled from 'styled-components';
 export const Slick = props => {
   const { children } = props;
   const settings = {
-    // className: 'center',
-    // centerMode: true,
-    // infinite: false,
-    // centerPadding: '10px',
-    slidesToShow: 2,
+    centerMode: true,
+    infinite: true,
+    slidesToShow: 1,
     slidesToScroll: 1,
     speed: 500,
   };
 
   return (
     <Test>
-      <Slider {...settings}>{children}</Slider>
+      <StyledSlider>
+        <Slider {...settings}>{children}</Slider>
+      </StyledSlider>
     </Test>
   );
 };
 
 const Test = styled.div`
-  width: 345px;
+  width: 375px;
   border: 1px solid black;
+`;
+
+const StyledSlider = styled(Slider)`
+  .slick-list {
+    width: 100%;
+    padding: 0 !important;
+    margin: 0;
+  }
 `;

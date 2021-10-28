@@ -31,7 +31,7 @@ const Image = props => {
 
   return (
     <>
-      <DefaultImage />
+      <DefaultImage src={src} />
     </>
   );
 };
@@ -45,11 +45,10 @@ Image.defaultProps = {
 };
 
 // 기본 사각 이미지들
-const DefaultImage = styled.image`
-  width: ${props => props.width};
-  height: ${props => props.height};
-  ${props => (props.margin ? `margin:${props.margin}` : '')};
-  border: 1px solid blue;
+const DefaultImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 // background Image

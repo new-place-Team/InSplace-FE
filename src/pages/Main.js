@@ -8,9 +8,7 @@ const Main = () => {
   return (
     <>
       <h2>Main Page</h2>
-
       <Slick>
-        <ListCard type="main" />
         <ListCard type="main" />
         <ListCard type="main" />
         <ListCard type="main" />
