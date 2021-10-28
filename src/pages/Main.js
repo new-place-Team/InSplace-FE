@@ -4,7 +4,7 @@ import React from 'react';
 import { Slick } from '../components/Slick';
 import WeatherBox from '../components/WeatherBox';
 import ListCard from '../components/ListCard';
-import { Grid } from '../elements/index';
+import Header from '../components/Header';
 
 const Main = () => {
   const srcList = [
@@ -17,19 +17,12 @@ const Main = () => {
   return (
     <>
       <h2>Main Page</h2>
-      {/* <WeatherBox />
-      <div>
-        <Slick>
-          {srcList.map((_src, index) => {
-            return <ListCard src={_src} type="main" />;
-          })}
-        </Slick>
-      </div> */}
+      <Header back content="상세보기" />
+      <WeatherBox />
       <Slick>
-        <ListCard type="main" />
-        <ListCard type="main" />
-        <ListCard type="main" />
-        <ListCard type="main" />
+        {srcList.map((_src, idx) => {
+          return <ListCard src={_src} type="main" />;
+        })}
       </Slick>
     </>
   );

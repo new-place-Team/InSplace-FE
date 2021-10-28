@@ -10,7 +10,7 @@ export const Slick = props => {
   const { children } = props;
   const settings = {
     centerMode: true,
-    infinite: true,
+    infinite: false,
     slidesToShow: 1,
     slidesToScroll: 1,
     speed: 500,
