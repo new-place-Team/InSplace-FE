@@ -17,23 +17,28 @@ export const Slick = props => {
   };
 
   return (
-    <Test>
+    <Wrap>
       <StyledSlider>
         <Slider {...settings}>{children}</Slider>
       </StyledSlider>
-    </Test>
+    </Wrap>
   );
 };
 
-const Test = styled.div`
-  width: 375px;
-  border: 1px solid black;
+const Wrap = styled.div`
+  width: 100%;
+  overflow: hidden;
 `;
 
 const StyledSlider = styled(Slider)`
   .slick-list {
     width: 100%;
     padding: 0 !important;
-    margin: 0;
+  }
+  /* .slick-initialized, */
+  .slick-slide {
+    width: 100%;
+    padding: 0 !important;
+    overflow: hidden;
   }
 `;

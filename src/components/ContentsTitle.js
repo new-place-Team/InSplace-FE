@@ -1,15 +1,14 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Grid, Text } from '../elements';
 
 const ContentsTitle = props => {
-  const test = {
-    title: '실외에서 시원한 바람과 함께',
-  };
+  const { title } = props;
   return (
-    <Grid justify="space-between">
+    <Grid justify="space-between" margin="24px 0">
       <Grid>
         <Text fontSize="20px" bold>
-          {test.title}
+          {title}
         </Text>
       </Grid>
       <Grid>🔎</Grid>
