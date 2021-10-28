@@ -1,14 +1,17 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
 import { Grid, Image, Text } from '../elements';
 
-const MapCard = () => {
+const MapCard = props => {
+  const { src } = props;
   return (
     <MapCardCotainer>
-      <Grid padding="12px" bg="#fff" justify="center">
+      <Grid padding="12px" bg="#42c1bc" justify="center">
         {/* 이미지 */}
         <Grid width="96px" height="96px" margin="0 20px 0 0">
-          <Image width="100%" height="100%" />
+          <Image width="100%" height="100%" src={src} />
         </Grid>
         {/* information */}
         <Grid width="180px">

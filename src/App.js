@@ -8,9 +8,11 @@ import { history } from './redux/configureStore';
 import Main from './pages/Main';
 import UI from './pages/UI';
 import theme from './styles/theme';
-import MapCard from './components/MapCard';
+import DetailMap from './pages/DetailMap';
 import SearchTypeList from './pages/SearchTypeList';
 import SearchList from './pages/SearchList';
+import MapSlick from './components/MapSlick';
+import SelectedCategory from './components/SelectedCategory';
 
 function App() {
   // console.log('첫 스타트! 1');
@@ -25,9 +27,11 @@ function App() {
         <Switch>
           <Route path="/" exact component={Main} />
           <Route path="/ui" exact component={UI} />
-          <Route path="/map" exact component={MapCard} />
+          <Route path="/map" exact component={DetailMap} />
           <Route path="/searchtypelist" exact component={SearchTypeList} />
           <Route path="/searchlist" exact component={SearchList} />
+          {/* <Route path="/slick" exact component={MapSlick} /> */}
+          {/* <Route path="/category" exact component={SelectedCategory} /> */}
         </Switch>
       </ThemeProvider>
     </ConnectedRouter>
