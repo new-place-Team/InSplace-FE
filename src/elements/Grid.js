@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 const Grid = props => {
   const {
+    id,
     justify,
     isFlex,
     flex,
@@ -21,6 +22,7 @@ const Grid = props => {
   } = props;
 
   const styles = {
+    id,
     justify,
     isFlex,
     flex,

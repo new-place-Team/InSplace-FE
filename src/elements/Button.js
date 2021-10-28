@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const Button = props => {
-  console.log('props === ', props);
+  // console.log('props === ', props);
   // props로 전달받을 값들
   const {
     type,
