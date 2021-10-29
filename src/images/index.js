@@ -13,6 +13,7 @@ import vector from './Vector.png';
 import whiteVector from './white-vector.png';
 import close from './x.png';
 import arrowRight from './arrow-right.png';
+import inputClose from './inputClose.png';
 
 export {
   chevronLeft,
@@ -30,4 +31,5 @@ export {
   whiteVector,
   close,
   arrowRight,
+  inputClose,
 };
