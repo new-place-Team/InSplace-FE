@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const Text = props => {
-  const { fontSize, bold, color, others, children, margin, textAlign } = props;
+  const { fontSize, bold, color, others, children, margin, textAlign, border } =
+    props;
 
   const styles = {
     fontSize,
@@ -14,6 +15,7 @@ const Text = props => {
     others,
     margin,
     textAlign,
+    border,
   };
 
   return (
@@ -31,6 +33,7 @@ Text.defaultProps = {
   others: '',
   margin: null,
   textAlign: false,
+  border: false,
 };
 
 const ElText = styled.div`
@@ -44,6 +47,7 @@ const ElText = styled.div`
   ${props => props.textAlign && `text-align: ${props.textAlign}`};
   ${props => props.others};
   ${props => (props.margin ? `margin: ${props.margin}` : '')};
+  ${props => (props.border ? `border-bottom: ${props.border}` : '')};
 `;
 
 export default Text;

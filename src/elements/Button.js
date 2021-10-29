@@ -16,6 +16,7 @@ const Button = props => {
     size,
     bold,
     bg,
+    focus,
     _onClick,
     children,
   } = props;
@@ -30,6 +31,7 @@ const Button = props => {
     size,
     bold,
     bg,
+    focus,
   };
 
   if (type === 'fullSizeBlack') {
@@ -99,6 +101,7 @@ Button.defaultProps = {
   radius: 0,
   size: '14px',
   bold: false,
+  focus: false,
   bg: 'transparent',
   border: 'none',
   _onClick: () => {},
@@ -146,6 +149,11 @@ const TypeButton = styled.button`
   color: ${props => (props.color ? props.color : '#646464')};
   background-color: ${props => (props.bg ? props.bg : `#fff`)};
   border: 1px solid #646464;
+  &:focus {
+    color: #fff;
+    background-color: #838383;
+    border: 1px solid #838383;
+  }
 `;
 // Text가 들어간 tag 버튼
 const TagButton = styled.button`
@@ -166,6 +174,12 @@ const RecButton = styled.button`
   height: 85px;
   color: ${theme.color.white};
   background-color: ${theme.color.mainColor};
+`;
+
+const Test = styled.button`
+  color: #fff;
+  background-color: #838383;
+  border: 1px solid #838383;
 `;
 
 export default Button;

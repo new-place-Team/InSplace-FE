@@ -31,7 +31,7 @@ const Image = props => {
 
   return (
     <>
-      <DefaultImage src={src} />
+      <DefaultImage {...styles} />
     </>
   );
 };
@@ -50,6 +50,7 @@ const DefaultImage = styled.img`
   height: 100%;
   object-fit: cover;
   ${props => props.margin && `margin:${props.margin}`};
+  src: ${props => props.src};
 `;
 
 // background Image
