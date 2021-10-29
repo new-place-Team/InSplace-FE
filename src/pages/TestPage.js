@@ -15,6 +15,7 @@ const TestPage = () => {
   React.useEffect(() => {
     dispatch(getRoomListDB());
   }, []);
+
   return (
     <>
       <h2>Test Page</h2>

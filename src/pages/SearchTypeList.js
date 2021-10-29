@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Container } from '../elements';
 import SearchBar from '../components/SearchBar';
 import SelectedCategory from '../components/SelectedCategory';
@@ -8,7 +9,7 @@ import ListCard from '../components/ListCard';
 import ContentsTitle from '../components/ContentsTitle';
 
 const SearchTypeList = () => {
-  const tag = [{ tag: '두명' }, { tag: '혼성' }, { tag: '카페' }];
+  const selected = useSelector(state => state.selected.selected);
   const srcList = [
     { src: 'https://t1.daumcdn.net/cfile/tistory/213C9A345225669622' },
     { src: 'https://img.siksinhot.com/article/1613970568705496.jpg' },
@@ -33,7 +34,7 @@ const SearchTypeList = () => {
     <>
       <Container>
         <SearchBar />
-        <SelectedCategory tag={tag} />
+        <SelectedCategory tag={selected[0]} />
         <ContentsTitle title="실내" />
         <Slick>
           {srcList.map(item => {
