@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+import { history } from '../redux/configureStore';
 import { Grid, Text } from '../elements/index';
 import { chevronLeft, map, search, close } from '../images/index';
 
@@ -16,7 +17,7 @@ const Header = props => {
             {_back && (
               <>
                 <Grid>
-                  <Icon src={chevronLeft} />
+                  <Icon src={chevronLeft} onClick={() => history.go(-1)} />
                 </Grid>
               </>
             )}

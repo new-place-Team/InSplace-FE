@@ -34,7 +34,7 @@ const SearchTypeList = () => {
     <>
       <Container>
         <SearchBar />
-        <SelectedCategory tag={selected[0]} />
+        {/* <SelectedCategory tag={selected[0]} /> */}
         <ContentsTitle title="실내" />
         <Slick>
           {srcList.map(item => {

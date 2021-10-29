@@ -2,19 +2,20 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import { Grid, Text, Button } from '../elements';
+import { Grid, Text } from '../elements';
 
 const SelectedContents = props => {
-  const { title, grid, state, type, list, setState } = props;
+  const { title, state, type, list, setState } = props;
   // const buttonRef = React.useRef();
 
-  const onClick = (value, type, idx) => {
+  const onClick = (text, type, value) => {
+    console.log('click', text, type, value);
     if (type === 'MemberCnt') {
-      setState({ ...state, MemberCnt: value });
+      setState({ ...state, MemberCnt: { selected: text, value } });
     } else if (type === 'gender') {
-      setState({ ...state, gender: value });
+      setState({ ...state, gender: { selected: text, value } });
     } else {
-      setState({ ...state, category: value });
+      setState({ ...state, category: { selected: text, value } });
     }
   };
 
@@ -28,15 +29,15 @@ const SelectedContents = props => {
           return (
             <React.Fragment key={`selected-${item.selected}`}>
               <Grid margin="10px 10px 0 0">
-                <Button
+                <SelectedButton
                   type="type"
                   width="auto"
-                  value={state.keys}
-                  keys={state.keys}
-                  _onClick={() => onClick(item.selected, type, idx)}
+                  value={item.selected}
+                  keys={item.value}
+                  _onClick={() => onClick(item.selected, type, item.value)}
                 >
                   {item.selected}
-                </Button>
+                </SelectedButton>
               </Grid>
             </React.Fragment>
           );
@@ -71,5 +72,21 @@ const SelectedGrid = styled.div`
   align-items: center;
   flex-wrap: wrap;
   margin-top: 14px;
+`;
+
+const SelectedButton = styled.button`
+  width: ${props => (props.width ? props.width : 'auto')};
+  margin: ${props => props.margin};
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  color: ${props => (props.color ? props.color : '#646464')};
+  background-color: ${props => (props.bg ? props.bg : `#fff`)};
+  border: 1px solid #646464;
+  &:focus {
+    color: #fff;
+    background-color: #838383;
+    border: 1px solid #838383;
+  }
 `;
 export default SelectedContents;

@@ -12,6 +12,7 @@ const selectedSlice = createSlice({
   initialState,
   reducers: {
     getSelected: (state, { payload }) => {
+      console.log('payload', payload);
       state.selected.push(payload);
     },
   },

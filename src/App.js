@@ -13,7 +13,7 @@ import SearchTypeList from './pages/SearchTypeList';
 import SearchList from './pages/SearchList';
 import SelectedType from './pages/SelectedType';
 import Detail from './pages/Detail';
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
           <Route path="/selectedtype" exact component={SelectedType} />
           <Route path="/detail" exact component={Detail} />
         </Switch>
-        <Navbar />
+        {/* <Navbar /> */}
       </ThemeProvider>
     </ConnectedRouter>
   );

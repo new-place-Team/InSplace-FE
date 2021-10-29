@@ -39,9 +39,52 @@ const getCategoryText = type => {
       text = '예술';
       break;
     default:
-      text = '엑티비티';
+      text = '액티비티';
   }
   return text;
 };
 
-export { getWeatherText, getCategoryText };
+/**
+ * 타입별 인원 텍스트 변경
+ * @param type 1.한명 2.두명 3.네명 미만 4.네명 이상
+ * @returns
+ */
+const getPeopleText = type => {
+  let text = '';
+  switch (type) {
+    case 1:
+      text = '한명';
+      break;
+    case 2:
+      text = '두명';
+      break;
+    case 3:
+      text = '네명 미만';
+      break;
+    default:
+      text = '네명 이상';
+  }
+  return text;
+};
+
+/**
+ * 타입별 듀오유형 텍스트 변경
+ * @param type 1.여자끼리 2.남자끼리 3.혼성
+ * @returns
+ */
+const getDuoText = type => {
+  let text = '';
+  switch (type) {
+    case 1:
+      text = '여자끼리';
+      break;
+    case 2:
+      text = '남자끼리';
+      break;
+    default:
+      text = '혼성';
+  }
+  return text;
+};
+
+export { getWeatherText, getCategoryText, getPeopleText, getDuoText };

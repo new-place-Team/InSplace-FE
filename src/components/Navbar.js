@@ -15,13 +15,13 @@ const Navbar = () => {
           <Icon onClick={() => history.push('/')}>
             <Image src={home} />
           </Icon>
-          <Icon onClick={() => history.push('/ui')}>
+          <Icon onClick={() => history.push('/selectedtype')}>
             <Image src={sliders} />
           </Icon>
-          <Icon>
+          <Icon onClick={() => window.alert('서비스 준비중 입니다.')}>
             <Image src={heart} />
           </Icon>
-          <Icon>
+          <Icon onClick={() => window.alert('서비스 준비중 입니다.')}>
             <Image src={user} />
           </Icon>
         </Wrap>

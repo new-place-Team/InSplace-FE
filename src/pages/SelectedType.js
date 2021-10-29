@@ -15,8 +15,8 @@ const SelectedType = () => {
   const dispatch = useDispatch();
 
   const [state, setState] = React.useState({
-    gender: '',
     MemberCnt: '',
+    gender: '',
     category: '',
   });
 
@@ -24,10 +24,10 @@ const SelectedType = () => {
     {
       title: '나와 함께할 사람들은',
       list: [
-        { selected: '한명' },
-        { selected: '두명' },
-        { selected: '네명 미만' },
-        { selected: '네명 이상' },
+        { selected: '한명', value: 1 },
+        { selected: '두명', value: 2 },
+        { selected: '네명 미만', value: 3 },
+        { selected: '네명 이상', value: 4 },
       ],
       type: 'MemberCnt',
       grid: 2,
@@ -35,9 +35,9 @@ const SelectedType = () => {
     {
       title: '원하시는 유형을 선택해 주세요',
       list: [
-        { selected: '여자끼리' },
-        { selected: '남자끼리' },
-        { selected: '혼성' },
+        { selected: '여자끼리', value: 2 },
+        { selected: '남자끼리', value: 1 },
+        { selected: '혼성', value: 3 },
       ],
       type: 'gender',
       grid: 0,
@@ -45,11 +45,11 @@ const SelectedType = () => {
     {
       title: '장소를 선택해주세요',
       list: [
-        { selected: '여행' },
-        { selected: '맛집' },
-        { selected: '카페' },
-        { selected: '예술' },
-        { selected: '액티비티' },
+        { selected: '여행', value: 1 },
+        { selected: '맛집', value: 2 },
+        { selected: '카페', value: 3 },
+        { selected: '예술', value: 4 },
+        { selected: '액티비티', value: 5 },
       ],
       type: 'category',
       grid: 3,
@@ -63,15 +63,10 @@ const SelectedType = () => {
       state.category === ''
     ) {
       window.alert('모두 입력해주세요');
+      return;
     }
-    const list = [];
-    list.push(
-      { tag: state.gender },
-      { tag: state.MemberCnt },
-      { tag: state.gender },
-    );
-    console.log('aa list == ', list);
-    dispatch(getSelected(list));
+    console.log('aa list == ', state);
+    dispatch(getSelected(state));
     history.push('/searchtypelist');
   };
 
@@ -79,20 +74,20 @@ const SelectedType = () => {
     <SelectedWrap>
       <Wrap>
         <div style={{ padding: '10px' }}>
-          <Header _content="header" _search _type="search" />
+          <Header _content="유형선택" _back _type="search" />
         </div>
         <ChangeText>
           {state.MemberCnt !== '' && (
             <Grid>
               <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                {state.MemberCnt},
+                {state.MemberCnt.selected},
               </Text>
             </Grid>
           )}
           {state.gender !== '' && (
             <Grid isFlex margin="0 10px">
               <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                {state.gender}
+                {state.gender.selected}
               </Text>
             </Grid>
           )}
@@ -100,10 +95,10 @@ const SelectedType = () => {
             <>
               <Grid isFlex>
                 <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                  {state.category}
+                  {state.category.selected}
                 </Text>
                 <Text bold fontSize="20px" color="#C0C0C0">
-                  을(를)
+                  &nbsp;장소 을(를)
                 </Text>
               </Grid>
               <LineBreak>
@@ -158,7 +153,7 @@ const LineBreak = styled.div`
 const NextButton = styled.button`
   position: absolute;
   right: 0;
-  bottom: 10px;
+  bottom: 0;
   background-color: #000;
   border: 1px solid black;
 `;
