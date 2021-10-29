@@ -10,6 +10,7 @@ import { Grid, Text } from '../elements/index';
 import { arrowRight } from '../images/index';
 import { getSelected } from '../redux/modules/selected';
 import { history } from '../redux/configureStore';
+import { getSearchConditionDB } from '../redux/async/place';
 
 const SelectedType = () => {
   const dispatch = useDispatch();
@@ -66,7 +67,13 @@ const SelectedType = () => {
       return;
     }
     console.log('aa list == ', state);
-    dispatch(getSelected(state));
+    const params = {
+      weather: 1,
+      category: state.category.value,
+      num: state.MemberCnt.value,
+      gender: state.gender.value,
+    };
+    dispatch(getSearchConditionDB(params));
     history.push('/searchtypelist');
   };
 
