@@ -12,7 +12,6 @@ const ListCard = props => {
     height: `${type}` === 'detail' ? '406px' : '294px',
     imgHeight: `${type}` === 'detail' ? '306px' : '196px',
   };
-  console.log(type, styles);
 
   /* 메인 카드 */
   if (type === 'main') {

@@ -48,11 +48,9 @@ const Header = props => {
         <Grid justify="space-between" padding="16px 0">
           <Grid isFlex>
             {_back && (
-              <>
-                <Grid>
-                  <Icon src={chevronLeft} />
-                </Grid>
-              </>
+              <Grid>
+                <Icon src={chevronLeft} />
+              </Grid>
             )}
             {_content && (
               <Text fontSize="18px" bold>

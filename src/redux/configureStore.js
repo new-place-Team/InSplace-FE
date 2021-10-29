@@ -6,6 +6,7 @@ import { logger } from 'redux-logger';
 
 /* slice module */
 import counterSlice from './modules/counterSlice';
+import selectedSlice from './modules/selected';
 
 export const history = createBrowserHistory();
 
@@ -13,6 +14,7 @@ export const history = createBrowserHistory();
 const reducer = combineReducers({
   router: connectRouter(history),
   counter: counterSlice.reducer,
+  selected: selectedSlice.reducer,
 });
 
 const middlewares = [];

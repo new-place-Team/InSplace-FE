@@ -1,31 +1,41 @@
+/* eslint-disable no-shadow */
+/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
 import { Grid, Text, Button } from '../elements';
 
 const SelectedContents = props => {
-  const testProps = {
-    title: '나와 함께할 사람들은',
-    gridNum: 2, // test
-    list: [
-      { num: '1명' },
-      { num: '2명' },
-      { num: '4명 미만 123123123' },
-      { num: '4명 이상' },
-    ],
+  const { title, grid, state, type, list, setState } = props;
+  // const buttonRef = React.useRef();
+
+  const onClick = (value, type, idx) => {
+    if (type === 'MemberCnt') {
+      setState({ ...state, MemberCnt: value });
+    } else if (type === 'gender') {
+      setState({ ...state, gender: value });
+    } else {
+      setState({ ...state, category: value });
+    }
   };
 
   return (
     <SelectedContent>
       <Text fontSize="20px" bold>
-        {testProps.title}
+        {title}
       </Text>
-      <SelectedGrid gridNum={testProps.gridNum}>
-        {testProps.list.map((item, idx) => {
+      <SelectedGrid>
+        {list.map((item, idx) => {
           return (
-            <React.Fragment key={`selected-${item.num}`}>
+            <React.Fragment key={`selected-${item.selected}`}>
               <Grid margin="10px 10px 0 0">
-                <Button type="type" width="auto">
-                  {item.num}
+                <Button
+                  type="type"
+                  width="auto"
+                  value={state.keys}
+                  keys={state.keys}
+                  _onClick={() => onClick(item.selected, type, idx)}
+                >
+                  {item.selected}
                 </Button>
               </Grid>
             </React.Fragment>
@@ -36,15 +46,23 @@ const SelectedContents = props => {
   );
 };
 
+SelectedContents.defaultProps = {
+  title: '',
+  list: [],
+};
+
 const SelectedContent = styled.div`
-  width: 375px;
-  padding: 40px 24px;
+  width: 100%;
+  padding: 45px 24px;
   background-color: #e4e4e4;
+  &:nth-child(2n) {
+    background-color: #f0f0f0;
+  }
 `;
 const SelectedGrid = styled.div`
   /* display: grid;
   grid-template-columns: ${props =>
-    props.gridNum ? `repeat(${props.gridNum}, auto)` : `repeat(3, 1fr)`};
+    props.gridNum ? `repeat(${props.gridNum}, '300px'})` : `repeat(3, 1fr)`};
   button {
     border: 1px solid #fff;
   } */
