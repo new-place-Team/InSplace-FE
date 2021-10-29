@@ -14,10 +14,10 @@ export const history = createBrowserHistory();
 
 /* Reducer combine */
 const reducer = combineReducers({
-  router: connectRouter(history),
   counter: counterSlice.reducer,
   place: placeSlice.reducer,
   selected: selectedSlice.reducer,
+  router: connectRouter(history),
 });
 
 const middlewares = [];

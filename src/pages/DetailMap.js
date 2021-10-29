@@ -45,7 +45,12 @@ const MapContainer = () => {
         })}
       </MapSlick>
       {/* API로 받아온 현재 좌표를 Map 컴포넌트에 props로 전달한다. */}
-      <Map coordinate={currentCoordinate} width="100vw" height="80vh" />
+      <Map
+        coordinate={currentCoordinate}
+        width="100vw"
+        height="80vh"
+        markerdata={markerdata}
+      />
     </Grid>
   );
 };

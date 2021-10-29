@@ -1,7 +1,6 @@
 /* eslint-disable */
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { markerdata } from '../shared/MarkerData';
 import { mapscript } from '../shared/utils';
 // const { kakao } = window;
 const Map = props => {
@@ -9,8 +8,7 @@ const Map = props => {
   const mapDiv = useRef(null);
   // 현재위치에 따른 위도 경도를 받아옴.
   const { latitude, longitude } = props.coordinate;
-  const { width, height } = props;
-
+  const { width, height, markerdata } = props;
   useEffect(() => {
     mapscript(latitude, longitude, mapDiv, markerdata);
     return () => {};

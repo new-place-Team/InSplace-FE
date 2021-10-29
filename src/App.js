@@ -26,7 +26,7 @@ function App() {
           <Route path="/searchtypelist" exact component={SearchTypeList} />
           <Route path="/searchlist" exact component={SearchList} />
           <Route path="/selectedtype" exact component={SelectedType} />
-          <Route path="/detail" exact component={Detail} />
+          <Route path="/detail/:id" exact component={Detail} />
         </Switch>
         <Navbar />
       </ThemeProvider>
