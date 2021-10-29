@@ -1,19 +1,32 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { Grid, Image, Text } from '../elements/index';
 import { like } from '../images/index';
 import { getCategoryText } from '../shared/transferText';
+import { history } from '../redux/configureStore';
 
 const ListCard = props => {
   const { type, title, likeCnt, address, category, src, info } = props;
+
+  // 각 포스트에 해당하는 id (props로 받아옴)
+  const postId = info.post_id;
+
+  // 디테일 페이지로 이동
+  const gotoDetail = () => {
+    history.push(`/detail/${postId}`);
+  };
 
   /* 메인 카드 */
   if (type === 'main') {
     return (
       <>
-        <Grid width="247px" height="320px">
+        <Grid width="247px" height="320px" _onClick={gotoDetail}>
           <Image src={info && info.post_images} />
           <Tag>
             <Text color="#fff" fontSize="14px">
@@ -44,7 +57,7 @@ const ListCard = props => {
   if (type === 'search') {
     return (
       <>
-        <Grid width="49%" margin="0 0 32px 0">
+        <Grid width="49%" margin="0 0 32px 0" _onClick={gotoDetail}>
           <Grid height="195px">
             <Image src={src} />
           </Grid>
@@ -71,7 +84,7 @@ const ListCard = props => {
 
   return (
     <>
-      <Grid width="247px" height="306px">
+      <Grid width="247px" height="306px" _onClick={gotoDetail}>
         <Image src={src} />
       </Grid>
       <Grid margin="16px 0 0 0">

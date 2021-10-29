@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { ThemeProvider } from 'styled-components';
 import { history } from './redux/configureStore';
+
 import Main from './pages/Main';
 import UI from './pages/UI';
 import theme from './styles/theme';
@@ -26,7 +28,7 @@ function App() {
           <Route path="/searchtypelist" exact component={SearchTypeList} />
           <Route path="/searchlist" exact component={SearchList} />
           <Route path="/selectedtype" exact component={SelectedType} />
-          <Route path="/detail" exact component={Detail} />
+          <Route path="/detail/:id" exact component={Detail} />
         </Switch>
         {/* <Navbar /> */}
       </ThemeProvider>

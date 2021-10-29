@@ -2,6 +2,7 @@
 /* global kakao */
 import React, { useState } from 'react';
 import { Grid } from '../elements';
+import { useSelector } from 'react-redux';
 import { MapSlick } from '../components/MapSlick';
 import { markerdata } from '../shared/MarkerData';
 import MapCard from '../components/MapCard';
@@ -45,7 +46,12 @@ const MapContainer = () => {
         })}
       </MapSlick>
       {/* API로 받아온 현재 좌표를 Map 컴포넌트에 props로 전달한다. */}
-      <Map coordinate={currentCoordinate} width="100vw" height="80vh" />
+      <Map
+        coordinate={currentCoordinate}
+        width="100vw"
+        height="80vh"
+        markerdata={markerdata}
+      />
     </Grid>
   );
 };
