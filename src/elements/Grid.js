@@ -18,6 +18,8 @@ const Grid = props => {
     border,
     _onClick,
     children,
+    position,
+    zIndex,
   } = props;
 
   const styles = {
@@ -32,6 +34,8 @@ const Grid = props => {
     bg,
     wrap,
     border,
+    position,
+    zIndex,
   };
 
   if (justify === 'space-between') {
@@ -77,6 +81,7 @@ Grid.defaultProps = {
   padding: 0,
   bg: 'transparent',
   border: 'none',
+  position: 'relative',
 };
 
 const DefaultGrid = styled.div`
@@ -86,7 +91,7 @@ const DefaultGrid = styled.div`
   padding: ${props => props.padding};
   background-color: ${props => props.bg};
   border: ${props => props.border};
-  position: relative;
+  position: ${props => props.position};
   ${props => props.isFlex && `display:flex`};
   ${props => props.wrap && `flex-wrap:wrap`};
   box-sizing: border-box;
@@ -94,6 +99,7 @@ const DefaultGrid = styled.div`
   ${props => (props.direction ? ` flex-direction:${props.direction}` : '')};
   align-items: center;
   flex-wrap: wrap;
+  ${props => (props.zIndex ? ` z-index:${props.zIndex}` : '')};
 `;
 const BetweenGrid = styled.div`
   ${props =>
