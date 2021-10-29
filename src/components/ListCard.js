@@ -3,17 +3,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Grid, Image, Text } from '../elements/index';
+import { like } from '../images/index';
 
 const ListCard = props => {
-  const { type, title, likeCnt, address, category, src } = props;
-
-  const styles = {
-    width: `${type}` === 'detail' ? '246px' : '158px',
-    height: `${type}` === 'detail' ? '406px' : '294px',
-    imgHeight: `${type}` === 'detail' ? '306px' : '196px',
-  };
-  console.log(type, styles);
-
+  const { type, title, likeCnt, address, category, src, info } = props;
+  console.log('info', info);
   /* 메인 카드 */
   if (type === 'main') {
     return (
@@ -32,11 +26,14 @@ const ListCard = props => {
           </Text>
         </Grid>
         <Grid margin="6px 0 0 0" isFlex>
+          <Grid width="15px" height="16px" marign="0 60px 0 0">
+            <Image src={like} />
+          </Grid>
           <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
-            ♥︎{likeCnt}
+            {info && info.like_cnt}
           </Text>
           <Text fontSize="14px" color="#646464">
-            {address}
+            {info && info.address_short}
           </Text>
         </Grid>
       </>
@@ -91,39 +88,13 @@ const ListCard = props => {
       </Grid>
     </>
   );
-
-  // return (
-  //   <Grid width={styles.width} height={styles.height} isFlex direction="column">
-  //     <Image type="bg" width={styles.width} height={styles.imgHeight} />
-  //     <Grid margin="12px 0 0 0">
-  //       <Text fontSize="14px" color="#646464">
-  //         {category}
-  //       </Text>
-  //     </Grid>
-  //     <Grid margin="2px 0 0 0">
-  //       <Text fontSize="16px" color="#272727">
-  //         {title}
-  //       </Text>
-  //     </Grid>
-  //     <Grid margin="6px 0 0 0" isFlex>
-  //       <Text fontSize="14px" color="#646464">
-  //         {address}
-  //       </Text>
-  //     </Grid>
-  //     <Grid margin="5px 0 0 0" isFlex>
-  //       <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
-  //         ♥︎{likeCnt}
-  //       </Text>
-  //     </Grid>
-  //   </Grid>
-  // );
 };
 
 ListCard.defaultProps = {
   type: 'list',
   title: '상호명을 적어주세요.',
   likeCnt: 3,
-  address: '강남구|역삼동',
+  address: '강남구 · 역삼동',
   category: '카페',
 };
 const Tag = styled.div`

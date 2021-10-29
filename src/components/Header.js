@@ -1,48 +1,81 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import { GrSearch } from 'react-icons/gr';
-import { IoIosArrowBack } from 'react-icons/io';
-import { FiMap } from 'react-icons/fi';
-import { CgClose } from 'react-icons/cg';
 import { Grid, Text } from '../elements/index';
+import { chevronLeft, map, search, close } from '../images/index';
 
 const Header = props => {
-  const { back, search, content, map, close, color } = props;
+  const { _type, _back, _search, _content, _map, _close } = props;
+  const type = _type === 'search';
 
   return (
-    <Grid width="375px" height="56px" isFlex>
-      {/* 뒤로가기 */}
-      {back && (
-        <Icon color={color} left="24px">
-          <IoIosArrowBack />
-        </Icon>
+    <>
+      {type ? (
+        <Grid justify="space-between" padding="16px 0">
+          <Grid isFlex>
+            {_back && (
+              <>
+                <Grid>
+                  <Icon src={chevronLeft} />
+                </Grid>
+              </>
+            )}
+            {_content && (
+              <Text fontSize="18px" bold>
+                {_content}
+              </Text>
+            )}
+          </Grid>
+          <Grid isFlex>
+            {_map && (
+              <Grid>
+                <Icon src={map} />
+              </Grid>
+            )}
+            {_search && (
+              <Grid>
+                <Icon src={search} />
+              </Grid>
+            )}
+            {_close && (
+              <Grid>
+                <Icon src={close} />
+              </Grid>
+            )}
+          </Grid>
+        </Grid>
+      ) : (
+        <Grid justify="space-between" padding="16px 0">
+          <Grid isFlex>
+            {_back && (
+              <Grid>
+                <Icon src={chevronLeft} />
+              </Grid>
+            )}
+            {_content && (
+              <Text fontSize="18px" bold>
+                {_content}
+              </Text>
+            )}
+            {_map && (
+              <Grid>
+                <Icon src={map} />
+              </Grid>
+            )}
+            {_search && (
+              <Grid>
+                <Icon src={search} />
+              </Grid>
+            )}
+            {_close && (
+              <Grid>
+                <Icon src={close} />
+              </Grid>
+            )}
+          </Grid>
+        </Grid>
       )}
-      {/* 컨텐츠명 */}
-      {content && (
-        <ContentArea back>
-          <Text color={color}>{content}</Text>
-        </ContentArea>
-      )}
-      {/* 지도 */}
-      {map && (
-        <Icon color={color} right="64px">
-          <FiMap />
-        </Icon>
-      )}
-      {/* 검색 */}
-      {search && (
-        <Icon color={color} right="24px">
-          <GrSearch />
-        </Icon>
-      )}
-      {/* 닫기 */}
-      {close && (
-        <Icon color={color} right="24px">
-          <CgClose />
-        </Icon>
-      )}
-    </Grid>
+    </>
   );
 };
 
@@ -54,21 +87,25 @@ Header.defaultProps = {
   close: false,
 };
 
-const Icon = styled.div`
-  cursor: pointer;
-  /* color: #000; */
-  font-size: 24px;
-  position: absolute;
-  top: 16px;
-  ${props => props.left && `left:${props.left}`};
-  ${props => props.right && `right:${props.right}`};
-  ${props => (props.color ? `color: ${props.color}` : '#000')};
-`;
+// const Icon = styled.div`
+//   cursor: pointer;
+//   color: #000;
+//   font-size: 24px;
+//   position: absolute;
+//   top: 16px;
+//   ${props => props.left && `left:${props.left}`};
+//   ${props => props.right && `right:${props.right}`};
+// `;
 
-const ContentArea = styled.div`
-  position: absolute;
-  top: 16px;
-  ${props => (props.back ? `left:52px` : 'left: 24px')};
+// const ContentArea = styled.div`
+//   position: absolute;
+//   top: 16px;
+//   ${props => (props.back ? `left:52px` : 'left: 24px')};
+// `;
+const Icon = styled.img`
+  width: 24px;
+  ${props => props.margin && `margin:${props.margin}`};
+  vertical-align: text-bottom;
 `;
 
 export default Header;

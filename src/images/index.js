@@ -12,6 +12,7 @@ import user from './user.png';
 import vector from './Vector.png';
 import whiteVector from './white-vector.png';
 import close from './x.png';
+import arrowRight from './arrow-right.png';
 
 export {
   chevronLeft,
@@ -28,4 +29,5 @@ export {
   vector,
   whiteVector,
   close,
+  arrowRight,
 };

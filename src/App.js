@@ -13,6 +13,7 @@ import SearchTypeList from './pages/SearchTypeList';
 import SearchList from './pages/SearchList';
 import SelectedType from './pages/SelectedType';
 import Detail from './pages/Detail';
+import Navbar from './components/Navbar';
 
 function App() {
   // console.log('첫 스타트! 1');
@@ -33,6 +34,7 @@ function App() {
           <Route path="/selectedtype" exact component={SelectedType} />
           {/* <Route path="/detail" exact component={Detail} /> */}
         </Switch>
+        <Navbar />
       </ThemeProvider>
     </ConnectedRouter>
   );
