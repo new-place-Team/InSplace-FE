@@ -4,29 +4,30 @@ import React from 'react';
 import styled from 'styled-components';
 import { Grid, Image, Text } from '../elements/index';
 import { like } from '../images/index';
+import { getCategoryText } from '../shared/transferText';
 
 const ListCard = props => {
   const { type, title, likeCnt, address, category, src, info } = props;
-  console.log('info', info);
+
   /* 메인 카드 */
   if (type === 'main') {
     return (
       <>
         <Grid width="247px" height="320px">
-          <Image src={src} />
+          <Image src={info && info.post_images} />
           <Tag>
             <Text color="#fff" fontSize="14px">
-              {category}
+              {info && getCategoryText(info.category_id)}
             </Text>
           </Tag>
         </Grid>
         <Grid margin="16px 0 0 0">
           <Text fontSize="16px" color="#272727" bold>
-            {title}
+            {info && info.title}
           </Text>
         </Grid>
-        <Grid margin="6px 0 0 0" isFlex>
-          <Grid width="15px" height="16px" marign="0 60px 0 0">
+        <Grid margin="6px 0 0 0" isFlex width="100%">
+          <Grid width="15px" height="16px" margin="0 4px 0 0">
             <Image src={like} />
           </Grid>
           <Text fontSize="14px" color="#272727" margin="0 12px 0 0">

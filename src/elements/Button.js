@@ -139,6 +139,7 @@ const FullSizeWhite = styled.button`
   background-color: ${theme.color.white};
   color: ${theme.color.mainColor};
   border: 1px solid ${theme.color.mainColor};
+  margin: ${props => props.margin};
 `;
 const TypeButton = styled.button`
   width: ${props => (props.width ? props.width : 'auto')};

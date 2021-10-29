@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Grid, Image } from '../elements/index';
+import { history } from '../redux/configureStore';
+import { Image } from '../elements/index';
 import { home, vector, sliders, user, heart } from '../images/index';
 
 const Navbar = () => {
@@ -8,13 +9,13 @@ const Navbar = () => {
     <Nav>
       <Content>
         <Wrap>
-          <Icon>
+          <Icon onClick={() => history.push('/')}>
             <Image src={vector} />
           </Icon>
-          <Icon>
+          <Icon onClick={() => history.push('/')}>
             <Image src={home} />
           </Icon>
-          <Icon>
+          <Icon onClick={() => history.push('/ui')}>
             <Image src={sliders} />
           </Icon>
           <Icon>
@@ -53,6 +54,7 @@ const Wrap = styled.div`
 const Icon = styled.div`
   width: 24px;
   height: 24px;
+  cursor: pointer;
 `;
 
 export default Navbar;

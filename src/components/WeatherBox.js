@@ -1,8 +1,11 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Grid, Text, Image } from '../elements';
 import { mapPin, vector } from '../images/index';
+import { getWeatherText } from '../shared/transferText';
 
-const WeatherBox = () => {
+const WeatherBox = props => {
+  const { info } = props;
   return (
     <>
       <Grid
@@ -12,10 +15,11 @@ const WeatherBox = () => {
         bg="#F4F4F4"
         isFlex
         justify="space-between"
+        margin="41px 0 0 -24px"
       >
         {/* 텍스트들 모음 */}
         <Grid isFlex direction="column">
-          <Grid isFlex margin="0 0 38px 0">
+          <Grid isFlex margin="0 0 38px 0" width="100%">
             <Grid width="16px" height="16px" margin="0 8px 0 0">
               <Image src={mapPin} />
             </Grid>
@@ -23,11 +27,11 @@ const WeatherBox = () => {
               내 위치
             </Text>
           </Grid>
-          <Grid margin="0 0 16px 0" isFlex>
+          <Grid margin="0 0 16px 0" isFlex width="100%">
             <Text fontSize="16px" margin="0 13px 0 0">
-              비
+              {info && getWeatherText(info.status)}
             </Text>
-            <Text fontSize="16px">16&deg;</Text>
+            <Text fontSize="16px">{info && info.temperature}&deg;</Text>
           </Grid>
           <Grid>
             <Text fontSize="13px">어제보다 2&deg; 낮아요</Text>

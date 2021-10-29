@@ -16,12 +16,6 @@ import Detail from './pages/Detail';
 import Navbar from './components/Navbar';
 
 function App() {
-  // console.log('첫 스타트! 1');
-  // useEffect(() => {
-  //   console.log('2');
-  // }, []);
-  // console.log('컴포넌트 렌더링3');
-  // console.log('컴포넌트 렌더링4');
   return (
     <ConnectedRouter history={history}>
       <ThemeProvider theme={theme}>

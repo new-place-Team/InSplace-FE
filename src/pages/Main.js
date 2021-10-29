@@ -3,12 +3,13 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+import { history } from '../redux/configureStore';
 import { Slick } from '../components/Slick';
 import WeatherBox from '../components/WeatherBox';
 import ListCard from '../components/ListCard';
 import Header from '../components/Header';
-import { Grid } from '../elements';
 import ContentsTitle from '../components/ContentsTitle';
+import { Grid, Button, Text } from '../elements';
 import { getMainListDB } from '../redux/async/place';
 
 const Main = () => {
@@ -17,9 +18,8 @@ const Main = () => {
   const weatherList = mainLists.weatherPlace;
   const likeList = mainLists.likePlace;
   const pickList = mainLists.pickPlace;
-
+  const weatherInfo = mainLists.weather;
   useEffect(() => {
-    console.log('mainLists', mainLists);
     dispatch(getMainListDB());
   }, []);
 
@@ -31,7 +31,18 @@ const Main = () => {
       <Section>
         <Container>
           <Header _content="Logo" _search _type="search" />
-          <WeatherBox />
+          <WeatherBox info={weatherInfo} />
+          <Button
+            type="fullSizeWhite"
+            bg="#fff"
+            color="#000"
+            margin="37px 0 50px 0"
+            _onClick={() => history.push('/')}
+          >
+            <Text fontSize="16px" bold>
+              장소 추천 받기 &gt;
+            </Text>
+          </Button>
           {/* 날씨에 따른 공간 */}
           <Grid margin="0 0 48px 0">
             <ContentsTitle title="날씨에 따른 공간" color="#fff" />
@@ -39,12 +50,7 @@ const Main = () => {
               {weatherList &&
                 weatherList.map((info, idx) => {
                   return (
-                    <ListCard
-                      src={info.post_images}
-                      type="main"
-                      title={info.title}
-                      info={info}
-                    />
+                    <ListCard src={info.post_images} type="main" info={info} />
                   );
                 })}
             </Slick>
