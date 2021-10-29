@@ -12,6 +12,7 @@ import DetailMap from './pages/DetailMap';
 import SearchTypeList from './pages/SearchTypeList';
 import SearchList from './pages/SearchList';
 import SelectedType from './pages/SelectedType';
+import Detail from './pages/Detail';
 import Navbar from './components/Navbar';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/searchtypelist" exact component={SearchTypeList} />
           <Route path="/searchlist" exact component={SearchList} />
           <Route path="/selectedtype" exact component={SelectedType} />
+          <Route path="/detail" exact component={Detail} />
         </Switch>
         <Navbar />
       </ThemeProvider>
