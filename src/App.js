@@ -12,6 +12,7 @@ import DetailMap from './pages/DetailMap';
 import SearchTypeList from './pages/SearchTypeList';
 import SearchList from './pages/SearchList';
 import SelectedType from './pages/SelectedType';
+import Detail from './pages/Detail';
 
 function App() {
   // console.log('첫 스타트! 1');
@@ -26,10 +27,11 @@ function App() {
         <Switch>
           <Route path="/" exact component={Main} />
           <Route path="/ui" exact component={UI} />
-          <Route path="/map" exact component={DetailMap} />
+          {/* <Route path="/map" exact component={DetailMap} /> */}
           <Route path="/searchtypelist" exact component={SearchTypeList} />
           <Route path="/searchlist" exact component={SearchList} />
           <Route path="/selectedtype" exact component={SelectedType} />
+          {/* <Route path="/detail" exact component={Detail} /> */}
         </Switch>
       </ThemeProvider>
     </ConnectedRouter>

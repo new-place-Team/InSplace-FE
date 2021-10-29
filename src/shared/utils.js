@@ -16,9 +16,31 @@ export const getToken = () => {
   return null;
 };
 
-// 현재 위치에 관한 위도,경도 받아오기
-// export const getLocation = () => {
-//   window.navigator.geolocation.getCurrentPosition(function (pos) {
-//     console.log(pos);
-//   });
-// };
+// 지도만 생성, mapDiv인자는 useRef로 연결한 요소
+export const mapMaker = (latitude, longitude, mapDiv) => {
+  const { kakao } = window;
+  const options = {
+    center: new kakao.maps.LatLng(latitude, longitude),
+    level: 3,
+  };
+  const map = new kakao.maps.Map(mapDiv.current, options);
+};
+
+// 지도 생성 + 마커 생성 (markerdata가 [] 형식데이터)
+export const mapscript = (latitude, longitude, mapDiv, markerdata) => {
+  const { kakao } = window;
+  const options = {
+    // 지도 옵션중에 위도 경도를 받아옴.
+    center: new kakao.maps.LatLng(latitude, longitude),
+    level: 3,
+  };
+  const map = new kakao.maps.Map(mapDiv.current, options);
+  markerdata.forEach(el => {
+    // 마커를 생성합니다
+    const marker = new kakao.maps.Marker({
+      map,
+      position: new kakao.maps.LatLng(el.lat, el.lng),
+      title: el.title,
+    });
+  });
+};

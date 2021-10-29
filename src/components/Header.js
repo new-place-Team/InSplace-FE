@@ -8,37 +8,37 @@ import { CgClose } from 'react-icons/cg';
 import { Grid, Text } from '../elements/index';
 
 const Header = props => {
-  const { back, search, content, map, close } = props;
+  const { back, search, content, map, close, color } = props;
 
   return (
     <Grid width="375px" height="56px" isFlex>
       {/* 뒤로가기 */}
       {back && (
-        <Icon left="24px">
+        <Icon color={color} left="24px">
           <IoIosArrowBack />
         </Icon>
       )}
       {/* 컨텐츠명 */}
       {content && (
         <ContentArea back>
-          <Text>{content}</Text>
+          <Text color={color}>{content}</Text>
         </ContentArea>
       )}
       {/* 지도 */}
       {map && (
-        <Icon right="64px">
+        <Icon color={color} right="64px">
           <FiMap />
         </Icon>
       )}
       {/* 검색 */}
       {search && (
-        <Icon right="24px">
+        <Icon color={color} right="24px">
           <GrSearch />
         </Icon>
       )}
       {/* 닫기 */}
       {close && (
-        <Icon right="24px">
+        <Icon color={color} right="24px">
           <CgClose />
         </Icon>
       )}
@@ -56,12 +56,13 @@ Header.defaultProps = {
 
 const Icon = styled.div`
   cursor: pointer;
-  color: #000;
+  /* color: #000; */
   font-size: 24px;
   position: absolute;
   top: 16px;
   ${props => props.left && `left:${props.left}`};
   ${props => props.right && `right:${props.right}`};
+  ${props => (props.color ? `color: ${props.color}` : '#000')};
 `;
 
 const ContentArea = styled.div`

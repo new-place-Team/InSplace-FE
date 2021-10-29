@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import { Grid, Image, Text } from '../elements';
 
 const MapCard = props => {
-  const { src } = props;
+  const { el } = props;
   return (
     <MapCardCotainer>
-      <Grid padding="12px" bg="#42c1bc" justify="center">
+      <Grid padding="10px " bg="#fff" justify="space-between">
         {/* 이미지 */}
         <Grid width="96px" height="96px" margin="0 20px 0 0">
-          <Image width="100%" height="100%" src={src} />
+          <Image width="100%" height="100%" src={el.src} />
         </Grid>
         {/* information */}
         <Grid width="180px">
@@ -20,15 +20,20 @@ const MapCard = props => {
               카페
             </Text>
             <Text fontSize="13px" bold margin="0 0 40px 0">
-              하남 돼지집 역삼 세인트존스
+              {el.title}
             </Text>
           </Grid>
           <Text fontSize="12px">서울 특별시 강남구 역삼동 </Text>
         </Grid>
-        <AbsoluteBox top="12px" right="12px">
-          ❤️
-        </AbsoluteBox>
       </Grid>
+      <AbsoluteBox top="15px" right="4px">
+        <Grid isFlex>
+          <Text fontSize="12px" color="red" margin="0 2px 0 0">
+            ♥︎
+          </Text>
+          <Text fontSize="12px">1</Text>
+        </Grid>
+      </AbsoluteBox>
     </MapCardCotainer>
   );
 };
@@ -39,17 +44,14 @@ const AbsoluteBox = styled.div`
   bottom: ${props => props.bottom};
   left: ${props => props.left};
   right: ${props => props.right};
+  transform: translate(-50%, -50%);
 `;
 
 const MapCardCotainer = styled.div`
-  width: 83%;
+  width: 90%;
   background-color: transparent;
   margin: 0 auto;
-  position: absolute;
-  bottom: 58px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999999;
+  position: relative;
 `;
 
 export default MapCard;
