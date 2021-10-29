@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Grid, Button, Text } from '../elements';
 import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
 import SelectedCategory from '../components/SelectedCategory';
 import Map from '../components/Map';
 

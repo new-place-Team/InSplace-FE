@@ -2,8 +2,8 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { markerdata } from '../shared/MarkerData';
-// import { mapscript } from '../shared/utils';
-const { kakao } = window;
+import { mapscript } from '../shared/utils';
+// const { kakao } = window;
 const Map = props => {
   // 카카오지도를 담을 div를 잡아줌.
   const mapDiv = useRef(null);
