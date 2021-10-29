@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { combineReducers } from 'redux';
 import { createBrowserHistory } from 'history';
 import { connectRouter } from 'connected-react-router';
@@ -6,6 +7,7 @@ import { logger } from 'redux-logger';
 
 /* slice module */
 import counterSlice from './modules/counterSlice';
+import placeSlice from './modules/placeSlice';
 
 export const history = createBrowserHistory();
 
@@ -13,6 +15,7 @@ export const history = createBrowserHistory();
 const reducer = combineReducers({
   router: connectRouter(history),
   counter: counterSlice.reducer,
+  place: placeSlice.reducer,
 });
 
 const middlewares = [];

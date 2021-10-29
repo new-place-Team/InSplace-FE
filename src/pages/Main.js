@@ -1,37 +1,28 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 import { Slick } from '../components/Slick';
 import WeatherBox from '../components/WeatherBox';
 import ListCard from '../components/ListCard';
 import Header from '../components/Header';
 import { Grid } from '../elements';
 import ContentsTitle from '../components/ContentsTitle';
+import { getMainListDB } from '../redux/async/place';
 
 const Main = () => {
-  const srcList = [
-    {
-      src: 'https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/1jPF/image/fyswALkE6ZUYbWU80efdqEU3-TA.JPG',
-      title: '서울 길거리',
-    },
-    {
-      src: 'https://static.hubzum.zumst.com/hubzum/2019/01/09/14/8f33083aceb34a89828fd0de21a4324d.jpg',
-      title: '서울 골목',
-    },
-    {
-      src: 'https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile29.uf.tistory.com%2Fimage%2F99BDB0425E4A505E2A5F55',
-      title: '마당',
-    },
-    {
-      src: 'https://static.hubzum.zumst.com/hubzum/2019/01/09/14/1502851fa2ef48f2a93f126ca62b5ad9.jpg',
-      title: '리얼 한옥',
-    },
-    {
-      src: 'https://static.hubzum.zumst.com/hubzum/2019/01/09/14/a0629fc25da84f258e23fe550a87fb65.jpg',
-      title: '미주리 거리',
-    },
-  ];
+  const dispatch = useDispatch();
+  const mainLists = useSelector(state => state.place.mainLists);
+  const weatherList = mainLists.weatherPlace;
+  const likeList = mainLists.likePlace;
+  const pickList = mainLists.pickPlace;
+
+  useEffect(() => {
+    console.log('mainLists', mainLists);
+    dispatch(getMainListDB());
+  }, []);
+
   return (
     <Grid>
       <BgArea>
@@ -39,39 +30,57 @@ const Main = () => {
       </BgArea>
       <Section>
         <Container>
-          <Header _content="header" _search _type="search" />
+          <Header _content="Logo" _search _type="search" />
           <WeatherBox />
           {/* 날씨에 따른 공간 */}
           <Grid margin="0 0 48px 0">
             <ContentsTitle title="날씨에 따른 공간" color="#fff" />
             <Slick>
-              {srcList.map((info, idx) => {
-                return (
-                  <ListCard src={info.src} type="main" title={info.title} />
-                );
-              })}
+              {weatherList &&
+                weatherList.map((info, idx) => {
+                  return (
+                    <ListCard
+                      src={info.post_images}
+                      type="main"
+                      title={info.title}
+                      info={info}
+                    />
+                  );
+                })}
             </Slick>
           </Grid>
           {/* 좋아요 순 추천 공간 */}
           <Grid margin="0 0 48px 0">
             <ContentsTitle title="좋아요를 많이 받은" />
             <Slick>
-              {srcList.map((info, idx) => {
-                return (
-                  <ListCard src={info.src} type="main" title={info.title} />
-                );
-              })}
+              {likeList &&
+                likeList.map((info, idx) => {
+                  return (
+                    <ListCard
+                      src={info.post_images}
+                      type="main"
+                      title={info.title}
+                      info={info}
+                    />
+                  );
+                })}
             </Slick>
           </Grid>
           {/* 관리자 추천 공간 */}
           <Grid padding="0 0 112px 0">
             <ContentsTitle title="MD's PICK" />
             <Slick>
-              {srcList.map((info, idx) => {
-                return (
-                  <ListCard src={info.src} type="main" title={info.title} />
-                );
-              })}
+              {pickList &&
+                pickList.map((info, idx) => {
+                  return (
+                    <ListCard
+                      src={info.post_images}
+                      type="main"
+                      title={info.title}
+                      info={info}
+                    />
+                  );
+                })}
             </Slick>
           </Grid>
         </Container>
