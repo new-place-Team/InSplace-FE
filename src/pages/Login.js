@@ -1,17 +1,17 @@
 /* eslint-disable consistent-return */
 import React from 'react';
 import styled from 'styled-components';
-import { Container, Grid, Button, Input, Label } from '../elements';
+import { Container, Grid, Input, Label } from '../elements';
 import Header from '../components/Header';
 import { inputClose } from '../images';
 
 const Login = () => {
   const [state, setState] = React.useState({
-    id: '',
+    email: '',
     password: '',
   });
   const [buttonStatus, setButtonStatus] = React.useState({
-    idStatus: false,
+    emailStatus: false,
     pwStatus: false,
   });
 
@@ -20,11 +20,11 @@ const Login = () => {
   };
 
   React.useEffect(() => {
-    if (state.id !== '') {
-      return setButtonStatus({ ...buttonStatus, idStatus: true });
+    if (state.email !== '') {
+      return setButtonStatus({ ...buttonStatus, emailStatus: true });
     }
-    if (state.id === '') {
-      return setButtonStatus({ ...buttonStatus, idStatus: false });
+    if (state.email === '') {
+      return setButtonStatus({ ...buttonStatus, emailStatus: false });
     }
     // 3번째 확인할 것
     if (state.password !== '') {
@@ -35,49 +35,73 @@ const Login = () => {
     }
   }, [state]);
   return (
-    <Container>
-      <Header _back _content="로그인" />
-      <Grid margin="42px 0 0 0">
-        <Wrap>
-          <Label type="form">아이디</Label>
-          <Input
-            inputType="form"
-            type="text"
-            value={state.id}
-            name="id"
-            _onChange={onChange}
-          />
-          {buttonStatus.idStatus && <InputCloseButton src={inputClose} />}
-        </Wrap>
-        <Wrap>
-          <Label type="form">비밀번호</Label>
-          <Input
-            inputType="form"
-            type="password"
-            value={state.password}
-            name="password"
-            _onChange={onChange}
-          />
-          {buttonStatus.pwStatus && <InputCloseButton src={inputClose} />}
-        </Wrap>
-      </Grid>
-      <BottomWrap>
-        <Button type="fullSizeBlack">로그인</Button>
-      </BottomWrap>
-    </Container>
+    <FormWrap>
+      <Box>
+        <Container>
+          <Header _back _content="로그인" />
+          <Grid margin="42px 0 0 0">
+            <Wrap>
+              <Label type="form">이메일</Label>
+              <Input
+                inputType="form"
+                type="text"
+                value={state.email}
+                name="email"
+                _onChange={onChange}
+                placeholder="이메일 주소를 입력해주세요"
+              />
+              {buttonStatus.emailStatus && (
+                <InputCloseButton src={inputClose} />
+              )}
+            </Wrap>
+            <Wrap>
+              <Label type="form">비밀번호</Label>
+              <Input
+                inputType="form"
+                type="password"
+                value={state.password}
+                name="password"
+                _onChange={onChange}
+                placeholder="비밀번호를 입력해주세요"
+              />
+              {buttonStatus.pwStatus && <InputCloseButton src={inputClose} />}
+            </Wrap>
+          </Grid>
+          <BottomWrap>
+            <Button type="fullSizeBlack">로그인</Button>
+          </BottomWrap>
+        </Container>
+      </Box>
+    </FormWrap>
   );
 };
-
-const BottomWrap = styled.div`
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 90%;
-  margin: 0px 20px;
+const FormWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+const Box = styled.div`
+  position: relative;
+  width: 375px;
 `;
 const Wrap = styled.div`
-  position: relative;
   margin-bottom: 32px;
+`;
+const BottomWrap = styled.div`
+  position: absolute;
+  padding: 0 20px;
+  bottom: 5px;
+  left: 0;
+  width: 100%;
+`;
+const Button = styled.button`
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 700;
+  background-color: #000;
+  color: #fff;
 `;
 
 const InputCloseButton = styled.img`

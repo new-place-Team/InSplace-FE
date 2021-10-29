@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const Container = props => {
   const { children } = props;
+
   return (
     <ContainerWrap>
       <Wrap>{children}</Wrap>
