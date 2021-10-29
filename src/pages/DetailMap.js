@@ -2,6 +2,7 @@
 /* global kakao */
 import React, { useState } from 'react';
 import { Grid } from '../elements';
+import { useSelector } from 'react-redux';
 import { MapSlick } from '../components/MapSlick';
 import { markerdata } from '../shared/MarkerData';
 import MapCard from '../components/MapCard';

@@ -35,7 +35,7 @@ const Wrap = styled.div`
   bottom: 58px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 9999999;
+  z-index: 99;
 `;
 
 const StyledSlider = styled(Slider)`

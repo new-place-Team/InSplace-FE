@@ -37,6 +37,7 @@ export const mapscript = (latitude, longitude, mapDiv, markerdata) => {
   const map = new kakao.maps.Map(mapDiv.current, options);
   markerdata.forEach(el => {
     // 마커를 생성합니다
+    // console.log(el);
     const marker = new kakao.maps.Marker({
       map,
       position: new kakao.maps.LatLng(el.lat, el.lng),
