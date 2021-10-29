@@ -7,9 +7,11 @@ import SelectedCategory from '../components/SelectedCategory';
 import { Slick } from '../components/Slick';
 import ListCard from '../components/ListCard';
 import ContentsTitle from '../components/ContentsTitle';
+import Header from '../components/Header';
 
 const SearchTypeList = () => {
-  const selected = useSelector(state => state.selected.selected);
+  const conditionPlaces = useSelector(state => state.place.conditionPlaces);
+  console.log('conditionPlace', conditionPlaces);
   const srcList = [
     { src: 'https://t1.daumcdn.net/cfile/tistory/213C9A345225669622' },
     { src: 'https://img.siksinhot.com/article/1613970568705496.jpg' },
@@ -33,7 +35,7 @@ const SearchTypeList = () => {
   return (
     <>
       <Container>
-        <SearchBar />
+        <Header _type="search" _back _content="검색 결과" _map _search />
         {/* <SelectedCategory tag={selected[0]} /> */}
         <ContentsTitle title="실내" />
         <Slick>

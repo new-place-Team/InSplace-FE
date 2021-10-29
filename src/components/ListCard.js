@@ -15,7 +15,7 @@ const ListCard = props => {
   const { type, title, likeCnt, address, category, src, info } = props;
 
   // 각 포스트에 해당하는 id (props로 받아옴)
-  const postId = info.post_id;
+  const postId = info && info.post_id;
 
   // 디테일 페이지로 이동
   const gotoDetail = () => {

@@ -4,7 +4,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  selected: [],
+  selected: {},
 };
 
 const selectedSlice = createSlice({
@@ -13,7 +13,7 @@ const selectedSlice = createSlice({
   reducers: {
     getSelected: (state, { payload }) => {
       console.log('payload', payload);
-      state.selected.push(payload);
+      state.selected = payload;
     },
   },
 });

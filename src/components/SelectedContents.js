@@ -8,7 +8,7 @@ const SelectedContents = props => {
   const { title, state, type, list, setState } = props;
   // const buttonRef = React.useRef();
 
-  const onClick = (text, type, value) => {
+  const selectedBtn = (text, type, value) => {
     console.log('click', text, type, value);
     if (type === 'MemberCnt') {
       setState({ ...state, MemberCnt: { selected: text, value } });
@@ -34,7 +34,7 @@ const SelectedContents = props => {
                   width="auto"
                   value={item.selected}
                   keys={item.value}
-                  _onClick={() => onClick(item.selected, type, item.value)}
+                  onClick={() => selectedBtn(item.selected, type, item.value)}
                 >
                   {item.selected}
                 </SelectedButton>
