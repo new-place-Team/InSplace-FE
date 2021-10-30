@@ -1,17 +1,19 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Container } from '../elements';
+import { Container, Grid } from '../elements';
 import SearchBar from '../components/SearchBar';
 import SelectedCategory from '../components/SelectedCategory';
 import { Slick } from '../components/Slick';
 import ListCard from '../components/ListCard';
 import ContentsTitle from '../components/ContentsTitle';
 import Header from '../components/Header';
+import Navbar from '../components/Navbar';
 
 const SearchTypeList = () => {
   const conditionPlaces = useSelector(state => state.place.conditionPlaces);
-  console.log('conditionPlace', conditionPlaces);
+  const inSideList = conditionPlaces && conditionPlaces.insidePlaces;
+  const outSideList = conditionPlaces && conditionPlaces.outSidePlaces;
   const srcList = [
     { src: 'https://t1.daumcdn.net/cfile/tistory/213C9A345225669622' },
     { src: 'https://img.siksinhot.com/article/1613970568705496.jpg' },
@@ -38,18 +40,25 @@ const SearchTypeList = () => {
         <Header _type="search" _back _content="검색 결과" _map _search />
         {/* <SelectedCategory tag={selected[0]} /> */}
         <ContentsTitle title="실내" />
-        <Slick>
-          {srcList.map(item => {
-            return <ListCard {...item} />;
-          })}
-        </Slick>
-        <ContentsTitle title="실외에서 시원한 바람과 함께" />
-        <Slick>
-          {srcList.map(item => {
-            return <ListCard {...item} />;
-          })}
-        </Slick>
+        <Grid>
+          <Slick>
+            {inSideList &&
+              inSideList.map(info => {
+                return <ListCard info={info} />;
+              })}
+          </Slick>
+        </Grid>
+        <Grid padding="0 0 74px 0">
+          <ContentsTitle title="실외에서 시원한 바람과 함께" />
+          <Slick>
+            {outSideList &&
+              outSideList.map(info => {
+                return <ListCard info={info} />;
+              })}
+          </Slick>
+        </Grid>
       </Container>
+      <Navbar />
     </>
   );
 };

@@ -85,19 +85,22 @@ const ListCard = props => {
   return (
     <>
       <Grid width="247px" height="306px" _onClick={gotoDetail}>
-        <Image src={src} />
+        <Image src={info && info.post_images} />
       </Grid>
       <Grid margin="16px 0 0 0">
         <Text fontSize="16px" color="#272727" bold>
-          {title}
+          {info && info.title}
         </Text>
       </Grid>
       <Grid margin="6px 0 0 0" isFlex>
+        <Grid width="15px" height="16px" margin="0 4px 0 0">
+          <Image src={like} />
+        </Grid>
         <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
-          ♥︎{likeCnt}
+          {info && info.like_cnt}
         </Text>
         <Text fontSize="14px" color="#646464">
-          {address}
+          {info && info.address_short}
         </Text>
       </Grid>
     </>

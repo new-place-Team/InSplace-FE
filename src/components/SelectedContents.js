@@ -9,7 +9,6 @@ const SelectedContents = props => {
   // const buttonRef = React.useRef();
 
   const selectedBtn = (text, type, value) => {
-    console.log('click', text, type, value);
     if (type === 'MemberCnt') {
       setState({ ...state, MemberCnt: { selected: text, value } });
     } else if (type === 'gender') {

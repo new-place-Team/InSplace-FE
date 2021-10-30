@@ -66,7 +66,6 @@ const SelectedType = () => {
       window.alert('모두 입력해주세요');
       return;
     }
-    console.log('aa list == ', state);
     const params = {
       weather: 1,
       category: state.category.value,

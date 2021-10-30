@@ -26,7 +26,7 @@ const Map = props => {
   return (
     <>
       <MapContainer width={width} height={height} ref={mapDiv} />
-      {isLoaded === true ? <Spinner /> : null}
+      {/* {isLoaded === true ? <Spinner /> : null} */}
     </>
   );
 };

@@ -1,8 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import styled from 'styled-components';
 import { Grid, Text, Image } from '../elements';
 import { mapPin, vector } from '../images/index';
 import { getWeatherText } from '../shared/transferText';
+import { ReactComponent as SunIcon } from '../images/weather/sun.svg';
+import { ReactComponent as RainIcon } from '../images/weather/rain.svg';
+import { ReactComponent as SnowIcon } from '../images/weather/snow.svg';
 
 const WeatherBox = props => {
   const { info } = props;
@@ -39,11 +43,22 @@ const WeatherBox = props => {
         </Grid>
         {/* 날씨 이미지 */}
         <Grid width="64px" height="58px">
-          <Image src={vector} />
+          {/* <Image src={vector} /> */}
+          <IconArea>
+            {info && info.status === 1 && <SunIcon />}
+            {info && info.status === 2 && <RainIcon />}
+            {info && info.status === 3 && <SnowIcon />}
+          </IconArea>
         </Grid>
       </Grid>
     </>
   );
 };
+
+const IconArea = styled.div`
+  svg {
+    font-size: 14px;
+  }
+`;
 
 export default WeatherBox;

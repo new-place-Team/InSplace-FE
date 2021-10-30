@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import { Grid, Text } from '../elements';
+import { Container, Grid, Text } from '../elements';
 import Header from '../components/Header';
 import SelectedCategory from '../components/SelectedCategory';
 import Map from '../components/Map';
@@ -40,10 +40,10 @@ const Detail = () => {
   ];
 
   return (
-    <>
+    <Container padding="0">
       <Grid bg="#F5F5F5">
         <EntireImage src={detailData.post_images}>
-          <Header search map content="상세보기" color="#fff" />
+          <Header _type="search" _back _like _share />
         </EntireImage>
         {/* 상세 페이지 */}
         <InfoGrid>
@@ -72,7 +72,7 @@ const Detail = () => {
             <Grid margin="0 0 35px 0">
               <Map
                 coordinate={currentCoordinate}
-                width="328px"
+                width="100%"
                 height="191px"
                 markerdata={markerdata}
               />
@@ -90,7 +90,7 @@ const Detail = () => {
           </Grid>
         </InfoGrid>
       </Grid>
-    </>
+    </Container>
   );
 };
 
@@ -102,12 +102,11 @@ const EntireImage = styled.div`
   top: 0%; */
   background-image: url('${props => props.src}');
   background-size: cover;
-  z-index: 5;
 `;
 
 const InfoGrid = styled.div`
   position: relative;
-  left: 24px;
+  /* left: 24px; */
   top: -70px;
   background-color: transparent;
   z-index: 10;

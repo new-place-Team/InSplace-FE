@@ -29,7 +29,6 @@ const placeSlice = createSlice({
       console.log(payload);
     },
     [getSearchConditionDB.fulfilled]: (state, { payload }) => {
-      console.log('payload', payload);
       state.conditionPlaces = payload;
     },
   },

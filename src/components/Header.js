@@ -3,10 +3,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { history } from '../redux/configureStore';
 import { Grid, Text } from '../elements/index';
-import { chevronLeft, map, search, close } from '../images/index';
+import { chevronLeft, map, search, close, like, share } from '../images/index';
 
 const Header = props => {
-  const { _type, _back, _search, _content, _map, _close } = props;
+  const { _type, _back, _search, _content, _map, _close, _like, _share } =
+    props;
   const type = _type === 'search';
 
   return (
@@ -16,7 +17,7 @@ const Header = props => {
           <Grid isFlex>
             {_back && (
               <>
-                <Grid>
+                <Grid margin="0 13px 0 0">
                   <Icon src={chevronLeft} onClick={() => history.go(-1)} />
                 </Grid>
               </>
@@ -29,7 +30,7 @@ const Header = props => {
           </Grid>
           <Grid isFlex>
             {_map && (
-              <Grid>
+              <Grid margin="0 20px 0 0">
                 <Icon src={map} />
               </Grid>
             )}
@@ -41,6 +42,16 @@ const Header = props => {
             {_close && (
               <Grid>
                 <Icon src={close} />
+              </Grid>
+            )}
+            {_like && (
+              <Grid>
+                <Icon src={like} />
+              </Grid>
+            )}
+            {_share && (
+              <Grid>
+                <Icon src={share} />
               </Grid>
             )}
           </Grid>

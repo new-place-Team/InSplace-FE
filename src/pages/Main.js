@@ -12,15 +12,27 @@ import ContentsTitle from '../components/ContentsTitle';
 import { Grid, Button, Text } from '../elements';
 import { getMainListDB } from '../redux/async/place';
 import Navbar from '../components/Navbar';
+import sunBg from '../images/weather/sun1.jpg';
+import rainBg from '../images/weather/rain1.jpg';
+import snowBg from '../images/weather/snow1.jpg';
 
 const Main = () => {
   const dispatch = useDispatch();
   const mainLists = useSelector(state => state.place.mainLists);
-  console.log(mainLists);
-  const weatherList = mainLists.weatherPlace;
   const likeList = mainLists.likePlace;
   const pickList = mainLists.pickPlace;
+  const weatherList = mainLists.weatherPlace;
   const weatherInfo = mainLists.weather;
+  let weatherBg = '';
+  if (weatherInfo) {
+    if (weatherInfo.status === 2) {
+      weatherBg = rainBg;
+    } else if (weatherInfo.status === 3) {
+      weatherBg = snowBg;
+    } else {
+      weatherBg = sunBg;
+    }
+  }
   useEffect(() => {
     dispatch(getMainListDB());
   }, []);
@@ -29,7 +41,7 @@ const Main = () => {
     <>
       <Grid>
         <BgArea>
-          <Bg />
+          <Bg src={weatherBg} />
         </BgArea>
         <Section>
           <Container>
@@ -121,7 +133,8 @@ const Bg = styled.div`
   height: 552px;
   position: absolute;
   top: 0;
-  background-image: url('https://images.pexels.com/photos/110874/pexels-photo-110874.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  background-image: url('${props => props.src}');
+  background-size: cover;
   z-index: -1;
 `;
 
