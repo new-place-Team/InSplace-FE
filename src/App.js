@@ -15,6 +15,8 @@ import SearchTypeList from './pages/SearchTypeList';
 import SearchList from './pages/SearchList';
 import SelectedType from './pages/SelectedType';
 import Detail from './pages/Detail';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 // import Navbar from './components/Navbar';
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
           <Route path="/searchlist" exact component={SearchList} />
           <Route path="/selectedtype" exact component={SelectedType} />
           <Route path="/detail/:id" exact component={Detail} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/signup" exact component={Signup} />
         </Switch>
         {/* <Navbar /> */}
       </ThemeProvider>

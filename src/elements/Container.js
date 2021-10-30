@@ -15,6 +15,7 @@ Container.defaultProps = {
   padding: '0 24px',
 };
 const ContainerWrap = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
