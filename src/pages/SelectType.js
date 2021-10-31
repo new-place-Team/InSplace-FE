@@ -72,7 +72,7 @@ const SelectedType = () => {
       gender: state.gender.value,
     };
     dispatch(getSearchConditionDB(params));
-    history.push('/searchtypelist');
+    history.push('/select/type/result');
   };
 
   return (
