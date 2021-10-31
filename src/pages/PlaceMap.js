@@ -3,12 +3,12 @@
 import React, { useState } from 'react';
 import { Grid } from '../elements';
 import { useSelector } from 'react-redux';
-import { MapSlick } from '../components/MapSlick';
+import { MapSlick } from '../components/map/MapSlick';
 import { markerdata } from '../shared/MarkerData';
-import MapCard from '../components/MapCard';
-import Map from '../components/Map';
-import Header from '../components/Header';
-import SelectedCategory from '../components/SelectedCategory';
+import MapCard from '../components/map/MapCard';
+import Map from '../components/map/Map';
+import Header from '../components/common/Header';
+import SelectedCategory from '../components/place/SelectedCategory';
 
 const MapContainer = () => {
   // SelectedCategory 데이터

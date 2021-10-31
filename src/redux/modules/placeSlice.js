@@ -1,13 +1,18 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { getMainListDB, getSearchConditionDB } from '../async/place';
+import {
+  getMainListDB,
+  getSearchConditionDB,
+  getPlaceDetailDB,
+} from '../async/place';
 
 /* init */
 const initialState = {
   mainLists: {},
   weatherList: [],
   conditionPlaces: {},
+  detailInfo: {},
 };
 
 const placeSlice = createSlice({
@@ -28,8 +33,13 @@ const placeSlice = createSlice({
     [getMainListDB.rejected]: (state, { payload }) => {
       console.log(payload);
     },
+    /* 타입별 검색 처리 완료 */
     [getSearchConditionDB.fulfilled]: (state, { payload }) => {
       state.conditionPlaces = payload;
+    },
+    /* 장소 상세 조회 처리 완료 */
+    [getPlaceDetailDB.fulfilled]: (state, { payload }) => {
+      state.detailInfo = payload;
     },
   },
 });

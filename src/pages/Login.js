@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Container, Grid, Input, Label } from '../elements';
-import Header from '../components/Header';
+import Header from '../components/common/Header';
 import { inputClose } from '../images';
 
 const Login = () => {

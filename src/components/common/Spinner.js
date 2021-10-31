@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { share } from '../images/index';
+import { share } from '../../images/index';
 
 const Spinner = props => {
   return (

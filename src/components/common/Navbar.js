@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { history } from '../redux/configureStore';
-import { Image } from '../elements/index';
-import { home, vector, sliders, user, heart } from '../images/index';
+import { history } from '../../redux/configureStore';
+import { Image } from '../../elements/index';
+import { home, vector, sliders, user, heart } from '../../images/index';
 
 const Navbar = () => {
   return (
@@ -15,7 +15,7 @@ const Navbar = () => {
           <Icon onClick={() => history.push('/')}>
             <Image src={home} />
           </Icon>
-          <Icon onClick={() => history.push('/selectedtype')}>
+          <Icon onClick={() => history.push('/select/type')}>
             <Image src={sliders} />
           </Icon>
           <Icon onClick={() => window.alert('서비스 준비중 입니다.')}>

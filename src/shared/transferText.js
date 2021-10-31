@@ -68,7 +68,7 @@ const getPeopleText = type => {
 };
 
 /**
- * 타입별 듀오유형 텍스트 변경
+ * 타입별 듀오 유형 텍스트 변경
  * @param type 1.여자끼리 2.남자끼리 3.혼성
  * @returns
  */

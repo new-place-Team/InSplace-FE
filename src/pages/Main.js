@@ -4,14 +4,14 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { history } from '../redux/configureStore';
-import { Slick } from '../components/Slick';
-import WeatherBox from '../components/WeatherBox';
-import ListCard from '../components/ListCard';
-import Header from '../components/Header';
-import ContentsTitle from '../components/ContentsTitle';
+import { Slick } from '../components/common/Slick';
+import WeatherBox from '../components/main/WeatherBox';
+import ListCard from '../components/place/ListCard';
+import Header from '../components/common/Header';
+import ContentsTitle from '../components/common/ContentsTitle';
 import { Grid, Button, Text } from '../elements';
 import { getMainListDB } from '../redux/async/place';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/common/Navbar';
 import sunBg from '../images/weather/sun1.jpg';
 import rainBg from '../images/weather/rain1.jpg';
 import snowBg from '../images/weather/snow1.jpg';
@@ -52,7 +52,7 @@ const Main = () => {
               bg="#fff"
               color="#000"
               margin="37px 0 50px 0"
-              _onClick={() => history.push('/selectedtype')}
+              _onClick={() => history.push('/select/type')}
             >
               <Text fontSize="16px" bold>
                 장소 추천 받기 &gt;

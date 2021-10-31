@@ -10,11 +10,11 @@ import { history } from './redux/configureStore';
 import Main from './pages/Main';
 import UI from './pages/UI';
 import theme from './styles/theme';
-import DetailMap from './pages/DetailMap';
-import SearchTypeList from './pages/SearchTypeList';
-import SearchList from './pages/SearchList';
-import SelectedType from './pages/SelectedType';
-import Detail from './pages/Detail';
+import PlaceMap from './pages/PlaceMap';
+import SelectTypeResult from './pages/SelectTypeResult';
+import PlaceList from './pages/PlaceList';
+import SelectType from './pages/SelectType';
+import PlaceDetail from './pages/PlaceDetail';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 // import Navbar from './components/Navbar';
@@ -26,11 +26,15 @@ function App() {
         <Switch>
           <Route path="/" exact component={Main} />
           <Route path="/ui" exact component={UI} />
-          <Route path="/map" exact component={DetailMap} />
-          <Route path="/searchtypelist" exact component={SearchTypeList} />
-          <Route path="/searchlist" exact component={SearchList} />
-          <Route path="/selectedtype" exact component={SelectedType} />
-          <Route path="/detail/:id" exact component={Detail} />
+          <Route path="/select/type" exact component={SelectType} />
+          <Route
+            path="/select/type/result"
+            exact
+            component={SelectTypeResult}
+          />
+          <Route path="/place/map" exact component={PlaceMap} />
+          <Route path="/place/list" exact component={PlaceList} />
+          <Route path="/place/detail/:id" exact component={PlaceDetail} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
         </Switch>

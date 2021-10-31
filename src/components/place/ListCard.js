@@ -6,10 +6,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Grid, Image, Text } from '../elements/index';
-import { like } from '../images/index';
-import { getCategoryText } from '../shared/transferText';
-import { history } from '../redux/configureStore';
+import { Grid, Image, Text } from '../../elements/index';
+import { like } from '../../images/index';
+import { getCategoryText } from '../../shared/transferText';
+import { history } from '../../redux/configureStore';
 
 const ListCard = props => {
   const { type, title, likeCnt, address, category, src, info } = props;
@@ -19,7 +19,7 @@ const ListCard = props => {
 
   // 디테일 페이지로 이동
   const gotoDetail = () => {
-    history.push(`/detail/${postId}`);
+    history.push(`/place/detail/${postId}`);
   };
 
   /* 메인 카드 */
