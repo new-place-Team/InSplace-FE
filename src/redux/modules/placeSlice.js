@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
@@ -13,6 +14,7 @@ const initialState = {
   weatherList: [],
   conditionPlaces: {},
   detailInfo: {},
+  userSelectType: {},
 };
 
 const placeSlice = createSlice({
