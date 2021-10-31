@@ -1,9 +1,16 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import { history } from '../redux/configureStore';
-import { Grid, Text } from '../elements/index';
-import { chevronLeft, map, search, close, like, share } from '../images/index';
+import { history } from '../../redux/configureStore';
+import { Grid, Text } from '../../elements/index';
+import {
+  chevronLeft,
+  map,
+  search,
+  close,
+  like,
+  share,
+} from '../../images/index';
 
 const Header = props => {
   const { _type, _back, _search, _content, _map, _close, _like, _share } =

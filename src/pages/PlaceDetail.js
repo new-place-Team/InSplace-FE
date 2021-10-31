@@ -1,17 +1,19 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { Container, Grid, Text } from '../elements';
-import Header from '../components/Header';
-import SelectedCategory from '../components/SelectedCategory';
-import Map from '../components/Map';
-import { getDetail } from '../shared/api/detailApi';
+import Header from '../components/common/Header';
+import SelectedCategory from '../components/place/SelectedCategory';
+import Map from '../components/map/Map';
+import { getPlaceDetailDB } from '../redux/async/place';
 
 const Detail = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
-  const [detailData, setDetailData] = useState({});
+  const detailData = useSelector(state => state.place.detailInfo);
   const markerdata = [
     {
       title: detailData.title,
@@ -24,13 +26,9 @@ const Detail = () => {
     longitude: detailData.post_loc_x,
   };
 
-  useEffect(async () => {
-    try {
-      const res = await getDetail(id);
-      setDetailData(res.data.payload);
-    } catch (e) {
-      console.log('error ? :::::: ', e);
-    }
+  useEffect(() => {
+    dispatch(getPlaceDetailDB(id));
+    window.scrollTo(0, 0);
   }, []);
   const tag = [
     { tag: '비가오는 날' },

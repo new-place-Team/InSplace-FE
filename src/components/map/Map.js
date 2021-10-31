@@ -1,10 +1,10 @@
 /* eslint-disable */
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { mapscript } from '../shared/utils';
+import { mapscript } from '../../shared/utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLoaded } from '../redux/modules/loadedSlice';
-import Spinner from '../components/Spinner';
+import { getLoaded } from '../../redux/modules/loadedSlice';
+import Spinner from '../common/Spinner';
 
 const Map = props => {
   // 카카오지도를 담을 div를 잡아줌.

@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import { Grid, Image, Text } from '../elements';
+import { Grid, Image, Text } from '../../elements';
 
 const MapCard = props => {
   const { el } = props;

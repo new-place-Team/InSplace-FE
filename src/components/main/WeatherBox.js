@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import { Grid, Text, Image } from '../elements';
-import { mapPin, vector } from '../images/index';
-import { getWeatherText } from '../shared/transferText';
-import { ReactComponent as SunIcon } from '../images/weather/sun.svg';
-import { ReactComponent as RainIcon } from '../images/weather/rain.svg';
-import { ReactComponent as SnowIcon } from '../images/weather/snow.svg';
+import { Grid, Text, Image } from '../../elements';
+import { mapPin, vector } from '../../images/index';
+import { getWeatherText } from '../../shared/transferText';
+import { ReactComponent as SunIcon } from '../../images/weather/sun.svg';
+import { ReactComponent as RainIcon } from '../../images/weather/rain.svg';
+import { ReactComponent as SnowIcon } from '../../images/weather/snow.svg';
 
 const WeatherBox = props => {
   const { info } = props;

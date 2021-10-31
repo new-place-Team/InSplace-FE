@@ -2,7 +2,11 @@
 /* eslint-disable consistent-return */
 /* eslint-disable prettier/prettier */
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getMainList, getSearchCondition } from '../../shared/api/placeApi';
+import {
+  getMainList,
+  getSearchCondition,
+  getPlaceDetail,
+} from '../../shared/api/placeApi';
 
 /* 메인 리스트 호출 */
 export const getMainListDB = createAsyncThunk(
@@ -25,6 +29,21 @@ export const getSearchConditionDB = createAsyncThunk(
   async (params, thunkAPI) => {
     try {
       const response = await getSearchCondition(params);
+      if (response) {
+        return response.data.payload;
+      }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);
+
+/* 장소 상세 조회 */
+export const getPlaceDetailDB = createAsyncThunk(
+  'place/detail',
+  async (params, thunkAPI) => {
+    try {
+      const response = await getPlaceDetail(params);
       if (response) {
         return response.data.payload;
       }
