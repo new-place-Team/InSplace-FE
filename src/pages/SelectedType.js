@@ -8,7 +8,6 @@ import Header from '../components/Header';
 import SelectedContents from '../components/SelectedContents';
 import { Grid, Text } from '../elements/index';
 import { arrowRight } from '../images/index';
-import { getSelected } from '../redux/modules/selected';
 import { history } from '../redux/configureStore';
 import { getSearchConditionDB } from '../redux/async/place';
 
