@@ -35,8 +35,8 @@ const SelectedType = () => {
     {
       title: '원하시는 유형을 선택해 주세요',
       list: [
-        { selected: '여자끼리', value: 2 },
-        { selected: '남자끼리', value: 1 },
+        { selected: '여자', value: 2 },
+        { selected: '남자', value: 1 },
         { selected: '혼성', value: 3 },
       ],
       type: 'gender',
@@ -82,17 +82,17 @@ const SelectedType = () => {
           <Header _content="유형선택" _back _type="search" />
         </div>
         <ChangeText>
-          {state.MemberCnt !== '' && (
-            <Grid>
-              <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                {state.MemberCnt.selected},
-              </Text>
-            </Grid>
-          )}
           {state.gender !== '' && (
             <Grid isFlex margin="0 10px">
               <Text bold fontSize="20px" border="2px solid #C0C0C0">
                 {state.gender.selected}
+              </Text>
+            </Grid>
+          )}
+          {state.MemberCnt !== '' && (
+            <Grid>
+              <Text bold fontSize="20px" border="2px solid #C0C0C0">
+                {state.MemberCnt.selected},
               </Text>
             </Grid>
           )}
