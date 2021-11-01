@@ -88,9 +88,9 @@ const Signup = () => {
               <Label type="form">MBTI</Label>
               <Grid>
                 <Select>
-                  <option>1</option>
-                  <option>3</option>
-                  <option>4</option>
+                  <Option value="1">1</Option>
+                  <Option value="2">2</Option>
+                  <Option value="3">3</Option>
                 </Select>
               </Grid>
             </Wrap>
@@ -139,6 +139,10 @@ const Select = styled.select`
   width: 100%;
   padding: 10px;
   border: 1px solid red;
+`;
+
+const Option = styled(Select)`
+  padding: 10px;
 `;
 const Button = styled.button`
   width: 100%;

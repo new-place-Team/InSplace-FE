@@ -72,7 +72,7 @@ const SelectedType = () => {
       gender: state.gender.value,
     };
     dispatch(getSearchConditionDB(params));
-    history.push('/searchtypelist');
+    history.push('/select/type/result');
   };
 
   return (
@@ -150,6 +150,7 @@ const ChangeText = styled.div`
   /* height: 105px; */
   padding: 17px 16px;
 `;
+
 const LineBreak = styled.div`
   width: 100%;
   margin-top: 10px;

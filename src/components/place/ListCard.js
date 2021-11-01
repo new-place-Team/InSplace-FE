@@ -4,8 +4,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
-
 import { Grid, Image, Text } from '../../elements/index';
 import { like } from '../../images/index';
 import { getCategoryText } from '../../shared/transferText';
