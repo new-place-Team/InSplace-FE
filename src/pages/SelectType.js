@@ -3,23 +3,56 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
 import Header from '../components/common/Header';
 import SelectedContents from '../components/place/SelectedContents';
 import { Container, Grid, Text } from '../elements/index';
 import { arrowRight } from '../images/index';
 import { history } from '../redux/configureStore';
-import { getSearchConditionDB } from '../redux/async/place';
+
+const data = [
+  {
+    title: '나와 함께할 사람들은',
+    list: [
+      { selected: '한명', value: 1 },
+      { selected: '두명', value: 2 },
+      { selected: '네명 미만', value: 3 },
+      { selected: '네명 이상', value: 4 },
+    ],
+    type: 'MemberCnt',
+    grid: 2,
+  },
+  {
+    title: '원하시는 유형을 선택해 주세요',
+    list: [
+      { selected: '여자끼리', value: 2 },
+      { selected: '남자끼리', value: 1 },
+      { selected: '혼성', value: 3 },
+    ],
+    type: 'gender',
+    grid: 0,
+  },
+  {
+    title: '장소를 선택해주세요',
+    list: [
+      { selected: '여행', value: 1 },
+      { selected: '맛집', value: 2 },
+      { selected: '카페', value: 3 },
+      { selected: '예술', value: 4 },
+      { selected: '액티비티', value: 5 },
+    ],
+    type: 'category',
+    grid: 3,
+  },
+];
 
 const SelectedType = () => {
-  const dispatch = useDispatch();
-
   const [state, setState] = React.useState({
     MemberCnt: '',
     gender: '',
     category: '',
   });
 
+<<<<<<< HEAD
   const data = [
     {
       title: '나와 함께할 사람들은',
@@ -56,6 +89,8 @@ const SelectedType = () => {
     },
   ];
 
+=======
+>>>>>>> 1e0e6b2a6cd20aacf2a2e6447985f1d794d62391
   const onClick = () => {
     if (
       state.gender === '' ||
@@ -71,8 +106,12 @@ const SelectedType = () => {
       num: state.MemberCnt.value,
       gender: state.gender.value,
     };
-    dispatch(getSearchConditionDB(params));
-    history.push('/select/type/result');
+
+    // 유저가 선택한 유형을 history state에 담아서 보낸다.
+    history.push({
+      pathname: '/select/type/result',
+      state: params,
+    });
   };
 
   return (
