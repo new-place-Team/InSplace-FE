@@ -3,15 +3,19 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = props => {
-  const { children } = props;
+  const { children, padding } = props;
   return (
     <ContainerWrap>
-      <Wrap>{children}</Wrap>
+      <Wrap padding={padding}>{children}</Wrap>
     </ContainerWrap>
   );
 };
 
+Container.defaultProps = {
+  padding: '0 24px',
+};
 const ContainerWrap = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,7 +23,7 @@ const ContainerWrap = styled.div`
 const Wrap = styled.div`
   width: 375px;
   height: 100vh;
-  padding: 0 24px;
+  padding: ${props => props.padding};
   border: 1px solid #f4f4f4;
 `;
 
