@@ -1,25 +1,77 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Calog",
+  "name": "Calog",
   "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+    { 
+      "src": "/icons/calog192.png",
+      "sizes": "57x57",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "logo192.png",
+      "src": "/icons/calog192.png",
+      "sizes": "60x60",
       "type": "image/png",
-      "sizes": "192x192"
+      "purpose": "any maskable"
     },
     {
-      "src": "logo512.png",
+      "src": "/icons/calog192.png",
+      "sizes": "72x72",
       "type": "image/png",
-      "sizes": "512x512"
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/calog192.png",
+      "sizes": "76x76",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/calog192.png",
+      "sizes": "114x114",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/calog192.png",
+      "sizes": "120x120",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+
+    {
+      "src": "/icons/calog192.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/calog192.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/calog192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/calog512.jpg",
+      "sizes": "310x310",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/calog512.jpg",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF"
 }

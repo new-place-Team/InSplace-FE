@@ -2,46 +2,66 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <script
-      type="text/javascript"
-      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=%REACT_APP_KAKAO_MAP_KEY%
-      "
-    ></script>
-
+    <link rel="icon" href="%PUBLIC_URL%/icons/calog192.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <meta name="theme-color" content="#FFFFFF" />
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <meta name="title" property="og:title" content="Calog" />
+    <meta name="description" property="og:description" content="칼로리를 등록하고 기록해보세요!"/>
+    <meta name="image" property="og:image" content="%PUBLIC_URL%/icons/helmet.png" />
+    <meta name="url" property="og:url" content="https://www.calog.app/" />
+
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/icons/calog.jpg" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>Calog</title>
+    
+    <!-- pwa -->
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="%PUBLIC_URL%/icons/calog192.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="%PUBLIC_URL%/icons/calog192.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="%PUBLIC_URL%/icons/calog192.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="%PUBLIC_URL%/icons/calog192.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="%PUBLIC_URL%/icons/calog192.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="%PUBLIC_URL%/icons/calog192.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="%PUBLIC_URL%/icons/calog192.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="%PUBLIC_URL%/icons/calog192.png" />
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/icons/calog192.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/icons/calog192.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/icons/calog192.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/icons/calog192.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/icons/calog192.png" sizes="128x128" />
+    <meta name="apple-mobile-web-app-title" content="Calog" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="&nbsp;"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="mstile-144x144.png" />
+    <meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
   </head>
   <body>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker
+          .register('/service-worker.js')
+          // .then(
+          //   function (registration) {
+          //     console.log('Worker registration successful', registration.scope);
+          //   },
+          //   function (err) {
+          //     console.log('Worker registration failed', err);
+          //   },
+          // )
+          // .catch(function (err) {
+          //   console.log(err);
+          // });
+      });
+    } else {
+      console.log('Service Worker is not supported by browser.');
+    }
+  </script>
 </html>
