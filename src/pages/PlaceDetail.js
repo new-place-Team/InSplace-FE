@@ -38,13 +38,13 @@ const Detail = () => {
     { tag: '데이트' },
   ];
   return (
-    <Container>
+    <Container padding="0">
       <Grid bg="#F5F5F5">
         <EntireImage src={detailData.post_images}>
-          <Header _type="search" _back _like _share />
+          <Header _type="search" _back />
         </EntireImage>
         {/* 상세 페이지 */}
-        <InfoGrid>
+        {/* <InfoGrid>
           <Grid>
             <ToggleBtn>가본 곳 인가요?</ToggleBtn>
           </Grid>
@@ -86,20 +86,19 @@ const Detail = () => {
             </Text>
             <Text fontSize="13px">평일 11:30 ~ 24:00 매주</Text>
           </Grid>
-        </InfoGrid>
+        </InfoGrid> */}
       </Grid>
     </Container>
   );
 };
 
 const EntireImage = styled.div`
+  position: relative;
   width: 100%;
   height: 504px;
-  position: relative;
-  /* right: 0%;
-  top: 0%; */
   background-image: url('${props => props.src}');
   background-size: cover;
+  background-repeat: no-repeat;
 `;
 
 const InfoGrid = styled.div`

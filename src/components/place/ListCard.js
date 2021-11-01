@@ -5,7 +5,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Grid, Image, Text } from '../../elements/index';
-import { like } from '../../images/index';
+import { heartFilled } from '../../images/index';
 import { getCategoryText } from '../../shared/transferText';
 import { history } from '../../redux/configureStore';
 
@@ -40,7 +40,7 @@ const ListCard = props => {
         </Grid>
         <Grid margin="6px 0 0 0" isFlex width="100%">
           <Grid width="15px" height="16px" margin="0 4px 0 0">
-            <Image src={like} />
+            <Image src={heartFilled} />
           </Grid>
           <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
             {info && info.like_cnt}
@@ -93,7 +93,7 @@ const ListCard = props => {
       </Grid>
       <Grid margin="6px 0 0 0" isFlex>
         <Grid width="15px" height="16px" margin="0 4px 0 0">
-          <Image src={like} />
+          <Image src={heartFilled} />
         </Grid>
         <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
           {info && info.like_cnt}

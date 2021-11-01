@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Container, Grid, Input, Label } from '../elements';
 import Header from '../components/common/Header';
-import { inputClose } from '../images';
+import { close } from '../images';
 
 const Login = () => {
   const [state, setState] = React.useState({
@@ -48,7 +48,7 @@ const Login = () => {
             _onChange={onChange}
             placeholder="이메일 주소를 입력해주세요"
           />
-          {buttonStatus.emailStatus && <InputCloseButton src={inputClose} />}
+          {buttonStatus.emailStatus && <InputCloseButton src={close} />}
         </Wrap>
         <Wrap>
           <Label type="form">비밀번호</Label>
@@ -60,7 +60,7 @@ const Login = () => {
             _onChange={onChange}
             placeholder="비밀번호를 입력해주세요"
           />
-          {buttonStatus.pwStatus && <InputCloseButton src={inputClose} />}
+          {buttonStatus.pwStatus && <InputCloseButton src={close} />}
         </Wrap>
       </Grid>
       <BottomWrap>

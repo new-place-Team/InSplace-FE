@@ -24,6 +24,7 @@ const ContainerWrap = styled.div`
   min-height: ${({ height }) => height || '100vh'};
   margin: 0 auto;
   padding: ${({ padding }) => padding || '0 24px'};
+  border: 1px solid red;
 `;
 
 export default Container;
