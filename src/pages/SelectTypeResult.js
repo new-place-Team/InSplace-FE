@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,14 +8,24 @@ import ListCard from '../components/place/ListCard';
 import ContentsTitle from '../components/common/ContentsTitle';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
+import { getSearchConditionDB } from '../redux/async/place';
 
-const SearchTypeList = () => {
+const SearchTypeList = history => {
   const conditionPlaces = useSelector(state => state.place.conditionPlaces);
+  const dispatch = useDispatch();
   const inSideList = conditionPlaces && conditionPlaces.insidePlaces;
   const outSideList = conditionPlaces && conditionPlaces.outSidePlaces;
   // list에 image가 1개만 내려올 경우, slick 컴포넌트 분기처리를 위한 변수 설정
   const inSideLength = inSideList && inSideList.length === 1;
   const outSideLength = outSideList && outSideList.length === 1;
+
+  useEffect(() => {
+    // 유저가 선택한 유형 결과에서 새로고침 했을 경우를 대비
+    const params = history.location.state;
+    if (inSideList === undefined && outSideList === undefined) {
+      dispatch(getSearchConditionDB(params));
+    }
+  }, []);
 
   return (
     <>

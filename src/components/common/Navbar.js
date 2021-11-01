@@ -31,15 +31,25 @@ const Navbar = () => {
 };
 
 const Nav = styled.div`
+  width: 100%;
+  height: 80px;
+  position: fixed;
+  bottom: 0;
+  background-color: royalblue;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const Content = styled.div`
-  position: fixed;
+  width: 100%;
+  max-width: 768px;
   bottom: 0;
+  height: 80px;
   background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Wrap = styled.div`
@@ -47,8 +57,8 @@ const Wrap = styled.div`
   grid-template-columns: repeat(5, 1fr);
   justify-items: center;
   align-items: center;
-  width: 375px;
-  height: 52px;
+  width: 100%;
+  height: 80px;
 `;
 
 const Icon = styled.div`
