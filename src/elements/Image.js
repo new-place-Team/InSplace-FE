@@ -30,9 +30,9 @@ const Image = props => {
   }
 
   return (
-    <>
+    <DefaultGrid {...styles}>
       <DefaultImage {...styles} />
-    </>
+    </DefaultGrid>
   );
 };
 
@@ -45,6 +45,11 @@ Image.defaultProps = {
 };
 
 // 기본 사각 이미지들
+const DefaultGrid = styled.div`
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
+  margin: ${({ margin }) => margin || '0'};
+`;
 const DefaultImage = styled.img`
   width: 100%;
   height: 100%;

@@ -27,6 +27,10 @@ import settings from './ic-settings.svg';
 import share from './ic-share.svg';
 import write from './ic-write.svg';
 import xcircle from './ic-xcircle.svg';
+import pin from './ic-pin.svg';
+import bad from './ic-bad.svg';
+import good from './ic-good.svg';
+import next from './ic-next.svg';
 
 export {
   bookmark,
@@ -45,4 +49,8 @@ export {
   vector,
   sliders,
   user,
+  pin,
+  bad,
+  good,
+  next,
 };
