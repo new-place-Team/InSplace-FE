@@ -35,56 +35,40 @@ const Login = () => {
     }
   }, [state]);
   return (
-    <FormWrap>
-      <Box>
-        <Container>
-          <Header _back _content="로그인" />
-          <Grid margin="42px 0 0 0">
-            <Wrap>
-              <Label type="form">이메일</Label>
-              <Input
-                inputType="form"
-                type="text"
-                value={state.email}
-                name="email"
-                _onChange={onChange}
-                placeholder="이메일 주소를 입력해주세요"
-              />
-              {buttonStatus.emailStatus && (
-                <InputCloseButton src={inputClose} />
-              )}
-            </Wrap>
-            <Wrap>
-              <Label type="form">비밀번호</Label>
-              <Input
-                inputType="form"
-                type="password"
-                value={state.password}
-                name="password"
-                _onChange={onChange}
-                placeholder="비밀번호를 입력해주세요"
-              />
-              {buttonStatus.pwStatus && <InputCloseButton src={inputClose} />}
-            </Wrap>
-          </Grid>
-          <BottomWrap>
-            <Button type="fullSizeBlack">로그인</Button>
-          </BottomWrap>
-        </Container>
-      </Box>
-    </FormWrap>
+    <Container>
+      <Header _back _content="로그인" />
+      <Grid margin="42px 0 0 0">
+        <Wrap>
+          <Label type="form">이메일</Label>
+          <Input
+            inputType="form"
+            type="text"
+            value={state.email}
+            name="email"
+            _onChange={onChange}
+            placeholder="이메일 주소를 입력해주세요"
+          />
+          {buttonStatus.emailStatus && <InputCloseButton src={inputClose} />}
+        </Wrap>
+        <Wrap>
+          <Label type="form">비밀번호</Label>
+          <Input
+            inputType="form"
+            type="password"
+            value={state.password}
+            name="password"
+            _onChange={onChange}
+            placeholder="비밀번호를 입력해주세요"
+          />
+          {buttonStatus.pwStatus && <InputCloseButton src={inputClose} />}
+        </Wrap>
+      </Grid>
+      <BottomWrap>
+        <Button type="fullSizeBlack">로그인</Button>
+      </BottomWrap>
+    </Container>
   );
 };
-const FormWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
-const Box = styled.div`
-  position: relative;
-  width: 375px;
-`;
 const Wrap = styled.div`
   margin-bottom: 32px;
 `;
