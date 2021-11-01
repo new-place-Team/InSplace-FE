@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Grid, Text, Image } from '../../elements';
-import { mapPin } from '../../images/index';
+import { map } from '../../images/index';
 import { getWeatherText } from '../../shared/transferText';
 import { ReactComponent as SunIcon } from '../../images/weather/sun.svg';
 import { ReactComponent as RainIcon } from '../../images/weather/rain.svg';
@@ -15,7 +15,7 @@ const WeatherBox = props => {
       <WeatherWrap>
         <Grid>
           <Grid width="16px" height="16px">
-            <Image src={mapPin} />
+            <Image src={map} />
           </Grid>
           <Grid padding="20px 10px">
             <Grid>

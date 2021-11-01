@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import { history } from '../../redux/configureStore';
 import { Grid, Text } from '../../elements/index';
 import {
-  chevronLeft,
+  left,
   map,
   search,
   close,
-  like,
+  heartFilled,
   share,
 } from '../../images/index';
 
@@ -23,7 +23,7 @@ const Header = props => {
             {_back && (
               <>
                 <Grid margin="0 13px 0 0">
-                  <Icon src={chevronLeft} onClick={() => history.go(-1)} />
+                  <Icon src={left} onClick={() => history.go(-1)} />
                 </Grid>
               </>
             )}
@@ -51,7 +51,7 @@ const Header = props => {
             )}
             {_like && (
               <Grid>
-                <Icon src={like} />
+                <Icon src={heartFilled} />
               </Grid>
             )}
             {_share && (

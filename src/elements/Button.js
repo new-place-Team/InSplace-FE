@@ -162,8 +162,8 @@ const TagButton = styled.button`
   margin-right: 8px;
   font-size: 13px;
   font-weight: 700;
-  color: #646464;
-  background-color: #f0f0f0;
+  color: ${({ color }) => color || '#646464'};
+  background-color: ${({ bg }) => bg || ' #f0f0f0'};
   border: ${props => (props.border ? props.border : 'none')};
   &:last-child {
     margin-right: 0;

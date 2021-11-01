@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Header from '../components/common/Header';
 import SelectedContents from '../components/place/SelectedContents';
 import { Container, Grid, Text } from '../elements/index';
-import { arrowRight } from '../images/index';
+import { right } from '../images/index';
 import { history } from '../redux/configureStore';
 
 const data = [
@@ -124,7 +124,7 @@ const SelectedType = () => {
         );
       })}
       <NextButton onClick={onClick}>
-        <Img src={arrowRight} />
+        <Img src={right} />
       </NextButton>
     </Container>
   );
