@@ -13,13 +13,11 @@ import {
 } from '../../images/index';
 
 const Header = props => {
-  const { _type, _back, _search, _content, _map, _close, _like, _share } =
-    props;
-  const type = _type === 'search';
+  const { _back, _search, _content, _map, _close, _like, _share } = props;
 
   return (
-    <>
-      {type ? (
+    <HeaderBar>
+      <Content>
         <Grid justify="space-between" padding="16px 0">
           <Grid isFlex>
             {_back && (
@@ -63,38 +61,8 @@ const Header = props => {
             )}
           </Grid>
         </Grid>
-      ) : (
-        <Grid justify="space-between" padding="16px 0">
-          <Grid isFlex>
-            {_back && (
-              <Grid>
-                <Icon src={chevronLeft} />
-              </Grid>
-            )}
-            {_content && (
-              <Text fontSize="18px" bold>
-                {_content}
-              </Text>
-            )}
-            {_map && (
-              <Grid>
-                <Icon src={map} />
-              </Grid>
-            )}
-            {_search && (
-              <Grid>
-                <Icon src={search} />
-              </Grid>
-            )}
-            {_close && (
-              <Grid>
-                <Icon src={close} />
-              </Grid>
-            )}
-          </Grid>
-        </Grid>
-      )}
-    </>
+      </Content>
+    </HeaderBar>
   );
 };
 
@@ -105,6 +73,16 @@ Header.defaultProps = {
   map: false,
   close: false,
 };
+
+const HeaderBar = styled.div`
+  width: 100%;
+  position: fixed;
+  top: 0;
+`;
+
+const Content = styled.div`
+  display: flex;
+`;
 
 // const Icon = styled.div`
 //   cursor: pointer;

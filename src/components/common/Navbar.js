@@ -32,7 +32,7 @@ const Navbar = () => {
 
 const Nav = styled.div`
   width: 100%;
-  height: 80px;
+  height: 65px;
   position: fixed;
   bottom: 0;
   background-color: royalblue;
@@ -45,7 +45,7 @@ const Content = styled.div`
   width: 100%;
   max-width: 768px;
   bottom: 0;
-  height: 80px;
+  height: 65px;
   background-color: #fff;
   display: flex;
   justify-content: center;
@@ -58,7 +58,7 @@ const Wrap = styled.div`
   justify-items: center;
   align-items: center;
   width: 100%;
-  height: 80px;
+  height: 65px;
 `;
 
 const Icon = styled.div`

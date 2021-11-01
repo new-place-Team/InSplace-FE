@@ -39,10 +39,10 @@ const Main = () => {
 
   return (
     <>
+      <Header _content="Logo" _search _type="search" />
       <Container padding="0">
         <Grid>
           <Bg src={weatherBg} />
-          <Header _content="Logo" _search _type="search" />
           <WeatherBox info={weatherInfo} />
           <Button
             type="fullSizeWhite"
