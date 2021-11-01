@@ -38,77 +38,83 @@ const Main = () => {
   }, []);
 
   return (
-    <Container>
-      <Grid>
-        <Bg src={weatherBg} />
-        <Header _content="Logo" _search _type="search" />
-        <WeatherBox info={weatherInfo} />
-        <Button
-          type="fullSizeWhite"
-          bg="#fff"
-          color="#000"
-          margin="37px 0 50px 0"
-          _onClick={() => history.push('/select/type')}
-        >
-          <Text fontSize="16px" bold>
-            장소 추천 받기 &gt;
-          </Text>
-        </Button>
-        {/* 날씨에 따른 공간 */}
-        <Grid margin="0 0 48px 0">
-          <ContentsTitle title="날씨에 따른 공간" color="#fff" />
-          <Slick>
-            {weatherList &&
-              weatherList.map((info, idx) => {
-                return (
-                  <React.Fragment key={`card_${info.post_id}`}>
-                    <ListCard src={info.post_images} type="main" info={info} />
-                  </React.Fragment>
-                );
-              })}
-          </Slick>
+    <>
+      <Container padding="0">
+        <Grid>
+          <Bg src={weatherBg} />
+          <Header _content="Logo" _search _type="search" />
+          <WeatherBox info={weatherInfo} />
+          <Button
+            type="fullSizeWhite"
+            bg="#fff"
+            color="#000"
+            margin="37px 0 50px 0"
+            _onClick={() => history.push('/select/type')}
+          >
+            <Text fontSize="16px" bold>
+              장소 추천 받기 &gt;
+            </Text>
+          </Button>
+          {/* 날씨에 따른 공간 */}
+          <Grid margin="0 0 48px 0">
+            <ContentsTitle title="날씨에 따른 공간" color="#fff" />
+            <Slick>
+              {weatherList &&
+                weatherList.map((info, idx) => {
+                  return (
+                    <React.Fragment key={`card_${info.post_id}`}>
+                      <ListCard
+                        src={info.post_images}
+                        type="main"
+                        info={info}
+                      />
+                    </React.Fragment>
+                  );
+                })}
+            </Slick>
+          </Grid>
+          {/* 좋아요 순 추천 공간 */}
+          <Grid margin="0 0 48px 0">
+            <ContentsTitle title="좋아요를 많이 받은" />
+            <Slick>
+              {likeList &&
+                likeList.map((info, idx) => {
+                  return (
+                    <React.Fragment key={`card_${info.post_id}`}>
+                      <ListCard
+                        src={info.post_images}
+                        type="main"
+                        title={info.title}
+                        info={info}
+                      />
+                    </React.Fragment>
+                  );
+                })}
+            </Slick>
+          </Grid>
+          {/* 관리자 추천 공간 */}
+          <Grid padding="0 0 112px 0">
+            <ContentsTitle title="MD's PICK" />
+            <Slick>
+              {pickList &&
+                pickList.map((info, idx) => {
+                  return (
+                    <React.Fragment key={`card_${info.post_id}`}>
+                      <ListCard
+                        src={info.post_images}
+                        type="main"
+                        title={info.title}
+                        info={info}
+                      />
+                    </React.Fragment>
+                  );
+                })}
+            </Slick>
+          </Grid>
         </Grid>
-        {/* 좋아요 순 추천 공간 */}
-        <Grid margin="0 0 48px 0">
-          <ContentsTitle title="좋아요를 많이 받은" />
-          <Slick>
-            {likeList &&
-              likeList.map((info, idx) => {
-                return (
-                  <React.Fragment key={`card_${info.post_id}`}>
-                    <ListCard
-                      src={info.post_images}
-                      type="main"
-                      title={info.title}
-                      info={info}
-                    />
-                  </React.Fragment>
-                );
-              })}
-          </Slick>
-        </Grid>
-        {/* 관리자 추천 공간 */}
-        <Grid padding="0 0 112px 0">
-          <ContentsTitle title="MD's PICK" />
-          <Slick>
-            {pickList &&
-              pickList.map((info, idx) => {
-                return (
-                  <React.Fragment key={`card_${info.post_id}`}>
-                    <ListCard
-                      src={info.post_images}
-                      type="main"
-                      title={info.title}
-                      info={info}
-                    />
-                  </React.Fragment>
-                );
-              })}
-          </Slick>
-        </Grid>
-      </Grid>
+      </Container>
       <Navbar />
-    </Container>
+    </>
   );
 };
 
