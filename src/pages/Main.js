@@ -9,7 +9,7 @@ import WeatherBox from '../components/main/WeatherBox';
 import ListCard from '../components/place/ListCard';
 import Header from '../components/common/Header';
 import ContentsTitle from '../components/common/ContentsTitle';
-import { Grid, Button, Text } from '../elements';
+import { Container, Grid, Button, Text } from '../elements';
 import { getMainListDB } from '../redux/async/place';
 import Navbar from '../components/common/Navbar';
 import sunBg from '../images/weather/sun1.jpg';
@@ -38,116 +38,89 @@ const Main = () => {
   }, []);
 
   return (
-    <>
+    <Container>
       <Grid>
-        <BgArea>
-          <Bg src={weatherBg} />
-        </BgArea>
-        <Section>
-          <Container>
-            <Header _content="Logo" _search _type="search" />
-            <WeatherBox info={weatherInfo} />
-            <Button
-              type="fullSizeWhite"
-              bg="#fff"
-              color="#000"
-              margin="37px 0 50px 0"
-              _onClick={() => history.push('/select/type')}
-            >
-              <Text fontSize="16px" bold>
-                장소 추천 받기 &gt;
-              </Text>
-            </Button>
-            {/* 날씨에 따른 공간 */}
-            <Grid margin="0 0 48px 0">
-              <ContentsTitle title="날씨에 따른 공간" color="#fff" />
-              <Slick>
-                {weatherList &&
-                  weatherList.map((info, idx) => {
-                    return (
-                      <React.Fragment key={`card_${info.post_id}`}>
-                        <ListCard
-                          src={info.post_images}
-                          type="main"
-                          info={info}
-                        />
-                      </React.Fragment>
-                    );
-                  })}
-              </Slick>
-            </Grid>
-            {/* 좋아요 순 추천 공간 */}
-            <Grid margin="0 0 48px 0">
-              <ContentsTitle title="좋아요를 많이 받은" />
-              <Slick>
-                {likeList &&
-                  likeList.map((info, idx) => {
-                    return (
-                      <React.Fragment key={`card_${info.post_id}`}>
-                        <ListCard
-                          src={info.post_images}
-                          type="main"
-                          title={info.title}
-                          info={info}
-                        />
-                      </React.Fragment>
-                    );
-                  })}
-              </Slick>
-            </Grid>
-            {/* 관리자 추천 공간 */}
-            <Grid padding="0 0 112px 0">
-              <ContentsTitle title="MD's PICK" />
-              <Slick>
-                {pickList &&
-                  pickList.map((info, idx) => {
-                    return (
-                      <React.Fragment key={`card_${info.post_id}`}>
-                        <ListCard
-                          src={info.post_images}
-                          type="main"
-                          title={info.title}
-                          info={info}
-                        />
-                      </React.Fragment>
-                    );
-                  })}
-              </Slick>
-            </Grid>
-          </Container>
-        </Section>
+        <Bg src={weatherBg} />
+        <Header _content="Logo" _search _type="search" />
+        <WeatherBox info={weatherInfo} />
+        <Button
+          type="fullSizeWhite"
+          bg="#fff"
+          color="#000"
+          margin="37px 0 50px 0"
+          _onClick={() => history.push('/select/type')}
+        >
+          <Text fontSize="16px" bold>
+            장소 추천 받기 &gt;
+          </Text>
+        </Button>
+        {/* 날씨에 따른 공간 */}
+        <Grid margin="0 0 48px 0">
+          <ContentsTitle title="날씨에 따른 공간" color="#fff" />
+          <Slick>
+            {weatherList &&
+              weatherList.map((info, idx) => {
+                return (
+                  <React.Fragment key={`card_${info.post_id}`}>
+                    <ListCard src={info.post_images} type="main" info={info} />
+                  </React.Fragment>
+                );
+              })}
+          </Slick>
+        </Grid>
+        {/* 좋아요 순 추천 공간 */}
+        <Grid margin="0 0 48px 0">
+          <ContentsTitle title="좋아요를 많이 받은" />
+          <Slick>
+            {likeList &&
+              likeList.map((info, idx) => {
+                return (
+                  <React.Fragment key={`card_${info.post_id}`}>
+                    <ListCard
+                      src={info.post_images}
+                      type="main"
+                      title={info.title}
+                      info={info}
+                    />
+                  </React.Fragment>
+                );
+              })}
+          </Slick>
+        </Grid>
+        {/* 관리자 추천 공간 */}
+        <Grid padding="0 0 112px 0">
+          <ContentsTitle title="MD's PICK" />
+          <Slick>
+            {pickList &&
+              pickList.map((info, idx) => {
+                return (
+                  <React.Fragment key={`card_${info.post_id}`}>
+                    <ListCard
+                      src={info.post_images}
+                      type="main"
+                      title={info.title}
+                      info={info}
+                    />
+                  </React.Fragment>
+                );
+              })}
+          </Slick>
+        </Grid>
       </Grid>
       <Navbar />
-    </>
+    </Container>
   );
 };
 
-const BgArea = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const Bg = styled.div`
-  width: 375px;
+  width: 100%;
   height: 552px;
   position: absolute;
   top: 0;
   background-image: url('${props => props.src}');
   background-size: cover;
   z-index: -1;
-`;
-
-const Section = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Container = styled.div`
-  width: 375px;
-  height: 100vh;
-  padding: 0 24px;
+  border: 2px solid black;
 `;
 
 export default Main;

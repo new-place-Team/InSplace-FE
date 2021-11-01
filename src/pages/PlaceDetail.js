@@ -38,7 +38,7 @@ const Detail = () => {
   ];
 
   return (
-    <Container padding="0">
+    <Container>
       <Grid bg="#F5F5F5">
         <EntireImage src={detailData.post_images}>
           <Header _type="search" _back _like _share />
