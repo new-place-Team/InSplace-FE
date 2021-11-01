@@ -1,13 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { Grid, Image, Text } from '../../elements';
 
 const MapCard = props => {
   const { el } = props;
+  const content = useRef(null);
   return (
-    <MapCardCotainer>
+    <MapCardCotainer ref={content}>
       <Grid padding="10px " bg="#fff" justify="space-between">
         {/* 이미지 */}
         <Grid width="96px" height="96px" margin="0 20px 0 0">

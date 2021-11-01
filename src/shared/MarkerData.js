@@ -35,4 +35,16 @@ export const markerdata = [
     lat: 37.50495299128935,
     lng: 127.04379177964829,
   },
+  {
+    title: '어메이징 타이',
+    src: 'https://t1.daumcdn.net/cfile/blog/1909B34450C01E2E07',
+    lat: 37.50495299128935,
+    lng: 127.04379177964829,
+  },
+  {
+    title: '우웩 국',
+    src: 'https://t1.daumcdn.net/cfile/blog/1909B34450C01E2E07',
+    lat: 37.50495299128935,
+    lng: 127.04379177964829,
+  },
 ];

@@ -17,8 +17,7 @@ const ListCard = props => {
 
   // 디테일 페이지로 이동
   const gotoDetail = () => {
-    history.push(`/detail/${postId}`);
-    window.scrollTo(0, 0);
+    history.push(`/place/detail/${postId}`);
   };
 
   /* 메인 카드 */

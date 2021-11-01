@@ -1,6 +1,9 @@
+/* eslint-disable */
 /* eslint-disable react/prop-types */
+/* eslint no-const-assign: "error" */
+
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Slider from 'react-slick';
 import styled from 'styled-components';
 // Import css files
@@ -9,18 +12,37 @@ import 'slick-carousel/slick/slick-theme.css';
 
 export const MapSlick = props => {
   const { children } = props;
+  // let index = 0;
+  const container = useRef(null);
+  const [number, setNumber] = useState(0);
   const settings = {
     centerMode: true,
     infinite: true, // 무한으로
     centerPadding: '38px',
     slidesToShow: 1, // 몇장씩 보여 줄건지?
     speed: 500,
+    afterChange: () => {
+      // if (number === children.length - 1) {
+      //   setNumber(0);
+      //   console.log(number);
+      //   console.log(children[number]);
+      // } else {
+      //   setNumber(number + 1);
+      //   console.log(number);
+      //   console.log(children[number]);
+      // }
+      setNumber(number - 1);
+      console.log(number);
+    },
   };
+
   return (
     <>
       <Wrap>
         <StyledSlider>
-          <Slider {...settings}>{children}</Slider>
+          <Slider {...settings} ref={container}>
+            {children}
+          </Slider>
         </StyledSlider>
       </Wrap>
     </>
