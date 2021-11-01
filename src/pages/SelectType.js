@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import Header from '../components/common/Header';
 import SelectedContents from '../components/place/SelectedContents';
-import { Grid, Text } from '../elements/index';
+import { Container, Grid, Text } from '../elements/index';
 import { arrowRight } from '../images/index';
 import { history } from '../redux/configureStore';
 import { getSearchConditionDB } from '../redux/async/place';
@@ -76,73 +76,60 @@ const SelectedType = () => {
   };
 
   return (
-    <SelectedWrap>
-      <Wrap>
-        <div style={{ padding: '10px' }}>
-          <Header _content="유형선택" _back _type="search" />
-        </div>
-        <ChangeText>
-          {state.gender !== '' && (
-            <Grid isFlex margin="0 10px">
+    <Container>
+      <div style={{ padding: '10px' }}>
+        <Header _content="유형선택" _back _type="search" />
+      </div>
+      <ChangeText>
+        {state.MemberCnt !== '' && (
+          <Grid>
+            <Text bold fontSize="20px" border="2px solid #C0C0C0">
+              {state.MemberCnt.selected},
+            </Text>
+          </Grid>
+        )}
+        {state.gender !== '' && (
+          <Grid isFlex margin="0 10px">
+            <Text bold fontSize="20px" border="2px solid #C0C0C0">
+              {state.gender.selected}
+            </Text>
+          </Grid>
+        )}
+        {state.category !== '' && (
+          <>
+            <Grid isFlex>
               <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                {state.gender.selected}
+                {state.category.selected}
+              </Text>
+              <Text bold fontSize="20px" color="#C0C0C0">
+                &nbsp;장소 을(를)
               </Text>
             </Grid>
-          )}
-          {state.MemberCnt !== '' && (
-            <Grid>
-              <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                {state.MemberCnt.selected},
+            <LineBreak>
+              <Text bold fontSize="20px">
+                가고 싶어요
               </Text>
-            </Grid>
-          )}
-          {state.category !== '' && (
-            <>
-              <Grid isFlex>
-                <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                  {state.category.selected}
-                </Text>
-                <Text bold fontSize="20px" color="#C0C0C0">
-                  &nbsp;장소 을(를)
-                </Text>
-              </Grid>
-              <LineBreak>
-                <Text bold fontSize="20px">
-                  가고 싶어요
-                </Text>
-              </LineBreak>
-            </>
-          )}
-        </ChangeText>
-        {data.map(item => {
-          return (
-            <SelectedContents
-              key={`key-${item.title}`}
-              {...item}
-              setState={setState}
-              state={state}
-            />
-          );
-        })}
-        <NextButton onClick={onClick}>
-          <Img src={arrowRight} />
-        </NextButton>
-      </Wrap>
-    </SelectedWrap>
+            </LineBreak>
+          </>
+        )}
+      </ChangeText>
+      {data.map(item => {
+        return (
+          <SelectedContents
+            key={`key-${item.title}`}
+            {...item}
+            setState={setState}
+            state={state}
+          />
+        );
+      })}
+      <NextButton onClick={onClick}>
+        <Img src={arrowRight} />
+      </NextButton>
+    </Container>
   );
 };
 
-const SelectedWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const Wrap = styled.div`
-  position: relative;
-  width: 375px;
-  height: 100vh;
-  overflow: hidden;
-`;
 const ChangeText = styled.div`
   display: flex;
   align-items: center;
