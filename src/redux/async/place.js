@@ -30,7 +30,7 @@ export const getSearchConditionDB = createAsyncThunk(
     try {
       const response = await getSearchCondition(params);
       if (response) {
-        return response.data.payload;
+        return response.data;
       }
     } catch (err) {
       return thunkAPI.rejectWithValue(err);

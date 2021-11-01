@@ -14,7 +14,6 @@ const initialState = {
   weatherList: [],
   conditionPlaces: {},
   detailInfo: {},
-  userSelectType: {},
 };
 
 const placeSlice = createSlice({
