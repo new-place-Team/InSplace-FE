@@ -13,6 +13,7 @@ import { getPlaceDetailDB } from '../redux/async/place';
 const Detail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  console.log(id);
   const detailData = useSelector(state => state.place.detailInfo);
   const markerdata = [
     {
@@ -25,18 +26,17 @@ const Detail = () => {
     latitude: detailData.post_loc_y,
     longitude: detailData.post_loc_x,
   };
-
   useEffect(() => {
     dispatch(getPlaceDetailDB(id));
     window.scrollTo(0, 0);
   }, []);
+
   const tag = [
     { tag: '비가오는 날' },
     { tag: '혼성' },
     { tag: '카페' },
     { tag: '데이트' },
   ];
-
   return (
     <Container>
       <Grid bg="#F5F5F5">
