@@ -9,42 +9,6 @@ import { Container, Grid, Text } from '../elements/index';
 import { right } from '../images/index';
 import { history } from '../redux/configureStore';
 
-// const data = [
-//   {
-//     title: '성별을 선택해 주세요',
-//     list: [
-//       { selected: '여자', value: 2 },
-//       { selected: '남자', value: 1 },
-//       { selected: '혼성', value: 3 },
-//     ],
-//     type: 'gender',
-//     grid: 0,
-//   },
-//   {
-//     title: '인원수를 선택해 주세요',
-//     list: [
-//       { selected: '1명', value: 1 },
-//       { selected: '2명', value: 2 },
-//       { selected: '4명 미만', value: 3 },
-//       { selected: '4명 이상', value: 4 },
-//     ],
-//     type: 'MemberCnt',
-//     grid: 2,
-//   },
-//   {
-//     title: '장소를 선택해주세요',
-//     list: [
-//       { selected: '여행', value: 1 },
-//       { selected: '맛집', value: 2 },
-//       { selected: '카페', value: 3 },
-//       { selected: '예술', value: 4 },
-//       { selected: '액티비티', value: 5 },
-//     ],
-//     type: 'category',
-//     grid: 3,
-//   },
-// ];
-
 const SelectedType = () => {
   const [state, setState] = React.useState({
     MemberCnt: '',
@@ -56,9 +20,9 @@ const SelectedType = () => {
     {
       title: '성별을 선택해 주세요',
       list: [
-        { selected: '여자', value: 2 },
-        { selected: '남자', value: 1 },
-        { selected: '혼성', value: 3 },
+        { selecteText: '여자', value: 2 },
+        { selecteText: '남자', value: 1 },
+        { selecteText: '혼성', value: 3 },
       ],
       type: 'gender',
       grid: 0,
@@ -66,10 +30,10 @@ const SelectedType = () => {
     {
       title: '인원수를 선택해 주세요',
       list: [
-        { selected: '1명', value: 1 },
-        { selected: '2명', value: 2 },
-        { selected: '4명 미만', value: 3 },
-        { selected: '4명 이상', value: 4 },
+        { selecteText: '1명', value: 1 },
+        { selecteText: '2명', value: 2 },
+        { selecteText: '4명 미만', value: 3 },
+        { selecteText: '4명 이상', value: 4 },
       ],
       type: 'MemberCnt',
       grid: 2,
@@ -77,11 +41,11 @@ const SelectedType = () => {
     {
       title: '장소를 선택해주세요',
       list: [
-        { selected: '여행', value: 1 },
-        { selected: '맛집', value: 2 },
-        { selected: '카페', value: 3 },
-        { selected: '예술', value: 4 },
-        { selected: '액티비티', value: 5 },
+        { selecteText: '여행', value: 1 },
+        { selecteText: '맛집', value: 2 },
+        { selecteText: '카페', value: 3 },
+        { selecteText: '예술', value: 4 },
+        { selecteText: '액티비티', value: 5 },
       ],
       type: 'category',
       grid: 3,
@@ -120,14 +84,14 @@ const SelectedType = () => {
           {state.gender !== '' && (
             <Grid isFlex>
               <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                {state.gender.selected}
+                {state.gender.selecteText}
               </Text>
             </Grid>
           )}
           {state.MemberCnt !== '' && (
             <Grid isFlex margin="0 10px">
               <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                {state.MemberCnt.selected}
+                {state.MemberCnt.selecteText}
               </Text>
               <Text bold fontSize="20px" color="#C0C0C0">
                 &nbsp;이
@@ -138,7 +102,7 @@ const SelectedType = () => {
             <>
               <Grid isFlex>
                 <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                  {state.category.selected}
+                  {state.category.selecteText}
                 </Text>
                 <Text bold fontSize="20px" color="#C0C0C0">
                   &nbsp;장소 을(를)

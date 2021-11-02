@@ -15,7 +15,7 @@ export const getMainListDB = createAsyncThunk(
     try {
       const response = await getMainList(params);
       if (response) {
-        return response.data.payload;
+        return response.data;
       }
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
