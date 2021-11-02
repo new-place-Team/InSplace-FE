@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Container, Grid, Input, Label } from '../elements';
 
 import { logInDB } from '../redux/async/user';
+import { logOut } from '../redux/modules/userSlice';
 import Header from '../components/common/Header';
 import { close } from '../images';
 
@@ -23,15 +24,29 @@ const Login = () => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
+  // 서버에 전달할 정보
   const userInfo = {
     email: state.email,
     password: state.password,
   };
   // 로그인 제출
   const submitUserInfo = () => {
+    if (userInfo.email === '') {
+      window.alert('이메일을 입력해주세요!');
+      return;
+    }
+    if (userInfo.password === '') {
+      window.alert('비밀번호를 입력해주세요!');
+      return;
+    }
     dispatch(logInDB(userInfo));
   };
-
+  // 로그아웃
+  const userLogout = () => {
+    dispatch(logOut());
+    state.email = '';
+    state.password = '';
+  };
   React.useEffect(() => {
     if (state.email !== '') {
       return setButtonStatus({ ...buttonStatus, emailStatus: true });
@@ -80,6 +95,9 @@ const Login = () => {
         <BottomWrap>
           <Button type="fullSizeBlack" onClick={submitUserInfo}>
             로그인
+          </Button>
+          <Button type="fullSizeBlack" onClick={userLogout}>
+            로그아웃
           </Button>
         </BottomWrap>
       </Container>

@@ -22,14 +22,25 @@ export const addUserDB = createAsyncThunk(
 
 export const logInDB = createAsyncThunk(
   'user/logIn',
+  // eslint-disable-next-line consistent-return
   async (data, thunkAPI) => {
     try {
       const response = await logIn(data);
       if (response) {
-        console.log(response);
+        // eslint-disable-next-line prefer-destructuring
+        const USER_TOKEN = response.data.token;
+        window.localStorage.setItem('USER_TOKEN', USER_TOKEN);
+        const userInfo = {
+          email: response.data.email,
+          nickname: response.data.nickname,
+          userImage: response.data.userImage,
+          mbti: response.data.mbti,
+        };
+        return userInfo;
       }
     } catch (err) {
       console.log('error ::::::', err);
+      return thunkAPI.rejectWithValue('<<', err);
     }
   },
 );
