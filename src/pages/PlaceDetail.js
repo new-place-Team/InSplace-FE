@@ -9,6 +9,7 @@ import Header from '../components/common/Header';
 import Map from '../components/map/Map';
 import { getPlaceDetailDB } from '../redux/async/place';
 import { heartFilled, pin, write, heartLine, share } from '../images/index';
+import ReviewList from './ReviewList';
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -41,10 +42,11 @@ const Detail = () => {
   return (
     <Container padding="0">
       <Grid bg="#F5F5F5">
-        {/* <EntireImage src="https://i1.wp.com/osiswing.com/wp-content/uploads/2021/04/image-28.png?fit=1125%2C1374&ssl=1"> */}
+        {/* 배경 이미지 */}
         <EntireImage src={detailData.post_images}>
           <Header _type="search" _back />
         </EntireImage>
+        {/* 장소의 상세 정보 */}
         <InfoGrid>
           <Text fontSize="13px" color="#A3A6AA">
             {detailData.description}
@@ -61,6 +63,7 @@ const Detail = () => {
               </Text>
             </Grid>
           </Grid>
+          {/* 유저가 선택한 카테고리 */}
           <Grid margin="24px 0 0 0">
             <Button type="tag" bg="#484C51" color="#fff">
               여자
@@ -72,7 +75,8 @@ const Detail = () => {
               카페
             </Button>
           </Grid>
-          <IconNavWrap>
+          {/* Icon Navigation */}
+          <IconNavigation>
             <Grid>
               <Image src={pin} />
               <Text fontSize="12px" color="#A3A6AA">
@@ -97,18 +101,19 @@ const Detail = () => {
                 공유하기
               </Text>
             </Grid>
-          </IconNavWrap>
+          </IconNavigation>
+          {/* 가게의 정보 */}
           <Grid>
             <Text fontSize="18px" color="#282828" bold>
               가게정보
             </Text>
             <Grid margin="16px 0">
-              <Map
+              {/* <Map
                 coordinate={currentCoordinate}
                 width="100%"
                 height="191px"
                 markerdata={markerdata}
-              />
+              /> */}
             </Grid>
             <Text fontSize="13px" color="#3E4042">
               {detailData.address}
@@ -126,6 +131,7 @@ const Detail = () => {
             </Grid>
           </Grid>
         </InfoGrid>
+        <ReviewList>dd</ReviewList>
       </Grid>
     </Container>
   );
@@ -149,10 +155,10 @@ const InfoGrid = styled.div`
   width: calc(100% - 24px);
   padding: 28px 24px 34px;
   background-color: #fff;
-  box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 1px 4px -12px rgba(0, 0, 0, 0.5);
 `;
 
-const IconNavWrap = styled.div`
+const IconNavigation = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;

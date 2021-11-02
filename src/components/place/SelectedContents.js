@@ -75,6 +75,7 @@ const SelectedContent = styled.div`
   width: 100%;
   padding: 45px 24px;
   background-color: #e4e4e4;
+  border:1px solid red
   &:nth-child(2n) {
     background-color: #f0f0f0;
   }
