@@ -1,11 +1,15 @@
 /* eslint-disable consistent-return */
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 import { Container, Grid, Input, Label } from '../elements';
+
+import { logInDB } from '../redux/async/user';
 import Header from '../components/common/Header';
 import { close } from '../images';
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [state, setState] = React.useState({
     email: '',
     password: '',
@@ -17,6 +21,15 @@ const Login = () => {
 
   const onChange = e => {
     setState({ ...state, [e.target.name]: e.target.value });
+  };
+
+  const userInfo = {
+    email: state.email,
+    password: state.password,
+  };
+  // 로그인 제출
+  const submitUserInfo = () => {
+    dispatch(logInDB(userInfo));
   };
 
   React.useEffect(() => {
@@ -65,7 +78,9 @@ const Login = () => {
           </Wrap>
         </Grid>
         <BottomWrap>
-          <Button type="fullSizeBlack">로그인</Button>
+          <Button type="fullSizeBlack" onClick={submitUserInfo}>
+            로그인
+          </Button>
         </BottomWrap>
       </Container>
     </>
