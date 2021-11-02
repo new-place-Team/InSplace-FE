@@ -5,14 +5,32 @@ import styled from 'styled-components';
 import { Grid, Text } from '../../elements';
 
 const SelectedContents = props => {
-  const { title, state, type, list, setState } = props;
+  const { title, state, type, list, setState, selectData, setSelectData } =
+    props;
   // const buttonRef = React.useRef();
 
   const selectedBtn = (text, type, value) => {
-    if (type === 'MemberCnt') {
-      setState({ ...state, MemberCnt: { selected: text, value } });
-    } else if (type === 'gender') {
+    if (type === 'gender') {
       setState({ ...state, gender: { selected: text, value } });
+      const dataList = [...selectData];
+      if (value === 3) {
+        dataList[1].list = [
+          { selected: '2명', value: 2 },
+          { selected: '4명 미만', value: 3 },
+          { selected: '4명 이상', value: 4 },
+        ];
+        setSelectData(dataList);
+      } else {
+        dataList[1].list = [
+          { selected: '1명', value: 1 },
+          { selected: '2명', value: 2 },
+          { selected: '4명 미만', value: 3 },
+          { selected: '4명 이상', value: 4 },
+        ];
+        setSelectData(dataList);
+      }
+    } else if (type === 'MemberCnt') {
+      setState({ ...state, MemberCnt: { selected: text, value } });
     } else {
       setState({ ...state, category: { selected: text, value } });
     }
