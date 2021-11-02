@@ -8,6 +8,7 @@ import { logger } from 'redux-logger';
 /* slice module */
 import placeSlice from './modules/placeSlice';
 import loadedSlice from './modules/loadedSlice';
+import userSlice from './modules/userSlice';
 
 export const history = createBrowserHistory();
 
@@ -15,6 +16,7 @@ export const history = createBrowserHistory();
 const reducer = combineReducers({
   place: placeSlice.reducer,
   loaded: loadedSlice.reducer,
+  user: userSlice.reducer,
   router: connectRouter(history),
 });
 

@@ -15,6 +15,7 @@ import sunBg from '../images/weather/sun1.jpg';
 import rainBg from '../images/weather/rain1.jpg';
 import snowBg from '../images/weather/snow1.jpg';
 import { ReactComponent as Marker } from '../images/ic-marker.svg';
+import Swiper from '../components/common/SwiperLB';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -67,6 +68,11 @@ const Main = () => {
           </Button> */}
         </Grid>
         <Grid>
+          {/* TODO swiper */}
+          <Grid margin="0 0 48px 24px">
+            <ContentsTitle title="날씨에 따른 공간" />
+            <Swiper list={weatherList} />
+          </Grid>
           {/* 날씨에 따른 공간 */}
           <Grid margin="0 0 48px 24px">
             <ContentsTitle title="날씨에 따른 공간" />
