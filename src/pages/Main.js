@@ -1,5 +1,4 @@
 /* eslint-disable import/no-unresolved */
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,10 +18,10 @@ import snowBg from '../images/weather/snow1.jpg';
 const Main = () => {
   const dispatch = useDispatch();
   const mainLists = useSelector(state => state.place.mainLists);
-  const likeList = mainLists.likePlace;
-  const pickList = mainLists.pickPlace;
-  const weatherList = mainLists.weatherPlace;
-  const weatherInfo = mainLists.weather;
+  const likeList = mainLists && mainLists.likePlace;
+  const pickList = mainLists && mainLists.pickPlace;
+  const weatherList = mainLists && mainLists.weatherPlace;
+  const weatherInfo = mainLists && mainLists.weather;
   let weatherBg = '';
   if (weatherInfo) {
     if (weatherInfo.status === 2) {
