@@ -21,8 +21,8 @@ const Header = props => {
         <Content>
           <Grid isFlex width="100%">
             {_back && (
-              <Grid margin="0 13px 0 0" onClick={() => history.go(-1)}>
-                <Icon src={left} />
+              <Grid margin="0 13px 0 0">
+                <Icon src={left} onClick={() => history.go(-1)} />
               </Grid>
             )}
             {_content && (
