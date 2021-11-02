@@ -35,38 +35,40 @@ const Login = () => {
     }
   }, [state]);
   return (
-    <Container>
+    <>
       <Header _back _content="로그인" />
-      <Grid margin="42px 0 0 0">
-        <Wrap>
-          <Label type="form">이메일</Label>
-          <Input
-            inputType="form"
-            type="text"
-            value={state.email}
-            name="email"
-            _onChange={onChange}
-            placeholder="이메일 주소를 입력해주세요"
-          />
-          {buttonStatus.emailStatus && <InputCloseButton src={close} />}
-        </Wrap>
-        <Wrap>
-          <Label type="form">비밀번호</Label>
-          <Input
-            inputType="form"
-            type="password"
-            value={state.password}
-            name="password"
-            _onChange={onChange}
-            placeholder="비밀번호를 입력해주세요"
-          />
-          {buttonStatus.pwStatus && <InputCloseButton src={close} />}
-        </Wrap>
-      </Grid>
-      <BottomWrap>
-        <Button type="fullSizeBlack">로그인</Button>
-      </BottomWrap>
-    </Container>
+      <Container padding="66px 0 0 0">
+        <Grid margin="42px 0 0 0">
+          <Wrap>
+            <Label type="form">이메일</Label>
+            <Input
+              inputType="form"
+              type="text"
+              value={state.email}
+              name="email"
+              _onChange={onChange}
+              placeholder="이메일 주소를 입력해주세요"
+            />
+            {buttonStatus.emailStatus && <InputCloseButton src={close} />}
+          </Wrap>
+          <Wrap>
+            <Label type="form">비밀번호</Label>
+            <Input
+              inputType="form"
+              type="password"
+              value={state.password}
+              name="password"
+              _onChange={onChange}
+              placeholder="비밀번호를 입력해주세요"
+            />
+            {buttonStatus.pwStatus && <InputCloseButton src={close} />}
+          </Wrap>
+        </Grid>
+        <BottomWrap>
+          <Button type="fullSizeBlack">로그인</Button>
+        </BottomWrap>
+      </Container>
+    </>
   );
 };
 const Wrap = styled.div`

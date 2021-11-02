@@ -76,57 +76,58 @@ const SelectedType = () => {
   };
 
   return (
-    <Container>
-      <div style={{ padding: '10px' }}>
-        <Header _content="유형선택" _back _type="search" />
-      </div>
-      <ChangeText>
-        {state.MemberCnt !== '' && (
-          <Grid>
-            <Text bold fontSize="20px" border="2px solid #C0C0C0">
-              {state.MemberCnt.selected},
-            </Text>
-          </Grid>
-        )}
-        {state.gender !== '' && (
-          <Grid isFlex margin="0 10px">
-            <Text bold fontSize="20px" border="2px solid #C0C0C0">
-              {state.gender.selected}
-            </Text>
-          </Grid>
-        )}
-        {state.category !== '' && (
-          <>
-            <Grid isFlex>
+    <>
+      <Header _content="유형선택" _back _type="search" />
+      <Container padding="66px 0 0 0">
+        <div style={{ padding: '10px' }} />
+        <ChangeText>
+          {state.MemberCnt !== '' && (
+            <Grid>
               <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                {state.category.selected}
-              </Text>
-              <Text bold fontSize="20px" color="#C0C0C0">
-                &nbsp;장소 을(를)
+                {state.MemberCnt.selected},
               </Text>
             </Grid>
-            <LineBreak>
-              <Text bold fontSize="20px">
-                가고 싶어요
+          )}
+          {state.gender !== '' && (
+            <Grid isFlex margin="0 10px">
+              <Text bold fontSize="20px" border="2px solid #C0C0C0">
+                {state.gender.selected}
               </Text>
-            </LineBreak>
-          </>
-        )}
-      </ChangeText>
-      {data.map(item => {
-        return (
-          <SelectedContents
-            key={`key-${item.title}`}
-            {...item}
-            setState={setState}
-            state={state}
-          />
-        );
-      })}
-      <NextButton onClick={onClick}>
-        <Img src={right} />
-      </NextButton>
-    </Container>
+            </Grid>
+          )}
+          {state.category !== '' && (
+            <>
+              <Grid isFlex>
+                <Text bold fontSize="20px" border="2px solid #C0C0C0">
+                  {state.category.selected}
+                </Text>
+                <Text bold fontSize="20px" color="#C0C0C0">
+                  &nbsp;장소 을(를)
+                </Text>
+              </Grid>
+              <LineBreak>
+                <Text bold fontSize="20px">
+                  가고 싶어요
+                </Text>
+              </LineBreak>
+            </>
+          )}
+        </ChangeText>
+        {data.map(item => {
+          return (
+            <SelectedContents
+              key={`key-${item.title}`}
+              {...item}
+              setState={setState}
+              state={state}
+            />
+          );
+        })}
+        <NextButton onClick={onClick}>
+          <Img src={right} />
+        </NextButton>
+      </Container>
+    </>
   );
 };
 

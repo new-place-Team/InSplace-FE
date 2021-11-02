@@ -26,9 +26,9 @@ function App() {
         <Switch>
           <Route path="/" exact component={Main} />
           <Route path="/ui" exact component={UI} />
-          <Route path="/select/type" exact component={SelectType} />
+          <Route path="/select-type" exact component={SelectType} />
           <Route
-            path="/select/type/result"
+            path="/select-type/result"
             exact
             component={SelectTypeResult}
           />

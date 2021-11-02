@@ -7,8 +7,10 @@ const Grid = props => {
   const {
     id,
     justify,
+    justifyContent,
     isFlex,
     flex,
+    flexFlow,
     direction,
     width,
     height,
@@ -26,8 +28,10 @@ const Grid = props => {
   const styles = {
     id,
     justify,
+    justifyContent,
     isFlex,
     flex,
+    flexFlow,
     direction,
     width,
     height,
@@ -95,6 +99,7 @@ const DefaultGrid = styled.div`
   border: ${props => props.border};
   position: ${props => props.position};
   ${props => props.isFlex && `display:flex`};
+  ${props => (props.flexFlow ? ` flex-flow:${props.flexFlow}` : '')};
   ${props => props.wrap && `flex-wrap:wrap`};
   box-sizing: border-box;
   ${props => (props.flex ? `flex:1` : '')};
@@ -102,6 +107,8 @@ const DefaultGrid = styled.div`
   align-items: center;
   flex-wrap: wrap;
   ${props => (props.zIndex ? ` z-index:${props.zIndex}` : '')};
+  ${props =>
+    props.justifyContent ? `justify-content:${props.justifyContent}` : ''};
 `;
 const BetweenGrid = styled.div`
   ${props =>

@@ -13,7 +13,7 @@ const Container = props => {
 };
 
 Container.defaultProps = {
-  padding: '0 24px',
+  padding: '66px 24px 0 24px',
   height: '100vh',
 };
 

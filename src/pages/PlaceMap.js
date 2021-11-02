@@ -35,28 +35,30 @@ const MapContainer = () => {
   console.log('현재 내 위치좌표', currentCoordinate);
 
   return (
-    <Container>
-      <Grid>
-        <Header close content="상세보기" />
-        <Grid padding="0 24px">
-          <SelectedCategory tag={tag} />
+    <>
+      <Header _back _content="상세보기" />
+      <Container>
+        <Grid>
+          <Grid padding="0 24px">
+            <SelectedCategory tag={tag} />
+          </Grid>
+          <MapSlick>
+            {markerdata.map((el, idx) => {
+              return <MapCard el={el} key={idx} />;
+            })}
+          </MapSlick>
+          {/* API로 받아온 현재 좌표를 Map 컴포넌트에 props로 전달한다. */}
+          <div style={{ overflowX: 'hidden' }}>
+            <Map
+              coordinate={currentCoordinate}
+              width="100vw"
+              height="80vh"
+              markerdata={markerdata}
+            />
+          </div>
         </Grid>
-        <MapSlick>
-          {markerdata.map((el, idx) => {
-            return <MapCard el={el} key={idx} />;
-          })}
-        </MapSlick>
-        {/* API로 받아온 현재 좌표를 Map 컴포넌트에 props로 전달한다. */}
-        <div style={{ overflowX: 'hidden' }}>
-          <Map
-            coordinate={currentCoordinate}
-            width="100vw"
-            height="80vh"
-            markerdata={markerdata}
-          />
-        </div>
-      </Grid>
-    </Container>
+      </Container>
+    </>
   );
 };
 

@@ -29,8 +29,8 @@ const SearchTypeList = history => {
 
   return (
     <>
+      <Header _type="search" _back _content="검색 결과" _map _search />
       <Container>
-        <Header _type="search" _back _content="검색 결과" _map _search />
         {/* <SelectedCategory tag={selected[0]} /> */}
         <ContentsTitle title="실내" />
         <Grid>
