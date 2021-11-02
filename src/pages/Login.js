@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Grid, Input, Label } from '../elements';
 
-import { logInDB } from '../redux/async/user';
+import { logInDB, unRegisterDB } from '../redux/async/user';
 import { logOut } from '../redux/modules/userSlice';
 import Header from '../components/common/Header';
 import { close } from '../images';
@@ -47,6 +47,11 @@ const Login = () => {
     state.email = '';
     state.password = '';
   };
+  // 회원탈퇴
+  const deleteUser = () => {
+    dispatch(unRegisterDB());
+  };
+
   React.useEffect(() => {
     if (state.email !== '') {
       return setButtonStatus({ ...buttonStatus, emailStatus: true });
@@ -62,6 +67,7 @@ const Login = () => {
       return setButtonStatus({ ...buttonStatus, pwStatus: false });
     }
   }, [state]);
+
   return (
     <>
       <Header _back _content="로그인" />
@@ -98,6 +104,9 @@ const Login = () => {
           </Button>
           <Button type="fullSizeBlack" onClick={userLogout}>
             로그아웃
+          </Button>
+          <Button type="fullSizeBlack" onClick={deleteUser}>
+            회원탈퇴
           </Button>
         </BottomWrap>
       </Container>
