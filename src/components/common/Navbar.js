@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { history } from '../../redux/configureStore';
 import { Image } from '../../elements/index';
-import { home, vector, sliders, user, heartFilled } from '../../images/index';
+import { home, vector, sliders, user, heartLine } from '../../images/index';
 
 const Navbar = () => {
   return (
@@ -19,7 +19,7 @@ const Navbar = () => {
             <Image src={sliders} />
           </Icon>
           <Icon onClick={() => window.alert('서비스 준비중 입니다.')}>
-            <Image src={heartFilled} />
+            <Image src={heartLine} />
           </Icon>
           <Icon onClick={() => history.push('/login')}>
             <Image src={user} />

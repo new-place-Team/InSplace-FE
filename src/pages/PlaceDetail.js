@@ -42,8 +42,8 @@ const Detail = () => {
   return (
     <Container padding="0">
       <Grid bg="#F5F5F5">
-        <EntireImage src="https://i1.wp.com/osiswing.com/wp-content/uploads/2021/04/image-28.png?fit=1125%2C1374&ssl=1">
-          {/* <EntireImage src={detailData.post_images}> */}
+        {/* <EntireImage src="https://i1.wp.com/osiswing.com/wp-content/uploads/2021/04/image-28.png?fit=1125%2C1374&ssl=1"> */}
+        <EntireImage src={detailData.post_images}>
           <Header _type="search" _back />
         </EntireImage>
         <InfoGrid>
