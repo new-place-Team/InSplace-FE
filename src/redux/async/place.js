@@ -42,9 +42,9 @@ export const getSearchConditionDB = createAsyncThunk(
 export const getPlaceDetailDB = createAsyncThunk(
   'place/detail',
   async (params, thunkAPI) => {
-    console.log('미들웨어', params);
     try {
       const response = await getPlaceDetail(params);
+      console.log('response == ', response);
       if (response) {
         return response.data;
       }

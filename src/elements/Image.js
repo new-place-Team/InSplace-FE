@@ -4,13 +4,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Image = props => {
-  const { type, width, height, margin, src } = props;
+  const { type, width, height, margin, color, src } = props;
 
   const styles = {
     width,
     height,
     margin,
     src,
+    color,
   };
 
   if (type === 'circle') {
@@ -41,6 +42,7 @@ Image.defaultProps = {
   height: 'auto',
   type: false,
   margin: false,
+  color: false,
   src: 'http://www.bizhankook.com/upload/bk/article/201806/thumb/15753-31552-sampleM.jpg',
 };
 
@@ -56,6 +58,7 @@ const DefaultImage = styled.img`
   object-fit: cover;
   ${props => props.margin && `margin:${props.margin}`};
   src: ${props => props.src};
+  ${props => (props.color ? `color:${props.color}` : '')};
 `;
 
 // background Image
