@@ -17,6 +17,7 @@ import SelectType from './pages/SelectType';
 import PlaceDetail from './pages/PlaceDetail';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import ReviewWrite from './pages/ReviewWrite';
 // import Navbar from './components/Navbar';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path="/place/map" exact component={PlaceMap} />
           <Route path="/place/list" exact component={PlaceList} />
           <Route path="/place/detail/:id" exact component={PlaceDetail} />
+          <Route path="/review/write" exact component={ReviewWrite} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
         </Switch>

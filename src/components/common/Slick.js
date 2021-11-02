@@ -8,13 +8,10 @@ import styled from 'styled-components';
 
 export const Slick = props => {
   const { inSideLength, outSideLength, children } = props;
-
   // 768px ToShow : 3 , 375px toshow : 1
   const settings = {
-    centerMode: true,
-    centerPadding: '10px',
     infinite: false,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
     speed: 500,
   };
@@ -41,15 +38,12 @@ const Wrap = styled.div`
 
 const StyledSlider = styled(Slider)`
   .slick-slider .slick-list {
-    width: 100% !important;
-    padding: 0 !important;
-    overflow: hidden;
+    padding: 0 0 0 20px;
   }
-  /* .slick-initialized, */
-  .slick-slide {
-    width: 100%;
-    padding: 0 !important;
-    overflow: hidden;
+  @media only screen and (max-width: 500px) {
+    .slick-slider {
+      width: 100% !important;
+    }
   }
 `;
 
