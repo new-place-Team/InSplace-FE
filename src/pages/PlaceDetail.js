@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { Container, Grid, Text, Image, Button } from '../elements';
 import Header from '../components/common/Header';
-import SelectedCategory from '../components/place/SelectedCategory';
 import Map from '../components/map/Map';
 import { getPlaceDetailDB } from '../redux/async/place';
 import { heartFilled, pin, write, heartLine, share } from '../images/index';
@@ -14,7 +13,6 @@ import { heartFilled, pin, write, heartLine, share } from '../images/index';
 const Detail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  console.log(id);
   const detailData = useSelector(state => state.place.detailInfo);
   console.log('detailData == ', detailData);
   const markerdata = [
@@ -39,11 +37,12 @@ const Detail = () => {
     { tag: '카페' },
     { tag: '데이트' },
   ];
+
   return (
     <Container padding="0">
       <Grid bg="#F5F5F5">
-        <EntireImage src="https://i1.wp.com/osiswing.com/wp-content/uploads/2021/04/image-28.png?fit=1125%2C1374&ssl=1">
-          {/* <EntireImage src={detailData.post_images}> */}
+        {/* <EntireImage src="https://i1.wp.com/osiswing.com/wp-content/uploads/2021/04/image-28.png?fit=1125%2C1374&ssl=1"> */}
+        <EntireImage src={detailData.post_images}>
           <Header _type="search" _back />
         </EntireImage>
         <InfoGrid>
