@@ -15,6 +15,7 @@ const Text = props => {
     textAlign,
     lineHeight,
     border,
+    letterSpacing,
   } = props;
 
   const styles = {
@@ -26,6 +27,7 @@ const Text = props => {
     textAlign,
     border,
     lineHeight,
+    letterSpacing,
   };
 
   return (
@@ -45,6 +47,7 @@ Text.defaultProps = {
   textAlign: false,
   border: false,
   lineHeight: '1.5',
+  letterSpacing: 1,
 };
 
 const ElText = styled.div`
@@ -60,6 +63,7 @@ const ElText = styled.div`
   ${props => (props.margin ? `margin: ${props.margin}` : '')};
   ${props => (props.border ? `border-bottom: ${props.border}` : '')};
   line-height: ${({ lineHeight }) => lineHeight || '1.5'};
+  letter-spacing: ${({ letterSpacing }) => letterSpacing || '1'};
 `;
 
 export default Text;

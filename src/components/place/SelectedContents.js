@@ -5,37 +5,60 @@ import styled from 'styled-components';
 import { Grid, Text } from '../../elements';
 
 const SelectedContents = props => {
-  const { title, state, type, list, setState } = props;
-  // const buttonRef = React.useRef();
+  const { title, state, type, list, setState, selectData, setSelectData, bg } =
+    props;
 
+  /* 버튼 선택 */
   const selectedBtn = (text, type, value) => {
-    if (type === 'MemberCnt') {
-      setState({ ...state, MemberCnt: { selected: text, value } });
-    } else if (type === 'gender') {
-      setState({ ...state, gender: { selected: text, value } });
+    if (type === 'gender') {
+      setState({ ...state, gender: { selecteText: text, value } });
+      const dataList = [...selectData];
+      const MemberCntIdx = dataList.findIndex(v => v.type === 'MemberCnt');
+      if (value === 3) {
+        dataList[MemberCntIdx].list = [
+          { selecteText: '2명', value: 2 },
+          { selecteText: '4명 미만', value: 3 },
+          { selecteText: '4명 이상', value: 4 },
+        ];
+        setSelectData(dataList);
+      } else {
+        dataList[MemberCntIdx].list = [
+          { selecteText: '1명', value: 1 },
+          { selecteText: '2명', value: 2 },
+          { selecteText: '4명 미만', value: 3 },
+          { selecteText: '4명 이상', value: 4 },
+        ];
+        setSelectData(dataList);
+      }
+    } else if (type === 'MemberCnt') {
+      setState({ ...state, MemberCnt: { selecteText: text, value } });
     } else {
-      setState({ ...state, category: { selected: text, value } });
+      setState({ ...state, category: { selecteText: text, value } });
     }
   };
 
   return (
-    <SelectedContent>
+    <SelectedContent bgColor={bg}>
       <Text fontSize="20px" bold>
         {title}
       </Text>
       <SelectedGrid>
         {list.map((item, idx) => {
           return (
-            <React.Fragment key={`selected-${item.selected}`}>
+            <React.Fragment key={`selected-${item.selecteText}`}>
               <Grid margin="10px 10px 0 0">
                 <SelectedButton
                   type="type"
                   width="auto"
-                  value={item.selected}
+                  value={item.selecteText}
                   keys={item.value}
-                  onClick={() => selectedBtn(item.selected, type, item.value)}
+                  isSelected={state[type].value === item.value}
+                  isLast={list.length === idx}
+                  onClick={() =>
+                    selectedBtn(item.selecteText, type, item.value)
+                  }
                 >
-                  {item.selected}
+                  {item.selecteText}
                 </SelectedButton>
               </Grid>
             </React.Fragment>
@@ -54,18 +77,9 @@ SelectedContents.defaultProps = {
 const SelectedContent = styled.div`
   width: 100%;
   padding: 45px 24px;
-  background-color: #e4e4e4;
-  &:nth-child(2n) {
-    background-color: #f0f0f0;
-  }
+  background-color: ${({ bgColor }) => bgColor};
 `;
 const SelectedGrid = styled.div`
-  /* display: grid;
-  grid-template-columns: ${props =>
-    props.gridNum ? `repeat(${props.gridNum}, '300px'})` : `repeat(3, 1fr)`};
-  button {
-    border: 1px solid #fff;
-  } */
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -74,18 +88,14 @@ const SelectedGrid = styled.div`
 `;
 
 const SelectedButton = styled.button`
-  width: ${props => (props.width ? props.width : 'auto')};
+  width: ${({ width }) => width || 'auto'};
   margin: ${props => props.margin};
   padding: 12px 20px;
   font-size: 16px;
   font-weight: 700;
-  color: ${props => (props.color ? props.color : '#646464')};
-  background-color: ${props => (props.bg ? props.bg : `#fff`)};
-  border: 1px solid #646464;
-  &:focus {
-    color: #fff;
-    background-color: #838383;
-    border: 1px solid #838383;
-  }
+  color: ${({ isSelected }) => (isSelected ? '#fff' : `#979797`)};
+  background-color: ${({ isSelected }) => (isSelected ? '#232529' : `#fff`)};
+  border: ${({ isSelected }) =>
+    isSelected ? '1px solid #232529' : `1px solid #646464`};
 `;
 export default SelectedContents;
