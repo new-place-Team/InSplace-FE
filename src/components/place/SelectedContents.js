@@ -5,16 +5,34 @@ import styled from 'styled-components';
 import { Grid, Text } from '../../elements';
 
 const SelectedContents = props => {
-  const { title, state, type, list, setState } = props;
+  const { title, state, type, list, setState, selectData, setSelectData } =
+    props;
   // const buttonRef = React.useRef();
 
   const selectedBtn = (text, type, value) => {
-    if (type === 'MemberCnt') {
-      setState({ ...state, MemberCnt: { selected: text, value } });
-    } else if (type === 'gender') {
-      setState({ ...state, gender: { selected: text, value } });
+    if (type === 'gender') {
+      setState({ ...state, gender: { selecteText: text, value } });
+      const dataList = [...selectData];
+      if (value === 3) {
+        dataList[1].list = [
+          { selecteText: '2명', value: 2 },
+          { selecteText: '4명 미만', value: 3 },
+          { selecteText: '4명 이상', value: 4 },
+        ];
+        setSelectData(dataList);
+      } else {
+        dataList[1].list = [
+          { selecteText: '1명', value: 1 },
+          { selecteText: '2명', value: 2 },
+          { selecteText: '4명 미만', value: 3 },
+          { selecteText: '4명 이상', value: 4 },
+        ];
+        setSelectData(dataList);
+      }
+    } else if (type === 'MemberCnt') {
+      setState({ ...state, MemberCnt: { selecteText: text, value } });
     } else {
-      setState({ ...state, category: { selected: text, value } });
+      setState({ ...state, category: { selecteText: text, value } });
     }
   };
 
@@ -26,16 +44,18 @@ const SelectedContents = props => {
       <SelectedGrid>
         {list.map((item, idx) => {
           return (
-            <React.Fragment key={`selected-${item.selected}`}>
+            <React.Fragment key={`selected-${item.selecteText}`}>
               <Grid margin="10px 10px 0 0">
                 <SelectedButton
                   type="type"
                   width="auto"
-                  value={item.selected}
+                  value={item.selecteText}
                   keys={item.value}
-                  onClick={() => selectedBtn(item.selected, type, item.value)}
+                  onClick={() =>
+                    selectedBtn(item.selecteText, type, item.value)
+                  }
                 >
-                  {item.selected}
+                  {item.selecteText}
                 </SelectedButton>
               </Grid>
             </React.Fragment>
