@@ -9,9 +9,10 @@ import styled from 'styled-components';
 export const Slick = props => {
   const { inSideLength, outSideLength, children } = props;
 
+  // 768px ToShow : 3 , 375px toshow : 1
   const settings = {
     centerMode: true,
-    centerPadding: '30px',
+    centerPadding: '10px',
     infinite: false,
     slidesToShow: 1,
     slidesToScroll: 1,

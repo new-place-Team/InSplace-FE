@@ -6,8 +6,9 @@ import styled from 'styled-components';
 import Header from '../components/common/Header';
 import SelectedContents from '../components/place/SelectedContents';
 import { Container, Grid, Text } from '../elements/index';
-import { right } from '../images/index';
+import { ReactComponent as Right } from '../images/ic-next.svg';
 import { history } from '../redux/configureStore';
+import { getPeopleText } from '../shared/transferText';
 
 const SelectedType = () => {
   const [state, setState] = React.useState({
@@ -26,6 +27,7 @@ const SelectedType = () => {
       ],
       type: 'gender',
       grid: 0,
+      bg: '#f4f4f4',
     },
     {
       title: '인원수를 선택해 주세요',
@@ -37,6 +39,7 @@ const SelectedType = () => {
       ],
       type: 'MemberCnt',
       grid: 2,
+      bg: '#e8ecf2',
     },
     {
       title: '장소를 선택해주세요',
@@ -49,6 +52,7 @@ const SelectedType = () => {
       ],
       type: 'category',
       grid: 3,
+      bg: '#bbc0cf',
     },
   ]);
 
@@ -91,7 +95,7 @@ const SelectedType = () => {
           {state.MemberCnt !== '' && (
             <Grid isFlex margin="0 10px">
               <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                {state.MemberCnt.selecteText}
+                {getPeopleText(state.MemberCnt.value)}
               </Text>
               <Text bold fontSize="20px" color="#C0C0C0">
                 &nbsp;이
@@ -128,9 +132,11 @@ const SelectedType = () => {
             />
           );
         })}
-        <NextButton onClick={onClick}>
-          <Img src={right} />
-        </NextButton>
+        <Grid>
+          <NextButton onClick={onClick}>
+            <Right />
+          </NextButton>
+        </Grid>
       </Container>
     </>
   );
@@ -150,12 +156,18 @@ const LineBreak = styled.div`
 `;
 
 const NextButton = styled.button`
+  width: 80px;
+  height: 80px;
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: -37px;
   background-color: #000;
   border: 1px solid black;
+  svg {
+    width: 36px;
+    height: 36px;
+    fill: #fff;
+  }
 `;
-const Img = styled.img``;
 
 export default SelectedType;
