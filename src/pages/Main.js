@@ -34,6 +34,7 @@ const Main = () => {
     }
   }
   useEffect(() => {
+    if (mainLists) return;
     dispatch(getMainListDB());
   }, []);
 
@@ -67,7 +68,7 @@ const Main = () => {
         </Grid>
         <Grid>
           {/* 날씨에 따른 공간 */}
-          <Grid margin="0 0 48px 0">
+          <Grid margin="0 0 48px 24px">
             <ContentsTitle title="날씨에 따른 공간" />
             <Slick>
               {weatherList &&
@@ -85,7 +86,7 @@ const Main = () => {
             </Slick>
           </Grid>
           {/* 좋아요 순 추천 공간 */}
-          <Grid margin="0 0 48px 0">
+          <Grid margin="0 0 48px 24px">
             <ContentsTitle title="좋아요를 많이 받은" />
             <Slick>
               {likeList &&
@@ -104,7 +105,7 @@ const Main = () => {
             </Slick>
           </Grid>
           {/* 관리자 추천 공간 */}
-          <Grid padding="0 0 112px 0">
+          <Grid padding="0 0 112px 24px">
             <ContentsTitle title="MD's PICK" />
             <Slick>
               {pickList &&
