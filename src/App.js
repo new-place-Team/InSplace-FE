@@ -1,11 +1,14 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Route, Switch } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { ThemeProvider } from 'styled-components';
 import { history } from './redux/configureStore';
+import { getToken } from './shared/utils';
+import { logInCheckDB } from './redux/async/user';
 
 import Main from './pages/Main';
 import UI from './pages/UI';
@@ -21,6 +24,19 @@ import ReviewWrite from './pages/ReviewWrite';
 // import Navbar from './components/Navbar';
 
 function App() {
+  const dispatch = useDispatch();
+  // 새로고침 했을때 토큰이 있으면 로그인 체크
+  if (getToken()) {
+    useEffect(() => {
+      dispatch(logInCheckDB());
+    }, [getToken()]);
+    // 없으면 로그인 해달라고 한다.
+  } else {
+    console.log('로그인해주세요');
+    // window.alert('로그인 해주세요!');
+    // history.push('/login');
+  }
+
   return (
     <ConnectedRouter history={history}>
       <ThemeProvider theme={theme}>

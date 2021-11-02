@@ -9,7 +9,7 @@ export const logger = msg => {
 /* localStorage에서 토큰 가져오기 */
 export const getToken = () => {
   // eslint-disable-next-line no-undef
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('USER_TOKEN');
   if (token) {
     return `Bearer ${token}`;
   }
