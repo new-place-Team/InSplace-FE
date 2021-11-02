@@ -5,6 +5,7 @@ import { Container, Grid, Text } from '../elements';
 import SelectedCategory from '../components/place/SelectedCategory';
 import ListCard from '../components/place/ListCard';
 import Header from '../components/common/Header';
+import Navbar from '../components/common/Navbar';
 
 const SearchList = props => {
   const data = {
@@ -36,8 +37,8 @@ const SearchList = props => {
 
   return (
     <>
+      <Header _back _content="검색결과" _map _search />
       <Container>
-        <Header _back _content="검색결과" _type="search" />
         {!type && <SelectedCategory tag={tag} />}
         <Grid margin="24px 0">
           <Text fontSize="20px" bold>
@@ -50,6 +51,7 @@ const SearchList = props => {
           })}
         </Grid>
       </Container>
+      <Navbar />
     </>
   );
 };

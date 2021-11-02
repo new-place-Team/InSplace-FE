@@ -15,13 +15,13 @@ const Navbar = () => {
           <Icon onClick={() => history.push('/')}>
             <Image src={home} />
           </Icon>
-          <Icon onClick={() => history.push('/select/type')}>
+          <Icon onClick={() => history.push('/select-type')}>
             <Image src={sliders} />
           </Icon>
           <Icon onClick={() => window.alert('서비스 준비중 입니다.')}>
             <Image src={heartFilled} />
           </Icon>
-          <Icon onClick={() => window.alert('서비스 준비중 입니다.')}>
+          <Icon onClick={() => history.push('/login')}>
             <Image src={user} />
           </Icon>
         </Wrap>
@@ -35,10 +35,10 @@ const Nav = styled.div`
   height: 65px;
   position: fixed;
   bottom: 0;
-  background-color: royalblue;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px -2px 3px rgb(196 196 196 /25%);
 `;
 
 const Content = styled.div`

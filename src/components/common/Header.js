@@ -17,15 +17,13 @@ const Header = props => {
 
   return (
     <HeaderBar>
-      <Content>
-        <Grid justify="space-between" padding="16px 0">
-          <Grid isFlex>
+      <ContentArea>
+        <Content>
+          <Grid isFlex width="100%">
             {_back && (
-              <>
-                <Grid margin="0 13px 0 0">
-                  <Icon src={left} onClick={() => history.go(-1)} />
-                </Grid>
-              </>
+              <Grid margin="0 13px 0 0" onClick={() => history.go(-1)}>
+                <Icon src={left} />
+              </Grid>
             )}
             {_content && (
               <Text fontSize="18px" bold>
@@ -33,9 +31,9 @@ const Header = props => {
               </Text>
             )}
           </Grid>
-          <Grid isFlex>
+          <Grid isFlex width="100%" justifyContent="flex-end">
             {_map && (
-              <Grid margin="0 20px 0 0">
+              <Grid margin="0 12px 0 0">
                 <Icon src={map} />
               </Grid>
             )}
@@ -60,8 +58,8 @@ const Header = props => {
               </Grid>
             )}
           </Grid>
-        </Grid>
-      </Content>
+        </Content>
+      </ContentArea>
     </HeaderBar>
   );
 };
@@ -78,30 +76,29 @@ const HeaderBar = styled.div`
   width: 100%;
   position: fixed;
   top: 0;
+  box-shadow: 0px 2px 3px rgb(196 196 196 / 25%);
+  background-color: #fff;
+  z-index: 3;
+`;
+
+const ContentArea = styled.div`
+  max-width: 768px;
+  height: 66px;
+  min-height: 66px;
+  margin: 0 auto;
+  padding: 0 26px 0 24px;
 `;
 
 const Content = styled.div`
   display: flex;
+  max-width: 768px;
+  height: 66px;
+  min-height: 66px;
 `;
 
-// const Icon = styled.div`
-//   cursor: pointer;
-//   color: #000;
-//   font-size: 24px;
-//   position: absolute;
-//   top: 16px;
-//   ${props => props.left && `left:${props.left}`};
-//   ${props => props.right && `right:${props.right}`};
-// `;
-
-// const ContentArea = styled.div`
-//   position: absolute;
-//   top: 16px;
-//   ${props => (props.back ? `left:52px` : 'left: 24px')};
-// `;
 const Icon = styled.img`
   width: 24px;
-  ${props => props.margin && `margin:${props.margin}`};
+  margin: ${({ margin }) => margin || '0'};
   vertical-align: text-bottom;
 `;
 

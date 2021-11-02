@@ -39,8 +39,8 @@ const Main = () => {
 
   return (
     <>
-      <Header _content="Logo" _search _type="search" />
-      <Container padding="0">
+      <Header _content="Logo" _search />
+      <Container padding="66px 0 0 0">
         <Grid>
           <Bg src={weatherBg} />
           <WeatherBox info={weatherInfo} />
