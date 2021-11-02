@@ -70,7 +70,7 @@ const SelectedType = () => {
 
     // 유저가 선택한 유형을 history state에 담아서 보낸다.
     history.push({
-      pathname: '/select/type/result',
+      pathname: '/select-type/result',
       state: params,
     });
   };
