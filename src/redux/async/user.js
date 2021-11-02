@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { addUser, logIn } from '../../shared/api/userApi';
+import { addUser, logIn, logInCheck } from '../../shared/api/userApi';
 
 // 회원등록
 export const addUserDB = createAsyncThunk(
@@ -20,6 +20,7 @@ export const addUserDB = createAsyncThunk(
   },
 );
 
+// 로그인
 export const logInDB = createAsyncThunk(
   'user/logIn',
   // eslint-disable-next-line consistent-return
@@ -38,6 +39,20 @@ export const logInDB = createAsyncThunk(
         };
         return userInfo;
       }
+    } catch (err) {
+      console.log('error ::::::', err);
+      return thunkAPI.rejectWithValue('<<', err);
+    }
+  },
+);
+
+export const logInCheckDB = createAsyncThunk(
+  'user/logInCheck',
+  // eslint-disable-next-line consistent-return
+  async (data, thunkAPI) => {
+    try {
+      const response = await logInCheck();
+      return response.data;
     } catch (err) {
       console.log('error ::::::', err);
       return thunkAPI.rejectWithValue('<<', err);
