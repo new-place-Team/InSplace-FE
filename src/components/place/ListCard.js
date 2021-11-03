@@ -52,6 +52,32 @@ const ListCard = props => {
     );
   }
 
+  if (type === 'selectResult') {
+    return (
+      <>
+        <Grid _onClick={() => history.push(`/place/detail/${info.postId}`)}>
+          <Image width="237px" height="320px" src={info && info.postImage} />
+          <Grid margin="11px 0 0 0">
+            <Text fontSize="13px" color="#949494">
+              {info.category}
+            </Text>
+          </Grid>
+          <Text fontSize="16px" color="#272727" bold>
+            {info.title}
+          </Text>
+          <Grid margin="6px 0 0 0">
+            <Text fontSize="14px" color="#646464">
+              {info.addressShort}
+            </Text>
+          </Grid>
+          <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
+            ♥︎{info.favoriteCnt}
+          </Text>
+        </Grid>
+      </>
+    );
+  }
+
   return (
     <>
       <Grid _onClick={gotoDetail}>
