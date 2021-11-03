@@ -9,16 +9,17 @@ import ListCard from '../place/ListCard';
 const SwiperLB = props => {
   const { list } = props;
   const setting = {
-    spaceBetween: 50,
     slidesPerView: 3,
+    spaceBetween: 16,
     breakpoints: {
-      480: {
-        slidesPerView: 2,
+      // mobile
+      320: {
+        slidesPerView: 1,
         spaceBetween: 40,
       },
-      '@640': {
-        slidesPerView: 5,
-        spaceBetween: 50,
+      640: {
+        slidesPerView: 3,
+        spaceBetween: 16,
       },
     },
   };

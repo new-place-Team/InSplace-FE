@@ -1,8 +1,10 @@
+/* eslint-disable import/no-unresolved */
 import React from 'react';
 import styled from 'styled-components';
 import { history } from '../../redux/configureStore';
 import { Image } from '../../elements/index';
-import { home, vector, sliders, user, heartLine } from '../../images/index';
+import { home, vector, user, heartLine } from '../../images/index';
+import { ReactComponent as Filter } from '../../images/ic-fliter.svg';
 
 const Navbar = () => {
   return (
@@ -16,7 +18,7 @@ const Navbar = () => {
             <Image src={home} />
           </Icon>
           <Icon onClick={() => history.push('/select-type')}>
-            <Image src={sliders} />
+            <Filter />
           </Icon>
           <Icon onClick={() => window.alert('서비스 준비중 입니다.')}>
             <Image src={heartLine} />
@@ -39,6 +41,7 @@ const Nav = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 0px -2px 3px rgb(196 196 196 /25%);
+  z-index: 3;
 `;
 
 const Content = styled.div`
