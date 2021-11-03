@@ -31,6 +31,7 @@ import pin from './ic-pin.svg';
 import bad from './ic-bad.svg';
 import good from './ic-good.svg';
 import next from './ic-next.svg';
+import polygon from './Polygon 3.svg';
 
 export {
   bookmark,
@@ -53,4 +54,5 @@ export {
   bad,
   good,
   next,
+  polygon,
 };

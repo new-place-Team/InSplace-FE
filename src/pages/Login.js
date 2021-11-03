@@ -72,7 +72,7 @@ const Login = () => {
     <>
       <Header _back _content="로그인" />
       <Container padding="66px 0 0 0">
-        <Grid margin="42px 0 0 0">
+        <Grid padding="42px 20px 0 20px">
           <Wrap>
             <Label type="form">이메일</Label>
             <Input
@@ -119,8 +119,7 @@ const Wrap = styled.div`
 const BottomWrap = styled.div`
   position: absolute;
   padding: 0 20px;
-  bottom: 5px;
-  left: 0;
+  bottom: 50px;
   width: 100%;
 `;
 const Button = styled.button`
@@ -130,6 +129,7 @@ const Button = styled.button`
   font-weight: 700;
   background-color: #000;
   color: #fff;
+  margin-top: 20px;
 `;
 
 const InputCloseButton = styled.img`
