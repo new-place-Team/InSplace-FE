@@ -3,14 +3,21 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/common/Header';
 import SelectedContents from '../components/place/SelectedContents';
 import { Container, Grid, Text } from '../elements/index';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import { history } from '../redux/configureStore';
 import { getPeopleText } from '../shared/transferText';
+import { setSelectedCategory } from '../redux/modules/placeSlice';
+import { getSearchConditionDB } from '../redux/async/place';
 
 const SelectedType = () => {
+  const dispatch = useDispatch();
+  const weatherStatus = useSelector(state => state.place.weatherStatus);
+  console.log('status', weatherStatus);
+
   const [state, setState] = React.useState({
     MemberCnt: '',
     gender: '',
@@ -66,16 +73,17 @@ const SelectedType = () => {
       return;
     }
     const params = {
-      weather: 1,
+      weather: weatherStatus.status || 1,
       category: state.category.value,
       num: state.MemberCnt.value,
       gender: state.gender.value,
     };
-
+    dispatch(getSearchConditionDB(params));
+    dispatch(setSelectedCategory(state));
     // 유저가 선택한 유형을 history state에 담아서 보낸다.
     history.push({
       pathname: '/select-type/result',
-      state: params,
+      state: { weatherStatus: params, selectedCategory: state },
     });
   };
 

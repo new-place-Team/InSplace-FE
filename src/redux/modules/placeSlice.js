@@ -14,7 +14,9 @@ const initialState = {
   mainLists: null,
   weatherList: [],
   weatherStatus: null,
-  conditionPlaces: {},
+  /* 선택 카테고리 */
+  selectedCategory: [],
+  conditionPlaces: null,
   detailInfo: {},
   currentCoordinate: {},
 };
@@ -26,6 +28,9 @@ const placeSlice = createSlice({
     mainLists: (state, { payload }) => {
       state.mainLists = payload;
       state.weatherList = payload.weatherPlace;
+    },
+    setSelectedCategory: (state, { payload }) => {
+      state.selectedCategory = payload;
     },
   },
   extraReducers: {
@@ -57,6 +62,6 @@ const placeSlice = createSlice({
   },
 });
 
-export const { getCurrentCoordinate } = placeSlice.actions;
+export const { getCurrentCoordinate, setSelectedCategory } = placeSlice.actions;
 
 export default placeSlice;

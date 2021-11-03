@@ -10,7 +10,7 @@ import { getCategoryText } from '../../shared/transferText';
 import { history } from '../../redux/configureStore';
 
 const ListCard = props => {
-  const { type, title, likeCnt, address, category, src, info } = props;
+  const { type, info } = props;
 
   // 각 포스트에 해당하는 id (props로 받아옴)
   const postId = info && info.post_id;
@@ -52,28 +52,30 @@ const ListCard = props => {
     );
   }
 
-  if (type === 'search') {
+  if (type === 'selectResult') {
     return (
       <>
-        <Grid width="49%" margin="0 0 32px 0" _onClick={gotoDetail}>
-          <Grid height="195px">
-            <Image src={src} />
-          </Grid>
+        <Grid
+          width="49%"
+          margin="0 0 32px 0"
+          _onClick={() => history.push(`/place/detail/${info.postId}`)}
+        >
+          <Image width="237px" height="320px" src={info && info.postImage} />
           <Grid margin="11px 0 0 0">
             <Text fontSize="13px" color="#949494">
-              {category}
+              {info.category}
             </Text>
           </Grid>
           <Text fontSize="16px" color="#272727" bold>
-            {title}
+            {info.title}
           </Text>
           <Grid margin="6px 0 0 0">
             <Text fontSize="14px" color="#646464">
-              {address}
+              {info.addressShort}
             </Text>
           </Grid>
           <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
-            ♥︎{likeCnt}
+            ♥︎{info.favoriteCnt}
           </Text>
         </Grid>
       </>

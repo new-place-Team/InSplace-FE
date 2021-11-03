@@ -7,7 +7,7 @@ import 'swiper/swiper.min.css';
 import ListCard from '../place/ListCard';
 
 const SwiperLB = props => {
-  const { list } = props;
+  const { type, list } = props;
   const setting = {
     slidesPerView: 3,
     spaceBetween: 16,
@@ -27,12 +27,27 @@ const SwiperLB = props => {
       },
     },
   };
+  if (type === 'selectResult') {
+    return (
+      <Swiper {...setting}>
+        {list &&
+          list.map(info => {
+            return (
+              <SwiperSlide key={info.postId}>
+                <ListCard type="selectResult" info={info} />
+              </SwiperSlide>
+            );
+          })}
+      </Swiper>
+    );
+  }
+
   return (
     <Swiper {...setting}>
       {list &&
         list.map(info => {
           return (
-            <SwiperSlide key={`card_${info.post_id}`}>
+            <SwiperSlide key={info.post_id}>
               <ListCard src={info.post_images} type="main" info={info} />
             </SwiperSlide>
           );
