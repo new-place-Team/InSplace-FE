@@ -45,3 +45,34 @@ export const mapscript = (latitude, longitude, mapDiv, markerdata) => {
     });
   });
 };
+
+// 위도,경도 추출하는 함수
+// export const getCoordinate = pos => {
+//   const { latitude, longitude } = pos.coords;
+//   const coordinate = {
+//     latitude,
+//     longitude,
+//   };
+//   console.log(coordinate);
+//   return coordinate;
+// };
+
+// 현재 위치를 받아오는 함수
+// export const getCurrentLoaction = () => {
+//   // eslint-disable-next-line no-return-await
+//   window.navigator.geolocation.getCurrentPosition(pos => {
+//     return getCoordinate(pos);
+//   });
+// };
+
+// 현재 좌표를 받는다.
+export const getCoordinate = () => {
+  window.navigator.geolocation.getCurrentPosition(pos => {
+    const { latitude, longitude } = pos.coords;
+    const coordinate = {
+      latitude,
+      longitude,
+    };
+    return coordinate;
+  });
+};

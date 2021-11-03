@@ -6,6 +6,7 @@ import {
   getMainListDB,
   getSearchConditionDB,
   getPlaceDetailDB,
+  getCurrentCoordinateWEB,
 } from '../async/place';
 
 /* init */
@@ -14,6 +15,7 @@ const initialState = {
   weatherList: [],
   conditionPlaces: {},
   detailInfo: {},
+  currentCoordinate: {},
 };
 
 const placeSlice = createSlice({
@@ -42,7 +44,15 @@ const placeSlice = createSlice({
     [getPlaceDetailDB.fulfilled]: (state, { payload }) => {
       state.detailInfo = payload;
     },
+    [getCurrentCoordinateWEB.fulfilled]: (state, { payload }) => {
+      console.log('리듀서 페이로드!!!!!!!!!', payload);
+    },
+    [getCurrentCoordinateWEB.pending]: (state, action) => {
+      console.log('리듀서 페이로드!!!!!!!!!', action);
+    },
   },
 });
+
+export const { getCurrentCoordinate } = placeSlice.actions;
 
 export default placeSlice;

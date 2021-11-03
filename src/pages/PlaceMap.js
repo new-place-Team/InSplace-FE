@@ -5,6 +5,7 @@ import { Container, Grid } from '../elements';
 import { useSelector } from 'react-redux';
 import { MapSlick } from '../components/map/MapSlick';
 import { markerdata } from '../shared/MarkerData';
+
 import MapCard from '../components/map/MapCard';
 import Map from '../components/map/Map';
 import Header from '../components/common/Header';
@@ -31,7 +32,7 @@ const MapContainer = () => {
     getCoordinate(pos);
   });
 
-  //현재 위치 좌표
+  // 현재 위치 좌표
   console.log('현재 내 위치좌표', currentCoordinate);
 
   return (
