@@ -14,10 +14,14 @@ const SwiperLB = props => {
     breakpoints: {
       // mobile
       320: {
-        slidesPerView: 1,
-        spaceBetween: 40,
+        slidesPerView: 2,
+        spaceBetween: 146,
       },
-      640: {
+      500: {
+        slidesPerView: 2,
+        spaceBetween: 16,
+      },
+      768: {
         slidesPerView: 3,
         spaceBetween: 16,
       },
