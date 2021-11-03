@@ -11,10 +11,71 @@ import {
   heartFilled,
   share,
 } from '../../images/index';
+import { ReactComponent as LeftIcon } from '../../images/ic-left.svg';
 
 const Header = props => {
-  const { _back, _search, _content, _map, _close, _like, _share } = props;
+  const {
+    _onBg,
+    _back,
+    _search,
+    _content,
+    _map,
+    _close,
+    _like,
+    _share,
+    _color,
+  } = props;
 
+  if (_onBg) {
+    return (
+      <ContentArea>
+        <Content>
+          <Grid isFlex width="100%">
+            {_back && (
+              <Grid margin="0 13px 0 0">
+                <IconArea onClick={() => history.go(-1)} color={_color}>
+                  <LeftIcon />
+                </IconArea>
+                {/* <Icon src={left} onClick={() => history.go(-1)} /> */}
+              </Grid>
+            )}
+            {_content && (
+              <Text fontSize="18px" bold color={_color}>
+                {_content}
+              </Text>
+            )}
+          </Grid>
+          <Grid isFlex width="100%" justifyContent="flex-end">
+            {_map && (
+              <Grid margin="0 12px 0 0">
+                <Icon src={map} />
+              </Grid>
+            )}
+            {_search && (
+              <Grid>
+                <Icon src={search} />
+              </Grid>
+            )}
+            {_close && (
+              <Grid>
+                <Icon src={close} />
+              </Grid>
+            )}
+            {_like && (
+              <Grid>
+                <Icon src={heartFilled} />
+              </Grid>
+            )}
+            {_share && (
+              <Grid>
+                <Icon src={share} />
+              </Grid>
+            )}
+          </Grid>
+        </Content>
+      </ContentArea>
+    );
+  }
   return (
     <HeaderBar>
       <ContentArea>
@@ -65,11 +126,12 @@ const Header = props => {
 };
 
 Header.defaultProps = {
-  back: false,
-  search: false,
-  text: null,
-  map: false,
-  close: false,
+  _back: false,
+  _search: false,
+  _text: null,
+  _map: false,
+  _close: false,
+  _color: '#212529',
 };
 
 const HeaderBar = styled.div`
@@ -100,6 +162,16 @@ const Icon = styled.img`
   width: 24px;
   margin: ${({ margin }) => margin || '0'};
   vertical-align: text-bottom;
+`;
+
+const IconArea = styled.div`
+  display: flex;
+  align-items: center;
+  width: 24px;
+  cursor: pointer;
+  svg {
+    fill: ${({ color }) => color || '#212529'};
+  }
 `;
 
 export default Header;
