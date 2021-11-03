@@ -8,15 +8,41 @@ import styled from 'styled-components';
 
 export const Slick = props => {
   const { inSideLength, outSideLength, children } = props;
-
   // 768px ToShow : 3 , 375px toshow : 1
   const settings = {
-    centerMode: true,
-    centerPadding: '10px',
+    // centerMode: true,
     infinite: false,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
     speed: 500,
+    // responsive: [
+    //   {
+    //     breakpoint: 320,
+    //     settings: { slidesToShow: 1, slidesToScroll: 1, infinite: false },
+    //   },
+    //   {
+    //     breakpoint: 360,
+    //     settings: {
+    //       slidesToShow: 1,
+    //       slidesToScroll: 1,
+    //       infinite: false,
+    //       centerPadding: '40px',
+    //     },
+    //   },
+    //   {
+    //     breakpoint: 768,
+    //     settings: {
+    //       slidesToShow: 3,
+    //       slidesToScroll: 3,
+    //       infinite: false,
+    //       centerPadding: '30px',
+    //     },
+    //   },
+    //   {
+    //     breakpoint: 1024,
+    //     settings: { slidesToShow: 3, slidesToScroll: 3, infinite: false },
+    //   },
+    // ],
   };
 
   return (
@@ -41,15 +67,7 @@ const Wrap = styled.div`
 
 const StyledSlider = styled(Slider)`
   .slick-slider .slick-list {
-    width: 100% !important;
-    padding: 0 !important;
-    overflow: hidden;
-  }
-  /* .slick-initialized, */
-  .slick-slide {
-    width: 100%;
-    padding: 0 !important;
-    overflow: hidden;
+    padding: 0 0 0 20px;
   }
 `;
 

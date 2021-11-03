@@ -15,6 +15,7 @@ import sunBg from '../images/weather/sun1.jpg';
 import rainBg from '../images/weather/rain1.jpg';
 import snowBg from '../images/weather/snow1.jpg';
 import { ReactComponent as Marker } from '../images/ic-marker.svg';
+import Swiper from '../components/common/SwiperLB';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const Main = () => {
     }
   }
   useEffect(() => {
+    if (mainLists) return;
     dispatch(getMainListDB());
   }, []);
 
@@ -66,8 +68,13 @@ const Main = () => {
           </Button> */}
         </Grid>
         <Grid>
+          {/* TODO swiper */}
+          <Grid margin="0 0 48px 24px">
+            <ContentsTitle title="날씨에 따른 공간" />
+            <Swiper list={weatherList} />
+          </Grid>
           {/* 날씨에 따른 공간 */}
-          <Grid margin="0 0 48px 0">
+          <Grid margin="0 0 48px 24px">
             <ContentsTitle title="날씨에 따른 공간" />
             <Slick>
               {weatherList &&
@@ -85,7 +92,7 @@ const Main = () => {
             </Slick>
           </Grid>
           {/* 좋아요 순 추천 공간 */}
-          <Grid margin="0 0 48px 0">
+          <Grid margin="0 0 48px 24px">
             <ContentsTitle title="좋아요를 많이 받은" />
             <Slick>
               {likeList &&
@@ -104,7 +111,7 @@ const Main = () => {
             </Slick>
           </Grid>
           {/* 관리자 추천 공간 */}
-          <Grid padding="0 0 112px 0">
+          <Grid padding="0 0 112px 24px">
             <ContentsTitle title="MD's PICK" />
             <Slick>
               {pickList &&
