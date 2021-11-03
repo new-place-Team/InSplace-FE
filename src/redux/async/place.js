@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable import/no-cycle */
 /* eslint-disable consistent-return */
 /* eslint-disable prettier/prettier */
@@ -58,14 +59,11 @@ export const getPlaceDetailDB = createAsyncThunk(
 // 현재 위치 받아오기
 export const getCurrentCoordinateWEB = createAsyncThunk(
   'place/currentCoordinate',
-  async (params, thunkAPI) => {
-    await window.navigator.geolocation.getCurrentPosition(position => {
-      const { latitude, longitude } = position.coords;
-      const coordinate = {
-        latitude,
-        longitude,
-      };
-      return coordinate;
-    });
+  () => {
+    return new Promise((resolve, reject) =>
+      !window.navigator.geolocation
+        ? reject('Geolocation not supported')
+        : navigator.geolocation.getCurrentPosition({}),
+    );
   },
 );

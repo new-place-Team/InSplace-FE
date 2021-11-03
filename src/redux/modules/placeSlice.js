@@ -44,10 +44,8 @@ const placeSlice = createSlice({
     [getPlaceDetailDB.fulfilled]: (state, { payload }) => {
       state.detailInfo = payload;
     },
-    [getCurrentCoordinateWEB.fulfilled]: (state, { payload }) => {
-      console.log('리듀서 페이로드!!!!!!!!!', payload);
-    },
-    [getCurrentCoordinateWEB.pending]: (state, action) => {
+    // 현재좌표 받아오기
+    [getCurrentCoordinateWEB.fulfilled]: (state, action) => {
       console.log('리듀서 페이로드!!!!!!!!!', action);
     },
   },
