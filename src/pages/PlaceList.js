@@ -7,7 +7,7 @@ import ListCard from '../components/place/ListCard';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 
-const SearchList = props => {
+const SearchList = () => {
   const data = {
     type: 'all',
     list: [

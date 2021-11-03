@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { history } from '../../redux/configureStore';
 import { Image, Grid } from '../../elements/index';
-import { home, vector, user, heartLine } from '../../images/index';
+import { home, user, heartLine } from '../../images/index';
 import { ReactComponent as Filter } from '../../images/ic-fliter.svg';
 import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
 

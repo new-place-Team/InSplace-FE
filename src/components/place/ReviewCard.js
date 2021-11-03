@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, Grid, Text, Image } from '../../elements/index';
-import { good, bad } from '../../images/index';
+import { good } from '../../images/index';
 
 const ReviewCard = () => {
   return (
