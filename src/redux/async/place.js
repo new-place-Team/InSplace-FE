@@ -61,7 +61,6 @@ export const getCurrentCoordinateWEB = createAsyncThunk(
   async (params, thunkAPI) => {
     try {
       const response = await getPosition().then(position => position);
-      console.log('<<<<<', response);
       if (response) {
         return response;
       }

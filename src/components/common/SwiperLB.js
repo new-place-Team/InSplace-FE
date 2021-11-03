@@ -27,18 +27,17 @@ const SwiperLB = props => {
       },
     },
   };
-  return null;
-  // (
-  //   <Swiper {...setting}>
-  //     {list &&
-  //       list.map(info => {
-  //         return (
-  //           <SwiperSlide key={`card_${info.post_id}`}>
-  //             <ListCard src={info.post_images} type="main" info={info} />
-  //           </SwiperSlide>
-  //         );
-  //       })}
-  //   </Swiper>
-  // );
+  return (
+    <Swiper {...setting}>
+      {list &&
+        list.map(info => {
+          return (
+            <SwiperSlide key={`card_${info.post_id}`}>
+              <ListCard src={info.post_images} type="main" info={info} />
+            </SwiperSlide>
+          );
+        })}
+    </Swiper>
+  );
 };
 export default SwiperLB;
