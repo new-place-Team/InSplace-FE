@@ -5,17 +5,21 @@ import { Grid, Button } from '../../elements';
 
 const SelectedCategory = props => {
   const { tag } = props;
-
+  const tagList = [];
+  tagList.push(tag.MemberCnt);
+  tagList.push(tag.category);
+  tagList.push(tag.gender);
   return (
     <>
       <Grid isFlex margin="20px 0 40px 0">
-        {tag.map(item => {
-          return (
-            <Button key={`tag-${item.tag}`} type="tag">
-              {item.tag}
-            </Button>
-          );
-        })}
+        {tagList &&
+          tagList.map(item => {
+            return (
+              <Button key={item.value} type="tag">
+                {item.selecteText}
+              </Button>
+            );
+          })}
       </Grid>
     </>
   );

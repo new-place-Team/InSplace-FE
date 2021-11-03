@@ -25,10 +25,10 @@ const ListCard = props => {
     return (
       <>
         <Grid _onClick={gotoDetail}>
-          <Image width="237px" height="320px" src={info && info.post_images} />
+          <Image width="237px" height="320px" src={info && info.postImages} />
           <Tag>
             <Text color="#fff" fontSize="14px">
-              {info && getCategoryText(info.category_id)}
+              {info && getCategoryText(info.categoryId)}
             </Text>
           </Tag>
         </Grid>
@@ -42,10 +42,10 @@ const ListCard = props => {
             <Image src={heartFilled} />
           </Grid>
           <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
-            {info && info.favorite_cnt}
+            {info && info.favoriteCnt}
           </Text>
           <Text fontSize="14px" color="#646464">
-            {info && info.address_short}
+            {info && info.addressShort}
           </Text>
         </Grid>
       </>

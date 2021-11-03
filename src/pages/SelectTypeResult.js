@@ -8,11 +8,14 @@ import ContentsTitle from '../components/common/ContentsTitle';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { getSearchConditionDB } from '../redux/async/place';
+import SelectedCategory from '../components/place/SelectedCategory';
 
 const SearchTypeList = history => {
   const dispatch = useDispatch();
   const conditionPlaces = useSelector(state => state.place.conditionPlaces);
+  const selectedCategory = useSelector(state => state.place.selectedCategory);
   console.log('>>>>', conditionPlaces);
+  console.log('<<<<', selectedCategory);
   const inSideList = conditionPlaces && conditionPlaces.insidePlaces;
   const outSideList = conditionPlaces && conditionPlaces.outSidePlaces;
 
@@ -28,6 +31,7 @@ const SearchTypeList = history => {
     <>
       <Header _type="search" _back _content="검색 결과" _map _search />
       <Container>
+        <SelectedCategory tag={selectedCategory} />
         {/* 실내 리스트 */}
         <ContentsTitle title="실내" />
         <Grid>
