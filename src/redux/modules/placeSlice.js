@@ -44,9 +44,21 @@ const placeSlice = createSlice({
     [getPlaceDetailDB.fulfilled]: (state, { payload }) => {
       state.detailInfo = payload;
     },
+<<<<<<< HEAD
     // 현재좌표 받아오기
     [getCurrentCoordinateWEB.fulfilled]: (state, action) => {
       console.log('리듀서 페이로드!!!!!!!!!', action);
+=======
+    [getCurrentCoordinateWEB.fulfilled]: (state, { payload }) => {
+      console.log('리듀서 fullfilled', payload);
+    },
+    [getCurrentCoordinateWEB.pending]: (state, { payload }) => {
+      console.log('web panding', payload);
+    },
+    /* rejected 처리 실패 */
+    [getCurrentCoordinateWEB.rejected]: (state, { payload }) => {
+      console.log('reject', payload);
+>>>>>>> 52a0b5299e6fb901226023d5fc4b18400f69261e
     },
   },
 });

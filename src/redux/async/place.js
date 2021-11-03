@@ -8,7 +8,7 @@ import {
   getSearchCondition,
   getPlaceDetail,
 } from '../../shared/api/placeApi';
-// import { getCurrentLoaction } from '../../shared/utils';
+import { getPosition } from '../../shared/utils';
 
 /* 메인 리스트 호출 */
 export const getMainListDB = createAsyncThunk(
@@ -59,11 +59,14 @@ export const getPlaceDetailDB = createAsyncThunk(
 // 현재 위치 받아오기
 export const getCurrentCoordinateWEB = createAsyncThunk(
   'place/currentCoordinate',
-  () => {
-    return new Promise((resolve, reject) =>
-      !window.navigator.geolocation
-        ? reject('Geolocation not supported')
-        : navigator.geolocation.getCurrentPosition({}),
-    );
+  async (params, thunkAPI) => {
+    try {
+      const response = await getPosition().then(position => position);
+      if (response) {
+        return response;
+      }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
   },
 );
