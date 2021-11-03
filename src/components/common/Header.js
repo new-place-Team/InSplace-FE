@@ -36,7 +36,6 @@ const Header = props => {
                 <IconArea onClick={() => history.go(-1)} color={_color}>
                   <LeftIcon />
                 </IconArea>
-                {/* <Icon src={left} onClick={() => history.go(-1)} /> */}
               </Grid>
             )}
             {_content && (
@@ -83,7 +82,9 @@ const Header = props => {
           <Grid isFlex width="100%">
             {_back && (
               <Grid margin="0 13px 0 0">
-                <Icon src={left} onClick={() => history.go(-1)} />
+                <IconArea onClick={() => history.go(-1)} color={_color}>
+                  <LeftIcon />
+                </IconArea>
               </Grid>
             )}
             {_content && (
