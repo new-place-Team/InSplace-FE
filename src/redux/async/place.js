@@ -7,6 +7,7 @@ import {
   getSearchCondition,
   getPlaceDetail,
 } from '../../shared/api/placeApi';
+// import { getCurrentLoaction } from '../../shared/utils';
 
 /* 메인 리스트 호출 */
 export const getMainListDB = createAsyncThunk(
@@ -51,5 +52,20 @@ export const getPlaceDetailDB = createAsyncThunk(
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
     }
+  },
+);
+
+// 현재 위치 받아오기
+export const getCurrentCoordinateWEB = createAsyncThunk(
+  'place/currentCoordinate',
+  async (params, thunkAPI) => {
+    await window.navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+      const coordinate = {
+        latitude,
+        longitude,
+      };
+      return coordinate;
+    });
   },
 );

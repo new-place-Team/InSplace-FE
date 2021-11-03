@@ -1,6 +1,8 @@
+/* eslint-disable no-return-assign */
+/* eslint-disable prefer-const */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -9,6 +11,9 @@ import { ThemeProvider } from 'styled-components';
 import { history } from './redux/configureStore';
 import { getToken } from './shared/utils';
 import { logInCheckDB } from './redux/async/user';
+// import { getCurrentCoordinate } from './redux/modules/placeSlice';
+// eslint-disable-next-line import/named
+import { getCurrentCoordinateWEB } from './redux/async/place';
 
 import Main from './pages/Main';
 import UI from './pages/UI';
@@ -31,11 +36,11 @@ function App() {
       dispatch(logInCheckDB());
     }, [getToken()]);
     // 없으면 로그인 해달라고 한다.
-  } else {
-    console.log('로그인해주세요');
-    // window.alert('로그인 해주세요!');
-    // history.push('/login');
   }
+  // 현재위치를 받아보자!
+  useEffect(() => {
+    dispatch(getCurrentCoordinateWEB());
+  }, []);
 
   return (
     <ConnectedRouter history={history}>
