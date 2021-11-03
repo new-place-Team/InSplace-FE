@@ -45,10 +45,14 @@ const placeSlice = createSlice({
       state.detailInfo = payload;
     },
     [getCurrentCoordinateWEB.fulfilled]: (state, { payload }) => {
-      console.log('리듀서 페이로드!!!!!!!!!', payload);
+      console.log('리듀서 fullfilled', payload);
     },
-    [getCurrentCoordinateWEB.pending]: (state, action) => {
-      console.log('리듀서 페이로드!!!!!!!!!', action);
+    [getCurrentCoordinateWEB.pending]: (state, { payload }) => {
+      console.log('web panding', payload);
+    },
+    /* rejected 처리 실패 */
+    [getCurrentCoordinateWEB.rejected]: (state, { payload }) => {
+      console.log('reject', payload);
     },
   },
 });
