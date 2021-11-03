@@ -15,6 +15,7 @@ import sunBg from '../images/weather/sun1.jpg';
 import rainBg from '../images/weather/rain1.jpg';
 import snowBg from '../images/weather/snow1.jpg';
 import { ReactComponent as Marker } from '../images/ic-marker.svg';
+// import Swiper styles
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ const Main = () => {
               서울시 마포구 상암동
             </Text>
           </Grid>
+
           {/* 장소 추천받기 */}
           {/* <Button
             type="fullSizeWhite"

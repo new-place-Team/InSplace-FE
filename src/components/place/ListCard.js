@@ -24,7 +24,7 @@ const ListCard = props => {
   if (type === 'main') {
     return (
       <>
-        <Grid width="247px" height="320px" _onClick={gotoDetail}>
+        <Grid _onClick={gotoDetail}>
           <Image width="247px" height="320px" src={info && info.post_images} />
           <Tag>
             <Text color="#fff" fontSize="14px">
