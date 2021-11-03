@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import { Grid, Text, Image } from '../../elements';
+import { Grid, Text } from '../../elements';
 import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
 import { ReactComponent as RainIcon } from '../../images/weather/rain.svg';
 import { ReactComponent as SnowIcon } from '../../images/weather/snow.svg';

@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { Container, Grid, Text, Image, Button } from '../elements';
-import Header from '../components/common/Header';
+// import Header from '../components/common/Header';
 import Map from '../components/map/Map';
 import { getPlaceDetailDB } from '../redux/async/place';
 import { heartFilled, pin, write, heartLine, share } from '../images/index';
 
 import ReviewCard from '../components/place/ReviewCard';
-import { PlaceSlick } from '../components/place/PlaceSlick';
 import { history } from '../redux/configureStore';
+import PlaceSwiper from '../components/place/PlaceSwiper';
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -22,14 +22,14 @@ const Detail = () => {
   const newAddr = detailData.addressShort
     ? detailData.addressShort.split(' ')
     : false;
-  const [active, setActive] = useState({ likeList: true, newList: false });
+  const [active, setActive] = useState({ likeList: false, newList: true });
 
-  const [iconActive, setIconActive] = useState({
-    bookmark: false,
-    like: false,
-    review: false,
-    kakao: false,
-  });
+  // const [iconActive, setIconActive] = useState({
+  //   bookmark: false,
+  //   like: false,
+  //   review: false,
+  //   kakao: false,
+  // });
 
   const onClick = e => {
     if (e.target.name === 'likeList') {
@@ -50,6 +50,17 @@ const Detail = () => {
     latitude: detailData.post_loc_y,
     longitude: detailData.post_loc_x,
   };
+
+  const reviewPage = () => {
+    const params = {
+      id,
+      placeImage: detailData.postImages[0],
+      title: detailData.title,
+      description: detailData.description,
+    };
+    history.push({ pathname: `/review/write/${id}`, state: params });
+  };
+
   useEffect(() => {
     dispatch(getPlaceDetailDB(id));
     window.scrollTo(0, 0);
@@ -59,15 +70,8 @@ const Detail = () => {
     <Container padding="0">
       <Grid bg="#F5F5F5">
         {/* 배경 이미지 */}
-        <PlaceSlick images={detailData.postImages}>
-          {detailData.postImages &&
-            detailData.postImages.map(item => {
-              return <EntireImage src={item} />;
-            })}
-        </PlaceSlick>
-        {/* <EntireImage src={detailData.postImages}>
-          <Header _type="search" _back />
-        </EntireImage> */}
+        <PlaceSwiper list={detailData.postImages} />
+        {/* <Header _type="search" _back /> */}
         {/* 장소의 상세 정보 */}
         <InfoGrid>
           <Text fontSize="13px" color="#A3A6AA">
@@ -119,11 +123,7 @@ const Detail = () => {
               </Button>
             </Grid>
             <Grid>
-              <Button
-                size="12px"
-                color="#A3A6AA"
-                _onClick={() => history.push('/review/write')}
-              >
+              <Button size="12px" color="#A3A6AA" _onClick={reviewPage}>
                 <Image src={write} margin="0 0 1px 0" />
                 리뷰쓰기
               </Button>
@@ -174,20 +174,20 @@ const Detail = () => {
               </Grid>
               <Grid isFlex>
                 <ReviewButton
-                  className={active.likeList && 'active'}
-                  name="likeList"
-                  onClick={onClick}
-                >
-                  {active.likeList && <Dotted />}
-                  추천순
-                </ReviewButton>
-                <ReviewButton
                   className={active.newList && 'active'}
                   name="newList"
                   onClick={onClick}
                 >
                   {active.newList && <Dotted />}
                   최신순
+                </ReviewButton>
+                <ReviewButton
+                  className={active.likeList && 'active'}
+                  name="likeList"
+                  onClick={onClick}
+                >
+                  {active.likeList && <Dotted />}
+                  추천순
                 </ReviewButton>
               </Grid>
             </Grid>
@@ -202,16 +202,6 @@ const Detail = () => {
     </Container>
   );
 };
-
-const EntireImage = styled.div`
-  position: relative;
-  width: 100%;
-  height: 504px;
-  background-image: url('${props => props.src}');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-`;
 
 const InfoGrid = styled.div`
   position: relative;

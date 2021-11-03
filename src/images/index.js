@@ -32,6 +32,7 @@ import bad from './ic-bad.svg';
 import good from './ic-good.svg';
 import next from './ic-next.svg';
 import polygon from './Polygon 3.svg';
+import whiteClose from './close.svg';
 
 export {
   bookmark,
@@ -55,4 +56,5 @@ export {
   good,
   next,
   polygon,
+  whiteClose,
 };

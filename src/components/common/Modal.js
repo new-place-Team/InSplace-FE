@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { Grid, Text, Button } from '../../elements';
+import { Grid, Text } from '../../elements';
 import { getMbti, setModalOff } from '../../redux/modules/userSlice';
 
 const Modal = () => {

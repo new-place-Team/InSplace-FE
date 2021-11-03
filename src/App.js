@@ -2,7 +2,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -57,7 +57,7 @@ function App() {
           <Route path="/place/map" exact component={PlaceMap} />
           <Route path="/place/list" exact component={PlaceList} />
           <Route path="/place/detail/:id" exact component={PlaceDetail} />
-          <Route path="/review/write" exact component={ReviewWrite} />
+          <Route path="/review/write/:id" exact component={ReviewWrite} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
         </Switch>
