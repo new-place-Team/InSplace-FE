@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { share } from '../../images/index';
 
-const Spinner = props => {
+const Spinner = () => {
   return (
     <Outter>
       <Icon src={share} />

@@ -10,7 +10,6 @@ import { addUserDB } from '../redux/async/user';
 
 import Header from '../components/common/Header';
 import Modal from '../components/common/Modal';
-import { polygon } from '../images/index';
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -57,39 +56,39 @@ const Signup = () => {
   // 회원정보 제출 및 유효성 검토
   const submitUserInfo = () => {
     if (userInfo.email === '') {
-      window.alert('이메일을 입력해주세요!');
+      window.customAlert('이메일을 입력해주세요!');
       return;
     }
     if (!emailCheck(userInfoDB.email)) {
-      window.alert('이메일 형식이 맞지않습니다.');
+      window.customAlert('이메일 형식이 맞지않습니다.');
       return;
     }
     if (userInfo.password === '') {
-      window.alert('비밀번호를 입력해주세요!');
+      window.customAlert('비밀번호를 입력해주세요!');
       return;
     }
     if (userInfo.password.length < 8) {
-      window.alert('비밀번호는 8자리 이상으로 입력해주세요');
+      window.customAlert('비밀번호는 8자리 이상으로 입력해주세요');
       return;
     }
     if (userInfo.passwordCheck === '') {
-      window.alert('비밀번호 확인을 입력해주세요!');
+      window.customAlert('비밀번호 확인을 입력해주세요!');
       return;
     }
     if (userInfo.password !== userInfo.passwordCheck) {
-      window.alert('비밀번호가 일치하지 않습니다.');
+      window.customAlert('비밀번호가 일치하지 않습니다.');
       return;
     }
     if (userInfo.nickname === '') {
-      window.alert('닉네임을 입력해주세요!');
+      window.customAlert('닉네임을 입력해주세요!');
       return;
     }
     if (userInfoDB.maleYn === undefined) {
-      window.alert('성별을 선택해 주세요!');
+      window.customAlert('성별을 선택해 주세요!');
       return;
     }
     if (!userInfoDB.mbtiId) {
-      window.alert('mbti도 선택해 볼까요?!');
+      window.customAlert('mbti도 선택해 볼까요?!');
     }
 
     // 회원정보 미들웨어로 dispatch
@@ -228,12 +227,6 @@ const MBTIDiv = styled.div`
   color: white;
   display: flex;
   align-items: center;
-`;
-
-const Icon = styled.img`
-  width: 24px;
-  margin: ${({ margin }) => margin || '0'};
-  vertical-align: text-bottom;
 `;
 
 export default Signup;

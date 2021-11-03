@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   addUser,
@@ -55,7 +55,7 @@ export const logInDB = createAsyncThunk(
 export const logInCheckDB = createAsyncThunk(
   'user/logInCheck',
   // eslint-disable-next-line consistent-return
-  async (data, thunkAPI) => {
+  async thunkAPI => {
     try {
       const response = await logInCheck();
       return response.data;
@@ -75,7 +75,8 @@ export const unRegisterDB = createAsyncThunk(
     const userId = thunkAPI.getState().user.userInfo.userId;
     try {
       const response = await unRegister(userId);
-      window.alert('회원 탈퇴 되었습니다!');
+      window.customAlert('회원 탈퇴 되었습니다!');
+      console.log(response);
     } catch (err) {
       return thunkAPI.rejectWithValue('<<', err);
     }

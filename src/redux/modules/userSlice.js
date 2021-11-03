@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* eslint-disable no-undef */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
@@ -29,13 +30,13 @@ const userSlice = createSlice({
       localStorage.removeItem('USER_TOKEN');
       state.userInfo = {};
       state.isLogin = false;
-      window.alert('로그아웃 되었습니다!');
+      window.customAlert('로그아웃 되었습니다!');
     },
   },
   extraReducers: {
     // 회원가입 성공시
     [addUserDB.fulfilled]: (state, { payload }) => {
-      window.alert('회원가입이 완료 되었습니다!');
+      window.customAlert('회원가입이 완료 되었습니다!');
     },
     // 회원가입 실패시
     [addUserDB.rejected]: (state, action) => {
@@ -45,11 +46,11 @@ const userSlice = createSlice({
     [logInDB.fulfilled]: (state, { payload }) => {
       state.userInfo = payload;
       state.isLogin = true;
-      window.alert('로그인 되셨습니다! 환영합니다!');
+      window.customAlert('로그인 되셨습니다! 환영합니다!');
     },
     // 로그인 실패시
     [logInDB.rejected]: (state, action) => {
-      window.alert(action.meta.response.data.errMsg);
+      window.customAlert(action.meta.response.data.errMsg);
     },
     // 로그인 체크
     [logInCheckDB.fulfilled]: (state, { payload }) => {
@@ -57,7 +58,7 @@ const userSlice = createSlice({
       state.isLogin = true;
     },
     [unRegisterDB.rejected]: (state, action) => {
-      window.alert(action.meta.response.data.errMsg);
+      window.customAlert(action.meta.response.data.errMsg);
     },
   },
 });

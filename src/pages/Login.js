@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import React from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Container, Grid, Input, Label } from '../elements';
 
 import { logInDB, unRegisterDB } from '../redux/async/user';
@@ -32,11 +32,11 @@ const Login = () => {
   // 로그인 제출
   const submitUserInfo = () => {
     if (userInfo.email === '') {
-      window.alert('이메일을 입력해주세요!');
+      window.customAlert('이메일을 입력해주세요!');
       return;
     }
     if (userInfo.password === '') {
-      window.alert('비밀번호를 입력해주세요!');
+      window.customAlert('비밀번호를 입력해주세요!');
       return;
     }
     dispatch(logInDB(userInfo));

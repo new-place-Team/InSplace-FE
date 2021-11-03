@@ -20,7 +20,7 @@ const Navbar = () => {
           <Icon onClick={() => history.push('/select-type')}>
             <Filter />
           </Icon>
-          <Icon onClick={() => window.alert('서비스 준비중 입니다.')}>
+          <Icon onClick={() => window.customAlert('서비스 준비중 입니다.')}>
             <Image src={heartLine} />
           </Icon>
           <Icon onClick={() => history.push('/login')}>

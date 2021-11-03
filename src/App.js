@@ -2,7 +2,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
