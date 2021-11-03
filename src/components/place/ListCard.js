@@ -55,11 +55,7 @@ const ListCard = props => {
   if (type === 'selectResult') {
     return (
       <>
-        <Grid
-          width="49%"
-          margin="0 0 32px 0"
-          _onClick={() => history.push(`/place/detail/${info.postId}`)}
-        >
+        <Grid _onClick={() => history.push(`/place/detail/${info.postId}`)}>
           <Image width="237px" height="320px" src={info && info.postImage} />
           <Grid margin="11px 0 0 0">
             <Text fontSize="13px" color="#949494">
@@ -84,7 +80,7 @@ const ListCard = props => {
 
   return (
     <>
-      <Grid width="247px" height="306px" _onClick={gotoDetail}>
+      <Grid _onClick={gotoDetail}>
         <Image width="247px" height="306px" src={info && info.post_images} />
       </Grid>
       <Grid margin="16px 0 0 0">
