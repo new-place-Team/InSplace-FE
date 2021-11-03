@@ -10,7 +10,7 @@ import {
 
 /* init */
 const initialState = {
-  mainLists: {},
+  mainLists: null,
   weatherList: [],
   conditionPlaces: {},
   detailInfo: {},

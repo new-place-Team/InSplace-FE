@@ -10,10 +10,39 @@ export const Slick = props => {
   const { inSideLength, outSideLength, children } = props;
   // 768px ToShow : 3 , 375px toshow : 1
   const settings = {
+    // centerMode: true,
     infinite: false,
     slidesToShow: 3,
     slidesToScroll: 1,
     speed: 500,
+    // responsive: [
+    //   {
+    //     breakpoint: 320,
+    //     settings: { slidesToShow: 1, slidesToScroll: 1, infinite: false },
+    //   },
+    //   {
+    //     breakpoint: 360,
+    //     settings: {
+    //       slidesToShow: 1,
+    //       slidesToScroll: 1,
+    //       infinite: false,
+    //       centerPadding: '40px',
+    //     },
+    //   },
+    //   {
+    //     breakpoint: 768,
+    //     settings: {
+    //       slidesToShow: 3,
+    //       slidesToScroll: 3,
+    //       infinite: false,
+    //       centerPadding: '30px',
+    //     },
+    //   },
+    //   {
+    //     breakpoint: 1024,
+    //     settings: { slidesToShow: 3, slidesToScroll: 3, infinite: false },
+    //   },
+    // ],
   };
 
   return (
@@ -39,11 +68,6 @@ const Wrap = styled.div`
 const StyledSlider = styled(Slider)`
   .slick-slider .slick-list {
     padding: 0 0 0 20px;
-  }
-  @media only screen and (max-width: 500px) {
-    .slick-slider {
-      width: 100% !important;
-    }
   }
 `;
 

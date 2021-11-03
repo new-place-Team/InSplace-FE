@@ -25,7 +25,7 @@ const ListCard = props => {
     return (
       <>
         <Grid _onClick={gotoDetail}>
-          <Image width="247px" height="320px" src={info && info.post_images} />
+          <Image width="237px" height="320px" src={info && info.post_images} />
           <Tag>
             <Text color="#fff" fontSize="14px">
               {info && getCategoryText(info.category_id)}

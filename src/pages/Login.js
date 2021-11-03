@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Grid, Input, Label } from '../elements';
 
-import { logInDB } from '../redux/async/user';
+import { logInDB, unRegisterDB } from '../redux/async/user';
 import { logOut } from '../redux/modules/userSlice';
 import Header from '../components/common/Header';
 import { close } from '../images';
@@ -47,6 +47,11 @@ const Login = () => {
     state.email = '';
     state.password = '';
   };
+  // 회원탈퇴
+  const deleteUser = () => {
+    dispatch(unRegisterDB());
+  };
+
   React.useEffect(() => {
     if (state.email !== '') {
       return setButtonStatus({ ...buttonStatus, emailStatus: true });
@@ -62,11 +67,12 @@ const Login = () => {
       return setButtonStatus({ ...buttonStatus, pwStatus: false });
     }
   }, [state]);
+
   return (
     <>
       <Header _back _content="로그인" />
       <Container padding="66px 0 0 0">
-        <Grid margin="42px 0 0 0">
+        <Grid padding="42px 20px 0 20px">
           <Wrap>
             <Label type="form">이메일</Label>
             <Input
@@ -99,6 +105,9 @@ const Login = () => {
           <Button type="fullSizeBlack" onClick={userLogout}>
             로그아웃
           </Button>
+          <Button type="fullSizeBlack" onClick={deleteUser}>
+            회원탈퇴
+          </Button>
         </BottomWrap>
       </Container>
     </>
@@ -110,8 +119,7 @@ const Wrap = styled.div`
 const BottomWrap = styled.div`
   position: absolute;
   padding: 0 20px;
-  bottom: 5px;
-  left: 0;
+  bottom: 50px;
   width: 100%;
 `;
 const Button = styled.button`
@@ -121,6 +129,7 @@ const Button = styled.button`
   font-weight: 700;
   background-color: #000;
   color: #fff;
+  margin-top: 20px;
 `;
 
 const InputCloseButton = styled.img`

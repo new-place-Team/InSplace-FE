@@ -2,7 +2,7 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { addUserDB, logInDB, logInCheckDB } from '../async/user';
+import { addUserDB, logInDB, logInCheckDB, unRegisterDB } from '../async/user';
 
 // inititalState
 const initialState = {
@@ -55,6 +55,9 @@ const userSlice = createSlice({
     [logInCheckDB.fulfilled]: (state, { payload }) => {
       state.userInfo = payload;
       state.isLogin = true;
+    },
+    [unRegisterDB.rejected]: (state, action) => {
+      window.alert(action.meta.response.data.errMsg);
     },
   },
 });
