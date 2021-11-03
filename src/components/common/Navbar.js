@@ -11,7 +11,7 @@ const Navbar = () => {
     <Nav>
       <Content>
         <Wrap>
-          <Icon onClick={() => history.push('/')}>
+          <Icon>
             <Image src={vector} />
           </Icon>
           <Icon onClick={() => history.push('/')}>
