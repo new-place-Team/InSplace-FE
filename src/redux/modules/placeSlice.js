@@ -13,6 +13,7 @@ import {
 const initialState = {
   mainLists: null,
   weatherList: [],
+  weatherStatus: null,
   conditionPlaces: {},
   detailInfo: {},
   currentCoordinate: {},
@@ -31,6 +32,7 @@ const placeSlice = createSlice({
     /* Fulfilled(이행) 처리 완료 */
     [getMainListDB.fulfilled]: (state, { payload }) => {
       state.mainLists = payload;
+      state.weatherStatus = payload.weather;
     },
     /* rejected 처리 실패 */
     [getMainListDB.rejected]: (state, { payload }) => {
