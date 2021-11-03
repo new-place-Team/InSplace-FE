@@ -40,10 +40,10 @@ const Main = () => {
 
   return (
     <>
-      <Header _content="Logo" _search />
-      <Container padding="66px 0 0 0">
-        {/* Weather Section */}
+      <Container padding="0">
         <Grid>
+          <Header _onBg _content="Logo" _search />
+          {/* Weather Section */}
           <Bg src={weatherBg} />
           <WeatherBox info={weatherInfo} />
           <Grid isFlex padding="96px 0  27px 21px">

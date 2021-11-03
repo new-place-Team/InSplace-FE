@@ -2,18 +2,27 @@
 import React from 'react';
 import styled from 'styled-components';
 import { history } from '../../redux/configureStore';
-import { Image } from '../../elements/index';
+import { Image, Grid } from '../../elements/index';
 import { home, vector, user, heartLine } from '../../images/index';
 import { ReactComponent as Filter } from '../../images/ic-fliter.svg';
+import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
 
 const Navbar = () => {
   return (
     <Nav>
       <Content>
         <Wrap>
-          <Icon>
-            <Image src={vector} />
-          </Icon>
+          <Grid
+            bg="#FEB544"
+            width="75px"
+            height="100%"
+            isFlex
+            justifyContent="center"
+          >
+            <Icon color="#fff">
+              <SunIcon />
+            </Icon>
+          </Grid>
           <Icon onClick={() => history.push('/')}>
             <Image src={home} />
           </Icon>
@@ -68,6 +77,9 @@ const Icon = styled.div`
   width: 24px;
   height: 24px;
   cursor: pointer;
+  svg {
+    fill: ${({ color }) => color || ''};
+  }
 `;
 
 export default Navbar;

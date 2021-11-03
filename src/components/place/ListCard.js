@@ -42,7 +42,7 @@ const ListCard = props => {
             <Image src={heartFilled} />
           </Grid>
           <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
-            {info && info.like_cnt}
+            {info && info.favorite_cnt}
           </Text>
           <Text fontSize="14px" color="#646464">
             {info && info.address_short}
