@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import styled from 'styled-components';
+import { insplace } from '../images/index';
 
 const Image = props => {
   const { type, width, height, margin, color, src } = props;
@@ -43,7 +44,7 @@ Image.defaultProps = {
   type: false,
   margin: false,
   color: false,
-  src: 'http://www.bizhankook.com/upload/bk/article/201806/thumb/15753-31552-sampleM.jpg',
+  src: insplace,
 };
 
 // 기본 사각 이미지들
@@ -74,6 +75,7 @@ const BgImage = styled.div`
 
 // 프로필 이미지 (원형)
 const ProfileImage = styled.div`
+  position: relative;
   width: ${props => props.width};
   height: ${props => props.width};
   border-radius: 50%;

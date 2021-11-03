@@ -26,6 +26,8 @@ import PlaceDetail from './pages/PlaceDetail';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ReviewWrite from './pages/ReviewWrite';
+import MyPage from './pages/MyPage';
+import MyPageEdit from './pages/MyPageEdit';
 // import Navbar from './components/Navbar';
 
 function App() {
@@ -60,6 +62,8 @@ function App() {
           <Route path="/review/write/:id" exact component={ReviewWrite} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
+          <Route path="/mypage" exact component={MyPage} />
+          <Route path="/mypage/:id" exact component={MyPageEdit} />
         </Switch>
         {/* <Navbar /> */}
       </ThemeProvider>

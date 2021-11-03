@@ -110,6 +110,7 @@ const DefaultGrid = styled.div`
   ${props =>
     props.justifyContent ? `justify-content:${props.justifyContent}` : ''};
 `;
+
 const BetweenGrid = styled.div`
   ${props =>
     props.justify
@@ -125,6 +126,7 @@ const BetweenGrid = styled.div`
   border: ${props => props.border};
   ${props => props.wrap && `flex-wrap:wrap`};
 `;
+
 const CenterGrid = styled.div`
   ${props =>
     props.justify
@@ -140,6 +142,7 @@ const CenterGrid = styled.div`
   border: ${props => props.border};
   ${props => props.wrap && `flex-wrap:wrap`};
 `;
+
 const EndGrid = styled.div`
   ${props =>
     props.justify
