@@ -1,9 +1,10 @@
+/* eslint-disable import/named */
 /* eslint-disable no-undef */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Label } from '../elements';
-import { plus, insplace } from '../images';
+import { plus, insplace } from '../images/index';
 
 const MyPageEdit = () => {
   const fileInput = React.useRef();
