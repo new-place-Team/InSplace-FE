@@ -2,12 +2,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Container, Grid } from '../elements';
+import { Button, Container, Grid, Image } from '../elements';
 import Swiper from '../components/common/SwiperLB';
 import ContentsTitle from '../components/common/ContentsTitle';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { getSearchConditionDB } from '../redux/async/place';
+import { right } from '../images/index';
 
 const SearchTypeList = history => {
   const dispatch = useDispatch();
@@ -29,13 +30,28 @@ const SearchTypeList = history => {
       <Header _type="search" _back _content="검색 결과" _map _search />
       <Container>
         {/* 실내 리스트 */}
-        <ContentsTitle title="실내" />
+        <Grid isFlex>
+          <ContentsTitle title="실내" />
+          <Button _onClick={() => console.log('click')}>
+            <Image margin="0 0 0 5px" width="24px" height="24px" src={right} />
+          </Button>
+        </Grid>
         <Grid>
           <Swiper list={inSideList} type="selectResult" />
         </Grid>
         {/* 실외 리스트  */}
         <Grid margin="0" padding="0 0 100px 0">
-          <ContentsTitle title="실외에서 시원한 바람과 함께" />
+          <Grid isFlex>
+            <ContentsTitle title="실외에서 시원한 바람과 함께" />
+            <Button _onClick={() => console.log('click')}>
+              <Image
+                margin="0 0 0 5px"
+                width="24px"
+                height="24px"
+                src={right}
+              />
+            </Button>
+          </Grid>
           <Swiper list={outSideList} type="selectResult" />
         </Grid>
       </Container>
