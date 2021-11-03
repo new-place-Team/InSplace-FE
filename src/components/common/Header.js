@@ -3,14 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { history } from '../../redux/configureStore';
 import { Grid, Text } from '../../elements/index';
-import {
-  left,
-  map,
-  search,
-  close,
-  heartFilled,
-  share,
-} from '../../images/index';
+import { map, search, close, heartFilled, share } from '../../images/index';
 import { ReactComponent as LeftIcon } from '../../images/ic-left.svg';
 
 const Header = props => {

@@ -177,10 +177,4 @@ const RecButton = styled.button`
   background-color: ${theme.color.mainColor};
 `;
 
-const Test = styled.button`
-  color: #fff;
-  background-color: #838383;
-  border: 1px solid #838383;
-`;
-
 export default Button;

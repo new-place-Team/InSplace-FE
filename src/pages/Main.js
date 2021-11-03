@@ -54,6 +54,7 @@ const Main = () => {
               서울시 마포구 상암동
             </Text>
           </Grid>
+
           {/* 장소 추천받기 */}
           <SelectTypeBtn>
             <Grid height="22px" margin="19px 0 0 18px">

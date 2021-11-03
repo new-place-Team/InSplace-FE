@@ -71,7 +71,7 @@ const ElText = styled.div`
 `;
 const Title16 = styled.p`
   font-size: 16px;
-  font-weight: ${({ bold }) => '600' || '400'};
+  font-weight: ${props => (props.bold ? `600` : '400')};
   line-height: ${({ lineHeight }) => lineHeight || '22px'};
   letter-spacing: ${({ letterSpacing }) => letterSpacing || '-0.0041em'};
   color: ${({ color }) => color || '#3E4042'};
