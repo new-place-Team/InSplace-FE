@@ -44,15 +44,13 @@ const placeSlice = createSlice({
     [getPlaceDetailDB.fulfilled]: (state, { payload }) => {
       state.detailInfo = payload;
     },
+    // 현재좌표 받아오기
     [getCurrentCoordinateWEB.fulfilled]: (state, { payload }) => {
-      console.log('리듀서 fullfilled', payload);
-    },
-    [getCurrentCoordinateWEB.pending]: (state, { payload }) => {
-      console.log('web panding', payload);
-    },
-    /* rejected 처리 실패 */
-    [getCurrentCoordinateWEB.rejected]: (state, { payload }) => {
-      console.log('reject', payload);
+      const coordinate = {
+        latitude: payload.coords.latitude,
+        longitude: payload.coords.longitude,
+      };
+      state.currentCoordinate = coordinate;
     },
   },
 });

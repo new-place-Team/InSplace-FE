@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable import/no-cycle */
 /* eslint-disable consistent-return */
 /* eslint-disable prettier/prettier */
