@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Grid, Text, Image } from '../../elements';
-import { ReactComponent as SunIcon } from '../../images/weather/sun.svg';
+import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
 import { ReactComponent as RainIcon } from '../../images/weather/rain.svg';
 import { ReactComponent as SnowIcon } from '../../images/weather/snow.svg';
 
@@ -52,8 +52,14 @@ const WeatherContent = styled.div`
 `;
 
 const IconArea = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   svg {
-    font-size: 14px;
+    width: 40px;
+    height: 40px;
+    fill: #fff;
   }
 `;
 
