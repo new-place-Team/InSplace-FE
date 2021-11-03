@@ -13,7 +13,7 @@ const ListCard = props => {
   const { type, info } = props;
 
   // 각 포스트에 해당하는 id (props로 받아옴)
-  const postId = info && info.post_id;
+  const postId = info && info.postId;
 
   // 디테일 페이지로 이동
   const gotoDetail = () => {
@@ -25,10 +25,10 @@ const ListCard = props => {
     return (
       <>
         <Grid _onClick={gotoDetail}>
-          <Image width="237px" height="320px" src={info && info.post_images} />
+          <Image width="237px" height="320px" src={info && info.postImages} />
           <Tag>
             <Text color="#fff" fontSize="14px">
-              {info && getCategoryText(info.category_id)}
+              {info && getCategoryText(info.categoryId)}
             </Text>
           </Tag>
         </Grid>
@@ -42,10 +42,10 @@ const ListCard = props => {
             <Image src={heartFilled} />
           </Grid>
           <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
-            {info && info.favorite_cnt}
+            {info && info.favoriteCnt}
           </Text>
           <Text fontSize="14px" color="#646464">
-            {info && info.address_short}
+            {info && info.addressShort}
           </Text>
         </Grid>
       </>
@@ -81,7 +81,7 @@ const ListCard = props => {
   return (
     <>
       <Grid _onClick={gotoDetail}>
-        <Image width="247px" height="306px" src={info && info.post_images} />
+        <Image width="247px" height="306px" src={info && info.postImage} />
       </Grid>
       <Grid margin="16px 0 0 0">
         <Text fontSize="16px" color="#272727" bold>
@@ -96,7 +96,7 @@ const ListCard = props => {
           {info && info.like_cnt}
         </Text>
         <Text fontSize="14px" color="#646464">
-          {info && info.address_short}
+          {info && info.addressShort}
         </Text>
       </Grid>
     </>
