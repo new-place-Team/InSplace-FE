@@ -33,9 +33,6 @@ import good from './ic-good.svg';
 import next from './ic-next.svg';
 import polygon from './Polygon 3.svg';
 import whiteClose from './close.svg';
-import insplace from './Insplace.png';
-import mypageNext from './next.svg';
-import plus from './plus.svg';
 
 export {
   bookmark,
@@ -60,7 +57,4 @@ export {
   next,
   polygon,
   whiteClose,
-  insplace,
-  mypageNext,
-  plus,
 };
