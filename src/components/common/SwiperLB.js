@@ -47,8 +47,8 @@ const SwiperLB = props => {
       {list &&
         list.map(info => {
           return (
-            <SwiperSlide key={info.post_id}>
-              <ListCard src={info.post_images} type="main" info={info} />
+            <SwiperSlide key={info.postId}>
+              <ListCard src={info.postImages} type="main" info={info} />
             </SwiperSlide>
           );
         })}

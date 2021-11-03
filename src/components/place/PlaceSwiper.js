@@ -34,7 +34,7 @@ const PlaceSwiper = props => {
         {list &&
           list.map(info => {
             return (
-              <SwiperSlide key={`card_${info.post_id}`}>
+              <SwiperSlide key={`card_${info.postId}`}>
                 <EntireImage src={info} />
               </SwiperSlide>
             );

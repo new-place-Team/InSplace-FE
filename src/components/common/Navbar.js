@@ -32,7 +32,8 @@ const Navbar = () => {
           <Icon onClick={() => window.alert('서비스 준비중 입니다.')}>
             <Image src={heartLine} />
           </Icon>
-          <Icon onClick={() => history.push('/login')}>
+          <Icon onClick={() => history.push('/mypage')}>
+            {/* <Icon onClick={() => history.push('/login')}> */}
             <Image src={user} />
           </Icon>
         </Wrap>

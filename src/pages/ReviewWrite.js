@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-undef */
 /* eslint-disable no-alert */

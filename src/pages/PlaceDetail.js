@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { Container, Grid, Text, Image, Button } from '../elements';
-// import Header from '../components/common/Header';
+import Header from '../components/common/Header';
 import Map from '../components/map/Map';
 import { getPlaceDetailDB } from '../redux/async/place';
 import { heartFilled, pin, write, heartLine, share } from '../images/index';
@@ -67,139 +67,143 @@ const Detail = () => {
   }, []);
 
   return (
-    <Container padding="0">
-      <Grid bg="#F5F5F5">
-        {/* 배경 이미지 */}
-        <PlaceSwiper list={detailData.postImages} />
-        {/* <Header _type="search" _back /> */}
-        {/* 장소의 상세 정보 */}
-        <InfoGrid>
-          <Text fontSize="13px" color="#A3A6AA">
-            {detailData.description}
-          </Text>
-          <Text fontSize="22px" bold color="#282828" lineHeight="30px">
-            {detailData.title}
-          </Text>
-          <Grid isFlex margin="8px 0 0 0">
-            <Text color="#3E4042">
-              {newAddr && newAddr[0]}
-              {newAddr && <GrayDotted />}
-              {newAddr && newAddr[1]}
+    <>
+      <Container padding="0">
+        <Grid>
+          <Header _onBg _back />
+          {/* 배경 이미지 */}
+          <PlaceSwiper list={detailData.postImages} />
+
+          {/* <Header _type="search" _back /> */}
+          {/* 장소의 상세 정보 */}
+          <InfoGrid>
+            <Text fontSize="13px" color="#A3A6AA">
+              {detailData.description}
             </Text>
-            <Grid isFlex margin="0 0 0 20px">
-              <Image src={heartFilled} width="15px" height="16px" />
-              <Text margin="0 0 0 3px" fontSize="12px" color="#3E4042">
-                {detailData.favoriteCnt}
+            <Text fontSize="22px" bold color="#282828" lineHeight="30px">
+              {detailData.title}
+            </Text>
+            <Grid isFlex margin="8px 0 0 0">
+              <Text color="#3E4042">
+                {newAddr && newAddr[0]}
+                {newAddr && <GrayDotted />}
+                {newAddr && newAddr[1]}
               </Text>
-            </Grid>
-          </Grid>
-          {/* 유저가 선택한 카테고리 */}
-          <Grid margin="24px 0 0 0">
-            <Button type="tag" bg="#558ED0" color="#fff">
-              날씨
-            </Button>
-            <Button type="tag" bg="#484C51" color="#fff">
-              여자
-            </Button>
-            <Button type="tag" bg="#484C51" color="#fff">
-              2명
-            </Button>
-            <Button type="tag" bg="#484C51" color="#fff">
-              카페
-            </Button>
-          </Grid>
-          {/* Icon Navigation */}
-          <IconNavigation>
-            <Grid>
-              <Button size="12px" color="#A3A6AA">
-                <Image src={pin} margin="0 0 1px 0" />
-                가본곳
-              </Button>
-            </Grid>
-            <Grid>
-              <Button size="12px" color="#A3A6AA">
-                <Image src={heartLine} margin="0 0 1px 0" />
-                찜하기
-              </Button>
-            </Grid>
-            <Grid>
-              <Button size="12px" color="#A3A6AA" _onClick={reviewPage}>
-                <Image src={write} margin="0 0 1px 0" />
-                리뷰쓰기
-              </Button>
-            </Grid>
-            <Grid>
-              <Button size="12px" color="#A3A6AA">
-                <Image src={share} margin="0 0 1px 0" />
-                공유하기
-              </Button>
-            </Grid>
-          </IconNavigation>
-          {/* 가게의 정보 */}
-          <Grid>
-            <Text fontSize="18px" color="#282828" bold>
-              장소팁
-            </Text>
-            <Text fontSize="12px" margin="16px 0 32px" lineHeight="16px">
-              {detailData.postDesc}
-            </Text>
-            <Text fontSize="18px" color="#282828" bold>
-              가게정보
-            </Text>
-            <Grid margin="16px 0">
-              <Map
-                coordinate={currentCoordinate}
-                width="100%"
-                height="191px"
-                markerdata={markerdata}
-              />
-            </Grid>
-            <Text fontSize="13px" color="#3E4042">
-              <Span>주소</Span>
-              {detailData.address}
-            </Text>
-            <Text fontSize="13px" color="#3E4042">
-              <Span>전화</Span>
-              {detailData.contactNumber}
-            </Text>
-          </Grid>
-        </InfoGrid>
-        <ReviewWrap>
-          <ReviewTitle>
-            <Grid justify="space-between">
-              <Grid>
-                <Text fontSize="18px" color="#282828" bold>
-                  리뷰 ({detailData.reviews && detailData.reviews.length})
+              <Grid isFlex margin="0 0 0 20px">
+                <Image src={heartFilled} width="15px" height="16px" />
+                <Text margin="0 0 0 3px" fontSize="12px" color="#3E4042">
+                  {detailData.favoriteCnt}
                 </Text>
               </Grid>
-              <Grid isFlex>
-                <ReviewButton
-                  className={active.newList && 'active'}
-                  name="newList"
-                  onClick={onClick}
-                >
-                  {active.newList && <Dotted />}
-                  최신순
-                </ReviewButton>
-                <ReviewButton
-                  className={active.likeList && 'active'}
-                  name="likeList"
-                  onClick={onClick}
-                >
-                  {active.likeList && <Dotted />}
-                  추천순
-                </ReviewButton>
-              </Grid>
             </Grid>
-          </ReviewTitle>
-          {/* {detailData.reviews.length === 0 && <p>등록된 리뷰가 없습니다</p>} */}
-          {detailData.reviews &&
-            detailData.reviews.map(item => {
-              return <ReviewCard key={item.userID} {...item} />;
-            })}
-        </ReviewWrap>
-      </Grid>
-    </Container>
+            {/* 유저가 선택한 카테고리 */}
+            <Grid margin="24px 0 0 0">
+              <Button type="tag" bg="#558ED0" color="#fff">
+                날씨
+              </Button>
+              <Button type="tag" bg="#484C51" color="#fff">
+                여자
+              </Button>
+              <Button type="tag" bg="#484C51" color="#fff">
+                2명
+              </Button>
+              <Button type="tag" bg="#484C51" color="#fff">
+                카페
+              </Button>
+            </Grid>
+            {/* Icon Navigation */}
+            <IconNavigation>
+              <Grid>
+                <Button size="12px" color="#A3A6AA">
+                  <Image src={pin} margin="0 0 1px 0" />
+                  가본곳
+                </Button>
+              </Grid>
+              <Grid>
+                <Button size="12px" color="#A3A6AA">
+                  <Image src={heartLine} margin="0 0 1px 0" />
+                  찜하기
+                </Button>
+              </Grid>
+              <Grid>
+                <Button size="12px" color="#A3A6AA" _onClick={reviewPage}>
+                  <Image src={write} margin="0 0 1px 0" />
+                  리뷰쓰기
+                </Button>
+              </Grid>
+              <Grid>
+                <Button size="12px" color="#A3A6AA">
+                  <Image src={share} margin="0 0 1px 0" />
+                  공유하기
+                </Button>
+              </Grid>
+            </IconNavigation>
+            {/* 가게의 정보 */}
+            <Grid>
+              <Text fontSize="18px" color="#282828" bold>
+                장소팁
+              </Text>
+              <Text fontSize="12px" margin="16px 0 32px" lineHeight="16px">
+                {detailData.postDesc}
+              </Text>
+              <Text fontSize="18px" color="#282828" bold>
+                가게정보
+              </Text>
+              <Grid margin="16px 0">
+                <Map
+                  coordinate={currentCoordinate}
+                  width="100%"
+                  height="191px"
+                  markerdata={markerdata}
+                />
+              </Grid>
+              <Text fontSize="13px" color="#3E4042">
+                <Span>주소</Span>
+                {detailData.address}
+              </Text>
+              <Text fontSize="13px" color="#3E4042">
+                <Span>전화</Span>
+                {detailData.contactNumber}
+              </Text>
+            </Grid>
+          </InfoGrid>
+          <ReviewWrap>
+            <ReviewTitle>
+              <Grid justify="space-between">
+                <Grid>
+                  <Text fontSize="18px" color="#282828" bold>
+                    리뷰 ({detailData.reviews && detailData.reviews.length})
+                  </Text>
+                </Grid>
+                <Grid isFlex>
+                  <ReviewButton
+                    className={active.newList && 'active'}
+                    name="newList"
+                    onClick={onClick}
+                  >
+                    {active.newList && <Dotted />}
+                    최신순
+                  </ReviewButton>
+                  <ReviewButton
+                    className={active.likeList && 'active'}
+                    name="likeList"
+                    onClick={onClick}
+                  >
+                    {active.likeList && <Dotted />}
+                    추천순
+                  </ReviewButton>
+                </Grid>
+              </Grid>
+            </ReviewTitle>
+            {/* {detailData.reviews.length === 0 && <p>등록된 리뷰가 없습니다</p>} */}
+            {detailData.reviews &&
+              detailData.reviews.map(item => {
+                return <ReviewCard key={item.userID} {...item} />;
+              })}
+          </ReviewWrap>
+        </Grid>
+      </Container>
+    </>
   );
 };
 
