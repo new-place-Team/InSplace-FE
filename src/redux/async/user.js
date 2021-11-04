@@ -63,10 +63,8 @@ export const logInCheckDB = createAsyncThunk(
   'user/logInCheck',
   // eslint-disable-next-line consistent-return
   async thunkAPI => {
-    console.log('로그인체크 준비!');
     try {
       const response = await logInCheck();
-      console.log('로그인체크 가즈아!');
       return response.data;
     } catch (err) {
       console.log('error ::::::', err);
@@ -98,7 +96,6 @@ export const kakaoLogin = createAsyncThunk(
   async (code, thunkAPI) => {
     try {
       // 백 서버에 인가 코드 전달
-      console.log('카카오 로그인 인가코드', code);
       const response = await logInKakao(code);
       if (response) {
         const USER_TOKEN = response.data.token;
