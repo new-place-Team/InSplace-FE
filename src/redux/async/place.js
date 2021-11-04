@@ -40,6 +40,8 @@ export const getSearchConditionDB = createAsyncThunk(
   },
 );
 
+export const getSearchConditionDetailDB = createAsyncThunk(``);
+
 /* 장소 상세 조회 */
 export const getPlaceDetailDB = createAsyncThunk(
   'place/detail',

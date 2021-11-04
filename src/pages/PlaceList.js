@@ -47,7 +47,7 @@ const SearchList = () => {
         </Grid>
         <Grid justify="space-between" wrap>
           {data.list.map(item => {
-            return <ListCard type="search" {...item} />;
+            return <ListCard type="searchList" info={item} />;
           })}
         </Grid>
       </Container>
