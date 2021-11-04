@@ -37,7 +37,6 @@ function App() {
   // 새로고침 했을때 토큰이 있으면 로그인 체크
   if (getToken()) {
     useEffect(() => {
-      console.log('<<<타요타요');
       dispatch(logInCheckDB());
     }, []);
     // 없으면 로그인 해달라고 한다.

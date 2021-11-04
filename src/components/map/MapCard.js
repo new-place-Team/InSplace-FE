@@ -12,19 +12,19 @@ const MapCard = props => {
       <Grid padding="10px " bg="#fff" justify="space-between">
         {/* 이미지 */}
         <Grid width="96px" height="96px" margin="0 20px 0 0">
-          <Image width="100%" height="100%" src={el.src} />
+          <Image width="100%" height="100%" src={el.postImage} />
         </Grid>
         {/* information */}
         <Grid width="180px">
           <Grid>
             <Text fontSize="12px" margin="0 0 2px 0">
-              카페
+              {el.category}
             </Text>
             <Text fontSize="13px" bold margin="0 0 40px 0">
               {el.title}
             </Text>
           </Grid>
-          <Text fontSize="12px">서울 특별시 강남구 역삼동 </Text>
+          <Text fontSize="12px">{el.addressShort} </Text>
         </Grid>
       </Grid>
       <AbsoluteBox top="15px" right="4px">
@@ -32,7 +32,7 @@ const MapCard = props => {
           <Text fontSize="12px" color="red" margin="0 2px 0 0">
             ♥︎
           </Text>
-          <Text fontSize="12px">1</Text>
+          <Text fontSize="12px">{el.favoriteCnt}</Text>
         </Grid>
       </AbsoluteBox>
     </MapCardCotainer>

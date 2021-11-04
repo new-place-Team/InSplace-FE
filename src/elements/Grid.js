@@ -87,6 +87,7 @@ Grid.defaultProps = {
   bg: 'transparent',
   border: 'none',
   position: 'relative',
+  _onClick: () => {},
 };
 
 const DefaultGrid = styled.div`
