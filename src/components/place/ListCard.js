@@ -8,6 +8,8 @@ import { Grid, Image, Text } from '../../elements/index';
 import { heartFilled } from '../../images/index';
 import { getCategoryText } from '../../shared/transferText';
 import { history } from '../../redux/configureStore';
+import { ReactComponent as HeartNotSelected } from '../../images/card/ic-heart-line.svg';
+import { ReactComponent as HaertSelected } from '../../images/card/ic-heart-pink.svg';
 
 const ListCard = props => {
   const { type, info } = props;
@@ -31,6 +33,13 @@ const ListCard = props => {
               {info && getCategoryText(info.categoryId)}
             </Text>
           </Tag>
+          <LikeIcon>
+            {info && info.favoriteState ? (
+              <HaertSelected />
+            ) : (
+              <HeartNotSelected />
+            )}
+          </LikeIcon>
         </Grid>
         <Grid margin="16px 0 0 0">
           <Text fontSize="16px" color="#272727" bold>
@@ -116,5 +125,11 @@ const Tag = styled.div`
   bottom: 0;
   padding: 8px 12px;
   background-color: #000;
+`;
+
+const LikeIcon = styled.div`
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
 `;
 export default ListCard;

@@ -19,6 +19,7 @@ import Swiper from '../components/common/SwiperLB';
 const Main = () => {
   const dispatch = useDispatch();
   const mainLists = useSelector(state => state.place.mainLists);
+  console.log('mainInfo', mainLists);
   const location = useSelector(state => state.place.location);
   const likeList = mainLists && mainLists.likePlace;
   const pickList = mainLists && mainLists.pickPlace;

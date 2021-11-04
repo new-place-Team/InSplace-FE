@@ -12,7 +12,6 @@ import { history } from './redux/configureStore';
 import { getToken } from './shared/utils';
 import { logInCheckDB } from './redux/async/user';
 // import { getCurrentCoordinate } from './redux/modules/placeSlice';
-// eslint-disable-next-line import/named
 import { getCurrentCoordinateWEB } from './redux/async/place';
 
 import Main from './pages/Main';
@@ -29,21 +28,19 @@ import ReviewWrite from './pages/ReviewWrite';
 import MyPage from './pages/MyPage';
 import MyPageEdit from './pages/MyPageEdit';
 import Kakao from './components/common/Kakao';
-// import Navbar from './components/Navbar';
+import Auth from './components/common/Auth';
 
 function App() {
   const dispatch = useDispatch();
+  const isLogin = useSelector(state => state.user.isLogin);
   const location = useSelector(state => state.place.location);
-  // 새로고침 했을때 토큰이 있으면 로그인 체크
-  if (getToken()) {
-    useEffect(() => {
-      console.log('<<<타요타요');
-      dispatch(logInCheckDB());
-    }, []);
-    // 없으면 로그인 해달라고 한다.
-  }
-  // 현재위치를 받아보자!
+
   useEffect(() => {
+    // 새로고침 했을때 토큰이 있으면 로그인 체크
+    if (!isLogin && getToken()) {
+      dispatch(logInCheckDB());
+    }
+    // 현재위치를 조회
     if (!location) {
       dispatch(getCurrentCoordinateWEB());
     }
@@ -67,7 +64,7 @@ function App() {
           <Route path="/review/write/:id" exact component={ReviewWrite} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
-          <Route path="/mypage" exact component={MyPage} />
+          <Route path="/mypage" exact component={Auth(MyPage, true)} />
           <Route path="/mypage/:id" exact component={MyPageEdit} />
           <Route path="/users/kakao/auth" exact component={Kakao} />
         </Switch>

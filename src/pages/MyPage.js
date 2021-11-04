@@ -9,7 +9,7 @@ import { history } from '../redux/configureStore';
 const MyPage = () => {
   return (
     <Container padding="0" height="100%">
-      <Header _onBg _content="MyPage" _search _color="#fff" />
+      <Header _back _onBg _content="MyPage" _search _color="#fff" />
       <Bg src={snowBg} />
       <Grid justify="space-between" padding="59px 41px">
         <Image type="circle" width="169px" height="169px" />
