@@ -7,6 +7,7 @@ import {
   getSearchConditionDB,
   getPlaceDetailDB,
   getCurrentCoordinateWEB,
+  getSearchConditionMoreDB,
 } from '../async/place';
 
 /* init */
@@ -19,6 +20,7 @@ const initialState = {
   /* 선택 카테고리 */
   selectedCategory: [],
   conditionPlaces: null,
+  conditionPlacesMore: {},
   detailInfo: {},
   currentCoordinate: {},
 };
@@ -49,10 +51,25 @@ const placeSlice = createSlice({
     [getSearchConditionDB.fulfilled]: (state, { payload }) => {
       state.conditionPlaces = payload;
     },
+    [getSearchConditionMoreDB.pending]: (state, { payload }) => {
+      // 호출 전
+      console.log('pending == 호출전 ', payload);
+      state.conditionPlacesMore = payload;
+    },
+    /* 타입별 검색 더보기 처리 완료 */
+    [getSearchConditionMoreDB.fulfilled]: (state, { payload }) => {
+      state.conditionPlacesMore = payload;
+    },
+    [getSearchConditionMoreDB.rejected]: (state, { payload }) => {
+      // 실패
+      console.log('rejected == 실패 ', payload);
+    },
+
     /* 장소 상세 조회 처리 완료 */
     [getPlaceDetailDB.fulfilled]: (state, { payload }) => {
       state.detailInfo = payload;
     },
+
     // 현재좌표 받아오기
     [getCurrentCoordinateWEB.fulfilled]: (state, { payload }) => {
       state.location = payload;

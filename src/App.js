@@ -61,7 +61,7 @@ function App() {
             component={SelectTypeResult}
           />
           <Route path="/place/map" exact component={PlaceMap} />
-          <Route path="/place/list" exact component={PlaceList} />
+          <Route path="/place/list/:type" exact component={PlaceList} />
           <Route path="/place/detail/:id" exact component={PlaceDetail} />
           <Route path="/review/write/:id" exact component={ReviewWrite} />
           <Route path="/login" exact component={Login} />
