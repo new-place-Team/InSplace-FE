@@ -32,13 +32,11 @@ import Kakao from './components/common/Kakao';
 // import Navbar from './components/Navbar';
 
 function App() {
-  const location = useSelector(state => state.location);
   const dispatch = useDispatch();
   const location = useSelector(state => state.place.location);
   // 새로고침 했을때 토큰이 있으면 로그인 체크
   if (getToken()) {
     useEffect(() => {
-      console.log('<<<타요타요');
       dispatch(logInCheckDB());
     }, []);
     // 없으면 로그인 해달라고 한다.
