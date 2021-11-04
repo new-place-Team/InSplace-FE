@@ -8,6 +8,7 @@ import {
   getSearchCondition,
   getPlaceDetail,
 } from '../../shared/api/placeApi';
+import { getLocationAddress } from '../../shared/api/kakaoApi';
 import { getPosition } from '../../shared/utils';
 
 /* 메인 리스트 호출 */
@@ -61,9 +62,17 @@ export const getCurrentCoordinateWEB = createAsyncThunk(
   'place/currentCoordinate',
   async (params, thunkAPI) => {
     try {
-      const response = await getPosition().then(position => position);
-      if (response) {
-        return response;
+      /* 위도 경도 받기 */
+      const res = await getPosition().then(position => position);
+      if (res) {
+        const latLon = {
+          lat: res.coords.latitude,
+          lon: res.coords.longitude,
+        };
+        /* 위도경도 기반으로 현재주소 조회 */
+        const addressRes = await getLocationAddress(latLon);
+        const address = addressRes.data.documents[0].address_name;
+        return { latLon, address };
       }
     } catch (err) {
       return thunkAPI.rejectWithValue(err);

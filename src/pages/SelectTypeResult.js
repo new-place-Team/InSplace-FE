@@ -15,8 +15,6 @@ const SearchTypeList = history => {
   const dispatch = useDispatch();
   const conditionPlaces = useSelector(state => state.place.conditionPlaces);
   const selectedCategory = useSelector(state => state.place.selectedCategory);
-  console.log('>>>>', conditionPlaces);
-  console.log('<<<<', selectedCategory);
   const inSideList = conditionPlaces && conditionPlaces.insidePlaces;
   const outSideList = conditionPlaces && conditionPlaces.outSidePlaces;
 

@@ -5,6 +5,7 @@ import { Grid, Text } from '../../elements';
 import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
 import { ReactComponent as RainIcon } from '../../images/weather/rain.svg';
 import { ReactComponent as SnowIcon } from '../../images/weather/snow.svg';
+import { get어제대비온도 } from '../../shared/transferText';
 
 const WeatherBox = props => {
   const { info } = props;
@@ -29,7 +30,7 @@ const WeatherBox = props => {
           {/* 어제 대비 온도 */}
           <Grid>
             <Text fontSize="18px" bold color="#fff" margin="19px 0 0 0">
-              어제보다 2&deg; 낮아요
+              {info && get어제대비온도(Number(info.diff))}
             </Text>
           </Grid>
         </WeatherContent>

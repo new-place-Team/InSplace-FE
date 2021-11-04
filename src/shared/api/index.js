@@ -4,7 +4,7 @@ import { getToken } from '../utils';
 
 /* Axios 인스턴스 설정 */
 const api = axios.create({
-  baseURL: process.env.REACT_APP_DOMAIN,
+  baseURL: process.env.REACT_APP_SERVER,
 });
 
 /* interceptor를 통한 header 설정 */

@@ -19,6 +19,7 @@ import Swiper from '../components/common/SwiperLB';
 const Main = () => {
   const dispatch = useDispatch();
   const mainLists = useSelector(state => state.place.mainLists);
+  const location = useSelector(state => state.place.location);
   const likeList = mainLists && mainLists.likePlace;
   const pickList = mainLists && mainLists.pickPlace;
   const weatherList = mainLists && mainLists.weatherPlace;
@@ -51,7 +52,8 @@ const Main = () => {
               <Marker />
             </Icon>
             <Text fontSize="14px" color="#fff" bold>
-              서울시 마포구 상암동
+              {location.address}
+              {/* 서울시 마포구 상암동 */}
             </Text>
           </Grid>
 
