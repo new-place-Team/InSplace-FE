@@ -34,12 +34,12 @@ import Kakao from './components/common/Kakao';
 function App() {
   const dispatch = useDispatch();
   // 새로고침 했을때 토큰이 있으면 로그인 체크
-  if (getToken()) {
-    useEffect(() => {
-      dispatch(logInCheckDB());
-    }, []);
-    // 없으면 로그인 해달라고 한다.
-  }
+
+  useEffect(() => {
+    dispatch(logInCheckDB());
+  }, []);
+  // 없으면 로그인 해달라고 한다.
+
   // 현재위치를 받아보자!
   useEffect(() => {
     dispatch(getCurrentCoordinateWEB());

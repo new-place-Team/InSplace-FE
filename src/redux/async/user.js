@@ -63,8 +63,10 @@ export const logInCheckDB = createAsyncThunk(
   'user/logInCheck',
   // eslint-disable-next-line consistent-return
   async thunkAPI => {
+    console.log('로그인체크 준비!');
     try {
       const response = await logInCheck();
+      console.log('로그인체크 가즈아!');
       return response.data;
     } catch (err) {
       console.log('error ::::::', err);
