@@ -1,11 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Container, Grid, Text } from '../elements';
 import SelectedCategory from '../components/place/SelectedCategory';
 import ListCard from '../components/place/ListCard';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
+import { getSearchConditionDetail } from '../shared/api/placeApi';
 
 const SearchList = () => {
   const data = {
@@ -34,6 +35,18 @@ const SearchList = () => {
   const tag = [{ tag: '두명' }, { tag: '혼성' }, { tag: '카페' }];
   // 전체 검색 결과이면 true 아니면 false
   const type = data.type === 'all';
+
+  useEffect(() => {
+    console.log('결과 리스트');
+    const onLoad = async () => {
+      try {
+        const res = await getSearchConditionDetail();
+      } catch (e) {
+        console.log('a');
+      }
+    };
+    onLoad();
+  }, []);
 
   return (
     <>

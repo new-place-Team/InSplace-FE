@@ -17,6 +17,7 @@ const SearchTypeList = history => {
   const selectedCategory = useSelector(state => state.place.selectedCategory);
   const inSideList = conditionPlaces && conditionPlaces.insidePlaces;
   const outSideList = conditionPlaces && conditionPlaces.outSidePlaces;
+  console.log('selectedCategory == ', selectedCategory);
 
   useEffect(() => {
     // 유저가 선택한 유형 결과에서 새로고침 했을 경우를 대비
