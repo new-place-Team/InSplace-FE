@@ -8,7 +8,7 @@ const getSearchCondition = params => {
   );
 };
 
-const getSearchConditionDetail = params => {
+const getSearchConditionMore = params => {
   return api.get(
     `search/pages/${params.number}/condition?weather=${params.weather}&category=${params.category}&num=${params.num}&gender=${params.gender}&inside=${params.inside}`,
   );
@@ -20,5 +20,5 @@ export {
   getMainList,
   getSearchCondition,
   getPlaceDetail,
-  getSearchConditionDetail,
+  getSearchConditionMore,
 };

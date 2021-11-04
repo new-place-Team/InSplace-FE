@@ -80,7 +80,7 @@ const ListCard = props => {
 
   if (type === 'searchList') {
     return (
-      <Grid width="25%" margin="0 0 46px 0">
+      <Grid width="100%" margin="0 0 46px 0">
         <Grid _onClick={gotoDetail}>
           <Image width="156px" height="196px" src={info && info.postImage} />
         </Grid>
