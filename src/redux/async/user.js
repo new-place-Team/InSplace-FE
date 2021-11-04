@@ -91,30 +91,27 @@ export const unRegisterDB = createAsyncThunk(
   },
 );
 // 카카오 로그인
-export const kakaoLogin = createAsyncThunk(
-  'user/kakaoRegister',
-  async (code, thunkAPI) => {
-    try {
-      // 백 서버에 인가 코드 전달
-      console.log('카카오 로그인 인가코드', code);
-      const response = await logInKakao(code);
-      if (response) {
-        const USER_TOKEN = response.data.token;
-        window.localStorage.setItem('USER_TOKEN', USER_TOKEN);
-        const userInfo = {
-          userId: response.data.userId,
-          email: response.data.email,
-          nickname: response.data.nickname,
-          userImage: response.data.userImage,
-          mbti: response.data.mbti,
-        };
-        history.replace('/');
-        return userInfo;
-      }
-    } catch (err) {
-      console.log(err);
-      window.alert(err);
+export const kakaoLogin = createAsyncThunk('user/kakaoRegister', async code => {
+  try {
+    // 백 서버에 인가 코드 전달
+    console.log('카카오 로그인 인가코드', code);
+    const response = await logInKakao(code);
+    if (response) {
+      const USER_TOKEN = response.data.token;
+      window.localStorage.setItem('USER_TOKEN', USER_TOKEN);
+      const userInfo = {
+        userId: response.data.userId,
+        email: response.data.email,
+        nickname: response.data.nickname,
+        userImage: response.data.userImage,
+        mbti: response.data.mbti,
+      };
       history.replace('/');
+      return userInfo;
     }
-  },
-);
+  } catch (err) {
+    console.log(err);
+    window.alert(err);
+    history.replace('/');
+  }
+});

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable prefer-promise-reject-errors */
 /* 개발모드에서 logger */
 export const logger = msg => {
