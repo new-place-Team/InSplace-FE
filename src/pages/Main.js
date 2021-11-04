@@ -52,7 +52,7 @@ const Main = () => {
               <Marker />
             </Icon>
             <Text fontSize="14px" color="#fff" bold>
-              {location.address}
+              {location && location.address}
               {/* 서울시 마포구 상암동 */}
             </Text>
           </Grid>

@@ -77,7 +77,7 @@ export const getPlaceDetailDB = createAsyncThunk(
 // 현재 위치 받아오기
 export const getCurrentCoordinateWEB = createAsyncThunk(
   'place/currentCoordinate',
-  async (params, thunkAPI) => {
+  async () => {
     try {
       /* 위도 경도 받기 */
       const res = await getPosition().then(position => position);

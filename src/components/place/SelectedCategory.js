@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import { Grid, Button } from '../../elements';
+import { Grid } from '../../elements';
 
 const SelectedCategory = props => {
   const { tag } = props;

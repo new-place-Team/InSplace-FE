@@ -16,7 +16,7 @@ const initialState = {
   weatherList: [],
   weatherStatus: null,
   /* 위치 정보 */
-  location: {},
+  location: null,
   /* 선택 카테고리 */
   selectedCategory: [],
   conditionPlaces: null,

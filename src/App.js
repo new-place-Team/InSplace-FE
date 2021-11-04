@@ -5,7 +5,7 @@
 import React, { useEffect } from 'react';
 
 import { Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { ThemeProvider } from 'styled-components';
 import { history } from './redux/configureStore';
@@ -33,16 +33,20 @@ import Kakao from './components/common/Kakao';
 
 function App() {
   const dispatch = useDispatch();
+  const location = useSelector(state => state.place.location);
   // 새로고침 했을때 토큰이 있으면 로그인 체크
   if (getToken()) {
     useEffect(() => {
+      console.log('<<<타요타요');
       dispatch(logInCheckDB());
     }, []);
     // 없으면 로그인 해달라고 한다.
   }
   // 현재위치를 받아보자!
   useEffect(() => {
-    dispatch(getCurrentCoordinateWEB());
+    if (!location) {
+      dispatch(getCurrentCoordinateWEB());
+    }
   }, []);
 
   return (
