@@ -1,10 +1,14 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
+/* eslint-disable no-alert */
+/* eslint-disable consistent-return */
+import { createAsyncThunk } from '@reduxjs/toolkit';
+// eslint-disable-next-line import/no-cycle
+import { history } from '../configureStore';
 import {
   addUser,
   logIn,
   logInCheck,
   unRegister,
+  logInKakao,
 } from '../../shared/api/userApi';
 
 // 회원등록
@@ -16,6 +20,7 @@ export const addUserDB = createAsyncThunk(
       const response = await addUser(data);
       if (response) {
         console.log(response);
+        history.push('/login');
         return response;
       }
     } catch (err) {
@@ -37,11 +42,13 @@ export const logInDB = createAsyncThunk(
         const USER_TOKEN = response.data.token;
         window.localStorage.setItem('USER_TOKEN', USER_TOKEN);
         const userInfo = {
+          userId: response.data.userId,
           email: response.data.email,
           nickname: response.data.nickname,
           userImage: response.data.userImage,
           mbti: response.data.mbti,
         };
+        history.replace('/');
         return userInfo;
       }
     } catch (err) {
@@ -55,7 +62,7 @@ export const logInDB = createAsyncThunk(
 export const logInCheckDB = createAsyncThunk(
   'user/logInCheck',
   // eslint-disable-next-line consistent-return
-  async (data, thunkAPI) => {
+  async thunkAPI => {
     try {
       const response = await logInCheck();
       return response.data;
@@ -76,8 +83,38 @@ export const unRegisterDB = createAsyncThunk(
     try {
       const response = await unRegister(userId);
       window.alert('회원 탈퇴 되었습니다!');
+      console.log(response);
+      history.replace('/login');
     } catch (err) {
       return thunkAPI.rejectWithValue('<<', err);
+    }
+  },
+);
+// 카카오 로그인
+export const kakaoLogin = createAsyncThunk(
+  'user/kakaoRegister',
+  async (code, thunkAPI) => {
+    try {
+      // 백 서버에 인가 코드 전달
+      console.log('카카오 로그인 인가코드', code);
+      const response = await logInKakao(code);
+      if (response) {
+        const USER_TOKEN = response.data.token;
+        window.localStorage.setItem('USER_TOKEN', USER_TOKEN);
+        const userInfo = {
+          userId: response.data.userId,
+          email: response.data.email,
+          nickname: response.data.nickname,
+          userImage: response.data.userImage,
+          mbti: response.data.mbti,
+        };
+        history.replace('/');
+        return userInfo;
+      }
+    } catch (err) {
+      console.log(err);
+      window.alert(err);
+      history.replace('/');
     }
   },
 );

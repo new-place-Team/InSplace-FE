@@ -16,7 +16,6 @@ import { getSearchConditionDB } from '../redux/async/place';
 const SelectedType = () => {
   const dispatch = useDispatch();
   const weatherStatus = useSelector(state => state.place.weatherStatus);
-  console.log('status', weatherStatus);
 
   const [state, setState] = React.useState({
     MemberCnt: '',

@@ -14,6 +14,8 @@ const initialState = {
   mainLists: null,
   weatherList: [],
   weatherStatus: null,
+  /* 위치 정보 */
+  location: {},
   /* 선택 카테고리 */
   selectedCategory: [],
   conditionPlaces: null,
@@ -53,11 +55,7 @@ const placeSlice = createSlice({
     },
     // 현재좌표 받아오기
     [getCurrentCoordinateWEB.fulfilled]: (state, { payload }) => {
-      const coordinate = {
-        latitude: payload.coords.latitude,
-        longitude: payload.coords.longitude,
-      };
-      state.currentCoordinate = coordinate;
+      state.location = payload;
     },
   },
 });

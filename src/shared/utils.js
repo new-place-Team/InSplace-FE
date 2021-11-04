@@ -38,7 +38,6 @@ export const mapscript = (latitude, longitude, mapDiv, markerdata) => {
   const map = new kakao.maps.Map(mapDiv.current, options);
   markerdata.forEach(el => {
     // 마커를 생성합니다
-    // console.log(el);
     const marker = new kakao.maps.Marker({
       map,
       position: new kakao.maps.LatLng(el.lat, el.lng),
@@ -47,23 +46,9 @@ export const mapscript = (latitude, longitude, mapDiv, markerdata) => {
   });
 };
 
+/* 현재위치 위도경도 가져오기 */
 export const getPosition = options => {
   return new Promise((resolve, reject) => {
     window.navigator.geolocation.getCurrentPosition(resolve, reject, options);
   });
 };
-
-// 현재 위치를 가져옵니다.
-// export const getCurrentLoaction = new Promise((resolve, reject) => {
-//   window.navigator.geolocation.getCurrentPosition(position => {
-//     const { latitude, longitude } = position.coords;
-//     const latLon = {
-//       latitude,
-//       longitude,
-//     };
-//     console.log('지역', latLon);
-//     resolve(latLon);
-//   });
-// });
-
-// eslint-disable-next-line no-return-await

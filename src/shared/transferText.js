@@ -87,4 +87,27 @@ const getDuoText = type => {
   return text;
 };
 
-export { getWeatherText, getCategoryText, getPeopleText, getDuoText };
+/**
+ * 어제대비 온도별 텍스트 변경
+ * @param {*} dgree
+ * @returns
+ */
+const get어제대비온도 = dgree => {
+  let text = '';
+  if (dgree > 0) {
+    text = `어제보다 ${dgree}° 높아요`;
+  } else if (dgree < 0) {
+    text = `어제보다 ${dgree}° 낮아요`;
+  } else {
+    text = '어제와 온도가 같아요';
+  }
+  return text;
+};
+
+export {
+  getWeatherText,
+  getCategoryText,
+  getPeopleText,
+  getDuoText,
+  get어제대비온도,
+};
