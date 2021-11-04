@@ -3,7 +3,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Grid, Text } from '../elements';
@@ -11,99 +11,70 @@ import ListCard from '../components/place/ListCard';
 import Header from '../components/common/Header';
 // import Navbar from '../components/common/Navbar';
 import { getSearchConditionMore } from '../shared/api/placeApi';
-import { history } from '../redux/configureStore';
-import { getSearchConditionMoreDB } from '../redux/async/place';
+// import { history } from '../redux/configureStore';
+// import { getSearchConditionMoreDB } from '../redux/async/place';
 
 const PlaceList = props => {
-  const dispatch = useDispatch();
+  const { type } = props.match.params;
   const selectedCategory = useSelector(state => state.place.selectedCategory);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
-  const conditionPlacesList = useSelector(
-    state => state.place.conditionPlacesMore,
-  );
-  console.log('conditionPlacesList == ', conditionPlacesList);
-  const { type } = props.match.params;
+
   const [list, setList] = useState([]);
-  // const [list, setList] = useState(
-  //   conditionPlacesList && conditionPlacesList.posts,
-  // );
-  console.log('list ? ', list);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [loading, setLoading] = useState(false);
+
   const pageRef = useRef();
+  // const [target, setTarget] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
   const Title = type === '1' ? '실내' : '실외';
-
-  // const onLoad = async pageNumber => {
-  //   console.log('pageNumber ? ', pageNumber);
-  //   const params = {
-  //     weather: weatherStatus.status,
-  //     num: selectedCategory.MemberCnt.value,
-  //     gender: selectedCategory.gender.value,
-  //     inside: type,
-  //     category: selectedCategory.category.value,
-  //     number: pageNumber,
-  //   };
-  //   await dispatch(getSearchConditionMoreDB(params));
-
-  //   setList(conditionPlacesList.posts);
-  //   console.log('list 2222222222222222 ', list);
-  // };
-  const onLoad = async pageNumber => {
-    console.log('2');
-    setLoading(false);
-    try {
-      const params = {
-        weather: weatherStatus.status,
-        num: selectedCategory.MemberCnt.value,
-        gender: selectedCategory.gender.value,
-        inside: type,
-        category: selectedCategory.category.value,
-        number: pageNumber,
-      };
-      console.log('pageNumber === ', pageNumber);
-      const res = await getSearchConditionMore(params);
-      const { posts } = res.data;
-      setList(prev => [...prev, ...posts]);
-      console.log('list === ', list);
-      setLoading(true);
-    } catch (error) {
-      alert('검색 결과가 없습니다.');
-      history.goBack();
-      console.log('error', error.response);
-    }
-  };
-
-  useEffect(() => {
-    console.log('1');
-    onLoad(pageNumber);
-  }, [pageNumber]);
 
   const updatePage = () => {
     setPageNumber(prevPageNumber => prevPageNumber + 1);
-    console.log('update page ', pageNumber);
+  };
+
+  const onLoad = async pageNumber => {
+    const params = {
+      weather: weatherStatus.status,
+      num: selectedCategory.MemberCnt.value,
+      gender: selectedCategory.gender.value,
+      inside: type,
+      category: selectedCategory.category.value,
+      number: pageNumber,
+    };
+    console.log('params == ', params);
+    try {
+      const res = await getSearchConditionMore(params);
+      const { posts } = res.data;
+      setLoading(true);
+      console.log('posts', posts);
+      // setList(posts);
+      setList(prev => [...prev, ...posts]);
+      console.log('pageNumber == ', pageNumber);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
-    // console.log('3');
-    let observer;
-    if (loading) {
-      observer = new IntersectionObserver(
-        entires => {
-          if (entires[0].isIntersecting) {
-            // 여기서 페이지 번호를 업데이트 하면, 이전 값을 참고해서
-            // 콜백으로 빼줌
-            updatePage();
-          }
-        },
-        { rootMargin: `50px`, thredhold: 1.0 },
-      );
-      // 관찰할 대상 등록
+    onLoad(pageNumber);
+  }, [pageNumber]);
+
+  useEffect(() => {
+    const options = { rootMargin: `50px`, thredhold: 1.0 };
+    const moreFun = (entires, observer) => {
+      if (loading) {
+        if (entires[0].isIntersecting) {
+          updatePage();
+          observer.unobserve(pageRef.current);
+          setLoading(false);
+        }
+      }
+    };
+
+    const observer = new IntersectionObserver(moreFun, options);
+    if (observer) {
       observer.observe(pageRef.current);
     }
-    console.log('4 list == ', list);
-    // return () => {
-    //   observer.unobserve();
-    // };
+    return () => observer && observer.disconnect();
   }, [loading]);
 
   return (
@@ -116,17 +87,17 @@ const PlaceList = props => {
           </Text>
         </Grid>
         <Grid justify="space-between" wrap>
-          {!list && <Text>검색 결과가 없습니다.</Text>}
+          {/* {!list && <Text>검색 결과가 없습니다.</Text>} */}
           {list &&
             list.map(info => {
               return (
-                <CardWrap key={`실내-${info.postId}`}>
+                <CardWrap key={`sidetes-${info.postId}`}>
                   <ListCard type="searchList" info={info} />
                 </CardWrap>
               );
             })}
         </Grid>
-        {loading && <LodingSpiner ref={pageRef}>더보기</LodingSpiner>}
+        <LodingSpiner ref={pageRef}>더보기</LodingSpiner>
       </Container>
       {/* <Navbar /> */}
     </>

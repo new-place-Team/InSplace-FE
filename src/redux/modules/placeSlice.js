@@ -51,11 +51,7 @@ const placeSlice = createSlice({
     [getSearchConditionDB.fulfilled]: (state, { payload }) => {
       state.conditionPlaces = payload;
     },
-    [getSearchConditionMoreDB.pending]: (state, { payload }) => {
-      // 호출 전
-      console.log('pending == 호출전 ', payload);
-      state.conditionPlacesMore = payload;
-    },
+
     /* 타입별 검색 더보기 처리 완료 */
     [getSearchConditionMoreDB.fulfilled]: (state, { payload }) => {
       state.conditionPlacesMore = payload;

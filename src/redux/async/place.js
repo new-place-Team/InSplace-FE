@@ -52,7 +52,6 @@ export const getSearchConditionMoreDB = createAsyncThunk(
       if (response) {
         return response.data;
       }
-      // history.push('/place/list');
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
     }
