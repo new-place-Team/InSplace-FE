@@ -43,7 +43,6 @@ Image.defaultProps = {
   height: 'auto',
   type: false,
   margin: false,
-  color: false,
   src: insplace,
 };
 

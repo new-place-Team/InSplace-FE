@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable consistent-return */
 import React from 'react';
 import styled from 'styled-components';
@@ -10,7 +11,6 @@ import { addUserDB } from '../redux/async/user';
 
 import Header from '../components/common/Header';
 import Modal from '../components/common/Modal';
-import { polygon } from '../images/index';
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -50,7 +50,7 @@ const Signup = () => {
     email: userInfo.email,
     nickname: userInfo.nickname,
     password: userInfo.password,
-    maleYn: maleFemale,
+    maleYN: maleFemale,
     mbtiId: mbtiInfo.mbtiId,
   };
 
@@ -84,7 +84,7 @@ const Signup = () => {
       window.alert('닉네임을 입력해주세요!');
       return;
     }
-    if (userInfoDB.maleYn === undefined) {
+    if (userInfoDB.maleYN === undefined) {
       window.alert('성별을 선택해 주세요!');
       return;
     }
@@ -228,12 +228,6 @@ const MBTIDiv = styled.div`
   color: white;
   display: flex;
   align-items: center;
-`;
-
-const Icon = styled.img`
-  width: 24px;
-  margin: ${({ margin }) => margin || '0'};
-  vertical-align: text-bottom;
 `;
 
 export default Signup;

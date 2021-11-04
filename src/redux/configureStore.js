@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-cycle */
 import { combineReducers } from 'redux';
 import { createBrowserHistory } from 'history';

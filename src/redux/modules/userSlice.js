@@ -1,8 +1,15 @@
+/* eslint-disable */
 /* eslint-disable no-undef */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { addUserDB, logInDB, logInCheckDB, unRegisterDB } from '../async/user';
+import {
+  addUserDB,
+  logInDB,
+  logInCheckDB,
+  unRegisterDB,
+  kakaoLogin,
+} from '../async/user';
 
 // inititalState
 const initialState = {
@@ -46,6 +53,10 @@ const userSlice = createSlice({
       state.userInfo = payload;
       state.isLogin = true;
       window.alert('로그인 되셨습니다! 환영합니다!');
+    },
+    [kakaoLogin.fulfilled]: (state, { payload }) => {
+      state.userInfo = payload;
+      state.isLogin = true;
     },
     // 로그인 실패시
     [logInDB.rejected]: (state, action) => {

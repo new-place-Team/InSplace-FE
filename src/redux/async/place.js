@@ -75,7 +75,7 @@ export const getCurrentCoordinateWEB = createAsyncThunk(
         return { latLon, address };
       }
     } catch (err) {
-      return thunkAPI.rejectWithValue(err);
+      console.log(err);
     }
   },
 );
