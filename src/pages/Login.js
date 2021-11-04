@@ -1,13 +1,16 @@
+/* eslint-disable no-alert */
 /* eslint-disable consistent-return */
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { Container, Grid, Input, Label } from '../elements';
-
+import { Container, Grid, Input, Label, Image } from '../elements';
+import { history } from '../redux/configureStore';
 import { logInDB, unRegisterDB } from '../redux/async/user';
 import { logOut } from '../redux/modules/userSlice';
 import Header from '../components/common/Header';
 import { close } from '../images';
+import { largeWide } from '../images/kakaoLogin/index';
+import { KAKAO_AUTH_URL } from '../shared/KakaoOAuth';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -32,11 +35,11 @@ const Login = () => {
   // 로그인 제출
   const submitUserInfo = () => {
     if (userInfo.email === '') {
-      window.customAlert('이메일을 입력해주세요!');
+      window.alert('이메일을 입력해주세요!');
       return;
     }
     if (userInfo.password === '') {
-      window.customAlert('비밀번호를 입력해주세요!');
+      window.alert('비밀번호를 입력해주세요!');
       return;
     }
     dispatch(logInDB(userInfo));
@@ -46,6 +49,7 @@ const Login = () => {
     dispatch(logOut());
     state.email = '';
     state.password = '';
+    history.push('/');
   };
   // 회원탈퇴
   const deleteUser = () => {
@@ -99,6 +103,15 @@ const Login = () => {
           </Wrap>
         </Grid>
         <BottomWrap>
+          {/* 카카오 로그인 버튼 */}
+          <Grid
+            margin="0 auto"
+            _onClick={() => {
+              window.location.href = KAKAO_AUTH_URL;
+            }}
+          >
+            <Image width="100%" src={largeWide} />
+          </Grid>
           <Button type="fullSizeBlack" onClick={submitUserInfo}>
             로그인
           </Button>

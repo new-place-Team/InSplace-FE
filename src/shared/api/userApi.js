@@ -10,5 +10,8 @@ const logIn = userInfo => api.post('/users/auth', userInfo);
 const logInCheck = () => api.post('/users/check/auth');
 // 회원 탈퇴
 const unRegister = id => api.delete(`/users/${id}`);
+// 카카오 로그인 인가코드 서버에 전달
+const logInKakao = code => api.get(`/users/kakao/auth?code=${code}`);
+// const logInKakao = code => api.post(`/users/kakao/auth`, code);
 
-export { addUser, logIn, logInCheck, unRegister };
+export { addUser, logIn, logInCheck, unRegister, logInKakao };

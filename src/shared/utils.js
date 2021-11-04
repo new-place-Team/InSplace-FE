@@ -52,18 +52,3 @@ export const getPosition = options => {
     window.navigator.geolocation.getCurrentPosition(resolve, reject, options);
   });
 };
-
-// 현재 위치를 가져옵니다.
-// export const getCurrentLoaction = new Promise((resolve, reject) => {
-//   window.navigator.geolocation.getCurrentPosition(position => {
-//     const { latitude, longitude } = position.coords;
-//     const latLon = {
-//       latitude,
-//       longitude,
-//     };
-//     console.log('지역', latLon);
-//     resolve(latLon);
-//   });
-// });
-
-// eslint-disable-next-line no-return-await

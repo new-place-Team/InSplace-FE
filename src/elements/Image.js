@@ -42,7 +42,6 @@ Image.defaultProps = {
   height: 'auto',
   type: false,
   margin: false,
-  color: false,
   src: 'http://www.bizhankook.com/upload/bk/article/201806/thumb/15753-31552-sampleM.jpg',
 };
 

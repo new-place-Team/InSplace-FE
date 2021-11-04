@@ -66,7 +66,7 @@ export const getCurrentCoordinateWEB = createAsyncThunk(
         return response;
       }
     } catch (err) {
-      return thunkAPI.rejectWithValue(err);
+      console.log(err);
     }
   },
 );

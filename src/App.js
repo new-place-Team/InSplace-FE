@@ -26,6 +26,7 @@ import PlaceDetail from './pages/PlaceDetail';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ReviewWrite from './pages/ReviewWrite';
+import Kakao from './components/common/Kakao';
 // import Navbar from './components/Navbar';
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
   if (getToken()) {
     useEffect(() => {
       dispatch(logInCheckDB());
-    }, [getToken()]);
+    }, []);
     // 없으면 로그인 해달라고 한다.
   }
   // 현재위치를 받아보자!
@@ -60,6 +61,7 @@ function App() {
           <Route path="/review/write" exact component={ReviewWrite} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
+          <Route path="/users/kakao/auth" exact component={Kakao} />
         </Switch>
         {/* <Navbar /> */}
       </ThemeProvider>

@@ -79,7 +79,6 @@ Grid.defaultProps = {
   justify: 'flex-start',
   isFlex: false,
   flex: false,
-  wrap: false,
   direction: 'row',
   width: 'auto',
   height: 'auto',
