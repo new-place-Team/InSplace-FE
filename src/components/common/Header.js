@@ -20,16 +20,13 @@ const Header = props => {
     _share,
     _color,
   } = props;
-  let selectedCategory = useSelector(state => state.place.selectedCategory);
-  let conditionPlaces = useSelector(state => state.place.conditionPlaces);
+
   const gotoMapPage = () => {
     history.push('/place/map');
   };
-  console.log('헤더가 가지고있는 데이터', selectedCategory, conditionPlaces);
+
   const goBack = () => {
     history.goBack();
-    selectedCategory = null;
-    conditionPlaces = null;
   };
   if (_onBg) {
     return (

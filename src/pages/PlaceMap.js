@@ -15,6 +15,7 @@ const MapContainer = () => {
   const inSideList = conditionPlaces && conditionPlaces.insidePlaces;
   const outSideList = conditionPlaces && conditionPlaces.outSidePlaces;
   const allPlaces = [...inSideList, ...outSideList];
+  const currentCoord = useSelector(state => state.place.focusCoord);
 
   return (
     <>
@@ -27,7 +28,12 @@ const MapContainer = () => {
           <SwiperMap list={allPlaces} />
           {/* 카카오지도 현재 위도 경도로 중심 찾기, 위도 경도로 리스트들 마커 찍기 */}
           <div style={{ overflowX: 'hidden' }}>
-            <Map width="100vw" height="80vh" allPlaces={allPlaces} />
+            <Map
+              width="100vw"
+              height="80vh"
+              allPlaces={allPlaces}
+              currentCoord={currentCoord}
+            />
           </div>
         </Grid>
       </Container>
