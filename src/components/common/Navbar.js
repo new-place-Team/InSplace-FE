@@ -1,6 +1,8 @@
+/* eslint-disable no-alert */
 /* eslint-disable import/no-unresolved */
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
 import { Image, Grid } from '../../elements/index';
 import { home, user, heartLine } from '../../images/index';
@@ -8,6 +10,15 @@ import { ReactComponent as Filter } from '../../images/ic-fliter.svg';
 import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
 
 const Navbar = () => {
+  const isLogin = useSelector(state => state.user.isLogin);
+  // 로그인 했으면 마이페이지, 로그인 안했으면 로그인 페이지
+  const pageMove = () => {
+    if (isLogin === false) {
+      history.push('/login');
+    } else {
+      history.push('/mypage');
+    }
+  };
   return (
     <Nav>
       <Content>
@@ -29,10 +40,10 @@ const Navbar = () => {
           <Icon onClick={() => history.push('/select-type')}>
             <Filter />
           </Icon>
-          <Icon onClick={() => window.customAlert('서비스 준비중 입니다.')}>
+          <Icon onClick={() => window.alert('서비스 준비중 입니다.')}>
             <Image src={heartLine} />
           </Icon>
-          <Icon onClick={() => history.push('/mypage')}>
+          <Icon onClick={pageMove}>
             {/* <Icon onClick={() => history.push('/login')}> */}
             <Image src={user} />
           </Icon>

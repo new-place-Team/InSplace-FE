@@ -87,6 +87,35 @@ const ListCard = props => {
     );
   }
 
+  if (type === 'searchList') {
+    return (
+      <Grid width="100%" margin="0 0 46px 0">
+        <Grid _onClick={gotoDetail}>
+          <Image width="156px" height="196px" src={info && info.postImage} />
+        </Grid>
+        <Grid margin="12px 0 0 0">
+          <Text fontSize="12px" color="#A3A6AA">
+            카테고리
+          </Text>
+          <Text fontSize="14px" color="#272727" bold>
+            {info && info.title}
+          </Text>
+        </Grid>
+        <Grid margin="6px 0 0 0" isFlex>
+          <Grid width="15px" height="16px" margin="0 4px 0 0">
+            <Image src={heartFilled} />
+          </Grid>
+          <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
+            {info && info.favoriteCnt}
+          </Text>
+          <Text fontSize="14px" color="#646464">
+            {info && info.addressShort}
+          </Text>
+        </Grid>
+      </Grid>
+    );
+  }
+
   return (
     <>
       <Grid _onClick={gotoDetail}>

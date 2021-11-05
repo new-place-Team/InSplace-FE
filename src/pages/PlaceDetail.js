@@ -18,7 +18,6 @@ const Detail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const detailData = useSelector(state => state.place.detailInfo);
-
   const newAddr = detailData.addressShort
     ? detailData.addressShort.split(' ')
     : false;
@@ -39,17 +38,12 @@ const Detail = () => {
     }
   };
 
-  const markerdata = [
+  const placeMarker = [
     {
-      title: detailData.title,
-      lat: detailData.post_loc_y,
-      lng: detailData.post_loc_x,
+      postLocationY: detailData.postLocationY,
+      postLocationX: detailData.postLocationX,
     },
   ];
-  const currentCoordinate = {
-    latitude: detailData.post_loc_y,
-    longitude: detailData.post_loc_x,
-  };
 
   const reviewPage = () => {
     const params = {
@@ -150,12 +144,7 @@ const Detail = () => {
                 가게정보
               </Text>
               <Grid margin="16px 0">
-                <Map
-                  coordinate={currentCoordinate}
-                  width="100%"
-                  height="191px"
-                  markerdata={markerdata}
-                />
+                <Map width="100%" height="191px" allPlaces={placeMarker} />
               </Grid>
               <Text fontSize="13px" color="#3E4042">
                 <Span>주소</Span>

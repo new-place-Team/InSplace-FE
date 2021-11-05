@@ -12,7 +12,7 @@ import { close } from '../images';
 import { largeWide } from '../images/kakaoLogin/index';
 import { KAKAO_AUTH_URL } from '../shared/KakaoOAuth';
 
-const Login = () => {
+const Login = React.memo(() => {
   const dispatch = useDispatch();
   const [state, setState] = React.useState({
     email: '',
@@ -125,7 +125,7 @@ const Login = () => {
       </Container>
     </>
   );
-};
+});
 const Wrap = styled.div`
   margin-bottom: 32px;
 `;
