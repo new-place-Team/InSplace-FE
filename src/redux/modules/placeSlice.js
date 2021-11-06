@@ -7,7 +7,6 @@ import {
   getSearchConditionDB,
   getPlaceDetailDB,
   getCurrentCoordinateWEB,
-  getSearchConditionMoreDB,
 } from '../async/place';
 
 /* init */
@@ -20,7 +19,6 @@ const initialState = {
   /* 선택 카테고리 */
   selectedCategory: [],
   conditionPlaces: null,
-  conditionPlacesMore: {},
   detailInfo: {},
   currentCoordinate: {},
   focusCoord: {},

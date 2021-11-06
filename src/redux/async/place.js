@@ -3,12 +3,11 @@
 /* eslint-disable consistent-return */
 /* eslint-disable prettier/prettier */
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { history } from '../configureStore';
+// import { history } from '../configureStore';
 import {
   getMainList,
   getSearchCondition,
   getPlaceDetail,
-  getSearchConditionMore,
 } from '../../shared/api/placeApi';
 import { getLocationAddress } from '../../shared/api/kakaoApi';
 import { getPosition } from '../../shared/utils';
@@ -37,22 +36,6 @@ export const getSearchConditionDB = createAsyncThunk(
       if (response) {
         return response.data;
       }
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    }
-  },
-);
-
-// 조건 검색 결과 더보기 (실내/실외 더보기 호출)
-export const getSearchConditionMoreDB = createAsyncThunk(
-  'place/searchConditionMore',
-  async (params, thunkAPI) => {
-    try {
-      const response = await getSearchConditionMore(params);
-      if (response) {
-        return response.data;
-      }
-      // history.push('/place/list');
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
     }
