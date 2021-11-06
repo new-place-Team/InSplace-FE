@@ -11,7 +11,6 @@ import { ReactComponent as Right } from '../images/ic-next.svg';
 import { history } from '../redux/configureStore';
 import { getPeopleText } from '../shared/transferText';
 import { setSelectedCategory } from '../redux/modules/placeSlice';
-import { getSearchConditionDB } from '../redux/async/place';
 
 const SelectedType = () => {
   const dispatch = useDispatch();
