@@ -16,22 +16,21 @@ const SearchTypeList = props => {
   const dispatch = useDispatch();
   const conditionPlaces = useSelector(state => state.place.conditionPlaces);
   const selectedCategory = useSelector(state => state.place.selectedCategory);
-
+  const weatherStatus = useSelector(state => state.place.weatherStatus);
   const inSideList = conditionPlaces && conditionPlaces.insidePlaces;
   const outSideList = conditionPlaces && conditionPlaces.outSidePlaces;
 
   useEffect(() => {
     // 유저가 선택한 유형 결과에서 새로고침 했을 경우를 대비
-    const params = props.history.location.state.weatherStatus;
-    console.log('params = ', params);
+    const newParams = props.history.location.state.weatherStatus;
     if (!conditionPlaces) {
-      dispatch(getSearchConditionDB(params));
+      dispatch(getSearchConditionDB(newParams));
     }
   }, []);
 
   const onSearchConditionMore = value => {
-    // value는 실내인지 실외인지 구분하기 위함.
-    history.push(`/place/list/${value}`);
+    const params = `condition?weather=${weatherStatus.status}&category=${selectedCategory.category.value}&num=${selectedCategory.MemberCnt.value}&gender=${selectedCategory.gender.value}&inside=${value}`;
+    history.push(`/place/list/${params}`);
   };
 
   return (

@@ -82,7 +82,7 @@ const ListCard = props => {
     return (
       <Grid width="100%" margin="0 0 46px 0">
         <Grid _onClick={gotoDetail}>
-          <Image width="156px" height="196px" src={info && info.postImage} />
+          <Image width="100%" height="196px" src={info && info.postImage} />
         </Grid>
         <Grid margin="12px 0 0 0">
           <Text fontSize="12px" color="#A3A6AA">

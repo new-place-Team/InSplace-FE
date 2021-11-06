@@ -24,10 +24,14 @@ const Header = props => {
   const gotoMapPage = () => {
     history.push('/place/map');
   };
+  const gotoSearchPage = () => {
+    history.push('/search');
+  };
 
   const goBack = () => {
     history.goBack();
   };
+
   if (_onBg) {
     return (
       <ContentArea>
@@ -53,7 +57,7 @@ const Header = props => {
               </Grid>
             )}
             {_search && (
-              <Grid>
+              <Grid _onClick={gotoSearchPage}>
                 <Icon src={search} />
               </Grid>
             )}
@@ -102,7 +106,7 @@ const Header = props => {
               </Grid>
             )}
             {_search && (
-              <Grid>
+              <Grid _onClick={gotoSearchPage}>
                 <Icon src={search} />
               </Grid>
             )}
