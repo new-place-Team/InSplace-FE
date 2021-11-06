@@ -6,7 +6,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Container, Grid, Text } from '../elements';
 import ListCard from '../components/place/ListCard';
 import Header from '../components/common/Header';
