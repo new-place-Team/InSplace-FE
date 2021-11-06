@@ -29,6 +29,7 @@ import ReviewWrite from './pages/ReviewWrite';
 import MyPage from './pages/MyPage';
 import MyPageEdit from './pages/MyPageEdit';
 import Kakao from './components/common/Kakao';
+import SearchPage from './pages/SearchPage';
 // import Navbar from './components/Navbar';
 
 function App() {
@@ -60,8 +61,9 @@ function App() {
             exact
             component={SelectTypeResult}
           />
+          <Route path="/search" exact component={SearchPage} />
           <Route path="/place/map" exact component={PlaceMap} />
-          <Route path="/place/list/:type" exact component={PlaceList} />
+          <Route path="/place/list/:params" exact component={PlaceList} />
           <Route path="/place/detail/:id" exact component={PlaceDetail} />
           <Route path="/review/write/:id" exact component={ReviewWrite} />
           <Route path="/login" exact component={Login} />

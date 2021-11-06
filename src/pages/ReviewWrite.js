@@ -21,7 +21,41 @@ const ReviewWrite = props => {
     weekdayYN: 1,
     revisitYN: 1,
   });
-
+  // const [selectData, setSelectData] = React.useState([
+  //   {
+  //     title: '날씨는 어땠나요?',
+  //     list: [
+  //       { selecteText: '맑음', value: 1 },
+  //       { selecteText: '비', value: 2 },
+  //       { selecteText: '눈', value: 3 },
+  //       { selecteText: '흐림', value: 4 },
+  //       { selecteText: '기억안남', value: 5 },
+  //     ],
+  //     type: 'weather',
+  //     grid: 0,
+  //     bg: '#f4f4f4',
+  //   },
+  //   {
+  //     title: '언제 가셨나요?',
+  //     list: [
+  //       { selecteText: '평일', value: 1 },
+  //       { selecteText: '주말', value: 0 },
+  //     ],
+  //     type: 'weekdayYN',
+  //     grid: 2,
+  //     bg: '#e8ecf2',
+  //   },
+  //   {
+  //     title: '재방문 의사가 있으신가요?',
+  //     list: [
+  //       { selecteText: '있음', value: 1 },
+  //       { selecteText: '없음', value: 0 },
+  //     ],
+  //     type: 'revisitYN',
+  //     grid: 3,
+  //     bg: '#bbc0cf',
+  //   },
+  // ]);
   const selectFile = () => {
     if (preview.length >= 3) {
       window.alert('이미지는 최대 3개까지 등록 가능합니다.');
@@ -71,6 +105,23 @@ const ReviewWrite = props => {
     if (state.reviewDesc.length < 15) {
       window.alert('리뷰는 최소 15자 이상 등록 가능합니다.');
     }
+    // const formData = new FormData();
+    // formData.append('file', files[0]);
+    // const params = {
+    //   title: 'title',
+    //   reviewImages: [],
+    // };
+    // params.reviewImages.map(item => {
+    //   return formData.append(`reviewImages`, params.reviewImages.files[item]);
+    // });
+
+    // formData.append(
+    //   'data',
+    //   new Blob([JSON.stringify(params)], { type: 'application/json' }),
+    // );
+    // formData.append("body", JSON.stringify(params));
+    // console.log('formData ==== ', formData);
+    // Axios.post("/create/list", formData)
   };
 
   return (
