@@ -15,7 +15,19 @@ const SwiperLB = props => {
       // mobile
       320: {
         slidesPerView: 1,
-        spaceBetween: -95,
+        spaceBetween: -45,
+      },
+      360: {
+        slidesPerView: 1,
+        spaceBetween: -85,
+      },
+      375: {
+        slidesPerView: 1,
+        spaceBetween: -100,
+      },
+      410: {
+        slidesPerView: 1,
+        spaceBetween: -135,
       },
       500: {
         slidesPerView: 2,
