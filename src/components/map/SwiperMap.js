@@ -1,15 +1,17 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable import/no-unresolved */
 import React from 'react';
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import MapCard from './MapCard';
 
+import { setFocusCoord } from '../../redux/modules/placeSlice';
+
 const SwiperMap = props => {
   // 리스트는 받아온 데이터
+  const dispatch = useDispatch();
   const { list } = props;
-  console.log(list);
   const setting = {
     slidesPerView: 1,
     spaceBetween: -23,
@@ -19,9 +21,13 @@ const SwiperMap = props => {
   return (
     <Wrap>
       <Swiper
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
-        onSlideChange={e => console.log(e)}
-        pagination={{ clickable: true }}
+        onSlideChange={e => {
+          const coord = {
+            lat: list[e.realIndex].postLocationY,
+            lon: list[e.realIndex].postLocationX,
+          };
+          dispatch(setFocusCoord(coord));
+        }}
         {...setting}
       >
         {list &&
@@ -47,3 +53,10 @@ const Wrap = styled.div`
   z-index: 99;
 `;
 export default SwiperMap;
+
+// console.log(
+//   e.realIndex,
+//   list[e.realIndex],
+//   list[e.realIndex].postLocationY,
+//   list[e.realIndex].postLocationX,
+// )

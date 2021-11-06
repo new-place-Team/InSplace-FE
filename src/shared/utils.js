@@ -1,5 +1,9 @@
+/* eslint-disable func-names */
 /* eslint-disable no-unused-vars */
 /* eslint-disable prefer-promise-reject-errors */
+
+import React from 'react';
+import { useDispatch } from 'react-redux';
 /* 개발모드에서 logger */
 export const logger = msg => {
   if (process.env.NODE_ENV === 'production') {
@@ -19,7 +23,7 @@ export const getToken = () => {
 };
 
 // 지도 생성 + 마커 생성 (markerdata가 [] 형식데이터)
-export const mapscript = (mapDiv, allPlaces) => {
+export const mapscript = (mapDiv, allPlaces, lati, loni) => {
   const { kakao } = window;
   const options = {
     center: new kakao.maps.LatLng(
@@ -28,13 +32,27 @@ export const mapscript = (mapDiv, allPlaces) => {
     ),
     level: 5,
   };
+  // 지도를 생성합니다.
   const map = new kakao.maps.Map(mapDiv.current, options);
+
+  function movew(lat, lon) {
+    const moveLatLon = new kakao.maps.LatLng(lat, lon);
+    // 지도 중심을 부드럽게 이동시킵니다
+    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+    map.panTo(moveLatLon);
+  }
+  movew(lati, loni);
+
   allPlaces.forEach(el => {
     // 마커를 생성합니다
     const marker = new kakao.maps.Marker({
       map,
       position: new kakao.maps.LatLng(el.postLocationY, el.postLocationX),
       title: el.title,
+    });
+    kakao.maps.event.addListener(marker, 'click', function () {
+      // 마커 위에 인포윈도우를 표시합니다
+      console.log(el);
     });
   });
 };

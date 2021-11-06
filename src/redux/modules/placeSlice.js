@@ -21,6 +21,8 @@ const initialState = {
   conditionPlaces: null,
   detailInfo: {},
   currentCoordinate: {},
+  focusCoord: {},
+  map: null,
 };
 
 const placeSlice = createSlice({
@@ -33,6 +35,13 @@ const placeSlice = createSlice({
     },
     setSelectedCategory: (state, { payload }) => {
       state.selectedCategory = payload;
+    },
+    setFocusCoord: (state, { payload }) => {
+      state.focusCoord = payload;
+    },
+    createMap: (state, { payload }) => {
+      console.log(payload);
+      state.map = payload;
     },
   },
   extraReducers: {
@@ -60,6 +69,11 @@ const placeSlice = createSlice({
   },
 });
 
-export const { getCurrentCoordinate, setSelectedCategory } = placeSlice.actions;
+export const {
+  getCurrentCoordinate,
+  setSelectedCategory,
+  setFocusCoord,
+  createMap,
+} = placeSlice.actions;
 
 export default placeSlice;

@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-undef */
 /* eslint-disable react/destructuring-assignment */
 import React, { useEffect, useState, useRef } from 'react';

@@ -3,6 +3,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable prettier/prettier */
 import { createAsyncThunk } from '@reduxjs/toolkit';
+// import { history } from '../configureStore';
 import {
   getMainList,
   getSearchCondition,
