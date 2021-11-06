@@ -60,8 +60,6 @@ const Mapchild = styled.div`
   background-color: #fff;
   display: flex;
   justify-content: space-between;
-  box-shadow: 0px 12px 24px -8px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0px 12px 24px -8px rgba(0, 0, 0, 0.5);
 `;
 
 export default MapCard;

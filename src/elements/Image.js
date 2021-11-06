@@ -5,12 +5,13 @@ import styled from 'styled-components';
 import { insplace } from '../images/index';
 
 const Image = props => {
-  const { type, width, height, margin, color, src } = props;
+  const { type, width, height, margin, padding, color, src, children } = props;
 
   const styles = {
     width,
     height,
     margin,
+    padding,
     src,
     color,
   };
@@ -26,7 +27,7 @@ const Image = props => {
   if (type === 'bg') {
     return (
       <>
-        <BgImage {...styles} />
+        <BgImage {...styles}>{children}</BgImage>
       </>
     );
   }
@@ -43,6 +44,7 @@ Image.defaultProps = {
   height: 'auto',
   type: false,
   margin: false,
+  padding: false,
   src: insplace,
 };
 
@@ -69,7 +71,9 @@ const BgImage = styled.div`
   background-size: cover;
   background-position: center;
   ${props => (props.margin ? `margin:${props.margin}` : '')};
+  ${props => (props.padding ? `margin:${props.padding}` : '')};
   display: block;
+  position: relative;
 `;
 
 // 프로필 이미지 (원형)

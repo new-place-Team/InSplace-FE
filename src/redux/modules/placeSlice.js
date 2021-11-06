@@ -46,6 +46,7 @@ const placeSlice = createSlice({
       state.map = payload;
     },
   },
+
   extraReducers: {
     /* Fulfilled(이행) 처리 완료 */
     [getMainListDB.fulfilled]: (state, { payload }) => {
@@ -73,12 +74,10 @@ const placeSlice = createSlice({
       // 실패
       console.log('rejected == 실패 ', payload);
     },
-
     /* 장소 상세 조회 처리 완료 */
     [getPlaceDetailDB.fulfilled]: (state, { payload }) => {
       state.detailInfo = payload;
     },
-
     // 현재좌표 받아오기
     [getCurrentCoordinateWEB.fulfilled]: (state, { payload }) => {
       state.location = payload;

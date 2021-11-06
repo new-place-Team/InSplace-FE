@@ -29,6 +29,8 @@ import ReviewWrite from './pages/ReviewWrite';
 import MyPage from './pages/MyPage';
 import MyPageEdit from './pages/MyPageEdit';
 import Kakao from './components/common/Kakao';
+import Pick from './pages/Pick';
+import Notification from './pages/Notification';
 // import Navbar from './components/Navbar';
 
 function App() {
@@ -69,6 +71,8 @@ function App() {
           <Route path="/mypage" exact component={MyPage} />
           <Route path="/mypage/:id" exact component={MyPageEdit} />
           <Route path="/users/kakao/auth" exact component={Kakao} />
+          <Route path="/picklist" exact component={Pick} />
+          <Route path="/notification" exact component={Notification} />
         </Switch>
         {/* <Navbar /> */}
       </ThemeProvider>

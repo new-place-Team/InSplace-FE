@@ -138,6 +138,7 @@ const CenterGrid = styled.div`
   padding: ${props => props.padding};
   background-color: ${props => props.bg};
   border: ${props => props.border};
+  position: ${props => props.position};
   ${props => props.wrap && `flex-wrap:wrap`};
 `;
 const EndGrid = styled.div`

@@ -37,13 +37,15 @@ const Detail = () => {
       setActive({ ...active, likeList: false, newList: true });
     }
   };
-
+  console.log('0번째 디테일 데이터', detailData);
   const placeMarker = [
     {
       postLocationY: detailData.postLocationY,
       postLocationX: detailData.postLocationX,
     },
   ];
+
+  console.log('첫번째 디테일 페이지 데이터', placeMarker);
 
   const reviewPage = () => {
     const params = {
@@ -67,7 +69,6 @@ const Detail = () => {
           <Header _onBg _back />
           {/* 배경 이미지 */}
           <PlaceSwiper list={detailData.postImages} />
-
           {/* <Header _type="search" _back /> */}
           {/* 장소의 상세 정보 */}
           <InfoGrid>
@@ -144,6 +145,7 @@ const Detail = () => {
                 가게정보
               </Text>
               <Grid margin="16px 0">
+                {/* 카카오 지도 */}
                 <Map width="100%" height="191px" allPlaces={placeMarker} />
               </Grid>
               <Text fontSize="13px" color="#3E4042">
