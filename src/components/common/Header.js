@@ -25,12 +25,16 @@ const Header = props => {
   const gotoMapPage = () => {
     history.push('/place/map');
   };
+  const gotoSearchPage = () => {
+    history.push('/search');
+  };
   console.log('헤더가 가지고있는 데이터', selectedCategory, conditionPlaces);
   const goBack = () => {
     history.goBack();
     selectedCategory = null;
     conditionPlaces = null;
   };
+
   if (_onBg) {
     return (
       <ContentArea>
@@ -56,7 +60,7 @@ const Header = props => {
               </Grid>
             )}
             {_search && (
-              <Grid>
+              <Grid _onClick={gotoSearchPage}>
                 <Icon src={search} />
               </Grid>
             )}
@@ -105,7 +109,7 @@ const Header = props => {
               </Grid>
             )}
             {_search && (
-              <Grid>
+              <Grid _onClick={gotoSearchPage}>
                 <Icon src={search} />
               </Grid>
             )}

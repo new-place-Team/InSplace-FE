@@ -63,6 +63,9 @@ const MyPage = () => {
           <Text fontSize="26px" bold color="#3E4042">
             후원
           </Text>
+          <BottomBox>
+            <Text fontSize="22px" bold color="#3E4042" />
+          </BottomBox>
         </Info>
       </InfoGrid>
     </Container>
@@ -81,7 +84,6 @@ const Bg = styled.div`
 const InfoGrid = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap;
   position: relative;
   top: 0px;
@@ -93,6 +95,7 @@ const InfoGrid = styled.div`
 
 const Info = styled.div`
   width: 50%;
+  min-height: 300px;
   height: 436px;
   padding: 48px 40px 48px 50px;
   border: 1px solid #e6e9ec;
@@ -104,7 +107,7 @@ const BottomBox = styled.div`
   align-items: flex-end;
   justify-content: flex-end;
   height: 100%;
-  padding-bottom: 33px;
+  padding-bottom: 30px;
   &:hover {
     cursor: pointer;
   }

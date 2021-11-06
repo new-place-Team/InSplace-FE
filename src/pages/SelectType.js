@@ -72,12 +72,12 @@ const SelectedType = () => {
       return;
     }
     const params = {
-      weather: weatherStatus.status || 1,
+      weather: weatherStatus ? weatherStatus.status : 1,
       category: state.category.value,
       num: state.MemberCnt.value,
       gender: state.gender.value,
     };
-    dispatch(getSearchConditionDB(params));
+    // dispatch(getSearchConditionDB(params));
     dispatch(setSelectedCategory(state));
     // 유저가 선택한 유형을 history state에 담아서 보낸다.
     history.push({

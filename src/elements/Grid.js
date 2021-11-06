@@ -23,6 +23,7 @@ const Grid = props => {
     children,
     position,
     zIndex,
+    lasMargin,
   } = props;
 
   const styles = {
