@@ -8,6 +8,17 @@ const getSearchCondition = params => {
   );
 };
 
+const getSearchConditionMore = params => {
+  return api.get(
+    `search/pages/${params.number}/condition?weather=${params.weather}&category=${params.category}&num=${params.num}&gender=${params.gender}&inside=${params.inside}`,
+  );
+};
+
 const getPlaceDetail = params => api.get(`/posts/${params}`);
 
-export { getMainList, getSearchCondition, getPlaceDetail };
+export {
+  getMainList,
+  getSearchCondition,
+  getPlaceDetail,
+  getSearchConditionMore,
+};
