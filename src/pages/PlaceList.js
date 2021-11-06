@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-undef */
 /* eslint-disable no-shadow */
 /* eslint-disable react/destructuring-assignment */
@@ -12,10 +13,10 @@ import Header from '../components/common/Header';
 // import Navbar from '../components/common/Navbar';
 import { getSearchConditionMore } from '../shared/api/placeApi';
 import { history } from '../redux/configureStore';
-import { getSearchConditionMoreDB } from '../redux/async/place';
+// import { getSearchConditionMoreDB } from '../redux/async/place';
 
 const PlaceList = props => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const selectedCategory = useSelector(state => state.place.selectedCategory);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
   const conditionPlacesList = useSelector(
