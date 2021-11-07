@@ -1,11 +1,12 @@
+/* eslint-disable no-alert */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
 import { Container, Grid, Text, Image, Button, Icons } from '../elements';
-import Header from '../components/common/Header';
+import { history } from '../redux/configureStore';
 import Map from '../components/map/Map';
 import { getPlaceDetailDB, setFavoritesPostDB } from '../redux/async/place';
 import { heartFilled, pin } from '../images/index';
@@ -15,27 +16,22 @@ import { ReactComponent as Write } from '../images/Icon/ic_write.svg';
 import { ReactComponent as Share } from '../images/Icon/ic_share.svg';
 
 import ReviewCard from '../components/place/ReviewCard';
-import { history } from '../redux/configureStore';
 import PlaceSwiper from '../components/place/PlaceSwiper';
+import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
 
-const Detail = () => {
+const Detail = props => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id } = props.match.params;
   const detailData = useSelector(state => state.place.detailInfo);
   const userInfo = useSelector(state => state.user.userInfo);
+  const isLogin = useSelector(state => state.user.isLogin);
   console.log('userInfo', userInfo);
   console.log('detailInfo', detailData);
   const newAddr = detailData.addressShort
     ? detailData.addressShort.split(' ')
     : false;
-  const [active, setActive] = useState({ likeList: false, newList: true });
 
-  // const [iconActive, setIconActive] = useState({
-  //   bookmark: false,
-  //   like: false,
-  //   review: false,
-  //   kakao: false,
-  // });
+  const [active, setActive] = useState({ likeList: false, newList: true });
 
   const onClick = e => {
     if (e.target.name === 'likeList') {
@@ -44,7 +40,7 @@ const Detail = () => {
       setActive({ ...active, likeList: false, newList: true });
     }
   };
-
+  console.log('0번째 디테일 데이터', detailData);
   const placeMarker = [
     {
       postLocationY: detailData.postLocationY,
@@ -52,14 +48,18 @@ const Detail = () => {
     },
   ];
 
+  console.log('첫번째 디테일 페이지 데이터', placeMarker);
+
   const reviewPage = () => {
-    const params = {
-      id,
-      placeImage: detailData.postImages[0],
-      title: detailData.title,
-      description: detailData.description,
-    };
-    history.push({ pathname: `/review/write/${id}`, state: params });
+    if (!isLogin) {
+      window.alert('로그인을 해야 이용할 수 있는 서비스입니다');
+    } else {
+      history.push(`/review/write/${id}`);
+    }
+  };
+
+  const goBack = () => {
+    history.goBack();
   };
 
   const setFavorites = () => {
@@ -80,12 +80,13 @@ const Detail = () => {
     <>
       <Container padding="0">
         <Grid>
-          <Header _onBg _back />
-          {/* 배경 이미지 */}
           <PlaceSwiper list={detailData.postImages} />
+          <PlaceHeader>
+            <IconBox onClick={goBack}>
+              <LeftIcon />
+            </IconBox>
+          </PlaceHeader>
 
-          {/* <Header _type="search" _back /> */}
-          {/* 장소의 상세 정보 */}
           <InfoGrid>
             <Text fontSize="13px" color="#A3A6AA">
               {detailData.description}
@@ -175,6 +176,7 @@ const Detail = () => {
                 가게정보
               </Text>
               <Grid margin="16px 0">
+                {/* 카카오 지도 */}
                 <Map width="100%" height="191px" allPlaces={placeMarker} />
               </Grid>
               <Text fontSize="13px" color="#3E4042">
@@ -227,6 +229,24 @@ const Detail = () => {
   );
 };
 
+const PlaceHeader = styled.div`
+  position: absolute;
+  width: 768px;
+  height: 66px;
+  line-height: 76px;
+  top: 0;
+  left: 0;
+  z-index: 100;
+`;
+const IconBox = styled.div`
+  display: inline-block;
+  height: 100%;
+  padding: 0px 24px;
+  cursor: pointer;
+  svg {
+    fill: #fff;
+  }
+`;
 const InfoGrid = styled.div`
   position: relative;
   top: -44px;
@@ -293,20 +313,6 @@ const ReviewButton = styled.button`
   &.active {
     color: #3e4042;
     font-weight: 600;
-  }
-`;
-
-const IconArea = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 31px;
-  height: 31px;
-  margin: 0 8px 8px 0;
-  cursor: pointer;
-  svg {
-    width: 31px;
-    height: 31px;
   }
 `;
 

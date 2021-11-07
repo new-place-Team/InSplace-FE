@@ -1,15 +1,18 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-plusplus */
+/* eslint-disable no-undef */
 /* eslint-disable no-unreachable */
 /* eslint-disable import/no-cycle */
 /* eslint-disable consistent-return */
 /* eslint-disable prettier/prettier */
 import { createAsyncThunk } from '@reduxjs/toolkit';
-// import { history } from '../configureStore';
 import {
   getMainList,
   getSearchCondition,
   getPlaceDetail,
   postFavoritesPost,
   deleteFavoritesPost,
+  addReview,
 } from '../../shared/api/placeApi';
 import { getLocationAddress } from '../../shared/api/kakaoApi';
 import { getPosition } from '../../shared/utils';
@@ -86,18 +89,32 @@ export const setFavoritesPostDB = createAsyncThunk(
   'place/setFavorites',
   async (params, thunkAPI) => {
     try {
-      console.log('타니', params);
       let response;
       if (params.favoriteState) {
-        console.log('<<<<<<<<<<<<<');
         response = await deleteFavoritesPost(params);
       } else {
-        console.log('>>>>>>>>>>>>>');
         response = await postFavoritesPost(params);
       }
       if (response) {
         return response.data;
       }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);
+
+/* 리뷰 등록 */
+export const addReviewDB = createAsyncThunk(
+  'place/addReview',
+  async (params, thunkAPI) => {
+    try {
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      };
+      await addReview(params, config);
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
     }

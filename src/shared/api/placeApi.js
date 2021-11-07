@@ -9,7 +9,6 @@ const getSearchCondition = params => {
 };
 
 const getSearchConditionList = params => api.get(`${params}`);
-
 const getPlaceDetail = params => api.get(`posts/${params}`);
 
 const postFavoritesPost = params =>
@@ -18,6 +17,15 @@ const postFavoritesPost = params =>
 const deleteFavoritesPost = params =>
   api.delete(`posts/${params.postId}/favorites`);
 
+const getReview = params => api.get(`/posts/${params}/reviews/write`);
+
+// ㅠㅠ
+const addReview = (params, config) => {
+  console.log('params >>', params);
+  console.log('params >>', params.postId);
+  return api.post(`/posts/${params.postId}/reviews`, params.data, config);
+};
+
 export {
   getMainList,
   getSearchCondition,
@@ -25,4 +33,6 @@ export {
   getSearchConditionList,
   postFavoritesPost,
   deleteFavoritesPost,
+  getReview,
+  addReview,
 };
