@@ -8,6 +8,7 @@ import {
   getMainList,
   getSearchCondition,
   getPlaceDetail,
+  getReview,
 } from '../../shared/api/placeApi';
 import { getLocationAddress } from '../../shared/api/kakaoApi';
 import { getPosition } from '../../shared/utils';

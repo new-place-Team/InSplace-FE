@@ -14,9 +14,12 @@ const getSearchConditionList = params => {
 
 const getPlaceDetail = params => api.get(`/posts/${params}`);
 
+const getReview = params => api.get(`/posts/${params}/reviews/write`);
+
 export {
   getMainList,
   getSearchCondition,
   getPlaceDetail,
   getSearchConditionList,
+  getReview,
 };

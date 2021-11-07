@@ -5,8 +5,17 @@ import styled from 'styled-components';
 import { Grid, Text } from '../../elements';
 
 const SelectedContents = props => {
-  const { title, state, type, list, setState, selectData, setSelectData, bg } =
-    props;
+  const {
+    selectType,
+    title,
+    state,
+    type,
+    list,
+    setState,
+    selectData,
+    setSelectData,
+    bg,
+  } = props;
 
   /* 버튼 선택 */
   const selectedBtn = (text, type, value) => {
@@ -36,6 +45,41 @@ const SelectedContents = props => {
       setState({ ...state, category: { selecteText: text, value } });
     }
   };
+
+  const selectedReviewBtn = (text, type, value) => {
+    console.log('type == ', type);
+    console.log('text == ', text);
+    console.log('value == ', value);
+  };
+
+  if (selectType === 'review') {
+    return (
+      <ReviewContent>
+        <Text type="Title16">{title}</Text>
+        <SelectedGrid>
+          {list.map((item, idx) => {
+            return (
+              <React.Fragment key={`selected-${item.selecteText}`}>
+                <ReviewButton
+                  type="type"
+                  width="auto"
+                  value={item.selecteText}
+                  keys={item.value}
+                  isSelected={state[type].value === item.value}
+                  isLast={list.length === idx}
+                  onClick={() =>
+                    selectedReviewBtn(item.selecteText, type, item.value)
+                  }
+                >
+                  {item.selecteText}
+                </ReviewButton>
+              </React.Fragment>
+            );
+          })}
+        </SelectedGrid>
+      </ReviewContent>
+    );
+  }
 
   return (
     <SelectedContent bgColor={bg}>
@@ -97,5 +141,19 @@ const SelectedButton = styled.button`
   background-color: ${({ isSelected }) => (isSelected ? '#232529' : `#fff`)};
   border: ${({ isSelected }) =>
     isSelected ? '1px solid #232529' : `1px solid #646464`};
+`;
+const ReviewContent = styled.div`
+  width: 100%;
+  padding-top: 40px;
+  border: 1px solid blue;
+`;
+const ReviewButton = styled.button`
+  margin: 0 12px 12px 0;
+  padding: 12px 20px;
+  border: 1px solid #7a7d81;
+  color: #282828;
+  &:last-child {
+    margin-right: 0;
+  }
 `;
 export default SelectedContents;

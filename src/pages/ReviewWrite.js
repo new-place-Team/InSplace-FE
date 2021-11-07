@@ -1,18 +1,18 @@
-/* eslint-disable import/named */
-/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-undef */
 /* eslint-disable no-alert */
-import React, { useState } from 'react';
-// import { useSelector } from 'react-redux';
+/* eslint-disable react/destructuring-assignment */
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Text, Textarea } from '../elements';
 import { whiteClose, xcircle } from '../images/index';
-import Header from '../components/common/Header';
+import SelectedContents from '../components/place/SelectedContents';
+import { getReview } from '../shared/api/placeApi';
 
 const ReviewWrite = props => {
-  // const detailData = useSelector(state => state.place.detailInfo);
-  const { description, placeImage, title } = props.history.location.state;
-  const fileInput = React.useRef();
+  const { id } = props.match.params;
+  const fileInput = useRef();
   const [preview, setPreview] = useState([]);
   const [state, setState] = useState({
     reviewDesc: '',
@@ -21,46 +21,41 @@ const ReviewWrite = props => {
     weekdayYN: 1,
     revisitYN: 1,
   });
-  // const [selectData, setSelectData] = React.useState([
-  //   {
-  //     title: '날씨는 어땠나요?',
-  //     list: [
-  //       { selecteText: '맑음', value: 1 },
-  //       { selecteText: '비', value: 2 },
-  //       { selecteText: '눈', value: 3 },
-  //       { selecteText: '흐림', value: 4 },
-  //       { selecteText: '기억안남', value: 5 },
-  //     ],
-  //     type: 'weather',
-  //     grid: 0,
-  //     bg: '#f4f4f4',
-  //   },
-  //   {
-  //     title: '언제 가셨나요?',
-  //     list: [
-  //       { selecteText: '평일', value: 1 },
-  //       { selecteText: '주말', value: 0 },
-  //     ],
-  //     type: 'weekdayYN',
-  //     grid: 2,
-  //     bg: '#e8ecf2',
-  //   },
-  //   {
-  //     title: '재방문 의사가 있으신가요?',
-  //     list: [
-  //       { selecteText: '있음', value: 1 },
-  //       { selecteText: '없음', value: 0 },
-  //     ],
-  //     type: 'revisitYN',
-  //     grid: 3,
-  //     bg: '#bbc0cf',
-  //   },
-  // ]);
+  const [selectData, setSelectData] = useState([
+    {
+      title: '날씨는 어땠나요?',
+      list: [
+        { selecteText: '맑음', value: 1 },
+        { selecteText: '비', value: 2 },
+        { selecteText: '눈', value: 3 },
+        { selecteText: '흐림', value: 4 },
+        { selecteText: '기억안남', value: 5 },
+      ],
+      type: 'weather',
+    },
+    {
+      title: '언제 가셨나요?',
+      list: [
+        { selecteText: '평일', value: 1 },
+        { selecteText: '주말', value: 0 },
+      ],
+      type: 'weekdayYN',
+    },
+    {
+      title: '재방문 의사가 있으신가요?',
+      list: [
+        { selecteText: '있음', value: 1 },
+        { selecteText: '없음', value: 0 },
+      ],
+      type: 'revisitYN',
+    },
+  ]);
   const selectFile = () => {
     if (preview.length >= 3) {
       window.alert('이미지는 최대 3개까지 등록 가능합니다.');
       return;
     }
+
     const reader = new FileReader();
     const file = fileInput.current.files[0];
     reader.readAsDataURL(file);
@@ -88,19 +83,6 @@ const ReviewWrite = props => {
     setState({ ...state, reviewDesc: e.target.value });
   };
 
-  const onClick = (name, value) => {
-    // 날씨는 수정해야함
-    if (name === 'weather') {
-      setState({ ...state, weather: value });
-    }
-    if (name === 'weekdayYN') {
-      setState({ ...state, weekdayYN: value });
-    }
-    if (name === 'revisitYN') {
-      setState({ ...state, revisitYN: value });
-    }
-  };
-
   const onAddReview = () => {
     if (state.reviewDesc.length < 15) {
       window.alert('리뷰는 최소 15자 이상 등록 가능합니다.');
@@ -124,22 +106,51 @@ const ReviewWrite = props => {
     // Axios.post("/create/list", formData)
   };
 
+  const onLoad = async () => {
+    try {
+      const res = await getReview(id);
+      console.log('res == ', res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    if (id !== undefined) {
+      onLoad();
+      console.log('effect id == ', id);
+    }
+  }, []);
+
   return (
     <>
       <Header _back _content="리뷰쓰기" />
       <Container>
         <TopGrid>
-          <Image width="64px" height="64px" src={placeImage} />
+          {/* <Image width="64px" height="64px" src={placeImage} /> */}
           <Grid flex margin="0 0 0 20px">
             <Text fontSize="13px" color="#A3A6AA">
-              {description}
+              {/* {description} */}
             </Text>
-            <Text type="Title16">{title}</Text>
+            {/* <Text type="Title16">{title}</Text> */}
           </Grid>
         </TopGrid>
         <Background />
         <Grid>
-          <ReviewBox>
+          {selectData.map(item => {
+            return (
+              <SelectedContents
+                selectType="review"
+                key={`key-${item.title}`}
+                {...item}
+                state={state}
+                setState={setState}
+                selectData={selectData}
+                setSelectData={setSelectData}
+              />
+            );
+          })}
+          {/* <ReviewBox>
             <Text type="Title16">날씨는 어땠나요?</Text>
             <ButtonWrap>
               <QuestionsButton>맑음</QuestionsButton>
@@ -170,7 +181,7 @@ const ReviewWrite = props => {
                 없음
               </QuestionsButton>
             </ButtonWrap>
-          </ReviewBox>
+          </ReviewBox> */}
         </Grid>
         <ReviewBox>
           <Text type="Title16">상세한 후기를 써주세요</Text>

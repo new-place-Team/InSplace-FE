@@ -1,34 +1,27 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { history } from '../redux/configureStore';
 import { Container, Grid, Text, Image, Button } from '../elements';
-import Header from '../components/common/Header';
-import Map from '../components/map/Map';
 import { getPlaceDetailDB } from '../redux/async/place';
 import { heartFilled, pin, write, heartLine, share } from '../images/index';
-
+import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
+import Map from '../components/map/Map';
 import ReviewCard from '../components/place/ReviewCard';
-import { history } from '../redux/configureStore';
 import PlaceSwiper from '../components/place/PlaceSwiper';
 
-const Detail = () => {
+const Detail = props => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id } = props.match.params;
   const detailData = useSelector(state => state.place.detailInfo);
   const newAddr = detailData.addressShort
     ? detailData.addressShort.split(' ')
     : false;
-  const [active, setActive] = useState({ likeList: false, newList: true });
 
-  // const [iconActive, setIconActive] = useState({
-  //   bookmark: false,
-  //   like: false,
-  //   review: false,
-  //   kakao: false,
-  // });
+  const [active, setActive] = useState({ likeList: false, newList: true });
 
   const onClick = e => {
     if (e.target.name === 'likeList') {
@@ -46,13 +39,11 @@ const Detail = () => {
   ];
 
   const reviewPage = () => {
-    const params = {
-      id,
-      placeImage: detailData.postImages[0],
-      title: detailData.title,
-      description: detailData.description,
-    };
-    history.push({ pathname: `/review/write/${id}`, state: params });
+    history.push(`/review/write/${id}`);
+  };
+
+  const goBack = () => {
+    history.goBack();
   };
 
   useEffect(() => {
@@ -64,12 +55,12 @@ const Detail = () => {
     <>
       <Container padding="0">
         <Grid>
-          <Header _onBg _back />
-          {/* 배경 이미지 */}
           <PlaceSwiper list={detailData.postImages} />
-
-          {/* <Header _type="search" _back /> */}
-          {/* 장소의 상세 정보 */}
+          <PlaceHeader>
+            <Button padding="16px 24px" _onClick={goBack}>
+              <LeftIcon />
+            </Button>
+          </PlaceHeader>
           <InfoGrid>
             <Text fontSize="13px" color="#A3A6AA">
               {detailData.description}
@@ -196,6 +187,18 @@ const Detail = () => {
   );
 };
 
+const PlaceHeader = styled.div`
+  position: absolute;
+  width: 768px;
+  height: 66px;
+  line-height: 76px;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  svg {
+    fill: #fff;
+  }
+`;
 const InfoGrid = styled.div`
   position: relative;
   top: -44px;
