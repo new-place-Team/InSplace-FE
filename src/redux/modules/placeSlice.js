@@ -7,6 +7,7 @@ import {
   getSearchConditionDB,
   getPlaceDetailDB,
   getCurrentCoordinateWEB,
+  setFavoritesPostDB,
 } from '../async/place';
 
 /* init */
@@ -79,6 +80,22 @@ const placeSlice = createSlice({
     // 현재좌표 받아오기
     [getCurrentCoordinateWEB.fulfilled]: (state, { payload }) => {
       state.location = payload;
+    },
+    [setFavoritesPostDB.fulfilled]: (state, { payload }) => {
+      console.log('payload', payload);
+      state.detailInfo.favoriteState = !state.detailInfo.favoriteState;
+      const { postId } = state.detailInfo;
+      const { mainLists } = state;
+
+      for (const key in mainLists) {
+        if (key && key !== 'weather') {
+          const idx = mainLists[`${key}`].findIndex(v => v.postId === postId);
+          if (idx > -1) {
+            mainLists[`${key}`][idx].favoriteState =
+              !mainLists[`${key}`][idx].favoriteState;
+          }
+        }
+      }
     },
   },
 });

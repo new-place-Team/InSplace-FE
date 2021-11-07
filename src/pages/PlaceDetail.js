@@ -7,9 +7,9 @@ import { useParams } from 'react-router-dom';
 import { Container, Grid, Text, Image, Button } from '../elements';
 import Header from '../components/common/Header';
 import Map from '../components/map/Map';
-import { getPlaceDetailDB } from '../redux/async/place';
+import { getPlaceDetailDB, setFavoritesPostDB } from '../redux/async/place';
 import { heartFilled, pin, write, heartLine, share } from '../images/index';
-
+import { ReactComponent as SelectedHeader } from '../images/Icon/ic_heart-filled.svg';
 import ReviewCard from '../components/place/ReviewCard';
 import { history } from '../redux/configureStore';
 import PlaceSwiper from '../components/place/PlaceSwiper';
@@ -18,6 +18,9 @@ const Detail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const detailData = useSelector(state => state.place.detailInfo);
+  const userInfo = useSelector(state => state.user.userInfo);
+  console.log('userInfo', userInfo);
+  console.log('detailInfo', detailData);
   const newAddr = detailData.addressShort
     ? detailData.addressShort.split(' ')
     : false;
@@ -55,6 +58,15 @@ const Detail = () => {
       description: detailData.description,
     };
     history.push({ pathname: `/review/write/${id}`, state: params });
+  };
+
+  const setFavorites = () => {
+    const params = {
+      postId: detailData.postId,
+      favoriteState: detailData.favoriteState,
+    };
+    dispatch(setFavoritesPostDB(params));
+    console.log('setFavorites');
   };
 
   useEffect(() => {
@@ -115,8 +127,14 @@ const Detail = () => {
                 </Button>
               </Grid>
               <Grid>
-                <Button size="12px" color="#A3A6AA">
-                  <Image src={heartLine} margin="0 0 1px 0" />
+                <Button size="12px" color="#A3A6AA" _onClick={setFavorites}>
+                  {detailData && detailData.favoriteState ? (
+                    <IconArea>
+                      <SelectedHeader />
+                    </IconArea>
+                  ) : (
+                    <Image src={heartLine} margin="0 0 1px 0" />
+                  )}
                   찜하기
                 </Button>
               </Grid>
@@ -264,6 +282,17 @@ const ReviewButton = styled.button`
   &.active {
     color: #3e4042;
     font-weight: 600;
+  }
+`;
+
+const IconArea = styled.div`
+  width: 24px;
+  height: 24px;
+  margin: 0 8px 8px 0;
+  cursor: pointer;
+  svg {
+    width: 24px;
+    height: 24px;
   }
 `;
 

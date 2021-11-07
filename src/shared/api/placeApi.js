@@ -8,15 +8,21 @@ const getSearchCondition = params => {
   );
 };
 
-const getSearchConditionList = params => {
-  return api.get(`${params}`);
-};
+const getSearchConditionList = params => api.get(`${params}`);
 
-const getPlaceDetail = params => api.get(`/posts/${params}`);
+const getPlaceDetail = params => api.get(`posts/${params}`);
+
+const postFavoritesPost = params =>
+  api.post(`posts/${params.postId}/favorites`);
+
+const deleteFavoritesPost = params =>
+  api.delete(`posts/${params.postId}/favorites`);
 
 export {
   getMainList,
   getSearchCondition,
   getPlaceDetail,
   getSearchConditionList,
+  postFavoritesPost,
+  deleteFavoritesPost,
 };
