@@ -3,12 +3,12 @@
 /* eslint-disable consistent-return */
 /* eslint-disable prettier/prettier */
 import { createAsyncThunk } from '@reduxjs/toolkit';
-// import { history } from '../configureStore';
 import {
   getMainList,
   getSearchCondition,
   getPlaceDetail,
-  getReview,
+  postFavoritesPost,
+  deleteFavoritesPost,
 } from '../../shared/api/placeApi';
 import { getLocationAddress } from '../../shared/api/kakaoApi';
 import { getPosition } from '../../shared/utils';
@@ -77,6 +77,28 @@ export const getCurrentCoordinateWEB = createAsyncThunk(
       }
     } catch (err) {
       console.log(err);
+    }
+  },
+);
+
+export const setFavoritesPostDB = createAsyncThunk(
+  'place/setFavorites',
+  async (params, thunkAPI) => {
+    try {
+      console.log('타니', params);
+      let response;
+      if (params.favoriteState) {
+        console.log('<<<<<<<<<<<<<');
+        response = await deleteFavoritesPost(params);
+      } else {
+        console.log('>>>>>>>>>>>>>');
+        response = await postFavoritesPost(params);
+      }
+      if (response) {
+        return response.data;
+      }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
     }
   },
 );

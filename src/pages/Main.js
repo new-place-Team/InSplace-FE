@@ -58,13 +58,13 @@ const Main = () => {
           </Grid>
 
           {/* 장소 추천받기 */}
-          <SelectTypeBtn>
+          <SelectTypeBtn onClick={() => history.push('/select-type')}>
             <Grid height="22px" margin="19px 0 0 18px">
               <Text fontSize="16px" color="#fff" bold>
                 장소 추천 받기
               </Text>
             </Grid>
-            <NextButton onClick={() => history.push('/select-type')}>
+            <NextButton>
               <Right />
             </NextButton>
           </SelectTypeBtn>
@@ -119,6 +119,7 @@ const SelectTypeBtn = styled.div`
   width: 133px;
   height: 125px;
   background-color: #232323;
+  cursor: pointer;
 `;
 
 const NextButton = styled.div`
@@ -127,7 +128,6 @@ const NextButton = styled.div`
   right: 0;
   width: 50px;
   height: 50px;
-  cursor: pointer;
   svg {
     width: 50px;
     height: 50px;

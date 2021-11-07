@@ -7,6 +7,7 @@ import {
   getSearchConditionDB,
   getPlaceDetailDB,
   getCurrentCoordinateWEB,
+  setFavoritesPostDB,
 } from '../async/place';
 
 /* init */
@@ -44,6 +45,7 @@ const placeSlice = createSlice({
       state.map = payload;
     },
   },
+
   extraReducers: {
     /* Fulfilled(이행) 처리 완료 */
     [getMainListDB.fulfilled]: (state, { payload }) => {
@@ -58,6 +60,19 @@ const placeSlice = createSlice({
     [getSearchConditionDB.fulfilled]: (state, { payload }) => {
       state.conditionPlaces = payload;
     },
+    [getSearchConditionMoreDB.pending]: (state, { payload }) => {
+      // 호출 전
+      console.log('pending == 호출전 ', payload);
+      state.conditionPlacesMore = payload;
+    },
+    /* 타입별 검색 더보기 처리 완료 */
+    [getSearchConditionMoreDB.fulfilled]: (state, { payload }) => {
+      state.conditionPlacesMore = payload;
+    },
+    [getSearchConditionMoreDB.rejected]: (state, { payload }) => {
+      // 실패
+      console.log('rejected == 실패 ', payload);
+    },
     /* 장소 상세 조회 처리 완료 */
     [getPlaceDetailDB.fulfilled]: (state, { payload }) => {
       state.detailInfo = payload;
@@ -65,6 +80,22 @@ const placeSlice = createSlice({
     // 현재좌표 받아오기
     [getCurrentCoordinateWEB.fulfilled]: (state, { payload }) => {
       state.location = payload;
+    },
+    [setFavoritesPostDB.fulfilled]: (state, { payload }) => {
+      console.log('payload', payload);
+      state.detailInfo.favoriteState = !state.detailInfo.favoriteState;
+      const { postId } = state.detailInfo;
+      const { mainLists } = state;
+
+      for (const key in mainLists) {
+        if (key && key !== 'weather') {
+          const idx = mainLists[`${key}`].findIndex(v => v.postId === postId);
+          if (idx > -1) {
+            mainLists[`${key}`][idx].favoriteState =
+              !mainLists[`${key}`][idx].favoriteState;
+          }
+        }
+      }
     },
   },
 });

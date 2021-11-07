@@ -3,6 +3,7 @@
 import React from 'react';
 import { Container, Grid } from '../elements';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 
 import SwiperMap from '../components/map/SwiperMap';
 import Map from '../components/map/Map';
@@ -20,25 +21,29 @@ const MapContainer = () => {
   return (
     <>
       <Header _back _content="상세보기" />
-      <Container>
+      <Container padding="66px 0 0 0">
         <Grid>
           <Grid padding="0 24px">
             <SelectedCategory tag={selectedCategory} />
           </Grid>
           <SwiperMap list={allPlaces} />
           {/* 카카오지도 현재 위도 경도로 중심 찾기, 위도 경도로 리스트들 마커 찍기 */}
-          <div style={{ overflowX: 'hidden' }}>
+          <MapDiv>
             <Map
               width="100vw"
               height="80vh"
               allPlaces={allPlaces}
               currentCoord={currentCoord}
             />
-          </div>
+          </MapDiv>
         </Grid>
       </Container>
     </>
   );
 };
+
+const MapDiv = styled.div`
+  overflow-x: hidden;
+`;
 
 export default MapContainer;

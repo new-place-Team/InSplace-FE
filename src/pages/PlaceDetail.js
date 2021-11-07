@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { history } from '../redux/configureStore';
 import { Container, Grid, Text, Image, Button } from '../elements';
-import { getPlaceDetailDB } from '../redux/async/place';
-import { heartFilled, pin, write, heartLine, share } from '../images/index';
-import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
 import Map from '../components/map/Map';
+import { getPlaceDetailDB, setFavoritesPostDB } from '../redux/async/place';
+import { heartFilled, pin, write, heartLine, share } from '../images/index';
+import { ReactComponent as SelectedHeader } from '../images/Icon/ic_heart-filled.svg';
 import ReviewCard from '../components/place/ReviewCard';
 import PlaceSwiper from '../components/place/PlaceSwiper';
 
@@ -17,6 +17,9 @@ const Detail = props => {
   const dispatch = useDispatch();
   const { id } = props.match.params;
   const detailData = useSelector(state => state.place.detailInfo);
+  const userInfo = useSelector(state => state.user.userInfo);
+  console.log('userInfo', userInfo);
+  console.log('detailInfo', detailData);
   const newAddr = detailData.addressShort
     ? detailData.addressShort.split(' ')
     : false;
@@ -30,7 +33,7 @@ const Detail = props => {
       setActive({ ...active, likeList: false, newList: true });
     }
   };
-
+  console.log('0번째 디테일 데이터', detailData);
   const placeMarker = [
     {
       postLocationY: detailData.postLocationY,
@@ -38,12 +41,23 @@ const Detail = props => {
     },
   ];
 
+  console.log('첫번째 디테일 페이지 데이터', placeMarker);
+
   const reviewPage = () => {
     history.push(`/review/write/${id}`);
   };
 
   const goBack = () => {
     history.goBack();
+  };
+
+  const setFavorites = () => {
+    const params = {
+      postId: detailData.postId,
+      favoriteState: detailData.favoriteState,
+    };
+    dispatch(setFavoritesPostDB(params));
+    console.log('setFavorites');
   };
 
   useEffect(() => {
@@ -56,11 +70,8 @@ const Detail = props => {
       <Container padding="0">
         <Grid>
           <PlaceSwiper list={detailData.postImages} />
-          <PlaceHeader>
-            <Button padding="16px 24px" _onClick={goBack}>
-              <LeftIcon />
-            </Button>
-          </PlaceHeader>
+          {/* <Header _type="search" _back /> */}
+          {/* 장소의 상세 정보 */}
           <InfoGrid>
             <Text fontSize="13px" color="#A3A6AA">
               {detailData.description}
@@ -105,8 +116,14 @@ const Detail = props => {
                 </Button>
               </Grid>
               <Grid>
-                <Button size="12px" color="#A3A6AA">
-                  <Image src={heartLine} margin="0 0 1px 0" />
+                <Button size="12px" color="#A3A6AA" _onClick={setFavorites}>
+                  {detailData && detailData.favoriteState ? (
+                    <IconArea>
+                      <SelectedHeader />
+                    </IconArea>
+                  ) : (
+                    <Image src={heartLine} margin="0 0 1px 0" />
+                  )}
                   찜하기
                 </Button>
               </Grid>
@@ -135,6 +152,7 @@ const Detail = props => {
                 가게정보
               </Text>
               <Grid margin="16px 0">
+                {/* 카카오 지도 */}
                 <Map width="100%" height="191px" allPlaces={placeMarker} />
               </Grid>
               <Text fontSize="13px" color="#3E4042">
@@ -265,6 +283,17 @@ const ReviewButton = styled.button`
   &.active {
     color: #3e4042;
     font-weight: 600;
+  }
+`;
+
+const IconArea = styled.div`
+  width: 24px;
+  height: 24px;
+  margin: 0 8px 8px 0;
+  cursor: pointer;
+  svg {
+    width: 24px;
+    height: 24px;
   }
 `;
 

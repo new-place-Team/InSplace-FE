@@ -8,6 +8,8 @@ import { Grid, Image, Text } from '../../elements/index';
 import { heartFilled } from '../../images/index';
 import { getCategoryText } from '../../shared/transferText';
 import { history } from '../../redux/configureStore';
+import { ReactComponent as NoSelectedHeader } from '../../images/Icon/ic_heart.svg';
+import { ReactComponent as SelectedHeader } from '../../images/Icon/ic_heart-filled.svg';
 
 const ListCard = props => {
   const { type, info } = props;
@@ -19,18 +21,24 @@ const ListCard = props => {
   const gotoDetail = () => {
     history.push(`/place/detail/${postId}`);
   };
-
   /* 메인 카드 */
   if (type === 'main') {
     return (
       <>
-        <Grid _onClick={gotoDetail}>
+        <Grid _onClick={gotoDetail} width="237px">
           <Image width="237px" height="320px" src={info && info.postImages} />
           <Tag>
             <Text color="#fff" fontSize="14px">
               {info && getCategoryText(info.categoryId)}
             </Text>
           </Tag>
+          <IconArea>
+            {info && info.favoriteState ? (
+              <SelectedHeader />
+            ) : (
+              <NoSelectedHeader />
+            )}
+          </IconArea>
         </Grid>
         <Grid margin="16px 0 0 0">
           <Text fontSize="16px" color="#272727" bold>
@@ -145,5 +153,15 @@ const Tag = styled.div`
   bottom: 0;
   padding: 8px 12px;
   background-color: #000;
+`;
+
+const IconArea = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 24px;
+  height: 24px;
+  margin: 0 8px 8px 0;
+  cursor: pointer;
 `;
 export default ListCard;

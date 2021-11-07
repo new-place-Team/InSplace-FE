@@ -29,6 +29,8 @@ import ReviewWrite from './pages/ReviewWrite';
 import MyPage from './pages/MyPage';
 import MyPageEdit from './pages/MyPageEdit';
 import Kakao from './components/common/Kakao';
+import Pick from './pages/Pick';
+import Notification from './pages/Notification';
 import SearchPage from './pages/SearchPage';
 // import Navbar from './components/Navbar';
 
@@ -40,7 +42,6 @@ function App() {
     useEffect(() => {
       dispatch(logInCheckDB());
     }, []);
-    // 없으면 로그인 해달라고 한다.
   }
   // 현재위치를 받아보자!
   useEffect(() => {
@@ -71,6 +72,8 @@ function App() {
           <Route path="/mypage" exact component={MyPage} />
           <Route path="/mypage/:id" exact component={MyPageEdit} />
           <Route path="/users/kakao/auth" exact component={Kakao} />
+          <Route path="/picklist" exact component={Pick} />
+          <Route path="/notification" exact component={Notification} />
         </Switch>
         {/* <Navbar /> */}
       </ThemeProvider>
