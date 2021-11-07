@@ -4,12 +4,16 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import { Container, Grid, Text, Image, Button } from '../elements';
+import { Container, Grid, Text, Image, Button, Icons } from '../elements';
 import Header from '../components/common/Header';
 import Map from '../components/map/Map';
 import { getPlaceDetailDB, setFavoritesPostDB } from '../redux/async/place';
-import { heartFilled, pin, write, heartLine, share } from '../images/index';
+import { heartFilled, pin } from '../images/index';
 import { ReactComponent as SelectedHeader } from '../images/Icon/ic_heart-filled.svg';
+import { ReactComponent as NoSelectedHeader } from '../images/Icon/ic_heart_line.svg';
+import { ReactComponent as Write } from '../images/Icon/ic_write.svg';
+import { ReactComponent as Share } from '../images/Icon/ic_share.svg';
+
 import ReviewCard from '../components/place/ReviewCard';
 import { history } from '../redux/configureStore';
 import PlaceSwiper from '../components/place/PlaceSwiper';
@@ -128,24 +132,33 @@ const Detail = () => {
               <Grid>
                 <Button size="12px" color="#A3A6AA" _onClick={setFavorites}>
                   {detailData && detailData.favoriteState ? (
-                    <IconArea>
+                    <Icons margin="0 0 4px 0">
                       <SelectedHeader />
-                    </IconArea>
+                    </Icons>
                   ) : (
-                    <Image src={heartLine} margin="0 0 1px 0" />
+                    <Icons margin="0 0 4px 0">
+                      <NoSelectedHeader />
+                    </Icons>
+                    // <Image src={heartLine} margin="0 0 1px 0" />
                   )}
                   찜하기
                 </Button>
               </Grid>
               <Grid>
                 <Button size="12px" color="#A3A6AA" _onClick={reviewPage}>
-                  <Image src={write} margin="0 0 1px 0" />
+                  <Icons>
+                    <Write />
+                  </Icons>
+                  {/* <Image src={write} margin="0 0 1px 0" /> */}
                   리뷰쓰기
                 </Button>
               </Grid>
               <Grid>
                 <Button size="12px" color="#A3A6AA">
-                  <Image src={share} margin="0 0 1px 0" />
+                  <Icons margin="0 0 4px 0">
+                    <Share />
+                  </Icons>
+                  {/* <Image src={share} margin="0 0 1px 0" /> */}
                   공유하기
                 </Button>
               </Grid>
@@ -230,7 +243,7 @@ const IconNavigation = styled.section`
   justify-content: space-between;
   align-items: center;
   margin: 24px 0;
-  padding: 16px 44px;
+  padding: 16px 24px;
   border-top: 1px solid #e6e9ec;
   border-bottom: 1px solid #e6e9ec;
   &:hover {
@@ -284,13 +297,16 @@ const ReviewButton = styled.button`
 `;
 
 const IconArea = styled.div`
-  width: 24px;
-  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 31px;
+  height: 31px;
   margin: 0 8px 8px 0;
   cursor: pointer;
   svg {
-    width: 24px;
-    height: 24px;
+    width: 31px;
+    height: 31px;
   }
 `;
 

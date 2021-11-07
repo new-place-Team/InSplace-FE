@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
@@ -67,18 +68,23 @@ const placeSlice = createSlice({
     [getCurrentCoordinateWEB.fulfilled]: (state, { payload }) => {
       state.location = payload;
     },
+    /* 좋아요 toggle 성공시 */
     [setFavoritesPostDB.fulfilled]: (state, { payload }) => {
       console.log('payload', payload);
+      /*  상세 좋아요 적용 */
       state.detailInfo.favoriteState = !state.detailInfo.favoriteState;
+      state.detailInfo.favoriteState
+        ? (state.detailInfo.favoriteCnt += 1)
+        : (state.detailInfo.favoriteCnt -= 1);
       const { postId } = state.detailInfo;
       const { mainLists } = state;
-
+      /* 메인 좋아요 적용 */
       for (const key in mainLists) {
         if (key && key !== 'weather') {
           const idx = mainLists[`${key}`].findIndex(v => v.postId === postId);
           if (idx > -1) {
-            mainLists[`${key}`][idx].favoriteState =
-              !mainLists[`${key}`][idx].favoriteState;
+            const target = mainLists[`${key}`][idx];
+            target.favoriteState = !target.favoriteState;
           }
         }
       }
