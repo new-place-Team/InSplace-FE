@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Grid, Text } from '../../elements';
 
@@ -46,10 +46,23 @@ const SelectedContents = props => {
     }
   };
 
+  // 리뷰 등록 페이지의 첫번째 버튼은 활성화가 되어야함.
+  const [active, setActive] = useState({
+    revisitYN: true,
+    weekdayYN: true,
+    weather: true,
+  });
   const selectedReviewBtn = (text, type, value) => {
-    console.log('type == ', type);
-    console.log('text == ', text);
-    console.log('value == ', value);
+    if (type === 'revisitYN') {
+      setActive({ ...active, revisitYN: false });
+      setState({ ...state, revisitYN: { selecteText: text, value } });
+    } else if (type === 'weekdayYN') {
+      setActive({ ...active, weekdayYN: false });
+      setState({ ...state, weekdayYN: { selecteText: text, value } });
+    } else if (type === 'weather') {
+      setActive({ ...active, weather: false });
+      setState({ ...state, weather: { selecteText: text, value } });
+    }
   };
 
   if (selectType === 'review') {
@@ -66,7 +79,8 @@ const SelectedContents = props => {
                   value={item.selecteText}
                   keys={item.value}
                   isSelected={state[type].value === item.value}
-                  isLast={list.length === idx}
+                  className={item.value === 1 && active[type] && 'activeButton'}
+                  active={active}
                   onClick={() =>
                     selectedReviewBtn(item.selecteText, type, item.value)
                   }
@@ -145,13 +159,17 @@ const SelectedButton = styled.button`
 const ReviewContent = styled.div`
   width: 100%;
   padding-top: 40px;
-  border: 1px solid blue;
 `;
 const ReviewButton = styled.button`
   margin: 0 12px 12px 0;
   padding: 12px 20px;
   border: 1px solid #7a7d81;
-  color: #282828;
+  color: ${({ isSelected }) => (isSelected ? '#fff' : `#282828`)};
+  background-color: ${({ isSelected }) => (isSelected ? '#232529' : `#fff`)};
+  &.activeButton {
+    color: #fff;
+    background-color: #232529;
+  }
   &:last-child {
     margin-right: 0;
   }

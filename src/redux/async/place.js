@@ -1,14 +1,19 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-plusplus */
+/* eslint-disable no-undef */
 /* eslint-disable no-unreachable */
 /* eslint-disable import/no-cycle */
 /* eslint-disable consistent-return */
 /* eslint-disable prettier/prettier */
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 import {
   getMainList,
   getSearchCondition,
   getPlaceDetail,
   postFavoritesPost,
   deleteFavoritesPost,
+  addReview,
 } from '../../shared/api/placeApi';
 import { getLocationAddress } from '../../shared/api/kakaoApi';
 import { getPosition } from '../../shared/utils';
@@ -97,6 +102,41 @@ export const setFavoritesPostDB = createAsyncThunk(
       if (response) {
         return response.data;
       }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);
+
+/* 리뷰 등록 */
+export const addReviewDB = createAsyncThunk(
+  'place/addReview',
+  async (params, thunkAPI) => {
+    console.log('params == ', params);
+    try {
+      const formData = new FormData();
+      formData.append('postId', 107);
+      formData.append('reviewDesc', params.reviewDesc);
+      formData.append('weather', params.weather.value);
+      formData.append('weekdayYN', params.weekdayYN.value);
+      formData.append('revisitYN', params.revisitYN.value);
+      formData.append('reviewImages', params.reviewImages);
+
+      console.log('params.reviewImages === ', params.reviewImages);
+
+      // for (let i = 0; i < reviewImages.length; i++) {
+      //   formData.append('reviewImages[]', reviewImages[i]);
+      // }
+
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      };
+
+      const res = await addReview(params, formData, config);
+
+      console.log('res ??? ', res);
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
     }

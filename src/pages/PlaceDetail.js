@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
@@ -12,12 +13,14 @@ import { heartFilled, pin, write, heartLine, share } from '../images/index';
 import { ReactComponent as SelectedHeader } from '../images/Icon/ic_heart-filled.svg';
 import ReviewCard from '../components/place/ReviewCard';
 import PlaceSwiper from '../components/place/PlaceSwiper';
+import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
 
 const Detail = props => {
   const dispatch = useDispatch();
   const { id } = props.match.params;
   const detailData = useSelector(state => state.place.detailInfo);
   const userInfo = useSelector(state => state.user.userInfo);
+  const isLogin = useSelector(state => state.user.isLogin);
   console.log('userInfo', userInfo);
   console.log('detailInfo', detailData);
   const newAddr = detailData.addressShort
@@ -44,7 +47,11 @@ const Detail = props => {
   console.log('첫번째 디테일 페이지 데이터', placeMarker);
 
   const reviewPage = () => {
-    history.push(`/review/write/${id}`);
+    if (!isLogin) {
+      window.alert('로그인을 해야 이용할 수 있는 서비스입니다');
+    } else {
+      history.push(`/review/write/${id}`);
+    }
   };
 
   const goBack = () => {
@@ -70,8 +77,12 @@ const Detail = props => {
       <Container padding="0">
         <Grid>
           <PlaceSwiper list={detailData.postImages} />
-          {/* <Header _type="search" _back /> */}
-          {/* 장소의 상세 정보 */}
+          <PlaceHeader>
+            <IconBox onClick={goBack}>
+              <LeftIcon />
+            </IconBox>
+          </PlaceHeader>
+
           <InfoGrid>
             <Text fontSize="13px" color="#A3A6AA">
               {detailData.description}
@@ -213,6 +224,12 @@ const PlaceHeader = styled.div`
   top: 0;
   left: 0;
   z-index: 100;
+`;
+const IconBox = styled.div`
+  display: inline-block;
+  height: 100%;
+  padding: 0px 24px;
+  cursor: pointer;
   svg {
     fill: #fff;
   }
@@ -289,7 +306,6 @@ const ReviewButton = styled.button`
 const IconArea = styled.div`
   width: 24px;
   height: 24px;
-  margin: 0 8px 8px 0;
   cursor: pointer;
   svg {
     width: 24px;

@@ -4,17 +4,27 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Text, Textarea } from '../elements';
 import { whiteClose, xcircle } from '../images/index';
 import SelectedContents from '../components/place/SelectedContents';
 import { getReview } from '../shared/api/placeApi';
+import { addReviewDB } from '../redux/async/place';
 
 const ReviewWrite = props => {
   const { id } = props.match.params;
+  const dispatch = useDispatch();
   const fileInput = useRef();
   const [preview, setPreview] = useState([]);
+  const [postInfo, setPostInfo] = useState({
+    postId: id,
+    category: '',
+    postImage: '',
+    title: '',
+  });
   const [state, setState] = useState({
+    postId: id,
     reviewDesc: '',
     reviewImages: [],
     weather: 1,
@@ -50,6 +60,17 @@ const ReviewWrite = props => {
       type: 'revisitYN',
     },
   ]);
+
+  // 포스트 정보는 리덕스에 저장할 필요가 없어서 호출만함
+  const onLoad = async () => {
+    try {
+      const res = await getReview(id);
+      setPostInfo(res.data.post);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const selectFile = () => {
     if (preview.length >= 3) {
       window.alert('이미지는 최대 3개까지 등록 가능합니다.');
@@ -61,11 +82,13 @@ const ReviewWrite = props => {
     reader.readAsDataURL(file);
     // file 읽는게 성공적으로 되었을때 실행
     reader.onload = () => {
-      console.log(reader.result, file);
+      // console.log(reader.result, file);
       const addImage = [];
       addImage.push(reader.result);
       setPreview(preview.concat(addImage));
+      // setState({ ...state, reviewImages: state.reviewImages.concat(addImage) });
     };
+    setState({ ...state, reviewImages: state.reviewImages.concat(file) });
     // file 읽기 실패되었을때 실행
     reader.onerror = error => {
       console.log('error = ', error);
@@ -83,56 +106,29 @@ const ReviewWrite = props => {
     setState({ ...state, reviewDesc: e.target.value });
   };
 
-  const onAddReview = () => {
-    if (state.reviewDesc.length < 15) {
-      window.alert('리뷰는 최소 15자 이상 등록 가능합니다.');
-    }
-    // const formData = new FormData();
-    // formData.append('file', files[0]);
-    // const params = {
-    //   title: 'title',
-    //   reviewImages: [],
-    // };
-    // params.reviewImages.map(item => {
-    //   return formData.append(`reviewImages`, params.reviewImages.files[item]);
-    // });
-
-    // formData.append(
-    //   'data',
-    //   new Blob([JSON.stringify(params)], { type: 'application/json' }),
-    // );
-    // formData.append("body", JSON.stringify(params));
-    // console.log('formData ==== ', formData);
-    // Axios.post("/create/list", formData)
-  };
-
-  const onLoad = async () => {
+  const onAddReview = async () => {
     try {
-      const res = await getReview(id);
-      console.log('res == ', res);
+      await dispatch(addReviewDB(state));
     } catch (e) {
-      console.log(e);
+      console.log('review add error === ', e);
     }
   };
-
   useEffect(() => {
     if (id !== undefined) {
       onLoad();
-      console.log('effect id == ', id);
     }
   }, []);
-
   return (
     <>
       <Header _back _content="리뷰쓰기" />
       <Container>
         <TopGrid>
-          {/* <Image width="64px" height="64px" src={placeImage} /> */}
+          <Image width="64px" height="64px" src={postInfo.postImage} />
           <Grid flex margin="0 0 0 20px">
             <Text fontSize="13px" color="#A3A6AA">
-              {/* {description} */}
+              {postInfo.category}
             </Text>
-            {/* <Text type="Title16">{title}</Text> */}
+            <Text type="Title16">{postInfo.title}</Text>
           </Grid>
         </TopGrid>
         <Background />
@@ -150,38 +146,6 @@ const ReviewWrite = props => {
               />
             );
           })}
-          {/* <ReviewBox>
-            <Text type="Title16">날씨는 어땠나요?</Text>
-            <ButtonWrap>
-              <QuestionsButton>맑음</QuestionsButton>
-              <QuestionsButton>비</QuestionsButton>
-              <QuestionsButton>눈</QuestionsButton>
-              <QuestionsButton>흐림</QuestionsButton>
-              <QuestionsButton>기억안남</QuestionsButton>
-            </ButtonWrap>
-          </ReviewBox>
-          <ReviewBox>
-            <Text type="Title16">언제 가셨나요?</Text>
-            <ButtonWrap>
-              <QuestionsButton onClick={() => onClick('weekdayYN', 1)}>
-                평일
-              </QuestionsButton>
-              <QuestionsButton onClick={() => onClick('weekdayYN', 0)}>
-                주말
-              </QuestionsButton>
-            </ButtonWrap>
-          </ReviewBox>
-          <ReviewBox>
-            <Text type="Title16">재방문 의사가 있으신가요?</Text>
-            <ButtonWrap>
-              <QuestionsButton onClick={() => onClick('revisitYN', 1)}>
-                있음
-              </QuestionsButton>
-              <QuestionsButton onClick={() => onClick('revisitYN', 0)}>
-                없음
-              </QuestionsButton>
-            </ButtonWrap>
-          </ReviewBox> */}
         </Grid>
         <ReviewBox>
           <Text type="Title16">상세한 후기를 써주세요</Text>
@@ -250,23 +214,6 @@ const TopGrid = styled.div`
 `;
 const ReviewBox = styled.div`
   padding: 32px 0 0;
-`;
-const ButtonWrap = styled.div`
-  margin-top: 16px;
-  button {
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-`;
-const QuestionsButton = styled.button`
-  margin-right: 12px;
-  padding: 12px 20px;
-  border: 1px solid #7a7d81;
-  &.active {
-    color: #fff;
-    background-color: #232529;
-  }
 `;
 
 const UploadLabel = styled.label`
