@@ -163,8 +163,5 @@ const IconArea = styled.div`
   height: 24px;
   margin: 0 8px 8px 0;
   cursor: pointer;
-  /* svg {
-    fill: ${({ color }) => color || ''};
-  } */
 `;
 export default ListCard;

@@ -40,7 +40,6 @@ function App() {
     useEffect(() => {
       dispatch(logInCheckDB());
     }, []);
-    // 없으면 로그인 해달라고 한다.
   }
   // 현재위치를 받아보자!
   useEffect(() => {
