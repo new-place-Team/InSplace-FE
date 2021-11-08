@@ -40,7 +40,7 @@ const Navbar = () => {
           <Icon onClick={() => history.push('/select-type')}>
             <Filter />
           </Icon>
-          <Icon onClick={() => window.alert('서비스 준비중 입니다.')}>
+          <Icon onClick={() => history.push('/pickList')}>
             <Image src={heartLine} />
           </Icon>
           <Icon onClick={pageMove}>

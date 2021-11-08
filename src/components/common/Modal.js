@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { Grid, Text } from '../../elements';
+import { Grid, Text, Image } from '../../elements';
 import { getMbti, setModalOff } from '../../redux/modules/userSlice';
+import { x } from '../../images/index';
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,14 @@ const Modal = () => {
         <Grid>
           <ModalContent>
             <Text margin="32px 0px">MBTI를 선택해주세요!</Text>
+            <MBTIDiv
+              onClick={() => {
+                const info = { mbtiId: 17, type: 'MBTI 선택안함' };
+                selectMbti(info);
+              }}
+            >
+              <Text>MBTI 선택안함</Text>
+            </MBTIDiv>
             <MBTIDiv
               onClick={() => {
                 const info = { mbtiId: 1, type: 'ISTJ' };
@@ -152,7 +161,9 @@ const Modal = () => {
             >
               <Text bold>ENTJ</Text>
             </MBTIDiv>
-            <AbsolBtn onClick={modaloff}>❌</AbsolBtn>
+            <AbsolBtn onClick={modaloff}>
+              <Image width="30%" src={x} />
+            </AbsolBtn>
           </ModalContent>
         </Grid>
       </Overlay>
@@ -196,8 +207,10 @@ const MBTIDiv = styled.div`
 
 const AbsolBtn = styled.button`
   position: absolute;
-  top: 44px;
-  right: 24px;
+  /* top: 33px;
+  right: 0; */
+  top: 46px;
+  right: -70px;
   transform: translate(-50%, -50%);
 `;
 

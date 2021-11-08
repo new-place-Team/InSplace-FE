@@ -3,6 +3,7 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Grid, Image, Text } from '../../elements/index';
 import { heartFilled } from '../../images/index';
@@ -10,9 +11,11 @@ import { getCategoryText } from '../../shared/transferText';
 import { history } from '../../redux/configureStore';
 import { ReactComponent as NoSelectedHeader } from '../../images/Icon/ic_heart.svg';
 import { ReactComponent as SelectedHeader } from '../../images/Icon/ic_heart-filled.svg';
+import { setFavoritesPostDB } from '../../redux/async/place';
 
 const ListCard = props => {
   const { type, info } = props;
+  const dispatch = useDispatch();
 
   // 각 포스트에 해당하는 id (props로 받아옴)
   const postId = info && info.postId;
@@ -21,6 +24,16 @@ const ListCard = props => {
   const gotoDetail = () => {
     history.push(`/place/detail/${postId}`);
   };
+
+  const setFavorites = e => {
+    e.stopPropagation();
+    const params = {
+      postId,
+      favoriteState: info.favoriteState,
+    };
+    dispatch(setFavoritesPostDB(params));
+  };
+
   /* 메인 카드 */
   if (type === 'main') {
     return (
@@ -32,7 +45,7 @@ const ListCard = props => {
               {info && getCategoryText(info.categoryId)}
             </Text>
           </Tag>
-          <IconArea>
+          <IconArea onClick={setFavorites}>
             {info && info.favoriteState ? (
               <SelectedHeader />
             ) : (

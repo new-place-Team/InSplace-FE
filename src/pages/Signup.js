@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 /* eslint-disable consistent-return */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -29,7 +29,14 @@ const Signup = () => {
   const modalStatus = useSelector(state => state.user.modalStatus);
 
   // 여자,남자 상태를 useState를 통해 관리
-  const [maleFemale, setMaleFemale] = React.useState();
+  const [maleFemale, setMaleFemale] = React.useState(null);
+
+  // const [match, setMatch] = useState(false);
+  // const [rematch, setRematch] = useState(false);
+  // const [passMatch, setPassMatch] = useState(false);
+  // const [passLengthMatch, setPassLengthMatch] = useState(false);
+  // const [checkPass, setCheckPass] = useState(false);
+  // const [wrond, setWrong] = useState(false);
 
   // 클릭했을때 여자는 1이 남자는 0이 state에 저장
   const selectGender = gender => {
@@ -62,22 +69,31 @@ const Signup = () => {
     }
     if (!emailCheck(userInfoDB.email)) {
       window.alert('이메일 형식이 맞지않습니다.');
+      // setMatch(false);
+      // setRematch(true);
       return;
     }
     if (userInfo.password === '') {
       window.alert('비밀번호를 입력해주세요!');
+      // setPassMatch(true);
+      // setMatch(false);
+      // setRematch(false);
       return;
     }
     if (userInfo.password.length < 8) {
       window.alert('비밀번호는 8자리 이상으로 입력해주세요');
+      // setPassMatch(false);
+      // setPassLengthMatch(true);
       return;
     }
     if (userInfo.passwordCheck === '') {
       window.alert('비밀번호 확인을 입력해주세요!');
+      // setCheckPass(true);
       return;
     }
     if (userInfo.password !== userInfo.passwordCheck) {
       window.alert('비밀번호가 일치하지 않습니다.');
+      // setCheckPass(true);
       return;
     }
     if (userInfo.nickname === '') {
@@ -91,7 +107,7 @@ const Signup = () => {
     if (!userInfoDB.mbtiId) {
       window.alert('mbti도 선택해 볼까요?!');
     }
-
+    console.log('회원가입폼', userInfoDB);
     // 회원정보 미들웨어로 dispatch
     dispatch(addUserDB(userInfoDB));
   };
@@ -111,6 +127,7 @@ const Signup = () => {
               placeholder="이메일 주소를 입력해주세요"
             />
           </Wrap>
+
           <Wrap>
             <Label type="form">비밀번호</Label>
             <Input
@@ -146,19 +163,20 @@ const Signup = () => {
           </Wrap>
 
           <Wrap>
+            {/* 선택안함 : 2, 여성 : 0, 남성 : 1 */}
             <Label type="form">성별</Label>
             <Grid isFlex>
               <GenderButton
                 onClick={() => {
-                  selectGender(1);
+                  selectGender(null);
                 }}
-                color={maleFemale === 1 ? '#fff' : '#C4C4C4'}
-                bg={maleFemale === 1 ? 'black' : '#fff'}
+                color={maleFemale === null ? '#fff' : '#C4C4C4'}
+                bg={maleFemale === null ? 'black' : '#fff'}
                 border={
-                  maleFemale === 1 ? '1px solid #000' : '1px solid #C4C4C4'
+                  maleFemale === null ? '1px solid #000' : '1px solid #C4C4C4'
                 }
               >
-                여성
+                선택안함
               </GenderButton>
               <GenderButton
                 onClick={() => {
@@ -170,14 +188,26 @@ const Signup = () => {
                   maleFemale === 0 ? '1px solid #000' : '1px solid #C4C4C4'
                 }
               >
+                여성
+              </GenderButton>
+              <GenderButton
+                onClick={() => {
+                  selectGender(1);
+                }}
+                color={maleFemale === 1 ? '#fff' : '#C4C4C4'}
+                bg={maleFemale === 1 ? 'black' : '#fff'}
+                border={
+                  maleFemale === 1 ? '1px solid #000' : '1px solid #C4C4C4'
+                }
+              >
                 남성
               </GenderButton>
             </Grid>
           </Wrap>
           <Wrap>
-            <Label type="form">MBTI</Label>
+            <Label type="form">MBTI </Label>
             <MBTIDiv onClick={openModal}>
-              <Text>{mbtiInfo.type ? mbtiInfo.type : 'MBTI 선택'}</Text>
+              <Text>{mbtiInfo.type ? mbtiInfo.type : 'MBTI 선택안함'}</Text>
             </MBTIDiv>
           </Wrap>
         </Grid>
