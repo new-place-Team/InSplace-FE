@@ -221,7 +221,8 @@ export const updateReviewDB = createAsyncThunk(
       };
       const response = await updateReview(params, config);
       if (response) {
-        return response.data;
+        window.alert('리뷰가 수정되었습니다.');
+        history.goBack();
       }
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
@@ -248,8 +249,7 @@ export const reviewLikeDB = createAsyncThunk(
   'place/reviewLike',
   async (params, thunkAPI) => {
     try {
-      const response = await reviewLike(params);
-      console.log('response = ', response);
+      await reviewLike(params);
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
@@ -260,8 +260,7 @@ export const reviewLikeCancelDB = createAsyncThunk(
   'place/reviewLikeCancel',
   async (params, thunkAPI) => {
     try {
-      const response = await reviewLikeCancel(params);
-      console.log('response = ', response);
+      await reviewLikeCancel(params);
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }

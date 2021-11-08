@@ -3,58 +3,38 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Text, Textarea } from '../elements';
 import { whiteClose, xcircle } from '../images/index';
 import SelectedContents from '../components/place/SelectedContents';
 import {
   addReviewDB,
-  getReviewEditDB,
+  // getReviewEditDB,
   updateReviewDB,
 } from '../redux/async/place';
 import ReviewPostInfo from '../components/place/ReviewPostInfo';
+import { getReviewEdit } from '../shared/api/placeApi';
 
 const ReviewWrite = props => {
   const { id } = props.match.params;
   const reviewId = props.history.location.state;
-  const review = useSelector(state => state.place.review);
+  // const review = useSelector(state => state.place.review);
   const dispatch = useDispatch();
   const fileInput = useRef();
   const reviewTypeEdit = reviewId !== undefined;
 
-  const [state, setState] = useState(
-    review !== null
-      ? {
-          postId: id,
-          reviewDesc: review.reviewDesc,
-          reviewImages: review.reviewImages,
-          weather: review.weather,
-          weekdayYN: review.weekdayYN,
-          revisitYN: review.revisitYN,
-        }
-      : {
-          postId: id,
-          reviewDesc: '',
-          reviewImages: [],
-          weather: 1,
-          weekdayYN: 1,
-          revisitYN: 1,
-        },
-  );
+  const [state, setState] = useState({
+    postId: id,
+    reviewDesc: '',
+    reviewImages: [],
+    weather: 1,
+    weekdayYN: 1,
+    revisitYN: 1,
+    reviewId: 0,
+  });
 
-  const [preview, setPreview] = useState(
-    state !== null ? state.reviewImages : [],
-  );
-
-  // const [state, setState] = useState({
-  //   postId: id,
-  //   reviewDesc: review.reviewDesc !== undefined ? review.reviewDesc : '',
-  //   reviewImages: review.reviewImages ? review.reviewImages : [],
-  //   weather: review.weather ? review.weather : 1,
-  //   weekdayYN: review.weekdayYN ? review.weekdayYN : 1,
-  //   revisitYN: review.revisitYN ? review.revisitYN : 1,
-  // });
+  const [preview, setPreview] = useState([]);
 
   const [selectData, setSelectData] = useState([
     {
@@ -155,41 +135,38 @@ const ReviewWrite = props => {
     }
   };
 
-  const test = () => {
-    console.log(' 여기 새로고침 해도 찍혀?');
-    setState({
-      postId: id,
-      reviewDesc: review.reviewDesc,
-      reviewImages: review.reviewImages,
-      weather: review.weather,
-      weekdayYN: review.weekdayYN,
-      revisitYN: review.revisitYN,
-    });
-    setPreview([].concat(review.reviewImages));
-    console.log('함수안에서 state = ', state);
+  // 리뷰 수정일때 정보 받아오기
+  // const getReviewEdit = () => {
+  //   const params = { reviewId, postId: id };
+  //   dispatch(getReviewEditDB(params));
+  // };
+
+  const editLoad = async () => {
+    const params = { reviewId, postId: id };
+    try {
+      const res = await getReviewEdit(params);
+      const data = res.data.review;
+      if (data) {
+        setState({
+          postId: data.postId,
+          reviewDesc: data.reviewDesc,
+          reviewImages: data.reviewImages,
+          weather: data.weather,
+          weekdayYN: data.weekdayYN,
+          revisitYN: data.revisitYN,
+          reviewId: data.reviewId,
+        });
+        setPreview(data.reviewImages);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  // 리뷰 수정일때 정보 받아오기
-  const getReviewEdit = () => {
-    const params = { reviewId, postId: id };
-    dispatch(getReviewEditDB(params));
-  };
   useEffect(() => {
     if (reviewTypeEdit) {
-      getReviewEdit();
+      editLoad();
     }
-  }, []);
-
-  useEffect(() => {
-    if (review) {
-      test();
-    }
-    // 리뷰 수정 등록 같이 써서
-    // 뒤로가기 버튼 클릭후 다시 들어가면 이전 상태값이 남아있어서
-    // 뒷정리 함수에서 정리해야함
-    return () => {
-      console.log('뒷정리');
-    };
   }, []);
 
   return (
@@ -199,7 +176,6 @@ const ReviewWrite = props => {
         <ReviewPostInfo postId={id} />
         <Grid>
           {selectData.map(item => {
-            console.log('state = ', state);
             return (
               <SelectedContents
                 selectType="review"
@@ -221,10 +197,10 @@ const ReviewWrite = props => {
             padding="20px"
             border="1px solid #E6E9EC"
             placeholder="최소 15자 이상 써주세요"
-            value={state !== null && state.reviewDesc}
+            value={state.reviewDesc}
             _onChange={onChange}
           >
-            {state !== null && state.reviewDesc}
+            {state.reviewDesc}
           </Textarea>
           <Text
             margin="12px 0 0 0"
@@ -232,7 +208,7 @@ const ReviewWrite = props => {
             fontSize="14px"
             color="#C2C6CB"
           >
-            {state !== null ? state.reviewDesc.length : 0} / 최소 15자
+            {state.reviewDesc.length} / 최소 15자
           </Text>
         </ReviewBox>
         <ReviewBox>
@@ -308,9 +284,14 @@ const ImageBox = styled.div`
 `;
 const PreviewGrid = styled.div`
   position: relative;
+  margin-top: 3px;
   margin-right: 10px;
+
   .closeButton {
     border: 1px solid red;
+  }
+  &:last-child {
+    margin-right: 0px;
   }
 `;
 const CloseIcon = styled.img`

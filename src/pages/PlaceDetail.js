@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
@@ -11,8 +12,8 @@ import {
   setFavoritesPostDB,
   setVisitedPostDB,
 } from '../redux/async/place';
-import { heartFilled } from '../images/index';
 
+import { heartFilled } from '../images/index';
 import { ReactComponent as SelectedHeader } from '../images/Icon/ic_heart-filled.svg';
 import { ReactComponent as NoSelectedHeader } from '../images/Icon/ic_heart_line.svg';
 import { ReactComponent as Write } from '../images/Icon/ic_write.svg';
@@ -24,6 +25,7 @@ import PlaceSwiper from '../components/place/PlaceSwiper';
 import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
 import ReviewList from './ReviewList';
 import { getCategoryText } from '../shared/transferText';
+import { isLoginChk } from '../shared/utils';
 
 const Detail = props => {
   const dispatch = useDispatch();
@@ -49,12 +51,10 @@ const Detail = props => {
 
   // 리뷰 쓰기 페이지로 이동
   const goReviewPage = () => {
-    if (!isLogin) {
-      window.alert('로그인을 해야 이용할 수 있는 서비스입니다');
-      history.push('/login');
-    } else {
-      history.push(`/review/write/${id}`);
+    if (!isLoginChk(isLogin)) {
+      return;
     }
+    history.push(`/review/write/${id}`);
   };
 
   const goBack = () => {
@@ -73,6 +73,9 @@ const Detail = props => {
 
   /* 좋아요 추가 및 삭제 */
   const setFavorites = () => {
+    if (!isLoginChk(isLogin)) {
+      return;
+    }
     const defaultParams = getParams();
     const params = {
       ...defaultParams,
@@ -82,6 +85,9 @@ const Detail = props => {
   };
   /* 가본장소 추가 및 삭제 */
   const setVisited = () => {
+    if (!isLoginChk(isLogin)) {
+      return;
+    }
     const defaultParams = getParams();
     const params = {
       ...defaultParams,
@@ -186,7 +192,7 @@ const Detail = props => {
               <Text fontSize="18px" color="#282828" bold>
                 장소팁
               </Text>
-              <Text fontSize="12px" margin="16px 0 32px" lineHeight="16px">
+              <Text fontSize="14px" margin="16px 0 32px" lineHeight="16px">
                 {detailData.postDesc}
               </Text>
               <Text fontSize="18px" color="#282828" bold>
@@ -196,11 +202,11 @@ const Detail = props => {
                 {/* 카카오 지도 */}
                 <Map width="100%" height="191px" allPlaces={placeMarker} />
               </Grid>
-              <Text fontSize="13px" color="#3E4042">
+              <Text fontSize="14px" color="#3E4042">
                 <Span>주소</Span>
                 {detailData.address}
               </Text>
-              <Text fontSize="13px" color="#3E4042">
+              <Text fontSize="14px" color="#3E4042">
                 <Span>전화</Span>
                 {detailData.contactNumber}
               </Text>
@@ -216,7 +222,7 @@ const Detail = props => {
 
 const PlaceHeader = styled.div`
   position: absolute;
-  width: 768px;
+  width: 100%;
   height: 66px;
   line-height: 76px;
   top: 0;
@@ -241,6 +247,7 @@ const InfoGrid = styled.div`
   padding: 28px 24px 34px;
   background-color: #fff;
   box-shadow: 0px 1px 4px -12px rgba(0, 0, 0, 0.5);
+  overflow-x: hidden;
 `;
 
 const IconNavigation = styled.section`

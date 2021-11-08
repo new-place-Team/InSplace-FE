@@ -25,7 +25,7 @@ const PlaceList = props => {
     title = '실외';
   } else if (qureryString.indexOf('result') !== -1) {
     const findText = url.split('?result=').reverse()[0];
-    title = findText;
+    title = decodeURIComponent(findText);
   }
 
   const onLoad = async () => {
@@ -83,7 +83,6 @@ const PlaceList = props => {
         <Text margin="40px 0 0 0" fontSize="20px" bold>
           {list.length === 0 ? '검색 결과가 없습니다.' : title}
         </Text>
-
         <PlaceGrid>
           {list &&
             list.map(info => {
@@ -125,6 +124,10 @@ const CardWrap = styled.div`
 
   &:nth-child(4n + 0) {
     margin-right: 0px;
+  }
+  @media (max-width: 500px) {
+    width: 48%;
+    height: 290px;
   }
 `;
 

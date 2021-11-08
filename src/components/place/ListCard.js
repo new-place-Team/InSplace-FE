@@ -3,7 +3,7 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Grid, Image, Text } from '../../elements/index';
 import { heartFilled } from '../../images/index';
@@ -12,10 +12,12 @@ import { history } from '../../redux/configureStore';
 import { ReactComponent as NoSelectedHeader } from '../../images/Icon/ic_heart.svg';
 import { ReactComponent as SelectedHeader } from '../../images/Icon/ic_heart-filled.svg';
 import { setFavoritesPostDB } from '../../redux/async/place';
+import { isLoginChk } from '../../shared/utils';
 
 const ListCard = props => {
   const { type, info } = props;
   const dispatch = useDispatch();
+  const isLogin = useSelector(state => state.user.isLogin);
 
   // 각 포스트에 해당하는 id (props로 받아옴)
   const postId = info && info.postId;
@@ -27,6 +29,9 @@ const ListCard = props => {
 
   const setFavorites = e => {
     e.stopPropagation();
+    if (!isLoginChk(isLogin)) {
+      return;
+    }
     const params = {
       postId,
       categoryId: info.categoryId,

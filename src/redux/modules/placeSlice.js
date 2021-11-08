@@ -88,9 +88,9 @@ const placeSlice = createSlice({
       state.review = payload.review;
     },
     /* 리뷰 수정 처리완료 */
-    [updateReviewDB.fulfilled]: (state, { payload }) => {
-      state.review = payload.post;
-    },
+    // [updateReviewDB.fulfilled]: (state, { payload }) => {
+    //   state.review = payload.post;
+    // },
     /* 리뷰 좋아요 처리 실패 */
     [reviewLikeDB.rejected]: (state, { payload }) => {
       window.alert(payload.errMsg);
@@ -101,6 +101,7 @@ const placeSlice = createSlice({
     },
     /* 좋아요 toggle 성공시 */
     [setFavoritesPostDB.fulfilled]: (state, { payload }) => {
+      console.log(payload);
       const { postId } = payload;
       // 상세 좋아요 적용
       state.detailInfo.favoriteState = !state.detailInfo.favoriteState;
@@ -126,6 +127,11 @@ const placeSlice = createSlice({
     /* 가본장소 추가 or 삭제 */
     [setVisitedPostDB.fulfilled]: state => {
       state.detailInfo.visitedStatus = !state.detailInfo.visitedStatus;
+    },
+    /* 가본장소 추가 실패 */
+    [setVisitedPostDB.rejected]: (state, action) => {
+      const { payload } = action;
+      console.log(payload.response.status);
     },
   },
 });
