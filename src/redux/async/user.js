@@ -94,6 +94,7 @@ export const unRegisterDB = createAsyncThunk(
 );
 // 카카오 로그인
 export const kakaoLogin = createAsyncThunk('user/kakaoRegister', async code => {
+  console.log(code);
   try {
     // 백 서버에 인가 코드 전달
     const response = await logInKakao(code);

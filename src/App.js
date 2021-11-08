@@ -32,6 +32,7 @@ import Kakao from './components/common/Kakao';
 import Pick from './pages/Pick';
 import Notification from './pages/Notification';
 import SearchPage from './pages/SearchPage';
+import Setting from './pages/Setting';
 // import Navbar from './components/Navbar';
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
           <Route path="/mypage/:id" exact component={MyPageEdit} />
           <Route path="/users/kakao/auth" exact component={Kakao} />
           <Route path="/picklist" exact component={Pick} />
+          <Route path="/setting" exact component={Setting} />
           <Route path="/notification" exact component={Notification} />
         </Switch>
         {/* <Navbar /> */}
