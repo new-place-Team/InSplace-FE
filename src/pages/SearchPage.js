@@ -9,6 +9,7 @@ const SearchPage = () => {
   const onChange = e => {
     setState(e.target.value);
   };
+
   const GotoSearchPage = () => {
     const params = `total?result=${state}`;
     history.push(`/place/list/${params}`);
