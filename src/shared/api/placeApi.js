@@ -17,14 +17,32 @@ const postFavoritesPost = params =>
 const deleteFavoritesPost = params =>
   api.delete(`posts/${params.postId}/favorites`);
 
-const getReview = params => api.get(`/posts/${params}/reviews/write`);
+// 리뷰
+const getReviewPostInfo = params => api.get(`/posts/${params}/reviews/write`);
+// 최신순
+const getReviewList = params =>
+  api.get(
+    `/posts/${params.postId}/reviews/pages/${params.pageNumbr}/orders/latest`,
+  );
+const getReviewLikesList = params =>
+  api.get(
+    `/posts/${params.postId}/reviews/pages/${params.pageNumbr}/orders/likes`,
+  );
+const addReview = (params, config) =>
+  api.post(`/posts/${params.postId}/reviews`, params.data, config);
 
-// ㅠㅠ
-const addReview = (params, config) => {
-  console.log('params >>', params);
-  console.log('params >>', params.postId);
-  return api.post(`/posts/${params.postId}/reviews`, params.data, config);
-};
+const updateReview = (params, config) =>
+  api.put(
+    `/posts/${params.postId}/reviews/${params.reviewId}`,
+    params.data,
+    config,
+  );
+
+const deleteReview = params =>
+  api.delete(`/posts/${params.postId}/reviews/${params.reviewId}`);
+
+const reviewLike = params =>
+  api.post(`/posts/${params.postId}/reviews/${params.reviewId}/likes`);
 
 export {
   getMainList,
@@ -33,6 +51,11 @@ export {
   getSearchConditionList,
   postFavoritesPost,
   deleteFavoritesPost,
-  getReview,
+  getReviewPostInfo,
+  getReviewList,
+  getReviewLikesList,
   addReview,
+  updateReview,
+  deleteReview,
+  reviewLike,
 };

@@ -9,13 +9,15 @@ import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Text, Textarea } from '../elements';
 import { whiteClose, xcircle } from '../images/index';
 import SelectedContents from '../components/place/SelectedContents';
-import { getReview } from '../shared/api/placeApi';
+import { getReviewPostInfo } from '../shared/api/placeApi';
 import { addReviewDB } from '../redux/async/place';
 
 const ReviewWrite = props => {
   const { id } = props.match.params;
+  const { pathname } = props.history.location;
   const dispatch = useDispatch();
   const fileInput = useRef();
+  const reviewType = pathname.indexOf('update') !== -1;
   const [preview, setPreview] = useState([]);
   const [postInfo, setPostInfo] = useState({
     postId: id,
@@ -64,7 +66,7 @@ const ReviewWrite = props => {
   // 포스트 정보는 리덕스에 저장할 필요가 없어서 호출만함
   const onLoad = async () => {
     try {
-      const res = await getReview(id);
+      const res = await getReviewPostInfo(id);
       setPostInfo(res.data.post);
     } catch (e) {
       console.log(e);
@@ -82,11 +84,9 @@ const ReviewWrite = props => {
     reader.readAsDataURL(file);
     // file 읽는게 성공적으로 되었을때 실행
     reader.onload = () => {
-      // console.log(reader.result, file);
       const addImage = [];
       addImage.push(reader.result);
       setPreview(preview.concat(addImage));
-      // setState({ ...state, reviewImages: state.reviewImages.concat(addImage) });
     };
     setState({ ...state, reviewImages: state.reviewImages.concat(file) });
     // file 읽기 실패되었을때 실행
@@ -107,12 +107,27 @@ const ReviewWrite = props => {
   };
 
   const onAddReview = () => {
+    console.log('리뷰타입 reviewType ', reviewType);
+    if (state.reviewDesc.length <= 15) {
+      console.log('state.reviewDesc.length = ', state.reviewDesc.length);
+      window.alert('리뷰는 최소 15자 이상으로 적어주세요');
+      return;
+    }
     const formData = new FormData();
     formData.append('postId', state.postId);
     formData.append('reviewDesc', state.reviewDesc);
-    formData.append('weather', state.weather.value);
-    formData.append('weekdayYN', state.weekdayYN.value);
-    formData.append('revisitYN', state.revisitYN.value);
+    formData.append(
+      'weather',
+      state.weather.value === undefined ? 1 : state.weather.value,
+    );
+    formData.append(
+      'weekdayYN',
+      state.weekdayYN.value === undefined ? 1 : state.weekdayYN.value,
+    );
+    formData.append(
+      'revisitYN',
+      state.revisitYN.value === undefined ? 1 : state.revisitYN.value,
+    );
     for (let i = 0; i < state.reviewImages.length; i += 1) {
       formData.append('reviewImages', state.reviewImages[i]);
     }
@@ -122,14 +137,16 @@ const ReviewWrite = props => {
     };
     dispatch(addReviewDB(params));
   };
+
   useEffect(() => {
     if (id !== undefined) {
       onLoad();
     }
   }, []);
+
   return (
     <>
-      <Header _back _content="리뷰쓰기" />
+      <Header _back _content={reviewType ? '리뷰 수정' : '리뷰 쓰기'} />
       <Container>
         <TopGrid>
           <Image width="64px" height="64px" src={postInfo.postImage} />
@@ -162,6 +179,7 @@ const ReviewWrite = props => {
             margin="16px 0 0 0"
             padding="20px"
             border="1px solid #E6E9EC"
+            placeholder="최소 15자 이상 써주세요"
             _onChange={onChange}
           />
           <Text
@@ -204,7 +222,7 @@ const ReviewWrite = props => {
         </ReviewBox>
         <Grid padding="0 0 40px 0">
           <Button type="fullSizeBlack" _onClick={onAddReview}>
-            리뷰 등록하기
+            {reviewType ? '리뷰 수정하기' : '리뷰 등록하기'}
           </Button>
         </Grid>
       </Container>

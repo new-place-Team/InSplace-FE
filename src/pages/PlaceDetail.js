@@ -1,8 +1,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Container, Grid, Text, Image, Button, Icons } from '../elements';
@@ -10,6 +9,7 @@ import { history } from '../redux/configureStore';
 import Map from '../components/map/Map';
 import { getPlaceDetailDB, setFavoritesPostDB } from '../redux/async/place';
 import { heartFilled } from '../images/index';
+
 import { ReactComponent as SelectedHeader } from '../images/Icon/ic_heart-filled.svg';
 import { ReactComponent as NoSelectedHeader } from '../images/Icon/ic_heart_line.svg';
 import { ReactComponent as Write } from '../images/Icon/ic_write.svg';
@@ -17,32 +17,20 @@ import { ReactComponent as Share } from '../images/Icon/ic_share.svg';
 import { ReactComponent as PinFilled } from '../images/Icon/ic_pin-filled.svg';
 import { ReactComponent as Pin } from '../images/Icon/ic_pin.svg';
 
-import ReviewCard from '../components/place/ReviewCard';
 import PlaceSwiper from '../components/place/PlaceSwiper';
 import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
+import ReviewList from './ReviewList';
 
 const Detail = props => {
   const dispatch = useDispatch();
   const { id } = props.match.params;
   const detailData = useSelector(state => state.place.detailInfo);
-  const userInfo = useSelector(state => state.user.userInfo);
   const isLogin = useSelector(state => state.user.isLogin);
-  console.log('userInfo', userInfo);
-  console.log('detailInfo', detailData);
+
   const newAddr = detailData.addressShort
     ? detailData.addressShort.split(' ')
     : false;
 
-  const [active, setActive] = useState({ likeList: false, newList: true });
-
-  const onClick = e => {
-    if (e.target.name === 'likeList') {
-      setActive({ ...active, likeList: true, newList: false });
-    } else {
-      setActive({ ...active, likeList: false, newList: true });
-    }
-  };
-  console.log('0번째 디테일 데이터', detailData);
   const placeMarker = [
     {
       postLocationY: detailData.postLocationY,
@@ -50,11 +38,11 @@ const Detail = props => {
     },
   ];
 
-  console.log('첫번째 디테일 페이지 데이터', placeMarker);
-
-  const reviewPage = () => {
+  // 리뷰 쓰기 페이지로 이동
+  const goReviewPage = () => {
     if (!isLogin) {
       window.alert('로그인을 해야 이용할 수 있는 서비스입니다');
+      history.push('/login');
     } else {
       history.push(`/review/write/${id}`);
     }
@@ -153,7 +141,7 @@ const Detail = props => {
                 </Button>
               </Grid>
               <Grid>
-                <Button size="12px" color="#A3A6AA" _onClick={reviewPage}>
+                <Button size="12px" color="#A3A6AA" _onClick={goReviewPage}>
                   <Icons>
                     <Write />
                   </Icons>
@@ -194,40 +182,8 @@ const Detail = props => {
               </Text>
             </Grid>
           </InfoGrid>
-          <ReviewWrap>
-            <ReviewTitle>
-              <Grid justify="space-between">
-                <Grid>
-                  <Text fontSize="18px" color="#282828" bold>
-                    리뷰 ({detailData.reviews && detailData.reviews.length})
-                  </Text>
-                </Grid>
-                <Grid isFlex>
-                  <ReviewButton
-                    className={active.newList && 'active'}
-                    name="newList"
-                    onClick={onClick}
-                  >
-                    {active.newList && <Dotted />}
-                    최신순
-                  </ReviewButton>
-                  <ReviewButton
-                    className={active.likeList && 'active'}
-                    name="likeList"
-                    onClick={onClick}
-                  >
-                    {active.likeList && <Dotted />}
-                    추천순
-                  </ReviewButton>
-                </Grid>
-              </Grid>
-            </ReviewTitle>
-            {/* {detailData.reviews.length === 0 && <p>등록된 리뷰가 없습니다</p>} */}
-            {detailData.reviews &&
-              detailData.reviews.map(item => {
-                return <ReviewCard key={item.userID} {...item} />;
-              })}
-          </ReviewWrap>
+          {/* 리뷰 */}
+          <ReviewList postId={id} />
         </Grid>
       </Container>
     </>
@@ -281,9 +237,7 @@ const Span = styled.span`
   font-weight: 600;
   color: #282828;
 `;
-const ReviewTitle = styled.div`
-  padding: 32px 22px 16px;
-`;
+
 const GrayDotted = styled.span`
   &:before {
     display: inline-block;
@@ -293,31 +247,6 @@ const GrayDotted = styled.span`
     margin: 0px 6px 4px;
     border-radius: 50%;
     background-color: #c4c4c4;
-  }
-`;
-const Dotted = styled.span`
-  &:before {
-    display: inline-block;
-    content: '';
-    width: 4px;
-    height: 4px;
-    margin: 0px 4px 3px 0px;
-    border-radius: 50%;
-    background-color: #000;
-  }
-`;
-const ReviewWrap = styled.section`
-  padding-bottom: 50px;
-  background-color: #fff;
-`;
-
-const ReviewButton = styled.button`
-  font-size: 13px;
-  font-weight: 300;
-  color: #c2c6cb;
-  &.active {
-    color: #3e4042;
-    font-weight: 600;
   }
 `;
 
