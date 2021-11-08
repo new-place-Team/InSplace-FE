@@ -1,16 +1,20 @@
 /* eslint-disable no-shadow */
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Button, Grid, Text, Image } from '../../elements/index';
 import { good, bad, profile1 } from '../../images/index';
-import {
-  deleteReviewDB,
-  reviewLikeCancelDB,
-  reviewLikeDB,
-} from '../../redux/async/place';
+import // deleteReviewDB,
+// reviewLikeCancelDB,
+// reviewLikeDB,
+'../../redux/async/place';
 import ReviewSwiper from './ReviewSwiper';
 import { history } from '../../redux/configureStore';
+import {
+  deleteReview,
+  reviewLike,
+  reviewLikeCancel,
+} from '../../shared/api/placeApi';
 
 const ReviewCard = props => {
   const {
@@ -29,25 +33,42 @@ const ReviewCard = props => {
     userImage,
     weather,
     weekdayYN,
+    reviewListLoad,
   } = props;
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const date = createdAt.split('T')[0];
-
   const [reviewActive, setReviewActive] = useState({
     reviewId,
     active: likeState,
   });
+
   const params = { postId, reviewId };
 
   // 리뷰 좋아요, 좋아요 취소 수정해야함
-  const handleLikes = () => {
-    // list.map((item) )
-    setReviewActive({ ...reviewActive, active: !reviewActive.active });
-    dispatch(reviewLikeDB(params));
+  const handleLikes = async () => {
+    try {
+      const res = await reviewLike(params);
+      if (res) {
+        setReviewActive({ ...reviewActive, active: !reviewActive.active });
+        reviewListLoad('list');
+      }
+    } catch (e) {
+      console.log('e', e);
+    }
+    // dispatch(reviewLikeDB(params));
   };
-  const handleLikesCancel = () => {
-    setReviewActive({ ...reviewActive, active: !reviewActive.active });
-    dispatch(reviewLikeCancelDB(params));
+  const handleLikesCancel = async () => {
+    try {
+      const res = await reviewLikeCancel(params);
+      if (res) {
+        setReviewActive({ ...reviewActive, active: !reviewActive.active });
+        reviewListLoad('list');
+      }
+    } catch (e) {
+      console.log('e', e);
+    }
+    // setReviewActive({ ...reviewActive, active: !reviewActive.active });
+    // dispatch(reviewLikeCancelDB(params));
   };
 
   // 리뷰 수정페이지 이동
@@ -56,8 +77,18 @@ const ReviewCard = props => {
   };
 
   // 리뷰 삭제
-  const onDeleteReview = () => {
-    dispatch(deleteReviewDB(params));
+  const onDeleteReview = async () => {
+    try {
+      const res = await deleteReview(params);
+      if (res) {
+        window.alert('리뷰가 삭제되었습니다.');
+        reviewListLoad('list');
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    // dispatch(deleteReviewDB(params));
+    // reviewListLoad('list');
   };
 
   return (
@@ -150,7 +181,6 @@ const ReviewCard = props => {
         ) : (
           <LikeButton onClick={handleLikes}>도움이돼요</LikeButton>
         )}
-
         {likeCnt > 0 && (
           <Text fontSize="13px" color="#3E4042">
             {likeCnt}명에게 도움이 되었습니다
@@ -177,7 +207,7 @@ const ReviewDesc = styled.p`
   font-size: 14px;
   color: #3e4042;
   letter-spacing: -0.0008em;
-  white-space: pre;
+  white-space: pre-wrap;
 `;
 
 const LikeButton = styled.button`

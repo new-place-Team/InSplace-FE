@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
@@ -11,8 +12,8 @@ import {
   setFavoritesPostDB,
   setVisitedPostDB,
 } from '../redux/async/place';
-import { heartFilled } from '../images/index';
 
+import { heartFilled } from '../images/index';
 import { ReactComponent as SelectedHeader } from '../images/Icon/ic_heart-filled.svg';
 import { ReactComponent as NoSelectedHeader } from '../images/Icon/ic_heart_line.svg';
 import { ReactComponent as Write } from '../images/Icon/ic_write.svg';
@@ -186,7 +187,7 @@ const Detail = props => {
               <Text fontSize="18px" color="#282828" bold>
                 장소팁
               </Text>
-              <Text fontSize="12px" margin="16px 0 32px" lineHeight="16px">
+              <Text fontSize="14px" margin="16px 0 32px" lineHeight="16px">
                 {detailData.postDesc}
               </Text>
               <Text fontSize="18px" color="#282828" bold>
@@ -196,11 +197,11 @@ const Detail = props => {
                 {/* 카카오 지도 */}
                 <Map width="100%" height="191px" allPlaces={placeMarker} />
               </Grid>
-              <Text fontSize="13px" color="#3E4042">
+              <Text fontSize="14px" color="#3E4042">
                 <Span>주소</Span>
                 {detailData.address}
               </Text>
-              <Text fontSize="13px" color="#3E4042">
+              <Text fontSize="14px" color="#3E4042">
                 <Span>전화</Span>
                 {detailData.contactNumber}
               </Text>
@@ -216,7 +217,7 @@ const Detail = props => {
 
 const PlaceHeader = styled.div`
   position: absolute;
-  width: 768px;
+  width: 100%;
   height: 66px;
   line-height: 76px;
   top: 0;
@@ -241,6 +242,7 @@ const InfoGrid = styled.div`
   padding: 28px 24px 34px;
   background-color: #fff;
   box-shadow: 0px 1px 4px -12px rgba(0, 0, 0, 0.5);
+  overflow-x: hidden;
 `;
 
 const IconNavigation = styled.section`
