@@ -1,52 +1,74 @@
-import React from 'react';
+/* eslint-disable no-alert */
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import Header from '../components/common/Header';
+import { history } from '../redux/configureStore';
+import { getToken } from '../shared/utils';
+import Navbar from '../components/common/Navbar';
 import { Button, Container, Grid, Image, Text } from '../elements';
 import sunBg from '../images/weather/sun1.jpg';
-import Navbar from '../components/common/Navbar';
-
 import { right, mypageNext, profile1 } from '../images/index';
-import { history } from '../redux/configureStore';
 
 const MyPage = () => {
   const userInfo = useSelector(state => state.user.userInfo);
+  const isLogin = useSelector(state => state.user.isLogin);
+  if (!getToken()) {
+    window.alert('로그인을 해주세요!');
+    history.push('/login');
+  }
+  const gotoDetailPage = () => {
+    if (!getToken()) {
+      window.alert('로그인을 해주세요!');
+      history.push('/login');
+    } else {
+      history.push(`/mypage/1`);
+    }
+  };
 
   return (
     <>
       <Container padding="0" height="100vh">
-        <Header _onBg _content="MyPage" _settings _color="#fff" />
+        <Header _onBg _content="MyPage" _settings />
         <Bg src={sunBg} />
         <Grid isFlex justify="center" padding="59px 40px">
           <Image type="circle" width="169px" height="169px" src={profile1} />
           <Grid flex margin="0 0 0 36px">
             <Grid isFlex>
               <Text fontSize="28px" bold color="#282828" margin="0 20px 0 0">
-                홍길동
+                {userInfo.nickname}
               </Text>
-              <Button _onClick={() => history.push(`/mypage/1`)}>
+              <Button _onClick={gotoDetailPage}>
                 <Image width="24px" height="24px" src={right} />
               </Button>
             </Grid>
             <Grid isFlex>
               <Text fontSize="13px" color="#3E4042" margin="0 11px 0 0" bold>
-                ESFP
+                {userInfo.mbti}
               </Text>
               <Text fontSize="13px" color="#3E4042">
-                mida@gmail.com
+                {userInfo.email}
               </Text>
             </Grid>
           </Grid>
         </Grid>
         {/* 인포 그리드 */}
         <InfoGrid>
-          <Info>
+          <Info
+            onClick={() => {
+              window.alert('서비스 준비중입니다.');
+            }}
+          >
             <Text>공지사항</Text>
             <BottomBox>
               <Image src={mypageNext} />
             </BottomBox>
           </Info>
-          <Info>
+          <Info
+            onClick={() => {
+              window.alert('서비스 준비중입니다.');
+            }}
+          >
             <Text>의견보내기</Text>
             <BottomBox>
               <Image src={mypageNext} />
@@ -58,7 +80,11 @@ const MyPage = () => {
               <Text>V1.0.2</Text>
             </BottomText>
           </Info>
-          <Info>
+          <Info
+            onClick={() => {
+              window.alert('서비스 준비중입니다.');
+            }}
+          >
             <Text>후원</Text>
           </Info>
         </InfoGrid>
@@ -114,29 +140,3 @@ const BottomText = styled.div`
 `;
 
 export default MyPage;
-
-// const InfoGrid = styled.div`
-//   display: flex;
-//   flex-wrap: wrap;
-//   position: relative;
-//   background-color: #fff;
-//   @media (max-width: 1024px) {
-//     width: 95%;
-//     height: 873px;
-//   }
-//   @media (max-width: 767px) {
-//     width: 95%;
-//     height: 420px;
-//   }
-// `;
-
-// const Info = styled.div`
-//   width: 350px;
-//   height: 438px;
-//   border: 1px solid #e6e9ec;
-//   border-bottom: none;
-//   @media (max-width: 767px) {
-//     width: 178px;
-//     height: 210px;
-//   }
-// `;

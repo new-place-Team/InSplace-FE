@@ -224,9 +224,9 @@ const Signup = () => {
 };
 
 const BottomWrap = styled.div`
-  position: absolute;
+  /* position: absolute; */
   padding: 0 20px;
-  bottom: 50px;
+  /* bottom: 50px; */
   width: 100%;
 `;
 
@@ -252,7 +252,7 @@ const GenderButton = styled.div`
 
 const MBTIDiv = styled.div`
   width: 100%;
-  height: 4rem;
+  height: 3rem;
   font-size: 16px;
   border-bottom: 1px solid #c4c4c4;
   color: white;

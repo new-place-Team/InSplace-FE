@@ -19,7 +19,6 @@ const MyPageEdit = () => {
     email: userInfo.email,
     profileImage: insplace,
   });
-  console.log(info);
   const { nickname, email } = info;
   const mbtiInfo = useSelector(state => state.user.userMbti);
   const modalStatus = useSelector(state => state.user.modalStatus);
@@ -93,9 +92,7 @@ const MyPageEdit = () => {
               MBTI
             </Label>
             <MBTIDiv onClick={openModal}>
-              <Text>
-                {mbtiInfo.type ? mbtiInfo.type : userInfo.description}
-              </Text>
+              <Text>{mbtiInfo.type ? mbtiInfo.type : userInfo.mbti}</Text>
             </MBTIDiv>
           </Grid>
           <Grid margin="0 0 32px 0">
