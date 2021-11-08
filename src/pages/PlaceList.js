@@ -25,7 +25,7 @@ const PlaceList = props => {
     title = '실외';
   } else if (qureryString.indexOf('result') !== -1) {
     const findText = url.split('?result=').reverse()[0];
-    title = findText;
+    title = decodeURIComponent(findText);
   }
 
   const onLoad = async () => {
