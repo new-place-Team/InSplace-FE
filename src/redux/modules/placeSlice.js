@@ -88,9 +88,9 @@ const placeSlice = createSlice({
       state.review = payload.review;
     },
     /* 리뷰 수정 처리완료 */
-    [updateReviewDB.fulfilled]: (state, { payload }) => {
-      state.review = payload.post;
-    },
+    // [updateReviewDB.fulfilled]: (state, { payload }) => {
+    //   state.review = payload.post;
+    // },
     /* 리뷰 좋아요 처리 실패 */
     [reviewLikeDB.rejected]: (state, { payload }) => {
       window.alert(payload.errMsg);
