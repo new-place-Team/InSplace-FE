@@ -15,12 +15,15 @@ export const logger = msg => {
 
 /* localStorage에서 토큰 가져오기 */
 export const getToken = () => {
-  // eslint-disable-next-line no-undef
-  const token = localStorage.getItem('USER_TOKEN');
-  if (token) {
-    return `Bearer ${token}`;
-  }
-  return null;
+  return new Promise((resolve, reject) => {
+    // eslint-disable-next-line no-undef
+    const token = localStorage.getItem('USER_TOKEN');
+    if (token) {
+      resolve(`Bearer ${token}`);
+    } else {
+      resolve(null);
+    }
+  });
 };
 
 /* 현재위치 위도경도 가져오기 */

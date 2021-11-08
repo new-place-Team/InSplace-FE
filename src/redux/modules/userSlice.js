@@ -43,23 +43,26 @@ const userSlice = createSlice({
     },
     /* 유저 좋아요 포스트 추가 */
     addUserLikePost: (state, { payload }) => {
-      state.userPickPlaces.likeList = [
-        ...state.userPickPlaces.likeList,
-        payload,
-      ];
+      let likeList = state.userPickPlaces.likeList;
+      if (likeList) {
+        state.userPickPlaces.likeList = [...likeList, payload];
+      }
     },
     /* 유저 좋아요 포스트 삭제 */
     deleteUserLikePost: (state, { payload }) => {
-      state.userPickPlaces.likeList = state.userPickPlaces.likeList.filter(
-        v => v.postId !== payload.postId,
-      );
+      let likeList = state.userPickPlaces.likeList;
+      if (likeList) {
+        state.userPickPlaces.likeList = likeList.filter(
+          v => v.postId !== payload.postId,
+        );
+      }
     },
     /* 유저 방문 포스트 추가 */
     addUserVisitedPost: (state, { payload }) => {
-      state.userPickPlaces.visitedList = [
-        ...state.userPickPlaces.visitedList,
-        payload,
-      ];
+      let visitedList = state.userPickPlaces.visitedList;
+      if (visitedList) {
+        visitedList = [...visitedList, payload];
+      }
     },
     /* 유저 방문 포스트 삭제 */
     deleteUserVisitedPost: (state, { payload }) => {

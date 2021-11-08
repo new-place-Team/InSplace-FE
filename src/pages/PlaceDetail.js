@@ -51,11 +51,15 @@ const Detail = props => {
   // 리뷰 쓰기 페이지로 이동
   const goReviewPage = () => {
     if (!isLogin) {
-      window.alert('로그인을 해야 이용할 수 있는 서비스입니다');
-      history.push('/login');
-    } else {
-      history.push(`/review/write/${id}`);
+      const confirm = window.confirm(
+        '로그인을 해야 이용할 수 있는 서비스입니다 로그인 하시겠습니까?',
+      );
+      if (confirm) {
+        history.push('/login');
+      }
+      return;
     }
+    history.push(`/review/write/${id}`);
   };
 
   const goBack = () => {
@@ -74,6 +78,15 @@ const Detail = props => {
 
   /* 좋아요 추가 및 삭제 */
   const setFavorites = () => {
+    if (!isLogin) {
+      const confirm = window.confirm(
+        '로그인을 해야 이용할 수 있는 서비스입니다 로그인 하시겠습니까?',
+      );
+      if (confirm) {
+        history.push('/login');
+      }
+      return;
+    }
     const defaultParams = getParams();
     const params = {
       ...defaultParams,
@@ -83,6 +96,15 @@ const Detail = props => {
   };
   /* 가본장소 추가 및 삭제 */
   const setVisited = () => {
+    if (!isLogin) {
+      const confirm = window.confirm(
+        '로그인을 해야 이용할 수 있는 서비스입니다 로그인 하시겠습니까?',
+      );
+      if (confirm) {
+        history.push('/login');
+      }
+      return;
+    }
     const defaultParams = getParams();
     const params = {
       ...defaultParams,
