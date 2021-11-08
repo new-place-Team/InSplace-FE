@@ -98,7 +98,15 @@ const ProfileImage = styled.div`
   background-size: cover;
   background-position: center;
   ${props => (props.margin ? `margin:${props.margin}` : '')};
-  display: block;
+  display: inline-block;
+  @media (max-width: 1024px) {
+    width: 169px;
+    height: 169px;
+  }
+  @media (max-width: 768px) {
+    width: 110px;
+    height: 110px;
+  }
 `;
 
 export default Image;
