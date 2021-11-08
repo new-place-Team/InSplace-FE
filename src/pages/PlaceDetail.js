@@ -1,19 +1,11 @@
-/* eslint-disable no-alert */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Container, Grid, Text, Image, Button, Icons } from '../elements';
 import { history } from '../redux/configureStore';
 import Map from '../components/map/Map';
-import {
-  getPlaceDetailDB,
-  // getReviewLikesListDB,
-  // getReviewListDB,
-  setFavoritesPostDB,
-} from '../redux/async/place';
+import { getPlaceDetailDB, setFavoritesPostDB } from '../redux/async/place';
 import { heartFilled, pin } from '../images/index';
 import { ReactComponent as SelectedHeader } from '../images/Icon/ic_heart-filled.svg';
 import { ReactComponent as NoSelectedHeader } from '../images/Icon/ic_heart_line.svg';

@@ -1,6 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-undef */
-/* eslint-disable no-alert */
 /* eslint-disable react/destructuring-assignment */
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
