@@ -24,6 +24,9 @@ const SelectedType = () => {
     category: '',
   });
 
+  const showCategory =
+    state.MemberCnt === '' && state.gender === '' && state.category === '';
+
   const [selectData, setSelectData] = React.useState([
     {
       title: '성별을 선택해 주세요',
@@ -87,59 +90,64 @@ const SelectedType = () => {
     });
   };
 
+  console.log('state == ', state);
+
   return (
     <>
       <Header _content="유형선택" _back _type="search" />
       <Container padding="66px 0 0 0">
-        <div style={{ padding: '10px' }} />
-        <ChangeText>
-          {state.gender !== '' && (
-            <Grid isFlex>
-              <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                {state.gender.selecteText}
-              </Text>
-            </Grid>
-          )}
-          {state.MemberCnt !== '' && (
-            <Grid isFlex margin="0 10px">
-              <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                {getPeopleText(state.MemberCnt.value)}
-              </Text>
-              <Text bold fontSize="20px" color="#C0C0C0">
-                &nbsp;이
-              </Text>
-            </Grid>
-          )}
-          {state.category !== '' && (
-            <>
+        <ChangeContainer>
+          <ChangeText className={!showCategory && 'hide'}>
+            {state.gender !== '' && (
               <Grid isFlex>
                 <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                  {state.category.selecteText}
-                </Text>
-                <Text bold fontSize="20px" color="#C0C0C0">
-                  &nbsp;장소 을(를)
+                  {state.gender.selecteText}
                 </Text>
               </Grid>
-              <LineBreak>
-                <Text bold fontSize="20px">
-                  가고 싶어요
+            )}
+            {state.MemberCnt !== '' && (
+              <Grid isFlex margin="0 10px">
+                <Text bold fontSize="20px" border="2px solid #C0C0C0">
+                  {getPeopleText(state.MemberCnt.value)}
                 </Text>
-              </LineBreak>
-            </>
-          )}
-        </ChangeText>
-        {selectData.map(item => {
-          return (
-            <SelectedContents
-              key={`key-${item.title}`}
-              {...item}
-              state={state}
-              setState={setState}
-              selectData={selectData}
-              setSelectData={setSelectData}
-            />
-          );
-        })}
+                <Text bold fontSize="20px" color="#C0C0C0">
+                  &nbsp;이
+                </Text>
+              </Grid>
+            )}
+            {state.category !== '' && (
+              <>
+                <Grid isFlex>
+                  <Text bold fontSize="20px" border="2px solid #C0C0C0">
+                    {state.category.selecteText}
+                  </Text>
+                  <Text bold fontSize="20px" color="#C0C0C0">
+                    &nbsp;장소 을(를)
+                  </Text>
+                </Grid>
+                <LineBreak>
+                  <Text bold fontSize="20px">
+                    가고 싶어요
+                  </Text>
+                </LineBreak>
+              </>
+            )}
+          </ChangeText>
+        </ChangeContainer>
+        <SelectContainer className={showCategory && 'hide'}>
+          {selectData.map(item => {
+            return (
+              <SelectedContents
+                key={`key-${item.title}`}
+                {...item}
+                state={state}
+                setState={setState}
+                selectData={selectData}
+                setSelectData={setSelectData}
+              />
+            );
+          })}
+        </SelectContainer>
         <Grid>
           <NextButton onClick={onClick}>
             <Right />
@@ -152,14 +160,39 @@ const SelectedType = () => {
   );
 };
 
+const ChangeContainer = styled.div`
+  position: fixed;
+  width: 100%;
+  margin-top: 2px;
+  background-color: #fff;
+  z-index: 3;
+`;
+
 const ChangeText = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  /* height: 105px; */
-  padding: 17px 16px;
+  width: 768px;
+  &.hide {
+    padding: 40px 34px;
+  }
+  @media (max-width: 500px) {
+    width: 100%;
+    &.hide {
+      padding: 30px 24px;
+    }
+  }
 `;
-
+const SelectContainer = styled.div`
+  width: 100%;
+  padding-top: 150px;
+  @media (max-width: 500px) {
+    padding-top: 130px;
+  }
+  &.hide {
+    padding-top: 0;
+  }
+`;
 const LineBreak = styled.div`
   width: 100%;
   margin-top: 10px;
