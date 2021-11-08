@@ -5,7 +5,14 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
 import { Grid, Text } from '../../elements/index';
-import { map, search, close, heartFilled, share } from '../../images/index';
+import {
+  map,
+  search,
+  close,
+  heartFilled,
+  share,
+  settings,
+} from '../../images/index';
 import { ReactComponent as LeftIcon } from '../../images/ic-left.svg';
 
 const Header = props => {
@@ -19,6 +26,7 @@ const Header = props => {
     _like,
     _share,
     _color,
+    _settings,
   } = props;
 
   const gotoMapPage = () => {
@@ -26,6 +34,9 @@ const Header = props => {
   };
   const gotoSearchPage = () => {
     history.push('/search');
+  };
+  const gotoSettingPage = () => {
+    history.push('/setting');
   };
 
   const goBack = () => {
@@ -76,6 +87,11 @@ const Header = props => {
                 <Icon src={share} />
               </Grid>
             )}
+            {_settings && (
+              <Grid>
+                <Icon src={settings} onClick={gotoSettingPage} />
+              </Grid>
+            )}
           </Grid>
         </Content>
       </ContentArea>
@@ -123,6 +139,11 @@ const Header = props => {
             {_share && (
               <Grid>
                 <Icon src={share} />
+              </Grid>
+            )}
+            {_settings && (
+              <Grid>
+                <Icon src={settings} onClick={gotoSettingPage} />
               </Grid>
             )}
           </Grid>
