@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 import React, { useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Button, Grid, Text, Image } from '../../elements/index';
 import { good, bad, profile1 } from '../../images/index';
@@ -37,6 +37,7 @@ const ReviewCard = props => {
   } = props;
   // const dispatch = useDispatch();
   const date = createdAt.split('T')[0];
+  const isLogin = useSelector(state => state.user.isLogin);
   const [reviewActive, setReviewActive] = useState({
     reviewId,
     active: likeState,
@@ -46,26 +47,34 @@ const ReviewCard = props => {
 
   // 리뷰 좋아요, 좋아요 취소 수정해야함
   const handleLikes = async () => {
-    try {
-      const res = await reviewLike(params);
-      if (res) {
-        setReviewActive({ ...reviewActive, active: !reviewActive.active });
-        reviewListLoad('list');
+    if (!isLogin) {
+      window.alert('로그인을 해야 이용할 수 있는 서비스입니다');
+    } else {
+      try {
+        const res = await reviewLike(params);
+        if (res) {
+          setReviewActive({ ...reviewActive, active: !reviewActive.active });
+          reviewListLoad('list');
+        }
+      } catch (e) {
+        console.log('e', e);
       }
-    } catch (e) {
-      console.log('e', e);
     }
     // dispatch(reviewLikeDB(params));
   };
   const handleLikesCancel = async () => {
-    try {
-      const res = await reviewLikeCancel(params);
-      if (res) {
-        setReviewActive({ ...reviewActive, active: !reviewActive.active });
-        reviewListLoad('list');
+    if (!isLogin) {
+      window.alert('로그인을 해야 이용할 수 있는 서비스입니다');
+    } else {
+      try {
+        const res = await reviewLikeCancel(params);
+        if (res) {
+          setReviewActive({ ...reviewActive, active: !reviewActive.active });
+          reviewListLoad('list');
+        }
+      } catch (e) {
+        console.log('e', e);
       }
-    } catch (e) {
-      console.log('e', e);
     }
     // setReviewActive({ ...reviewActive, active: !reviewActive.active });
     // dispatch(reviewLikeCancelDB(params));
