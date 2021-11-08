@@ -14,7 +14,6 @@ import {
 } from '../redux/async/place';
 
 import { heartFilled } from '../images/index';
-
 import { ReactComponent as SelectedHeader } from '../images/Icon/ic_heart-filled.svg';
 import { ReactComponent as NoSelectedHeader } from '../images/Icon/ic_heart_line.svg';
 import { ReactComponent as Write } from '../images/Icon/ic_write.svg';
