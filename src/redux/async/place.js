@@ -20,12 +20,7 @@ import {
   getReviewLikesList,
   deleteReview,
   reviewLike,
-<<<<<<< HEAD
-  postVisitedPost,
-  deleteVisitedPost,
-=======
   reviewLikeCancel,
->>>>>>> bd492d33120080724de3e9022611257fa2cc13e6
 } from '../../shared/api/placeApi';
 import { getLocationAddress } from '../../shared/api/kakaoApi';
 import { getPosition } from '../../shared/utils';

@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
@@ -11,6 +12,7 @@ import {
   setFavoritesPostDB,
   setVisitedPostDB,
 } from '../redux/async/place';
+
 import { heartFilled } from '../images/index';
 
 import { ReactComponent as SelectedHeader } from '../images/Icon/ic_heart-filled.svg';
