@@ -34,6 +34,7 @@ const Main = () => {
       weatherBg = sunBg;
     }
   }
+
   useEffect(() => {
     if (mainLists) return;
     dispatch(getMainListDB());
@@ -52,8 +53,8 @@ const Main = () => {
               <Marker />
             </Icon>
             <Text fontSize="14px" color="#fff" bold>
+              {/* 현재위치 주소 */}
               {location && location.address}
-              {/* 서울시 마포구 상암동 */}
             </Text>
           </Grid>
 

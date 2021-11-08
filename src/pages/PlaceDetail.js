@@ -9,11 +9,13 @@ import { Container, Grid, Text, Image, Button, Icons } from '../elements';
 import { history } from '../redux/configureStore';
 import Map from '../components/map/Map';
 import { getPlaceDetailDB, setFavoritesPostDB } from '../redux/async/place';
-import { heartFilled, pin } from '../images/index';
+import { heartFilled } from '../images/index';
 import { ReactComponent as SelectedHeader } from '../images/Icon/ic_heart-filled.svg';
 import { ReactComponent as NoSelectedHeader } from '../images/Icon/ic_heart_line.svg';
 import { ReactComponent as Write } from '../images/Icon/ic_write.svg';
 import { ReactComponent as Share } from '../images/Icon/ic_share.svg';
+import { ReactComponent as PinFilled } from '../images/Icon/ic_pin-filled.svg';
+import { ReactComponent as Pin } from '../images/Icon/ic_pin.svg';
 
 import ReviewCard from '../components/place/ReviewCard';
 import PlaceSwiper from '../components/place/PlaceSwiper';
@@ -126,7 +128,13 @@ const Detail = props => {
             <IconNavigation>
               <Grid>
                 <Button size="12px" color="#A3A6AA">
-                  <Image src={pin} margin="0 0 1px 0" />
+                  <Icons margin="0 0 4px 0">
+                    {detailData && detailData.visitedStatus ? (
+                      <PinFilled />
+                    ) : (
+                      <Pin />
+                    )}
+                  </Icons>
                   가본곳
                 </Button>
               </Grid>
@@ -140,7 +148,6 @@ const Detail = props => {
                     <Icons margin="0 0 4px 0">
                       <NoSelectedHeader />
                     </Icons>
-                    // <Image src={heartLine} margin="0 0 1px 0" />
                   )}
                   찜하기
                 </Button>
@@ -150,7 +157,6 @@ const Detail = props => {
                   <Icons>
                     <Write />
                   </Icons>
-                  {/* <Image src={write} margin="0 0 1px 0" /> */}
                   리뷰쓰기
                 </Button>
               </Grid>
@@ -159,7 +165,6 @@ const Detail = props => {
                   <Icons margin="0 0 4px 0">
                     <Share />
                   </Icons>
-                  {/* <Image src={share} margin="0 0 1px 0" /> */}
                   공유하기
                 </Button>
               </Grid>

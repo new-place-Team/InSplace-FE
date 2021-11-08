@@ -11,6 +11,7 @@ import { ReactComponent as Right } from '../images/ic-next.svg';
 import { history } from '../redux/configureStore';
 import { getPeopleText } from '../shared/transferText';
 import { setSelectedCategory } from '../redux/modules/placeSlice';
+import { getSearchConditionDB } from '../redux/async/place';
 
 const SelectedType = () => {
   const dispatch = useDispatch();
@@ -76,8 +77,8 @@ const SelectedType = () => {
       num: state.MemberCnt.value,
       gender: state.gender.value,
     };
-    // dispatch(getSearchConditionDB(params));
     dispatch(setSelectedCategory(state));
+    dispatch(getSearchConditionDB(params));
     // 유저가 선택한 유형을 history state에 담아서 보낸다.
     history.push({
       pathname: '/select-type/result',

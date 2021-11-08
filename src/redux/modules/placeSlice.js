@@ -71,21 +71,24 @@ const placeSlice = createSlice({
     },
     /* 좋아요 toggle 성공시 */
     [setFavoritesPostDB.fulfilled]: (state, { payload }) => {
-      console.log('payload', payload);
-      /*  상세 좋아요 적용 */
+      const { postId } = payload;
+      // 상세 좋아요 적용
       state.detailInfo.favoriteState = !state.detailInfo.favoriteState;
       state.detailInfo.favoriteState
         ? (state.detailInfo.favoriteCnt += 1)
         : (state.detailInfo.favoriteCnt -= 1);
-      const { postId } = state.detailInfo;
+      // const { postId } = state.detailInfo;
       const { mainLists } = state;
-      /* 메인 좋아요 적용 */
+      // 메인 좋아요 적용
       for (const key in mainLists) {
         if (key && key !== 'weather') {
           const idx = mainLists[`${key}`].findIndex(v => v.postId === postId);
           if (idx > -1) {
             const target = mainLists[`${key}`][idx];
             target.favoriteState = !target.favoriteState;
+            target.favoriteState
+              ? (target.favoriteCnt += 1)
+              : (target.favoriteCnt -= 1);
           }
         }
       }

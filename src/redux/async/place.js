@@ -96,7 +96,7 @@ export const setFavoritesPostDB = createAsyncThunk(
         response = await postFavoritesPost(params);
       }
       if (response) {
-        return response.data;
+        return params;
       }
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
