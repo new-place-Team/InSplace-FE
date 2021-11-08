@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
@@ -7,7 +6,11 @@ import styled from 'styled-components';
 import { Container, Grid, Text, Image, Button, Icons } from '../elements';
 import { history } from '../redux/configureStore';
 import Map from '../components/map/Map';
-import { getPlaceDetailDB, setFavoritesPostDB } from '../redux/async/place';
+import {
+  getPlaceDetailDB,
+  setFavoritesPostDB,
+  setVisitedPostDB,
+} from '../redux/async/place';
 import { heartFilled } from '../images/index';
 
 import { ReactComponent as SelectedHeader } from '../images/Icon/ic_heart-filled.svg';
@@ -20,6 +23,7 @@ import { ReactComponent as Pin } from '../images/Icon/ic_pin.svg';
 import PlaceSwiper from '../components/place/PlaceSwiper';
 import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
 import ReviewList from './ReviewList';
+import { getCategoryText } from '../shared/transferText';
 
 const Detail = props => {
   const dispatch = useDispatch();
@@ -38,6 +42,11 @@ const Detail = props => {
     },
   ];
 
+  useEffect(() => {
+    dispatch(getPlaceDetailDB(id));
+    window.scrollTo(0, 0);
+  }, []);
+
   // 리뷰 쓰기 페이지로 이동
   const goReviewPage = () => {
     if (!isLogin) {
@@ -51,20 +60,35 @@ const Detail = props => {
   const goBack = () => {
     history.goBack();
   };
-
-  const setFavorites = () => {
+  /* postInfo parameter */
+  const getParams = () => {
     const params = {
       postId: detailData.postId,
+      categoryId: detailData.categoryId,
+      postImage: detailData.postImages[0],
+      title: detailData.title,
+    };
+    return params;
+  };
+
+  /* 좋아요 추가 및 삭제 */
+  const setFavorites = () => {
+    const defaultParams = getParams();
+    const params = {
+      ...defaultParams,
       favoriteState: detailData.favoriteState,
     };
     dispatch(setFavoritesPostDB(params));
-    console.log('setFavorites');
   };
-
-  useEffect(() => {
-    dispatch(getPlaceDetailDB(id));
-    window.scrollTo(0, 0);
-  }, []);
+  /* 가본장소 추가 및 삭제 */
+  const setVisited = () => {
+    const defaultParams = getParams();
+    const params = {
+      ...defaultParams,
+      visitedStatus: detailData.visitedStatus,
+    };
+    dispatch(setVisitedPostDB(params));
+  };
 
   return (
     <>
@@ -79,7 +103,7 @@ const Detail = props => {
 
           <InfoGrid>
             <Text fontSize="13px" color="#A3A6AA">
-              {detailData.description}
+              {getCategoryText(detailData.categoryId)}
             </Text>
             <Text fontSize="22px" bold color="#282828" lineHeight="30px">
               {detailData.title}
@@ -115,8 +139,8 @@ const Detail = props => {
             {/* Icon Navigation */}
             <IconNavigation>
               <Grid>
-                <Button size="12px" color="#A3A6AA">
-                  <Icons margin="0 0 4px 0">
+                <Button size="12px" color="#A3A6AA" _onClick={setVisited}>
+                  <Icons margin="0 0 4px 0" color="#282828">
                     {detailData && detailData.visitedStatus ? (
                       <PinFilled />
                     ) : (
@@ -183,7 +207,7 @@ const Detail = props => {
             </Grid>
           </InfoGrid>
           {/* 리뷰 */}
-          <ReviewList postId={id} />
+          <ReviewList postId={id} reviewsList={detailData.reviews} />
         </Grid>
       </Container>
     </>

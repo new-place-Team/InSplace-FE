@@ -12,6 +12,17 @@ const logInCheck = () => api.post('/users/check/auth');
 const unRegister = id => api.delete(`/users/${id}`);
 // 카카오 로그인 인가코드 서버에 전달
 const logInKakao = code => api.get(`/users/kakao/auth?code=${code}`);
-// const logInKakao = code => api.post(`/users/kakao/auth`, code);
+/* 유저별 좋아요 list */
+const getFavories = () => api.get('/favorites');
+/* 유저별 가본곳 list */
+const getVisited = () => api.get('/visitedPosts');
 
-export { addUser, logIn, logInCheck, unRegister, logInKakao };
+export {
+  addUser,
+  logIn,
+  logInCheck,
+  unRegister,
+  logInKakao,
+  getFavories,
+  getVisited,
+};

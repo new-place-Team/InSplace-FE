@@ -4,13 +4,24 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
-import { Image, Grid } from '../../elements/index';
-import { home, user, heartLine } from '../../images/index';
-import { ReactComponent as Filter } from '../../images/ic-fliter.svg';
+import { Grid, Icons } from '../../elements/index';
+// import { home, user, heartLine } from '../../images/index';
+import theme from '../../styles/theme';
+/* weather Icon */
+// import { ReactComponent as Filter } from '../../images/ic-fliter.svg';
 import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
+import { ReactComponent as CloudIcon } from '../../images/weather/cloud.svg';
+import { ReactComponent as RainIcon } from '../../images/weather/rain.svg';
+import { ReactComponent as SnowIcon } from '../../images/weather/snow.svg';
+/* Nav Icon */
+import { ReactComponent as HomeIcon } from '../../images/nav/ic_nav_home.svg';
+import { ReactComponent as FilterIcon } from '../../images/nav/ic_nav_fliter.svg';
+import { ReactComponent as HeartIcon } from '../../images/nav/ic_nav_heart.svg';
+import { ReactComponent as MypageIcon } from '../../images/nav/ic_nav_mypage.svg';
 
 const Navbar = () => {
   const isLogin = useSelector(state => state.user.isLogin);
+  const weatherStatus = useSelector(state => state.place.weatherStatus);
   // 로그인 했으면 마이페이지, 로그인 안했으면 로그인 페이지
   const pageMove = () => {
     if (isLogin === false) {
@@ -19,33 +30,49 @@ const Navbar = () => {
       history.push('/mypage');
     }
   };
+  let WeatherIcon = '';
+  let weatherKey = '';
+  if (weatherStatus) {
+    const status = weatherStatus.frontWeather;
+    if (status === 2) {
+      WeatherIcon = <RainIcon />;
+      weatherKey = 'rain';
+    } else if (status === 3) {
+      WeatherIcon = <SnowIcon />;
+      weatherKey = 'snow';
+    } else if (status === 4) {
+      WeatherIcon = <CloudIcon />;
+      weatherKey = 'cloud';
+    } else {
+      WeatherIcon = <SunIcon />;
+      weatherKey = 'sun';
+    }
+  }
   return (
     <Nav>
       <Content>
         <Wrap>
           <Grid
-            bg="#FEB544"
+            bg={theme.weatherColor[weatherKey]}
             width="75px"
             height="100%"
             isFlex
             justifyContent="center"
           >
-            <Icon color="#fff">
-              <SunIcon />
-            </Icon>
+            <Icon color="#fff">{WeatherIcon}</Icon>
           </Grid>
           <Icon onClick={() => history.push('/')}>
-            <Image src={home} />
+            <HomeIcon />
           </Icon>
           <Icon onClick={() => history.push('/select-type')}>
-            <Filter />
+            <FilterIcon />
           </Icon>
           <Icon onClick={() => history.push('/pickList')}>
-            <Image src={heartLine} />
+            <HeartIcon />
           </Icon>
           <Icon onClick={pageMove}>
             {/* <Icon onClick={() => history.push('/login')}> */}
-            <Image src={user} />
+            <MypageIcon />
           </Icon>
         </Wrap>
       </Content>

@@ -4,7 +4,11 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Button, Grid, Text, Image } from '../../elements/index';
 import { good, bad, profile1 } from '../../images/index';
-import { deleteReviewDB, reviewLikeDB } from '../../redux/async/place';
+import {
+  deleteReviewDB,
+  reviewLikeCancelDB,
+  reviewLikeDB,
+} from '../../redux/async/place';
 import ReviewSwiper from './ReviewSwiper';
 import { history } from '../../redux/configureStore';
 
@@ -28,31 +32,31 @@ const ReviewCard = props => {
   } = props;
   const dispatch = useDispatch();
   const date = createdAt.split('T')[0];
+
   const [reviewActive, setReviewActive] = useState({
     reviewId,
     active: likeState,
   });
-
   const params = { postId, reviewId };
+
+  // 리뷰 좋아요, 좋아요 취소 수정해야함
   const handleLikes = () => {
-    console.log('a');
+    // list.map((item) )
     setReviewActive({ ...reviewActive, active: !reviewActive.active });
     dispatch(reviewLikeDB(params));
   };
   const handleLikesCancel = () => {
     setReviewActive({ ...reviewActive, active: !reviewActive.active });
-    console.log('ggg');
+    dispatch(reviewLikeCancelDB(params));
   };
 
-  const onUpdateReview = () => {
-    history.push(`/review/update/${postId}`);
+  // 리뷰 수정페이지 이동
+  const goToReviewEditPage = () => {
+    history.push({ pathname: `/review/edit/${postId}`, state: reviewId });
   };
 
+  // 리뷰 삭제
   const onDeleteReview = () => {
-    const params = {
-      postId,
-      reviewId,
-    };
     dispatch(deleteReviewDB(params));
   };
 
@@ -60,7 +64,7 @@ const ReviewCard = props => {
     <ReviewCardWrap>
       {loginUser === nickname && (
         <Grid justify="flex-end">
-          <Button size="14px" padding="8px" _onClick={onUpdateReview}>
+          <Button size="14px" padding="8px" _onClick={goToReviewEditPage}>
             수정
           </Button>
           <Button
@@ -78,12 +82,7 @@ const ReviewCard = props => {
       <Grid justify="space-between">
         <Grid isFlex>
           <Grid>
-            <Image
-              type="circle"
-              width="40px"
-              height="40px"
-              src={userImage === null ? profile1 : userImage}
-            />
+            <UserProfile src={userImage === null ? profile1 : userImage} />
           </Grid>
           <Grid margin="0 0 0 12px">
             <Text fontSize="14px" color="#3E4042">
@@ -191,5 +190,19 @@ const LikeButton = styled.button`
     color: #fff;
     background-color: #282828;
   }
+`;
+
+const UserProfile = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-image: url('${props => props.src}');
+  background-size: cover;
+  background-position: center;
+  display: inline-block;
+  /* type="circle"
+              width="40px"
+              height="40px"
+              src={userImage === null ? profile1 : userImage} */
 `;
 export default React.memo(ReviewCard);

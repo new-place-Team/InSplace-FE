@@ -49,7 +49,7 @@ const SearchTypeList = props => {
           <Swiper list={inSideList} type="selectResult" />
         </Grid>
         {/* 실외 리스트  */}
-        <Grid margin="0" padding="0 0 100px 0">
+        <Grid margin="28px 0 0 0" padding="0 0 100px 0">
           <Grid isFlex>
             <ContentsTitle title="실외에서 시원한 바람과 함께" />
             <Button _onClick={() => onSearchConditionMore(0)}>

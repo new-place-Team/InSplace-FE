@@ -19,6 +19,7 @@ const Grid = props => {
     bg,
     wrap,
     border,
+    borderBottom,
     _onClick,
     children,
     position,
@@ -40,6 +41,7 @@ const Grid = props => {
     bg,
     wrap,
     border,
+    borderBottom,
     position,
     zIndex,
   };
@@ -87,6 +89,7 @@ Grid.defaultProps = {
   bg: 'transparent',
   border: 'none',
   position: 'relative',
+  borderBottom: 'none',
   _onClick: () => {},
 };
 
@@ -138,6 +141,7 @@ const CenterGrid = styled.div`
   padding: ${props => props.padding};
   background-color: ${props => props.bg};
   border: ${props => props.border};
+  border-bottom: ${({ borderBottom }) => borderBottom || ''};
   position: ${props => props.position};
   ${props => props.wrap && `flex-wrap:wrap`};
 `;

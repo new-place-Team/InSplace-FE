@@ -1,34 +1,33 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getReviewList, getReviewLikesList } from '../shared/api/placeApi';
 import { Grid, Text } from '../elements';
 import ReviewCard from '../components/place/ReviewCard';
+import { getReviewLikesListDB, getReviewListDB } from '../redux/async/place';
 
 const ReviewList = props => {
-  const { postId } = props;
+  const { postId, reviewsList } = props;
+  const dispatch = useDispatch();
   const userInfo = useSelector(state => state.user.userInfo);
+  const reviewList = useSelector(state => state.place.reviewList);
+  const reviewLikeList = useSelector(state => state.place.reivewLikesList);
   const [active, setActive] = useState({ likeList: false, newList: true });
   const [reviews, setReviews] = useState({
     postId,
     pageNumbr: 1,
-    reviewList: [],
+    reviewList: reviewList.length > 0 ? reviewList : reviewsList,
   });
-  console.log('reviews', reviews.reviewList);
-  // 무한 스크롤 추가해야함
-  const getReviewsListLoad = async type => {
-    try {
-      const res =
-        type === 'list'
-          ? await getReviewList(reviews)
-          : await getReviewLikesList(reviews);
 
-      if (res.data) {
-        setReviews({ ...reviews, reviewList: res.data.reviews });
-      }
-    } catch (e) {
-      console.log(e);
+  // 최신순, 추천순 클릭시 list 새로 담는 부분 수정해야함
+  const getReviewsListLoad = async type => {
+    // 최신순
+    if (type === 'list') {
+      dispatch(getReviewListDB(reviews));
+      setReviews({ ...reviews, reviewList: [].concat(reviewList) });
+    } else {
+      // 추천순
+      dispatch(getReviewLikesListDB(reviews));
+      setReviews({ ...reviews, reviewList: [].concat(reviewLikeList) });
     }
   };
 
@@ -36,23 +35,24 @@ const ReviewList = props => {
   const onClick = e => {
     if (e.target.name === 'likeList') {
       setActive({ ...active, likeList: true, newList: false });
-      getReviewsListLoad();
     } else {
       setActive({ ...active, likeList: false, newList: true });
-      getReviewsListLoad('list');
     }
   };
 
+  // 원래는 리뷰 컴포넌트 분리해서,
+  // 컴포넌트 안에 들어왔을때 미들웨어 호출해서 보여주려고 했었음.
   useEffect(() => {
     getReviewsListLoad('list');
   }, []);
+
   return (
     <ReviewWrap>
       <ReviewTitle>
         <Grid justify="space-between">
           <Grid>
             <Text fontSize="18px" color="#282828" bold>
-              리뷰 ({reviews.reviewList && reviews.reviewList.length})
+              리뷰 ({reviewsList && reviewsList.length})
             </Text>
           </Grid>
           <Grid isFlex>
@@ -75,8 +75,20 @@ const ReviewList = props => {
           </Grid>
         </Grid>
       </ReviewTitle>
-      {reviews.reviewList &&
+      {/* {reviews.reviewList &&
         reviews.reviewList.map(item => {
+          return (
+            <ReviewCard
+              key={item.userID}
+              loginUser={userInfo.nickname}
+              postId={reviews.postId}
+              list={reviews.reviewList}
+              {...item}
+            />
+          );
+        })} */}
+      {reviewsList &&
+        reviewsList.map(item => {
           return (
             <ReviewCard
               key={item.userID}
