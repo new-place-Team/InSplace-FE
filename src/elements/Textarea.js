@@ -5,8 +5,16 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const Textarea = props => {
-  const { margin, padding, name, _onChange, placeholder, color, border } =
-    props;
+  const {
+    margin,
+    padding,
+    name,
+    _onChange,
+    placeholder,
+    color,
+    border,
+    value,
+  } = props;
   const styles = { margin, padding, color, border };
 
   return (
@@ -16,6 +24,7 @@ const Textarea = props => {
         rows={5}
         onChange={_onChange}
         placeholder={placeholder}
+        value={value}
         {...styles}
       />
     </>

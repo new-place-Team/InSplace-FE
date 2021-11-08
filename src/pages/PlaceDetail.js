@@ -21,8 +21,6 @@ const Detail = props => {
   const detailData = useSelector(state => state.place.detailInfo);
   const isLogin = useSelector(state => state.user.isLogin);
 
-  // console.log('detailData ? ', detailData);
-
   const newAddr = detailData.addressShort
     ? detailData.addressShort.split(' ')
     : false;
@@ -178,7 +176,7 @@ const Detail = props => {
             </Grid>
           </InfoGrid>
           {/* 리뷰 */}
-          <ReviewList postId={id} />
+          <ReviewList postId={id} reviewsList={detailData.reviews} />
         </Grid>
       </Container>
     </>

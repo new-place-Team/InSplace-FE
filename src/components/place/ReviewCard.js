@@ -4,12 +4,18 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Button, Grid, Text, Image } from '../../elements/index';
 import { good, bad, profile1 } from '../../images/index';
-import { deleteReviewDB, reviewLikeDB } from '../../redux/async/place';
+import {
+  deleteReviewDB,
+  reviewLikeCancelDB,
+  reviewLikeDB,
+} from '../../redux/async/place';
 import ReviewSwiper from './ReviewSwiper';
 import { history } from '../../redux/configureStore';
+import ReviewWrite from '../../pages/ReviewWrite';
 
 const ReviewCard = props => {
   const {
+    list,
     loginUser,
     postId,
     createdAt,
@@ -28,31 +34,31 @@ const ReviewCard = props => {
   } = props;
   const dispatch = useDispatch();
   const date = createdAt.split('T')[0];
+
   const [reviewActive, setReviewActive] = useState({
     reviewId,
     active: likeState,
   });
-
   const params = { postId, reviewId };
+
+  // 리뷰 좋아요, 좋아요 취소 수정해야함
   const handleLikes = () => {
-    console.log('a');
+    // list.map((item) )
     setReviewActive({ ...reviewActive, active: !reviewActive.active });
     dispatch(reviewLikeDB(params));
   };
   const handleLikesCancel = () => {
     setReviewActive({ ...reviewActive, active: !reviewActive.active });
-    console.log('ggg');
+    dispatch(reviewLikeCancelDB(params));
   };
 
-  const onUpdateReview = () => {
-    history.push(`/review/update/${postId}`);
+  // 리뷰 수정페이지 이동
+  const goToReviewEditPage = () => {
+    history.push({ pathname: `/review/edit/${postId}`, state: reviewId });
   };
 
+  // 리뷰 삭제
   const onDeleteReview = () => {
-    const params = {
-      postId,
-      reviewId,
-    };
     dispatch(deleteReviewDB(params));
   };
 
@@ -60,7 +66,7 @@ const ReviewCard = props => {
     <ReviewCardWrap>
       {loginUser === nickname && (
         <Grid justify="flex-end">
-          <Button size="14px" padding="8px" _onClick={onUpdateReview}>
+          <Button size="14px" padding="8px" _onClick={goToReviewEditPage}>
             수정
           </Button>
           <Button
