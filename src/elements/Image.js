@@ -5,7 +5,17 @@ import styled from 'styled-components';
 import { insplace } from '../images/index';
 
 const Image = props => {
-  const { type, width, height, margin, padding, color, src, children } = props;
+  const {
+    type,
+    width,
+    height,
+    margin,
+    padding,
+    color,
+    src,
+    children,
+    _onClick,
+  } = props;
 
   const styles = {
     width,
@@ -27,7 +37,9 @@ const Image = props => {
   if (type === 'bg') {
     return (
       <>
-        <BgImage {...styles}>{children}</BgImage>
+        <BgImage {...styles} onClick={_onClick}>
+          {children}
+        </BgImage>
       </>
     );
   }
@@ -71,7 +83,7 @@ const BgImage = styled.div`
   background-size: cover;
   background-position: center;
   ${props => (props.margin ? `margin:${props.margin}` : '')};
-  ${props => (props.padding ? `margin:${props.padding}` : '')};
+  ${props => (props.padding ? `padding:${props.padding}` : '')};
   display: block;
   position: relative;
 `;

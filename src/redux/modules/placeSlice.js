@@ -12,6 +12,7 @@ import {
   setFavoritesPostDB,
   getReviewListDB,
   reviewLikeDB,
+  setVisitedPostDB,
 } from '../async/place';
 
 /* init */
@@ -109,6 +110,10 @@ const placeSlice = createSlice({
           }
         }
       }
+    },
+    /* 가본장소 추가 or 삭제 */
+    [setVisitedPostDB.fulfilled]: state => {
+      state.detailInfo.visitedStatus = !state.detailInfo.visitedStatus;
     },
   },
 });

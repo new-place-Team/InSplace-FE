@@ -5,6 +5,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/common/Header';
+import Navbar from '../components/common/Navbar';
 import SelectedContents from '../components/place/SelectedContents';
 import { Container, Grid, Text } from '../elements/index';
 import { ReactComponent as Right } from '../images/ic-next.svg';
@@ -144,7 +145,9 @@ const SelectedType = () => {
             <Right />
           </NextButton>
         </Grid>
+        <Grid height="64px" padding="64px" />
       </Container>
+      <Navbar />
     </>
   );
 };

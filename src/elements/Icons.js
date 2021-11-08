@@ -3,12 +3,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Icons = props => {
-  const { width, height, margin, children } = props;
+  const { width, height, margin, color, children } = props;
 
   const styles = {
     width,
     height,
     margin,
+    color,
   };
 
   return <IconArea {...styles}>{children}</IconArea>;
@@ -28,8 +29,9 @@ const IconArea = styled.div`
   margin: ${({ margin }) => margin || 0};
   cursor: pointer;
   svg {
-    width: 31px;
-    height: 31px;
+    width: ${({ width }) => width || '24px'};
+    height: ${({ height }) => height || '24px'};
+    fill: ${({ color }) => color || ''};
   }
 `;
 

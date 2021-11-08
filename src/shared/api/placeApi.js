@@ -11,11 +11,21 @@ const getSearchCondition = params => {
 const getSearchConditionList = params => api.get(`${params}`);
 const getPlaceDetail = params => api.get(`posts/${params}`);
 
+/* post 좋아요 */
 const postFavoritesPost = params =>
   api.post(`posts/${params.postId}/favorites`);
 
+/* post 좋아요 삭제 */
 const deleteFavoritesPost = params =>
   api.delete(`posts/${params.postId}/favorites`);
+
+/* post 가본곳 추가 */
+const postVisitedPost = params =>
+  api.post(`posts/${params.postId}/visitedPosts`);
+
+/* post 가본곳 삭제 */
+const deleteVisitedPost = params =>
+  api.delete(`posts/${params.postId}/visitedPosts`);
 
 // 리뷰
 const getReviewPostInfo = params => api.get(`/posts/${params}/reviews/write`);
@@ -51,6 +61,8 @@ export {
   getSearchConditionList,
   postFavoritesPost,
   deleteFavoritesPost,
+  postVisitedPost,
+  deleteVisitedPost,
   getReviewPostInfo,
   getReviewList,
   getReviewLikesList,

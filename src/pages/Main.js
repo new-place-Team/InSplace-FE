@@ -12,6 +12,7 @@ import Navbar from '../components/common/Navbar';
 import sunBg from '../images/weather/sun1.jpg';
 import rainBg from '../images/weather/rain1.jpg';
 import snowBg from '../images/weather/snow1.jpg';
+import cloudBg from '../images/weather/cloud.jpg';
 import { ReactComponent as Marker } from '../images/ic-marker.svg';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import Swiper from '../components/common/SwiperLB';
@@ -26,10 +27,13 @@ const Main = () => {
   const weatherInfo = mainLists && mainLists.weather;
   let weatherBg = '';
   if (weatherInfo) {
-    if (weatherInfo.status === 2) {
+    const weatherStatus = weatherInfo.frontWeather;
+    if (weatherStatus === 2) {
       weatherBg = rainBg;
-    } else if (weatherInfo.status === 3) {
+    } else if (weatherStatus === 3) {
       weatherBg = snowBg;
+    } else if (weatherStatus === 4) {
+      weatherBg = cloudBg;
     } else {
       weatherBg = sunBg;
     }

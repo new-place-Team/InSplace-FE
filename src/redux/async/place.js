@@ -18,10 +18,18 @@ import {
   getReviewLikesList,
   deleteReview,
   reviewLike,
+  postVisitedPost,
+  deleteVisitedPost,
 } from '../../shared/api/placeApi';
 import { getLocationAddress } from '../../shared/api/kakaoApi';
 import { getPosition } from '../../shared/utils';
 import { history } from '../configureStore';
+import {
+  addUserLikePost,
+  deleteUserLikePost,
+  addUserVisitedPost,
+  deleteUserVisitedPost,
+} from '../modules/userSlice';
 
 /* 메인 리스트 호출 */
 export const getMainListDB = createAsyncThunk(
@@ -90,7 +98,7 @@ export const getCurrentCoordinateWEB = createAsyncThunk(
     }
   },
 );
-
+/* 좋아요 추가 or 삭제 */
 export const setFavoritesPostDB = createAsyncThunk(
   'place/setFavorites',
   async (params, thunkAPI) => {
@@ -98,11 +106,34 @@ export const setFavoritesPostDB = createAsyncThunk(
       let response;
       if (params.favoriteState) {
         response = await deleteFavoritesPost(params);
+        thunkAPI.dispatch(deleteUserLikePost(params));
       } else {
         response = await postFavoritesPost(params);
+        thunkAPI.dispatch(addUserLikePost(params));
       }
       if (response) {
         return params;
+      }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);
+/* 가본곳 추가 or 삭제 */
+export const setVisitedPostDB = createAsyncThunk(
+  'place/setVistiedPost',
+  async (params, thunkAPI) => {
+    try {
+      let response;
+      if (params.visitedStatus) {
+        response = await deleteVisitedPost(params);
+        thunkAPI.dispatch(deleteUserVisitedPost(params));
+      } else {
+        response = await postVisitedPost(params);
+        thunkAPI.dispatch(addUserVisitedPost(params));
+      }
+      if (response) {
+        return response;
       }
     } catch (err) {
       return thunkAPI.rejectWithValue(err);

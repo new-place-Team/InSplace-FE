@@ -1,129 +1,184 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { Container, Grid, Text, Image } from '../elements';
-import { heartFilled, pin } from '../images/index';
+import { history } from '../redux/configureStore';
+import { Container, Grid, Text, Image, Icons } from '../elements';
+import { ReactComponent as SelectedHeart } from '../images/Icon/ic_heart-dark.svg';
+import { ReactComponent as PinFilled } from '../images/Icon/ic_pin-filled.svg';
+import { getCategoryText } from '../shared/transferText';
+import { isNoPick } from '../images/index';
 
 import Header from '../components/common/Header';
+import Navbar from '../components/common/Navbar';
+
+import { getFavoritesDB, getVisitedDB } from '../redux/async/user';
 
 const Pick = () => {
+  const dispatch = useDispatch();
+  const userPickPlaces = useSelector(state => state.user.userPickPlaces);
+  const [isLikeSelected, setIsLikeSelected] = useState(true);
+  console.log('userPickPlaces', userPickPlaces);
+  useEffect(() => {
+    if (!userPickPlaces.likeList) {
+      dispatch(getFavoritesDB());
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
+  const toggleSelected = type => {
+    /* 좋아요, 가본곳 Toggle */
+    setIsLikeSelected(type);
+    if (!type && !userPickPlaces.visitedList) {
+      dispatch(getVisitedDB());
+    }
+  };
+
   return (
     <>
-      <Header _content="종완님 픽해주세요" _color="#fff" />
-      <Container>
+      <Header _content="나만의 장소 Pick" _color="#fff" />
+      <Container padding="66px 0 0 0">
         <PickPlace>
-          <Grid width="100%" isFlex justify="center">
-            <Image
-              src={heartFilled}
-              width="22px"
-              height="22px"
-              margin="0 8px 1px 0"
-            />
-            <Text fontSize="16px">찜한곳</Text>
+          <Grid
+            width="100%"
+            isFlex
+            justify="center"
+            borderBottom={
+              isLikeSelected ? '2px solid #000' : '1px solid #A4A9B1'
+            }
+            _onClick={() => toggleSelected(true)}
+          >
+            <Icons
+              margin="0 8px 0 0"
+              color={isLikeSelected ? '#282828' : '#A3A6AA'}
+            >
+              <SelectedHeart />
+            </Icons>
+            <Text
+              fontSize="16px"
+              color={isLikeSelected ? '#282828' : '#A3A6AA'}
+            >
+              찜한곳
+            </Text>
           </Grid>
-          <Grid width="100%" isFlex justify="center">
-            <Image src={pin} width="24px" height="24px" margin="0 8px 1px 0" />
-            <Text fontSize="16px">가본곳</Text>
+          <Grid
+            width="100%"
+            isFlex
+            justify="center"
+            borderBottom={
+              isLikeSelected ? '1px solid #A4A9B1' : '2px solid #000'
+            }
+            _onClick={() => toggleSelected(false)}
+          >
+            <Icons
+              margin="0 8px 0 0"
+              color={isLikeSelected ? '#A3A6AA' : '#282828'}
+            >
+              <PinFilled />
+            </Icons>
+            {/* <Image src={pin} width="24px" height="24px" margin="0 8px 1px 0" /> */}
+            <Text
+              fontSize="16px"
+              color={isLikeSelected ? '#A3A6AA' : '#282828'}
+            >
+              가본곳
+            </Text>
           </Grid>
         </PickPlace>
-        <Grid width="100%" isFlex wrap>
-          <Image
-            padding="1px"
-            type="bg"
-            height="300px"
-            width="49%"
-            src="https://img.wowtv.co.kr/wowtv_news/dnrs/20210315/B20210315151659370.jpg"
+        {isLikeSelected ? (
+          /* 좋아요 리스트 */
+          <>
+            {userPickPlaces.likeList && userPickPlaces.likeList.length > 0 ? (
+              <Grid width="100%" isFlex wrap padding="0 0 65px  0">
+                {userPickPlaces.likeList.map(item => {
+                  return (
+                    <Image
+                      key={item.postId}
+                      padding="0 0 50% 0"
+                      type="bg"
+                      width="50%"
+                      src={item.postImage}
+                      _onClick={() =>
+                        history.push(`/place/detail/${item.postId}`)
+                      }
+                    >
+                      <AbsoluteBox bottom="10px" left="10px">
+                        <Text color="#fff" fontSize="12px">
+                          {getCategoryText(item.categoryId)}
+                        </Text>
+                        <Text color="#fff" fontSize="14px" bold>
+                          {item.title}
+                        </Text>
+                      </AbsoluteBox>
+                    </Image>
+                  );
+                })}
+              </Grid>
+            ) : (
+              <>
+                <Grid
+                  width="100%"
+                  height="80%"
+                  isFlex
+                  wrap
+                  padding="0 0 65px  0"
+                >
+                  <IsNoneArea>
+                    <Image src={isNoPick} />
+                    <Text>찜한 곳이 없습니다.</Text>
+                  </IsNoneArea>
+                </Grid>
+              </>
+            )}
+          </>
+        ) : (
+          /* 가본곳 리스트 */
+          <Grid
+            width="100%"
+            height={
+              userPickPlaces.visitedList &&
+              userPickPlaces.visitedList.length > 0
+                ? ''
+                : '80%'
+            }
+            isFlex
+            wrap
+            padding="0 0 65px  0"
           >
-            <AbsoluteBox bottom="10px" left="10px">
-              <Text color="#fff" fontSize="12px">
-                맛집
-              </Text>
-              <Text color="#fff" fontSize="14px" bold>
-                하남돼지집 강남역점
-              </Text>
-            </AbsoluteBox>
-          </Image>
-          <Image
-            padding="1px"
-            type="bg"
-            height="300px"
-            width="49%"
-            src="https://m.upinews.kr/data/upi/image/2020/06/17/upi202006170016.jpg"
-          >
-            <AbsoluteBox bottom="10px" left="10px">
-              <Text color="#fff" fontSize="12px">
-                맛집
-              </Text>
-              <Text color="#fff" fontSize="14px" bold>
-                하남돼지집 강남역점
-              </Text>
-            </AbsoluteBox>
-          </Image>
-          <Image
-            padding="1px"
-            type="bg"
-            height="300px"
-            width="49%"
-            src="https://t1.daumcdn.net/cfile/tistory/992E014A5ED0BE7104"
-          >
-            <AbsoluteBox bottom="10px" left="10px">
-              <Text color="#fff" fontSize="12px">
-                맛집
-              </Text>
-              <Text color="#fff" fontSize="14px" bold>
-                하남돼지집 강남역점
-              </Text>
-            </AbsoluteBox>
-          </Image>
-          <Image
-            padding="1px"
-            type="bg"
-            height="300px"
-            width="49%"
-            src="https://d2qgx4jylglh9c.cloudfront.net/kr/wp-content/uploads/2018/07/namsan_015.png"
-          >
-            <AbsoluteBox bottom="10px" left="10px">
-              <Text color="#fff" fontSize="12px">
-                맛집
-              </Text>
-              <Text color="#fff" fontSize="14px" bold>
-                하남돼지집 강남역점
-              </Text>
-            </AbsoluteBox>
-          </Image>
-          <Image
-            padding="1px"
-            type="bg"
-            height="300px"
-            width="49%"
-            src="https://w.namu.la/s/2ceb50c734a752d27b67846e19a4d0c82830692576da4e9028cc58278b6b23ab07a3df76d84a15f8017dfca3940fa9a79479c00c3e7334139c49b03efdc438953894d6e8ef31882ae53b8cfde946ca1d8501edf5e8650a1038d8d114d7f1a765"
-          >
-            <AbsoluteBox bottom="10px" left="10px">
-              <Text color="#fff" fontSize="12px">
-                맛집
-              </Text>
-              <Text color="#fff" fontSize="14px" bold>
-                하남돼지집 강남역점
-              </Text>
-            </AbsoluteBox>
-          </Image>
-          <Image
-            padding="1px"
-            type="bg"
-            height="300px"
-            width="49%"
-            src="https://w.namu.la/s/2dfb1f72d0096c4671f5fb5e4bea91b1db55aa7915cd5bf55485f1cadf56e5e36bbf98dc26d1fe064c01d36d9e1a0b14106a3fccd8ba2ee58790de2dbaf2cba4fd639d75626ac6d7d8739cc331d255a7"
-          >
-            <AbsoluteBox bottom="10px" left="10px">
-              <Text color="#fff" fontSize="12px">
-                맛집
-              </Text>
-              <Text color="#fff" fontSize="14px" bold>
-                하남돼지집 강남역점
-              </Text>
-            </AbsoluteBox>
-          </Image>
-        </Grid>
+            {userPickPlaces.visitedList &&
+            userPickPlaces.visitedList.length > 0 ? (
+              userPickPlaces.visitedList.map(item => {
+                return (
+                  <Image
+                    key={item.postId}
+                    padding="0 0 50% 0"
+                    type="bg"
+                    width="50%"
+                    src={item.postImage}
+                    _onClick={() =>
+                      history.push(`/place/detail/${item.postId}`)
+                    }
+                  >
+                    <AbsoluteBox bottom="10px" left="10px">
+                      <Text color="#fff" fontSize="12px">
+                        {getCategoryText(item.categoryId)}
+                      </Text>
+                      <Text color="#fff" fontSize="14px" bold>
+                        {item.title}
+                      </Text>
+                    </AbsoluteBox>
+                  </Image>
+                );
+              })
+            ) : (
+              <IsNoneArea>
+                <Image src={isNoPick} />
+                <Text>가본 곳이 없습니다.</Text>
+              </IsNoneArea>
+            )}
+          </Grid>
+        )}
       </Container>
+      <Navbar />
     </>
   );
 };
@@ -132,7 +187,6 @@ const PickPlace = styled.div`
   max-width: 768px;
   height: 66px;
   margin: 0 auto;
-  padding: 0 26px 0 24px;
   display: flex;
   justify-content: space-between;
 `;
@@ -144,6 +198,15 @@ const AbsoluteBox = styled.div`
   left: ${props => props.left};
   right: ${props => props.right};
   /* transform: translate(-50%, -50%); */
+`;
+
+const IsNoneArea = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default Pick;
