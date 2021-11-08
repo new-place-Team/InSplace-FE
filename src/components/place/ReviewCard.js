@@ -11,11 +11,9 @@ import {
 } from '../../redux/async/place';
 import ReviewSwiper from './ReviewSwiper';
 import { history } from '../../redux/configureStore';
-import ReviewWrite from '../../pages/ReviewWrite';
 
 const ReviewCard = props => {
   const {
-    list,
     loginUser,
     postId,
     createdAt,
@@ -84,12 +82,7 @@ const ReviewCard = props => {
       <Grid justify="space-between">
         <Grid isFlex>
           <Grid>
-            <Image
-              type="circle"
-              width="40px"
-              height="40px"
-              src={userImage === null ? profile1 : userImage}
-            />
+            <UserProfile src={userImage === null ? profile1 : userImage} />
           </Grid>
           <Grid margin="0 0 0 12px">
             <Text fontSize="14px" color="#3E4042">
@@ -197,5 +190,19 @@ const LikeButton = styled.button`
     color: #fff;
     background-color: #282828;
   }
+`;
+
+const UserProfile = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-image: url('${props => props.src}');
+  background-size: cover;
+  background-position: center;
+  display: inline-block;
+  /* type="circle"
+              width="40px"
+              height="40px"
+              src={userImage === null ? profile1 : userImage} */
 `;
 export default React.memo(ReviewCard);
