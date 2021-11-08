@@ -101,6 +101,7 @@ const placeSlice = createSlice({
     },
     /* 좋아요 toggle 성공시 */
     [setFavoritesPostDB.fulfilled]: (state, { payload }) => {
+      console.log(payload);
       const { postId } = payload;
       // 상세 좋아요 적용
       state.detailInfo.favoriteState = !state.detailInfo.favoriteState;
