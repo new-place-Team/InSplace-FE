@@ -11,6 +11,7 @@ import home from './home.png';
 import sliders from './sliders.png';
 import user from './user.png';
 import vector from './Vector.png';
+import x from './x.png';
 // import whiteVector from './white-vector.png';
 // import close from './x.png';
 // import arrowRight from './arrow-right.png';
@@ -71,4 +72,5 @@ export {
   profile2,
   profile3,
   profile4,
+  x,
 };
