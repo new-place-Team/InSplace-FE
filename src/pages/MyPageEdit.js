@@ -21,6 +21,7 @@ const MyPageEdit = () => {
     profileImage: insplace,
   });
 
+  const { nickname, email } = info;
   const mbtiInfo = useSelector(state => state.user.userMbti);
   const modalStatus = useSelector(state => state.user.modalStatus);
   const [maleFemale, setMaleFemale] = React.useState(null);
@@ -80,13 +81,13 @@ const MyPageEdit = () => {
             <Label fontSize="16px" color="#A3A6AA">
               닉네임
             </Label>
-            <Input name="nickname" value={info.nickname} onChange={onChange} />
+            <Input name="nickname" value={nickname} onChange={onChange} />
           </Grid>
           <Grid margin="0 0 32px 0">
             <Label fontSize="16px" color="#A3A6AA">
               이메일
             </Label>
-            <Input name="email" value={info.email} onChange={onChange} />
+            <Input name="email" value={email} onChange={onChange} />
           </Grid>
           <Grid margin="0 0 32px 0">
             <Label fontSize="16px" color="#A3A6AA">
