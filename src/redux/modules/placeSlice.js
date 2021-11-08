@@ -13,12 +13,9 @@ import {
   getReviewListDB,
   getReviewLikesListDB,
   reviewLikeDB,
-<<<<<<< HEAD
   setVisitedPostDB,
-=======
   getReviewEditDB,
   updateReviewDB,
->>>>>>> bd492d33120080724de3e9022611257fa2cc13e6
 } from '../async/place';
 
 /* init */
