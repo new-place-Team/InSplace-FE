@@ -1,10 +1,10 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable func-names */
 /* eslint-disable no-inner-declarations */
-/* eslint-disable no-use-before-define */
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 /* eslint-disable prefer-promise-reject-errors */
-
+import { history } from '../redux/configureStore';
 /* 개발모드에서 logger */
 export const logger = msg => {
   if (process.env.NODE_ENV === 'production') {
@@ -33,7 +33,7 @@ export const getPosition = options => {
   });
 };
 
-/* 기능이 비빔밥이 된 함수 : 지도 생성 + 마커 생성 + 지도 이동 이벤트 */
+/* 기능이도 생성 + 마커 생 비빔밥이 된 함수 : 지성 + 지도 이동 이벤트 */
 export const mapscript = (mapDiv, allPlaces, lati, loni) => {
   const { kakao } = window;
 
@@ -63,12 +63,25 @@ export const mapscript = (mapDiv, allPlaces, lati, loni) => {
 
   /* 3️⃣ 스와이프 했을때 지도 좌표를 이동하는 함수 */
   if (lati && loni) {
-    panTo(lati, loni);
     function panTo(lati, loni) {
       const moveLatLon = new kakao.maps.LatLng(lati, loni);
       // 지도 중심을 부드럽게 이동시킵니다
       // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
       map.panTo(moveLatLon);
     }
+    panTo(lati, loni);
   }
+};
+
+export const isLoginChk = isLogin => {
+  if (!isLogin) {
+    const confirm = window.confirm(
+      '로그인을 해야 이용할 수 있는 서비스입니다 로그인 하시겠습니까?',
+    );
+    if (confirm) {
+      history.push('/login');
+    }
+    return false;
+  }
+  return true;
 };

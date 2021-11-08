@@ -21,6 +21,7 @@ const Main = () => {
   const dispatch = useDispatch();
   const mainLists = useSelector(state => state.place.mainLists);
   const location = useSelector(state => state.place.location);
+
   const likeList = mainLists && mainLists.likePlace;
   const pickList = mainLists && mainLists.pickPlace;
   const weatherList = mainLists && mainLists.weatherPlace;

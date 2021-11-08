@@ -25,6 +25,7 @@ import PlaceSwiper from '../components/place/PlaceSwiper';
 import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
 import ReviewList from './ReviewList';
 import { getCategoryText } from '../shared/transferText';
+import { isLoginChk } from '../shared/utils';
 
 const Detail = props => {
   const dispatch = useDispatch();
@@ -50,13 +51,7 @@ const Detail = props => {
 
   // 리뷰 쓰기 페이지로 이동
   const goReviewPage = () => {
-    if (!isLogin) {
-      const confirm = window.confirm(
-        '로그인을 해야 이용할 수 있는 서비스입니다 로그인 하시겠습니까?',
-      );
-      if (confirm) {
-        history.push('/login');
-      }
+    if (!isLoginChk(isLogin)) {
       return;
     }
     history.push(`/review/write/${id}`);
@@ -78,13 +73,7 @@ const Detail = props => {
 
   /* 좋아요 추가 및 삭제 */
   const setFavorites = () => {
-    if (!isLogin) {
-      const confirm = window.confirm(
-        '로그인을 해야 이용할 수 있는 서비스입니다 로그인 하시겠습니까?',
-      );
-      if (confirm) {
-        history.push('/login');
-      }
+    if (!isLoginChk(isLogin)) {
       return;
     }
     const defaultParams = getParams();
@@ -96,13 +85,7 @@ const Detail = props => {
   };
   /* 가본장소 추가 및 삭제 */
   const setVisited = () => {
-    if (!isLogin) {
-      const confirm = window.confirm(
-        '로그인을 해야 이용할 수 있는 서비스입니다 로그인 하시겠습니까?',
-      );
-      if (confirm) {
-        history.push('/login');
-      }
+    if (!isLoginChk(isLogin)) {
       return;
     }
     const defaultParams = getParams();
