@@ -7,7 +7,7 @@ import { setModalOn } from '../redux/modules/userSlice';
 
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Label, Text } from '../elements';
-import { plus, insplace } from '../images/index';
+import { plus, profile1 } from '../images/index';
 import Modal from '../components/common/Modal';
 
 const MyPageEdit = () => {
@@ -17,7 +17,8 @@ const MyPageEdit = () => {
   const [info, setInfo] = React.useState({
     nickname: userInfo.nickname,
     email: userInfo.email,
-    profileImage: insplace,
+    profileImage: profile1,
+    mbti: userInfo.mbti,
   });
   console.log(info);
   const { nickname, email } = info;

@@ -11,10 +11,10 @@ import { history } from '../redux/configureStore';
 
 const MyPage = () => {
   const userInfo = useSelector(state => state.user.userInfo);
-
+  console.log('userInfo = ', userInfo);
   return (
     <>
-      <Container padding="0" height="100vh">
+      <Container padding="0">
         <Header _onBg _content="MyPage" _settings _color="#fff" />
         <Bg src={sunBg} />
         <Grid isFlex justify="center" padding="59px 40px">
@@ -22,18 +22,20 @@ const MyPage = () => {
           <Grid flex margin="0 0 0 36px">
             <Grid isFlex>
               <Text fontSize="28px" bold color="#282828" margin="0 20px 0 0">
-                홍길동
+                {userInfo.nickname}
               </Text>
-              <Button _onClick={() => history.push(`/mypage/1`)}>
+              <Button
+                _onClick={() => history.push(`/mypage/${userInfo.userId}`)}
+              >
                 <Image width="24px" height="24px" src={right} />
               </Button>
             </Grid>
             <Grid isFlex>
               <Text fontSize="13px" color="#3E4042" margin="0 11px 0 0" bold>
-                ESFP
+                {userInfo.mbti}
               </Text>
               <Text fontSize="13px" color="#3E4042">
-                mida@gmail.com
+                {userInfo.email}
               </Text>
             </Grid>
           </Grid>
@@ -54,12 +56,14 @@ const MyPage = () => {
           </Info>
           <Info>
             <Text>버전정보</Text>
-            <BottomText>
-              <Text>V1.0.2</Text>
-            </BottomText>
+            <BottomBox>
+              <TextBox>V1.0.2</TextBox>
+            </BottomBox>
           </Info>
+
           <Info>
             <Text>후원</Text>
+            <BottomBox />
           </Info>
         </InfoGrid>
       </Container>
@@ -79,38 +83,52 @@ const Bg = styled.div`
 
 const InfoGrid = styled.div`
   width: 95%;
-  background-color: #fff;
   display: flex;
   flex-wrap: wrap;
   margin: 0 0 0 auto;
-  position: absolute;
-  right: 0;
-  bottom: 65px;
+  padding-bottom: 66px;
 `;
 
 const Info = styled.div`
+  position: relative;
   width: 50%;
-  height: 225px;
+  height: 265px;
   padding: 24px;
   background-color: #fff;
-  position: relative;
   border: 1px solid #e6e9ec;
-  @media (min-width: 768px) {
-    height: 320px;
+
+  @media (max-width: 500px) {
+    min-height: 180px;
+    height: auto;
   }
 `;
 
 const BottomBox = styled.div`
-  width: 34px;
-  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 100%;
+  padding-bottom: 16px;
+  img {
+    width: 66px;
+  }
+  @media (max-width: 500px) {
+    img {
+      width: 32px;
+    }
+  }
+  /* position: absolute;
   bottom: 7%;
-  right: 7%;
+  right: 7%; */
 `;
-
-const BottomText = styled.div`
-  position: absolute;
-  bottom: 7%;
-  right: 7%;
+const TextBox = styled.p`
+  width: 100%;
+  height: 66px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  font-size: 22px;
+  font-weight: bold;
 `;
 
 export default MyPage;
