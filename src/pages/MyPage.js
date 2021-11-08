@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Text } from '../elements';
 import sunBg from '../images/weather/sun1.jpg';
@@ -9,10 +10,12 @@ import { right, mypageNext, profile1 } from '../images/index';
 import { history } from '../redux/configureStore';
 
 const MyPage = () => {
+  const userInfo = useSelector(state => state.user.userInfo);
+
   return (
     <>
       <Container padding="0" height="100vh">
-        <Header _onBg _content="MyPage" _search _color="#fff" />
+        <Header _onBg _content="MyPage" _settings _color="#fff" />
         <Bg src={sunBg} />
         <Grid isFlex justify="center" padding="59px 40px">
           <Image type="circle" width="169px" height="169px" src={profile1} />

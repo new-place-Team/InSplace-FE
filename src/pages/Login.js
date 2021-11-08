@@ -11,7 +11,7 @@ import { close } from '../images';
 import { KAKAO_AUTH_URL } from '../shared/KakaoOAuth';
 import { ReactComponent as KakaoIcon } from '../images/kakaoLogin/join_kakao.svg';
 // import { largeWide } from '../images/kakaoLogin/index';
-// import { logOut } from '../redux/modules/userSlice';
+
 // import {unRegisterDB } from '../redux/async/user';
 
 const Login = () => {

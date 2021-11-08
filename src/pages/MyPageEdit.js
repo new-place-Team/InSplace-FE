@@ -12,15 +12,14 @@ import Modal from '../components/common/Modal';
 
 const MyPageEdit = () => {
   const dispatch = useDispatch();
-  const fileInput = React.useRef();
   const userInfo = useSelector(state => state.user.userInfo);
-  console.log(userInfo);
+  const fileInput = React.useRef();
   const [info, setInfo] = React.useState({
     nickname: userInfo.nickname,
     email: userInfo.email,
     profileImage: insplace,
   });
-
+  console.log(info);
   const { nickname, email } = info;
   const mbtiInfo = useSelector(state => state.user.userMbti);
   const modalStatus = useSelector(state => state.user.modalStatus);
