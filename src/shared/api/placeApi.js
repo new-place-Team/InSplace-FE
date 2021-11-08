@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import api from './index';
 
 const getMainList = () => api.get('main');

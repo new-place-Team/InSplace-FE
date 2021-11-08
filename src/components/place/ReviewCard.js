@@ -38,6 +38,7 @@ const ReviewCard = props => {
   // const dispatch = useDispatch();
   const date = createdAt.split('T')[0];
   const isLogin = useSelector(state => state.user.isLogin);
+
   const [reviewActive, setReviewActive] = useState({
     reviewId,
     active: likeState,
@@ -183,7 +184,7 @@ const ReviewCard = props => {
         <ReviewSwiper list={reviewImages} />
       </Grid>
       <Grid isFlex>
-        {reviewActive.active ? (
+        {likeState ? (
           <LikeButton className="active" onClick={handleLikesCancel}>
             도움이돼요
           </LikeButton>

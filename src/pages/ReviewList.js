@@ -7,12 +7,13 @@ import { getReviewLikesList, getReviewList } from '../shared/api/placeApi';
 // import { getReviewLikesListDB, getReviewListDB } from '../redux/async/place';
 
 const ReviewList = props => {
-  const { postId, reviewsList } = props;
+  const { postId } = props;
   // const dispatch = useDispatch();
   // const reviewList = useSelector(state => state.place.reviewList);
   // const reviewLikeList = useSelector(state => state.place.reivewLikesList);
 
   const userInfo = useSelector(state => state.user.userInfo);
+
   const [active, setActive] = useState({ likeList: false, newList: true });
   const [reviews, setReviews] = useState({
     postId,
@@ -27,6 +28,7 @@ const ReviewList = props => {
         ? await getReviewList(reviews)
         : await getReviewLikesList(reviews);
       const { data } = res;
+
       if (res.data) {
         setReviews({ ...reviews, reviewList: data.reviews });
       }
@@ -71,7 +73,7 @@ const ReviewList = props => {
         <Grid justify="space-between">
           <Grid>
             <Text fontSize="18px" color="#282828" bold>
-              리뷰 ({reviewsList && reviewsList.length})
+              리뷰 ({reviews.reviewList.length})
             </Text>
           </Grid>
           <Grid isFlex>
