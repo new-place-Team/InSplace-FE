@@ -45,7 +45,7 @@ Text.defaultProps = {
   fontSize: `${theme.fontSize.normal}`,
   bold: false,
   color: `${theme.color.mainColor}`,
-  children: 'child',
+  children: '',
   others: '',
   margin: null,
   textAlign: false,

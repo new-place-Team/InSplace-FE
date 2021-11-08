@@ -2,70 +2,66 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Text } from '../elements';
-import snowBg from '../images/weather/snow1.jpg';
-import { right, mypageNext } from '../images/index';
+import sunBg from '../images/weather/sun1.jpg';
+import Navbar from '../components/common/Navbar';
+
+import { right, mypageNext, profile1 } from '../images/index';
 import { history } from '../redux/configureStore';
 
 const MyPage = () => {
   return (
-    <Container padding="0" height="100%">
-      <Header _onBg _content="MyPage" _search _color="#fff" />
-      <Bg src={snowBg} />
-      <Grid justify="space-between" padding="59px 41px">
-        <Image type="circle" width="169px" height="169px" />
-        <Grid flex margin="0 0 0 54px">
-          <Grid isFlex>
-            <Text fontSize="28px" bold color="#282828" margin="0 20px 0 0">
-              홍길동
-            </Text>
-            <Button _onClick={() => history.push(`/mypage/1`)}>
-              <Image width="24px" height="24px" src={right} />
-            </Button>
-          </Grid>
-          <Grid isFlex>
-            <Text fontSize="18px" color="#3E4042" margin="0 11px 0 0" bold>
-              ESFP
-            </Text>
-            <Text fontSize="18px" color="#3E4042">
-              mida@gmail.com
-            </Text>
+    <>
+      <Container padding="0" height="100vh">
+        <Header _onBg _content="MyPage" _search _color="#fff" />
+        <Bg src={sunBg} />
+        <Grid isFlex justify="center" padding="59px 40px">
+          <Image type="circle" width="169px" height="169px" src={profile1} />
+          <Grid flex margin="0 0 0 36px">
+            <Grid isFlex>
+              <Text fontSize="28px" bold color="#282828" margin="0 20px 0 0">
+                홍길동
+              </Text>
+              <Button _onClick={() => history.push(`/mypage/1`)}>
+                <Image width="24px" height="24px" src={right} />
+              </Button>
+            </Grid>
+            <Grid isFlex>
+              <Text fontSize="13px" color="#3E4042" margin="0 11px 0 0" bold>
+                ESFP
+              </Text>
+              <Text fontSize="13px" color="#3E4042">
+                mida@gmail.com
+              </Text>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      <InfoGrid>
-        <Info>
-          <Text fontSize="26px" bold color="#3E4042">
-            공지사항
-          </Text>
-          <BottomBox>
-            <Image width="66px" height="62px" src={mypageNext} />
-          </BottomBox>
-        </Info>
-        <Info>
-          <Text fontSize="26px" bold color="#3E4042">
-            의견보내기
-          </Text>
-          <BottomBox>
-            <Image width="66px" height="62px" src={mypageNext} />
-          </BottomBox>
-        </Info>
-        <Info>
-          <Text fontSize="26px" bold color="#3E4042">
-            버전정보
-          </Text>
-          <BottomBox>
-            <Text fontSize="22px" bold color="#3E4042">
-              V1.0.0
-            </Text>
-          </BottomBox>
-        </Info>
-        <Info>
-          <Text fontSize="26px" bold color="#3E4042">
-            후원
-          </Text>
-        </Info>
-      </InfoGrid>
-    </Container>
+        {/* 인포 그리드 */}
+        <InfoGrid>
+          <Info>
+            <Text>공지사항</Text>
+            <BottomBox>
+              <Image src={mypageNext} />
+            </BottomBox>
+          </Info>
+          <Info>
+            <Text>의견보내기</Text>
+            <BottomBox>
+              <Image src={mypageNext} />
+            </BottomBox>
+          </Info>
+          <Info>
+            <Text>버전정보</Text>
+            <BottomText>
+              <Text>V1.0.2</Text>
+            </BottomText>
+          </Info>
+          <Info>
+            <Text>후원</Text>
+          </Info>
+        </InfoGrid>
+      </Container>
+      <Navbar />
+    </>
   );
 };
 const Bg = styled.div`
@@ -79,35 +75,65 @@ const Bg = styled.div`
 `;
 
 const InfoGrid = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  position: relative;
-  top: 0px;
-  left: 41px;
-  z-index: 10;
-  width: calc(100% - 41px);
+  width: 95%;
   background-color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 0 auto;
+  position: absolute;
+  right: 0;
+  bottom: 65px;
 `;
 
 const Info = styled.div`
   width: 50%;
-  height: 436px;
-  padding: 48px 40px 48px 50px;
+  height: 225px;
+  padding: 24px;
+  background-color: #fff;
+  position: relative;
   border: 1px solid #e6e9ec;
-  border-bottom: none;
-`;
-
-const BottomBox = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  height: 100%;
-  padding-bottom: 33px;
-  &:hover {
-    cursor: pointer;
+  @media (min-width: 768px) {
+    height: 320px;
   }
 `;
 
+const BottomBox = styled.div`
+  width: 34px;
+  position: absolute;
+  bottom: 7%;
+  right: 7%;
+`;
+
+const BottomText = styled.div`
+  position: absolute;
+  bottom: 7%;
+  right: 7%;
+`;
+
 export default MyPage;
+
+// const InfoGrid = styled.div`
+//   display: flex;
+//   flex-wrap: wrap;
+//   position: relative;
+//   background-color: #fff;
+//   @media (max-width: 1024px) {
+//     width: 95%;
+//     height: 873px;
+//   }
+//   @media (max-width: 767px) {
+//     width: 95%;
+//     height: 420px;
+//   }
+// `;
+
+// const Info = styled.div`
+//   width: 350px;
+//   height: 438px;
+//   border: 1px solid #e6e9ec;
+//   border-bottom: none;
+//   @media (max-width: 767px) {
+//     width: 178px;
+//     height: 210px;
+//   }
+// `;

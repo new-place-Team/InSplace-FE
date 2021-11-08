@@ -5,6 +5,7 @@ import { Grid, Text } from '../../elements';
 import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
 import { ReactComponent as RainIcon } from '../../images/weather/rain.svg';
 import { ReactComponent as SnowIcon } from '../../images/weather/snow.svg';
+import { ReactComponent as CloudIcon } from '../../images/weather/cloud.svg';
 import { get어제대비온도 } from '../../shared/transferText';
 
 const WeatherBox = props => {
@@ -16,9 +17,10 @@ const WeatherBox = props => {
           {/* 날씨 아이콘 */}
           <Grid>
             <IconArea>
-              {info && info.status === 1 && <SunIcon />}
-              {info && info.status === 2 && <RainIcon />}
-              {info && info.status === 3 && <SnowIcon />}
+              {info && info.frontWeather === 1 && <SunIcon />}
+              {info && info.frontWeather === 2 && <RainIcon />}
+              {info && info.frontWeather === 3 && <SnowIcon />}
+              {info && info.frontWeather === 4 && <CloudIcon />}
             </IconArea>
           </Grid>
           {/* 날씨 온도 */}

@@ -6,9 +6,9 @@ import { Text, Image } from '../../elements';
 
 const Kakao = () => {
   const dispatch = useDispatch();
-  // 리다이렉트 페이지에서 인가 코드만을 추출.
+  // 리다이렉트 페이지에서 인가 코드만을 추출
   const code = new URL(window.location.href).searchParams.get('code');
-  // 추출한 인가코드를 백엔드 서버에 전달.
+  // 추출한 인가코드를 백엔드 서버에 전달
   React.useEffect(async () => {
     await dispatch(kakaoLogin(code));
   }, []);

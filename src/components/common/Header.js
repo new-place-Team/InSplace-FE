@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
 import { Grid, Text } from '../../elements/index';
 import { map, search, close, heartFilled, share } from '../../images/index';
@@ -19,6 +21,17 @@ const Header = props => {
     _color,
   } = props;
 
+  const gotoMapPage = () => {
+    history.push('/place/map');
+  };
+  const gotoSearchPage = () => {
+    history.push('/search');
+  };
+
+  const goBack = () => {
+    history.goBack();
+  };
+
   if (_onBg) {
     return (
       <ContentArea>
@@ -26,7 +39,7 @@ const Header = props => {
           <Grid isFlex width="100%">
             {_back && (
               <Grid margin="0 13px 0 0">
-                <IconArea onClick={() => history.go(-1)} color={_color}>
+                <IconArea onClick={goBack} color={_color}>
                   <LeftIcon />
                 </IconArea>
               </Grid>
@@ -44,7 +57,7 @@ const Header = props => {
               </Grid>
             )}
             {_search && (
-              <Grid>
+              <Grid _onClick={gotoSearchPage}>
                 <Icon src={search} />
               </Grid>
             )}
@@ -75,7 +88,7 @@ const Header = props => {
           <Grid isFlex width="100%">
             {_back && (
               <Grid margin="0 13px 0 0">
-                <IconArea onClick={() => history.go(-1)} color={_color}>
+                <IconArea onClick={goBack} color={_color}>
                   <LeftIcon />
                 </IconArea>
               </Grid>
@@ -88,12 +101,12 @@ const Header = props => {
           </Grid>
           <Grid isFlex width="100%" justifyContent="flex-end">
             {_map && (
-              <Grid margin="0 12px 0 0">
+              <Grid margin="0 12px 0 0" _onClick={gotoMapPage}>
                 <Icon src={map} />
               </Grid>
             )}
             {_search && (
-              <Grid>
+              <Grid _onClick={gotoSearchPage}>
                 <Icon src={search} />
               </Grid>
             )}

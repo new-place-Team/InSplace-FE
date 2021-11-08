@@ -9,6 +9,8 @@ import {
   logInCheck,
   unRegister,
   logInKakao,
+  getFavories,
+  getVisited,
 } from '../../shared/api/userApi';
 
 // 회원등록
@@ -94,7 +96,6 @@ export const unRegisterDB = createAsyncThunk(
 export const kakaoLogin = createAsyncThunk('user/kakaoRegister', async code => {
   try {
     // 백 서버에 인가 코드 전달
-    console.log('카카오 로그인 인가코드', code);
     const response = await logInKakao(code);
     if (response) {
       const USER_TOKEN = response.data.token;
@@ -115,3 +116,29 @@ export const kakaoLogin = createAsyncThunk('user/kakaoRegister', async code => {
     history.replace('/');
   }
 });
+/* 유저 좋아요 리스트 조회 */
+export const getFavoritesDB = createAsyncThunk(
+  'user/getFavorites',
+  async thunkAPI => {
+    try {
+      const response = await getFavories();
+      return response.data;
+    } catch (err) {
+      console.log('error ::::::', err);
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);
+/* 유저 가본곳 리스트 조회 */
+export const getVisitedDB = createAsyncThunk(
+  'user/getVisited',
+  async thunkAPI => {
+    try {
+      const response = await getVisited();
+      return response.data;
+    } catch (err) {
+      console.log('error ::::::', err);
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);

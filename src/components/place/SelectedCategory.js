@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
@@ -13,9 +14,9 @@ const SelectedCategory = props => {
     <>
       <Grid isFlex margin="20px 0 40px 0">
         {tagList &&
-          tagList.map(item => {
+          tagList.map((item, idx) => {
             return (
-              <React.Fragment key={`${item.selectedText}_${item.value}`}>
+              <React.Fragment key={`key_${idx}`}>
                 <TagButton key={item.value} type="tag">
                   {item.selecteText}
                 </TagButton>

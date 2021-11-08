@@ -9,6 +9,8 @@ import {
   logInCheckDB,
   unRegisterDB,
   kakaoLogin,
+  getFavoritesDB,
+  getVisitedDB,
 } from '../async/user';
 
 // inititalState
@@ -17,6 +19,7 @@ const initialState = {
   userInfo: {},
   modalStatus: false,
   isLogin: false,
+  userPickPlaces: { likeList: null, visitedList: null },
 };
 
 const userSlice = createSlice({
@@ -37,6 +40,33 @@ const userSlice = createSlice({
       state.userInfo = {};
       state.isLogin = false;
       window.alert('로그아웃 되었습니다!');
+    },
+    /* 유저 좋아요 포스트 추가 */
+    addUserLikePost: (state, { payload }) => {
+      state.userPickPlaces.likeList = [
+        ...state.userPickPlaces.likeList,
+        payload,
+      ];
+    },
+    /* 유저 좋아요 포스트 삭제 */
+    deleteUserLikePost: (state, { payload }) => {
+      state.userPickPlaces.likeList = state.userPickPlaces.likeList.filter(
+        v => v.postId !== payload.postId,
+      );
+    },
+    /* 유저 방문 포스트 추가 */
+    addUserVisitedPost: (state, { payload }) => {
+      state.userPickPlaces.visitedList = [
+        ...state.userPickPlaces.visitedList,
+        payload,
+      ];
+    },
+    /* 유저 방문 포스트 삭제 */
+    deleteUserVisitedPost: (state, { payload }) => {
+      state.userPickPlaces.visitedList =
+        state.userPickPlaces.visitedList.filter(
+          v => v.postId !== payload.postId,
+        );
     },
   },
   extraReducers: {
@@ -70,9 +100,26 @@ const userSlice = createSlice({
     [unRegisterDB.rejected]: (state, action) => {
       window.alert(action.meta.response.data.errMsg);
     },
+    /* 유저 좋아요 리스트 조회 성공시*/
+    [getFavoritesDB.fulfilled]: (state, { payload }) => {
+      state.userPickPlaces.likeList = payload.favoritePosts;
+    },
+    /* 유저 가본곳 리스트 조회 성공시 */
+    [getVisitedDB.fulfilled]: (state, { payload }) => {
+      state.userPickPlaces.visitedList = payload.visitedPosts;
+    },
   },
 });
 
-export const { getMbti, setModalOff, setModalOn, logOut } = userSlice.actions;
+export const {
+  getMbti,
+  setModalOff,
+  setModalOn,
+  logOut,
+  addUserLikePost,
+  deleteUserLikePost,
+  addUserVisitedPost,
+  deleteUserVisitedPost,
+} = userSlice.actions;
 
 export default userSlice;

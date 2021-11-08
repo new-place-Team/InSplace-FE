@@ -29,6 +29,9 @@ import ReviewWrite from './pages/ReviewWrite';
 import MyPage from './pages/MyPage';
 import MyPageEdit from './pages/MyPageEdit';
 import Kakao from './components/common/Kakao';
+import Pick from './pages/Pick';
+import Notification from './pages/Notification';
+import SearchPage from './pages/SearchPage';
 // import Navbar from './components/Navbar';
 
 function App() {
@@ -37,10 +40,8 @@ function App() {
   // 새로고침 했을때 토큰이 있으면 로그인 체크
   if (getToken()) {
     useEffect(() => {
-      console.log('<<<타요타요');
       dispatch(logInCheckDB());
     }, []);
-    // 없으면 로그인 해달라고 한다.
   }
   // 현재위치를 받아보자!
   useEffect(() => {
@@ -61,15 +62,19 @@ function App() {
             exact
             component={SelectTypeResult}
           />
+          <Route path="/search" exact component={SearchPage} />
           <Route path="/place/map" exact component={PlaceMap} />
-          <Route path="/place/list" exact component={PlaceList} />
+          <Route path="/place/list/:params" exact component={PlaceList} />
           <Route path="/place/detail/:id" exact component={PlaceDetail} />
           <Route path="/review/write/:id" exact component={ReviewWrite} />
+          <Route path="/review/edit/:id" exact component={ReviewWrite} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
           <Route path="/mypage" exact component={MyPage} />
           <Route path="/mypage/:id" exact component={MyPageEdit} />
           <Route path="/users/kakao/auth" exact component={Kakao} />
+          <Route path="/picklist" exact component={Pick} />
+          <Route path="/notification" exact component={Notification} />
         </Switch>
         {/* <Navbar /> */}
       </ThemeProvider>

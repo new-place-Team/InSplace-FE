@@ -1,54 +1,101 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
-
+/* eslint-disable no-alert */
+/* eslint-disable no-undef */
+/* eslint-disable react/destructuring-assignment */
+import React, { useEffect, useState, useRef } from 'react';
+import styled from 'styled-components';
 import { Container, Grid, Text } from '../elements';
-import SelectedCategory from '../components/place/SelectedCategory';
 import ListCard from '../components/place/ListCard';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
+import { getSearchConditionList } from '../shared/api/placeApi';
 
-const SearchList = () => {
-  const data = {
-    type: 'all',
-    list: [
-      { src: 'https://t1.daumcdn.net/cfile/tistory/213C9A345225669622' },
-      { src: 'https://img.siksinhot.com/article/1613970568705496.jpg' },
-      {
-        src: 'https://mblogthumb-phinf.pstatic.net/MjAxOTA4MjZfMjk5/MDAxNTY2Nzg2MzQzMTE2.Gf-bdbf4G8JpcXijSij4ydO7dKhCpeTUCISRwXDMI90g.Yeoe2X4MKjwyFStB4Vqm2FkTmlLEnx77Sihzs97-reog.JPEG.flourish12/output_2154676882.jpg?type=w800',
-      },
-      { src: 'https://cdn.st-news.co.kr/news/photo/202105/2097_3508_4043.jpg' },
-      {
-        src: 'https://www.artinsight.co.kr/data/tmp/2102/20210224004559_fnyxevid.jpg',
-      },
-      {
-        src: 'https://img1.daumcdn.net/thumb/R720x0/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fliveboard%2Fdailylife%2Fd069f8ac17de4c7c91c0dc056d452779.jpg',
-      },
-      {
-        src: 'https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/2UUt/image/Prcj7-b1i0zgV78lpTYYBdP4GRw.jpg',
-      },
-      {
-        src: 'https://img.wkorea.com/w/2021/02/style_602cfee44c823-970x1200.jpg',
-      },
-    ],
+const PlaceList = props => {
+  const url = props.location.search;
+  const searchType = props.match.params.params;
+  const pageRef = useRef();
+  const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
+  const qureryString = `search/pages/${pageNumber}/${searchType}${url}`;
+
+  let title = '';
+  if (qureryString.indexOf('inside=1') !== -1) {
+    title = '실내';
+  } else if (qureryString.indexOf('inside=0') !== -1) {
+    title = '실외';
+  } else if (qureryString.indexOf('result') !== -1) {
+    const findText = url.split('?result=').reverse()[0];
+    title = findText;
+  }
+
+  const onLoad = async () => {
+    try {
+      const res = await getSearchConditionList(qureryString);
+      const { posts } = res.data;
+      // 서버에서 받아온 데이터가 있을 때만 loading true로 변경되어야함
+      if (posts.length !== 0) {
+        setLoading(true);
+      } else {
+        setLoading(false);
+      }
+      setList(prev => [...prev, ...posts]);
+    } catch (e) {
+      console.log('error', e);
+    }
   };
-  const tag = [{ tag: '두명' }, { tag: '혼성' }, { tag: '카페' }];
-  // 전체 검색 결과이면 true 아니면 false
-  const type = data.type === 'all';
+
+  useEffect(() => {
+    onLoad();
+  }, [pageNumber]);
+
+  const updatePage = () => {
+    setPageNumber(prevPageNumber => prevPageNumber + 1);
+  };
+
+  // 무한 스크롤 구현
+  useEffect(() => {
+    const options = { rootMargin: `50px`, thredhold: 1.0 };
+    const moreFun = (entires, observer) => {
+      // 서버에서 받아온 데이터가 있을때만 loading 이 true되면서 아래 실행
+      if (loading) {
+        if (entires[0].isIntersecting) {
+          // observer가 타겟을 관측하면, page의 숫자를 더해준다.
+          updatePage();
+          // 관찰 중지 시켜준다.
+          observer.unobserve(pageRef.current);
+          setLoading(false);
+        }
+      }
+    };
+    // 새로운 observer를 생성해서 타겟을 잡는다.
+    const observer = new IntersectionObserver(moreFun, options);
+    if (observer) {
+      observer.observe(pageRef.current);
+    }
+    // 컴포넌트가 종료될때 observer를 해지해준다.
+    return () => observer && observer.disconnect();
+  }, [loading]);
 
   return (
     <>
       <Header _back _content="검색결과" _map _search />
       <Container>
-        {!type && <SelectedCategory tag={tag} />}
-        <Grid margin="24px 0">
-          <Text fontSize="20px" bold>
-            {type ? '전체' : '실내'}
-          </Text>
-        </Grid>
-        <Grid justify="space-between" wrap>
-          {data.list.map(item => {
-            return <ListCard type="search" {...item} />;
-          })}
+        <Text margin="40px 0 0 0" fontSize="20px" bold>
+          {list.length === 0 ? '검색 결과가 없습니다.' : title}
+        </Text>
+
+        <PlaceGrid>
+          {list &&
+            list.map(info => {
+              return (
+                <CardWrap key={`key-${info.postId}`}>
+                  <ListCard type="searchList" info={info} />
+                </CardWrap>
+              );
+            })}
+        </PlaceGrid>
+        <Grid padding="0 0 112px 0">
+          <LodingSpiner ref={pageRef}>더보기</LodingSpiner>
         </Grid>
       </Container>
       <Navbar />
@@ -56,4 +103,29 @@ const SearchList = () => {
   );
 };
 
-export default SearchList;
+const LodingSpiner = styled.div`
+  width: 100%;
+  padding: 20px;
+  font-size: 14px;
+  text-align: center;
+  color: #fff;
+  background-color: #232529;
+`;
+const PlaceGrid = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+`;
+const CardWrap = styled.div`
+  width: 23.5%;
+  height: 290px;
+  margin: 24px 0;
+  margin-right: 2%;
+
+  &:nth-child(4n + 0) {
+    margin-right: 0px;
+  }
+`;
+
+export default PlaceList;

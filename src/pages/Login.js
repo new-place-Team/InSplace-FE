@@ -3,14 +3,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { Container, Grid, Input, Label, Image } from '../elements';
+import { Container, Grid, Input, Label } from '../elements';
 import { history } from '../redux/configureStore';
-import { logInDB, unRegisterDB } from '../redux/async/user';
-import { logOut } from '../redux/modules/userSlice';
+import { logInDB } from '../redux/async/user';
 import Header from '../components/common/Header';
 import { close } from '../images';
-import { largeWide } from '../images/kakaoLogin/index';
 import { KAKAO_AUTH_URL } from '../shared/KakaoOAuth';
+import { ReactComponent as KakaoIcon } from '../images/kakaoLogin/join_kakao.svg';
+// import { largeWide } from '../images/kakaoLogin/index';
+// import { logOut } from '../redux/modules/userSlice';
+// import {unRegisterDB } from '../redux/async/user';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -45,16 +47,16 @@ const Login = () => {
     dispatch(logInDB(userInfo));
   };
   // 로그아웃
-  const userLogout = () => {
-    dispatch(logOut());
-    state.email = '';
-    state.password = '';
-    history.push('/');
-  };
-  // 회원탈퇴
-  const deleteUser = () => {
-    dispatch(unRegisterDB());
-  };
+  // const userLogout = () => {
+  //   dispatch(logOut());
+  //   state.email = '';
+  //   state.password = '';
+  //   history.push('/');
+  // };
+  // // 회원탈퇴
+  // const deleteUser = () => {
+  //   dispatch(unRegisterDB());
+  // };
 
   React.useEffect(() => {
     if (state.email !== '') {
@@ -104,23 +106,26 @@ const Login = () => {
         </Grid>
         <BottomWrap>
           {/* 카카오 로그인 버튼 */}
-          <Grid
+          <KakaoButton
+            bg="#fce55a"
             margin="0 auto"
-            _onClick={() => {
+            onClick={() => {
               window.location.href = KAKAO_AUTH_URL;
             }}
           >
-            <Image width="100%" src={largeWide} />
-          </Grid>
-          <Button type="fullSizeBlack" onClick={submitUserInfo}>
-            로그인
-          </Button>
-          <Button type="fullSizeBlack" onClick={userLogout}>
+            <IconArea>
+              <KakaoIcon />
+            </IconArea>
+            카카오 로그인
+          </KakaoButton>
+          <Button onClick={submitUserInfo}>로그인</Button>
+          <Button onClick={() => history.push('/signUp')}>회원가입</Button>
+          {/* <Button type="fullSizeBlack" onClick={userLogout}>
             로그아웃
           </Button>
           <Button type="fullSizeBlack" onClick={deleteUser}>
             회원탈퇴
-          </Button>
+          </Button> */}
         </BottomWrap>
       </Container>
     </>
@@ -140,9 +145,36 @@ const Button = styled.button`
   padding: 15px;
   font-size: 16px;
   font-weight: 700;
-  background-color: #000;
+  background-color: #232529;
   color: #fff;
   margin-top: 20px;
+`;
+
+const KakaoButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 700;
+  background-color: #fce55a;
+  color: #181604;
+  margin-top: 20px;
+  position: relative;
+  cursor: pointer;
+`;
+
+const IconArea = styled.div`
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  width: 24px;
+  height: 24px;
+  svg {
+    width: 35px;
+    height: 35px;
+  }
 `;
 
 const InputCloseButton = styled.img`

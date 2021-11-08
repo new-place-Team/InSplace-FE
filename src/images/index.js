@@ -11,6 +11,7 @@ import home from './home.png';
 import sliders from './sliders.png';
 import user from './user.png';
 import vector from './Vector.png';
+import x from './x.png';
 // import whiteVector from './white-vector.png';
 // import close from './x.png';
 // import arrowRight from './arrow-right.png';
@@ -36,6 +37,11 @@ import whiteClose from './close.svg';
 import plus from './plus.svg';
 import insplace from './Insplace.png';
 import mypageNext from './next.svg';
+import profile1 from './profile1.png';
+import profile2 from './profile2.png';
+import profile3 from './profile3.png';
+import profile4 from './profile4.png';
+import isNoPick from './illustration/isNoPick.png';
 
 export {
   bookmark,
@@ -63,4 +69,10 @@ export {
   plus,
   insplace,
   mypageNext,
+  profile1,
+  profile2,
+  profile3,
+  profile4,
+  isNoPick,
+  x,
 };

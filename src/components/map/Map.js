@@ -1,32 +1,29 @@
 /* eslint-disable */
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { mapscript } from '../../shared/utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLoaded } from '../../redux/modules/loadedSlice';
-import Spinner from '../common/Spinner';
+import { mapscript, mapscript2, markerMake } from '../../shared/utils';
+import { createMap } from '../../redux/modules/placeSlice';
 
 const Map = props => {
-  // 카카오지도를 담을 div를 잡아줌.
+  const coord = useSelector(state => state.place.focusCoord);
   const mapDiv = useRef(null);
-  const dispatch = useDispatch();
-  const isLoaded = useSelector(state => state.loaded.is_loaded);
-  // console.log(isLoaded);
-  // 현재위치에 따른 위도 경도를 받아옴.
-  const { latitude, longitude } = props.coordinate;
-  const { width, height, markerdata } = props;
 
+  const { width, height, allPlaces } = props;
+  /* 페이지가 로드되면 지도 생성 */
   useEffect(() => {
-    dispatch(getLoaded(true));
-    mapscript(latitude, longitude, mapDiv, markerdata);
+    mapscript(mapDiv, allPlaces, coord.lat, coord.lon);
+  }, [mapDiv, allPlaces, coord.lat, coord.lon]);
 
-    return () => {};
-  }, [latitude, longitude]);
+  // useEffect(() => {
+  //   dispatch(createMap(mapscript2(mapDiv, allPlaces)));
+  //   markerMake(map, allPlaces);
+  // }, [allPlaces]);
 
   return (
     <>
+      {/* 지도를 띄워줄 div 영역 */}
       <MapContainer width={width} height={height} ref={mapDiv} />
-      {/* {isLoaded === true ? <Spinner /> : null} */}
     </>
   );
 };

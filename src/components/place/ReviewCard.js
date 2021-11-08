@@ -1,33 +1,100 @@
-import React from 'react';
+/* eslint-disable no-shadow */
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Button, Grid, Text, Image } from '../../elements/index';
-import { good } from '../../images/index';
+import { good, bad, profile1 } from '../../images/index';
+import {
+  deleteReviewDB,
+  reviewLikeCancelDB,
+  reviewLikeDB,
+} from '../../redux/async/place';
+import ReviewSwiper from './ReviewSwiper';
+import { history } from '../../redux/configureStore';
 
-const ReviewCard = () => {
+const ReviewCard = props => {
+  const {
+    loginUser,
+    postId,
+    createdAt,
+    gender,
+    likeCnt,
+    likeState,
+    mbti,
+    nickname,
+    reviewDesc,
+    reviewId,
+    reviewImages,
+    revisitYN,
+    userImage,
+    weather,
+    weekdayYN,
+  } = props;
+  const dispatch = useDispatch();
+  const date = createdAt.split('T')[0];
+
+  const [reviewActive, setReviewActive] = useState({
+    reviewId,
+    active: likeState,
+  });
+  const params = { postId, reviewId };
+
+  // 리뷰 좋아요, 좋아요 취소 수정해야함
+  const handleLikes = () => {
+    // list.map((item) )
+    setReviewActive({ ...reviewActive, active: !reviewActive.active });
+    dispatch(reviewLikeDB(params));
+  };
+  const handleLikesCancel = () => {
+    setReviewActive({ ...reviewActive, active: !reviewActive.active });
+    dispatch(reviewLikeCancelDB(params));
+  };
+
+  // 리뷰 수정페이지 이동
+  const goToReviewEditPage = () => {
+    history.push({ pathname: `/review/edit/${postId}`, state: reviewId });
+  };
+
+  // 리뷰 삭제
+  const onDeleteReview = () => {
+    dispatch(deleteReviewDB(params));
+  };
+
   return (
     <ReviewCardWrap>
+      {loginUser === nickname && (
+        <Grid justify="flex-end">
+          <Button size="14px" padding="8px" _onClick={goToReviewEditPage}>
+            수정
+          </Button>
+          <Button
+            size="14px"
+            padding="8px"
+            color="red"
+            margin="0 0 0 10px"
+            _onClick={onDeleteReview}
+          >
+            삭제
+          </Button>
+        </Grid>
+      )}
       {/* 유저 프로필 */}
       <Grid justify="space-between">
         <Grid isFlex>
           <Grid>
-            <Image
-              type="circle"
-              width="40px"
-              height="40px"
-              src="https://dimg.donga.com/wps/NEWS/IMAGE/2021/01/17/104953245.2.jpg"
-            />
+            <UserProfile src={userImage === null ? profile1 : userImage} />
           </Grid>
           <Grid margin="0 0 0 12px">
             <Text fontSize="14px" color="#3E4042">
-              아이유
+              {nickname}
             </Text>
             <Text fontSize="12px" color="#A3A6AA" letterSpacing="0.0008em">
-              여자 <Line /> ESFP
+              {gender} <Line /> {mbti}
             </Text>
           </Grid>
         </Grid>
         <Text fontSize="13px" color="#A3A6AA" letterSpacing="-0.0008em">
-          21.11.02
+          {date}
         </Text>
       </Grid>
       <Grid justify="space-between" margin="27px 0 0 0">
@@ -41,7 +108,7 @@ const ReviewCard = () => {
             날씨
           </Text>
           <Text fontSize="14px" color="#7A7D81" letterSpacing="-0.0008em">
-            맑음
+            {weather}
           </Text>
         </Grid>
         <Grid isFlex width="50%">
@@ -54,7 +121,7 @@ const ReviewCard = () => {
             날짜
           </Text>
           <Text fontSize="14px" color="#7A7D81" letterSpacing="-0.0008em">
-            주말
+            {weekdayYN ? '평일' : '주말'}
           </Text>
         </Grid>
       </Grid>
@@ -67,32 +134,28 @@ const ReviewCard = () => {
         >
           재방문의사
         </Text>
-        <Text fontSize="14px" color="#7A7D81" letterSpacing="-0.0008em">
-          <Image width="16px" src={good} />
-        </Text>
-        <Text
-          margin="16px 0 24px 0"
-          fontSize="14px"
-          color="#3E4042"
-          letterSpacing="-0.0008em"
-        >
-          자리도 넓고 조용해서 좋았어요! 공부하기 딱 좋습니다! 다음에도 또
-          방문할게요ㅎㅎㅎ
-        </Text>
-        <Grid isFlex>
-          <Button
-            margin="0 12px 0 0"
-            padding="6px 16px"
-            border="1px solid #282828"
-          >
-            <Text fontSize="14px" color="#282828">
-              도움이돼요
-            </Text>
-          </Button>
-          <Text fontSize="13px" color="#3E4042">
-            12명에게 도움이 되었습니다
-          </Text>
+        <Grid>
+          <Image width="16px" src={revisitYN ? good : bad} />
         </Grid>
+      </Grid>
+      <ReviewDesc>{reviewDesc}</ReviewDesc>
+      <Grid margin="0 0 24px 0">
+        <ReviewSwiper list={reviewImages} />
+      </Grid>
+      <Grid isFlex>
+        {reviewActive.active ? (
+          <LikeButton className="active" onClick={handleLikesCancel}>
+            도움이돼요
+          </LikeButton>
+        ) : (
+          <LikeButton onClick={handleLikes}>도움이돼요</LikeButton>
+        )}
+
+        {likeCnt > 0 && (
+          <Text fontSize="13px" color="#3E4042">
+            {likeCnt}명에게 도움이 되었습니다
+          </Text>
+        )}
       </Grid>
     </ReviewCardWrap>
   );
@@ -109,5 +172,37 @@ const Line = styled.span`
     margin: 0 5px;
   }
 `;
+const ReviewDesc = styled.p`
+  margin: 16px 0 24px;
+  font-size: 14px;
+  color: #3e4042;
+  letter-spacing: -0.0008em;
+  white-space: pre;
+`;
 
-export default ReviewCard;
+const LikeButton = styled.button`
+  margin: 0 12px 0 0;
+  padding: 6px 16px;
+  font-size: 14px;
+  color: #282828;
+  border: 1px solid #282828;
+  &.active {
+    color: #fff;
+    background-color: #282828;
+  }
+`;
+
+const UserProfile = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-image: url('${props => props.src}');
+  background-size: cover;
+  background-position: center;
+  display: inline-block;
+  /* type="circle"
+              width="40px"
+              height="40px"
+              src={userImage === null ? profile1 : userImage} */
+`;
+export default React.memo(ReviewCard);
