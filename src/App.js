@@ -67,6 +67,7 @@ function App() {
           <Route path="/place/list/:params" exact component={PlaceList} />
           <Route path="/place/detail/:id" exact component={PlaceDetail} />
           <Route path="/review/write/:id" exact component={ReviewWrite} />
+          <Route path="/review/update/:id" exact component={ReviewWrite} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
           <Route path="/mypage" exact component={MyPage} />

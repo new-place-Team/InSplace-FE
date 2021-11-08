@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
 /* eslint-disable import/no-cycle */
@@ -9,6 +10,8 @@ import {
   getPlaceDetailDB,
   getCurrentCoordinateWEB,
   setFavoritesPostDB,
+  getReviewListDB,
+  reviewLikeDB,
 } from '../async/place';
 
 /* init */
@@ -23,6 +26,8 @@ const initialState = {
   conditionPlaces: null,
   detailInfo: {},
   currentCoordinate: {},
+  reviewList: [],
+  reivewLikesList: [],
   focusCoord: {},
   map: null,
 };
@@ -64,6 +69,18 @@ const placeSlice = createSlice({
     /* 장소 상세 조회 처리 완료 */
     [getPlaceDetailDB.fulfilled]: (state, { payload }) => {
       state.detailInfo = payload;
+    },
+    /* 리뷰 최신순 조회 처리 완료 */
+    [getReviewListDB.fulfilled]: (state, { payload }) => {
+      state.reviewList = payload.reviews;
+    },
+    /* 리뷰 추천순 조회 처리 완료 */
+    [getReviewListDB.fulfilled]: (state, { payload }) => {
+      state.reivewLikesList = payload.reviews;
+    },
+    /* 리뷰 좋아요 처리 실패 */
+    [reviewLikeDB.rejected]: (state, { payload }) => {
+      window.alert(payload.errMsg);
     },
     // 현재좌표 받아오기
     [getCurrentCoordinateWEB.fulfilled]: (state, { payload }) => {

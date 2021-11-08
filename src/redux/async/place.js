@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-undef */
@@ -13,9 +14,14 @@ import {
   postFavoritesPost,
   deleteFavoritesPost,
   addReview,
+  getReviewList,
+  getReviewLikesList,
+  deleteReview,
+  reviewLike,
 } from '../../shared/api/placeApi';
 import { getLocationAddress } from '../../shared/api/kakaoApi';
 import { getPosition } from '../../shared/utils';
+import { history } from '../configureStore';
 
 /* 메인 리스트 호출 */
 export const getMainListDB = createAsyncThunk(
@@ -104,6 +110,36 @@ export const setFavoritesPostDB = createAsyncThunk(
   },
 );
 
+/* 리뷰 최신순 받아오기 */
+export const getReviewListDB = createAsyncThunk(
+  'place/reviewList',
+  async (params, thunkAPI) => {
+    try {
+      const response = await getReviewList(params);
+      console.log('response = ', response);
+      if (response) {
+        return response.data;
+      }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);
+/* 리뷰 추천순 받아오기 */
+export const getReviewLikesListDB = createAsyncThunk(
+  'place/reviewList',
+  async (params, thunkAPI) => {
+    try {
+      const response = await getReviewLikesList(params);
+      console.log('추천순 response = ', response);
+      if (response) {
+        return response.data;
+      }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);
 /* 리뷰 등록 */
 export const addReviewDB = createAsyncThunk(
   'place/addReview',
@@ -114,9 +150,64 @@ export const addReviewDB = createAsyncThunk(
           'content-type': 'multipart/form-data',
         },
       };
-      await addReview(params, config);
+      const response = await addReview(params, config);
+      if (response) {
+        window.alert('리뷰가 등록되었습니다.');
+        history.goBack();
+      }
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
     }
+  },
+);
+/* 리뷰 수정 */
+export const updateReviewDB = createAsyncThunk(
+  'place/updateReview',
+  async (params, thunkAPI) => {
+    try {
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      };
+      const response = await updateReview(params, config);
+      console.log(' 수정 response === ', response);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);
+/* 리뷰 삭제 */
+export const deleteReviewDB = createAsyncThunk(
+  'place/deleteReview',
+  async (params, thunkAPI) => {
+    try {
+      const response = await deleteReview(params);
+      if (response) {
+        window.alert('리뷰가 삭제되었습니다.');
+      }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);
+
+/* 리뷰 좋아요 */
+export const reviewLikeDB = createAsyncThunk(
+  'place/reviewLike',
+  async (params, thunkAPI) => {
+    try {
+      const response = await reviewLike(params);
+      console.log('리뷰 좋아요 response ', response);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  },
+);
+/* 리뷰 좋아요 취소 */
+export const reviewLikeCancelDB = createAsyncThunk(
+  'place/reviewLikeCancel',
+  async (params, thunkAPI) => {
+    console.log('양진성인성~~~');
   },
 );
