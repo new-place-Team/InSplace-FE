@@ -11,8 +11,14 @@ import {
   getCurrentCoordinateWEB,
   setFavoritesPostDB,
   getReviewListDB,
+  getReviewLikesListDB,
   reviewLikeDB,
+<<<<<<< HEAD
   setVisitedPostDB,
+=======
+  getReviewEditDB,
+  updateReviewDB,
+>>>>>>> bd492d33120080724de3e9022611257fa2cc13e6
 } from '../async/place';
 
 /* init */
@@ -29,6 +35,7 @@ const initialState = {
   currentCoordinate: {},
   reviewList: [],
   reivewLikesList: [],
+  review: null,
   focusCoord: {},
   map: null,
 };
@@ -76,8 +83,16 @@ const placeSlice = createSlice({
       state.reviewList = payload.reviews;
     },
     /* 리뷰 추천순 조회 처리 완료 */
-    [getReviewListDB.fulfilled]: (state, { payload }) => {
+    [getReviewLikesListDB.fulfilled]: (state, { payload }) => {
       state.reivewLikesList = payload.reviews;
+    },
+    /* 리뷰 수정 조회 처리완료 */
+    [getReviewEditDB.fulfilled]: (state, { payload }) => {
+      state.review = payload.review;
+    },
+    /* 리뷰 수정 처리완료 */
+    [updateReviewDB.fulfilled]: (state, { payload }) => {
+      state.review = payload.post;
     },
     /* 리뷰 좋아요 처리 실패 */
     [reviewLikeDB.rejected]: (state, { payload }) => {

@@ -55,14 +55,15 @@ const SelectedContents = props => {
   const selectedReviewBtn = (text, type, value) => {
     if (type === 'revisitYN') {
       setActive({ ...active, revisitYN: false });
-      setState({ ...state, revisitYN: { selecteText: text, value } });
+      setState({ ...state, revisitYN: value });
     } else if (type === 'weekdayYN') {
       setActive({ ...active, weekdayYN: false });
-      setState({ ...state, weekdayYN: { selecteText: text, value } });
+      setState({ ...state, weekdayYN: value });
     } else if (type === 'weather') {
       setActive({ ...active, weather: false });
-      setState({ ...state, weather: { selecteText: text, value } });
+      setState({ ...state, weather: value });
     }
+    // console.log('selectedReviewBtn state === ', state);
   };
 
   if (selectType === 'review') {
@@ -70,7 +71,7 @@ const SelectedContents = props => {
       <ReviewContent>
         <Text type="Title16">{title}</Text>
         <SelectedGrid>
-          {list.map((item, idx) => {
+          {list.map(item => {
             return (
               <React.Fragment key={`selected-${item.selecteText}`}>
                 <ReviewButton
@@ -79,8 +80,7 @@ const SelectedContents = props => {
                   value={item.selecteText}
                   keys={item.value}
                   isSelected={state[type].value === item.value}
-                  className={item.value === 1 && active[type] && 'activeButton'}
-                  active={active}
+                  className={item.value === state[type] && 'activeButton'}
                   onClick={() =>
                     selectedReviewBtn(item.selecteText, type, item.value)
                   }

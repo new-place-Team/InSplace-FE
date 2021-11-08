@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
@@ -208,7 +207,7 @@ const Detail = props => {
             </Grid>
           </InfoGrid>
           {/* 리뷰 */}
-          <ReviewList postId={id} />
+          <ReviewList postId={id} reviewsList={detailData.reviews} />
         </Grid>
       </Container>
     </>

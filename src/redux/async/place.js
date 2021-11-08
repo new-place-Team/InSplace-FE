@@ -14,12 +14,18 @@ import {
   postFavoritesPost,
   deleteFavoritesPost,
   addReview,
+  updateReview,
+  getReviewEdit,
   getReviewList,
   getReviewLikesList,
   deleteReview,
   reviewLike,
+<<<<<<< HEAD
   postVisitedPost,
   deleteVisitedPost,
+=======
+  reviewLikeCancel,
+>>>>>>> bd492d33120080724de3e9022611257fa2cc13e6
 } from '../../shared/api/placeApi';
 import { getLocationAddress } from '../../shared/api/kakaoApi';
 import { getPosition } from '../../shared/utils';
@@ -147,7 +153,6 @@ export const getReviewListDB = createAsyncThunk(
   async (params, thunkAPI) => {
     try {
       const response = await getReviewList(params);
-      console.log('response = ', response);
       if (response) {
         return response.data;
       }
@@ -158,11 +163,10 @@ export const getReviewListDB = createAsyncThunk(
 );
 /* 리뷰 추천순 받아오기 */
 export const getReviewLikesListDB = createAsyncThunk(
-  'place/reviewList',
+  'place/reviewLikesList',
   async (params, thunkAPI) => {
     try {
       const response = await getReviewLikesList(params);
-      console.log('추천순 response = ', response);
       if (response) {
         return response.data;
       }
@@ -171,6 +175,7 @@ export const getReviewLikesListDB = createAsyncThunk(
     }
   },
 );
+
 /* 리뷰 등록 */
 export const addReviewDB = createAsyncThunk(
   'place/addReview',
@@ -191,6 +196,22 @@ export const addReviewDB = createAsyncThunk(
     }
   },
 );
+
+/* 리뷰 수정페이지 조회 */
+export const getReviewEditDB = createAsyncThunk(
+  'place/getReviewEdit',
+  async (params, thunkAPI) => {
+    try {
+      const response = await getReviewEdit(params);
+      if (response) {
+        return response.data;
+      }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);
+
 /* 리뷰 수정 */
 export const updateReviewDB = createAsyncThunk(
   'place/updateReview',
@@ -202,7 +223,9 @@ export const updateReviewDB = createAsyncThunk(
         },
       };
       const response = await updateReview(params, config);
-      console.log(' 수정 response === ', response);
+      if (response) {
+        return response.data;
+      }
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
     }
@@ -229,7 +252,7 @@ export const reviewLikeDB = createAsyncThunk(
   async (params, thunkAPI) => {
     try {
       const response = await reviewLike(params);
-      console.log('리뷰 좋아요 response ', response);
+      console.log('response = ', response);
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
@@ -239,6 +262,11 @@ export const reviewLikeDB = createAsyncThunk(
 export const reviewLikeCancelDB = createAsyncThunk(
   'place/reviewLikeCancel',
   async (params, thunkAPI) => {
-    console.log('양진성인성~~~');
+    try {
+      const response = await reviewLikeCancel(params);
+      console.log('response = ', response);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
   },
 );
