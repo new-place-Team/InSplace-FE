@@ -24,6 +24,7 @@ const Grid = props => {
     children,
     position,
     zIndex,
+    cursor,
   } = props;
 
   const styles = {
@@ -44,6 +45,7 @@ const Grid = props => {
     borderBottom,
     position,
     zIndex,
+    cursor,
   };
 
   if (justify === 'space-between') {
@@ -90,6 +92,7 @@ Grid.defaultProps = {
   border: 'none',
   position: 'relative',
   borderBottom: 'none',
+  cursor: false,
   _onClick: () => {},
 };
 
@@ -112,6 +115,7 @@ const DefaultGrid = styled.div`
   ${props => (props.zIndex ? ` z-index:${props.zIndex}` : '')};
   ${props =>
     props.justifyContent ? `justify-content:${props.justifyContent}` : ''};
+  ${props => (props.cursor ? `cursor:pointer` : '')};
 `;
 const BetweenGrid = styled.div`
   ${props =>
@@ -127,6 +131,7 @@ const BetweenGrid = styled.div`
   background-color: ${props => props.bg};
   border: ${props => props.border};
   ${props => props.wrap && `flex-wrap:wrap`};
+  ${props => (props.cursor ? `cursor:pointer` : '')};
 `;
 const CenterGrid = styled.div`
   ${props =>
@@ -159,5 +164,6 @@ const EndGrid = styled.div`
   background-color: ${props => props.bg};
   border: ${props => props.border};
   ${props => props.wrap && `flex-wrap:wrap`};
+  ${props => (props.cursor ? `cursor:pointer` : '')};
 `;
 export default Grid;

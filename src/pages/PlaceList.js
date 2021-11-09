@@ -136,6 +136,7 @@ const CardWrap = styled.div`
   height: 290px;
   margin: 24px 0;
   margin-right: 2%;
+  cursor: pointer;
 
   &:nth-child(4n + 0) {
     margin-right: 0px;
