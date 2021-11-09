@@ -22,7 +22,10 @@ const MyPage = () => {
       window.alert('로그인을 해주세요!');
       history.push('/login');
     } else {
-      history.push(`/mypage/1`);
+      history.push({
+        pathname: '/mypage/1',
+        state: { userInfo },
+      });
     }
   };
 
@@ -32,7 +35,12 @@ const MyPage = () => {
         <Header _onBg _content="MyPage" _settings />
         <Bg src={sunBg} />
         <Grid isFlex justify="center" padding="59px 40px">
-          <Image type="circle" width="169px" height="169px" src={profile1} />
+          <Image
+            type="circle"
+            width="169px"
+            height="169px"
+            src={userInfo.userImage}
+          />
           <Grid flex margin="0 0 0 36px">
             <Grid isFlex>
               <Text fontSize="28px" bold color="#282828" margin="0 20px 0 0">

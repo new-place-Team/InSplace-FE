@@ -261,9 +261,3 @@ const MBTIDiv = styled.div`
 `;
 
 export default Signup;
-
-// width
-// padding="10%"
-// bg={mbtiInfo.type ? '#0066ff' : 'black'}
-// color="#fff"
-// _onClick={openModal}

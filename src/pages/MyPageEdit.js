@@ -1,32 +1,36 @@
+/* eslint-disable no-unneeded-ternary */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable import/named */
 /* eslint-disable no-undef */
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalOn } from '../redux/modules/userSlice';
+import { getPeopleMbti } from '../shared/transferText';
+import { editProfileDB } from '../redux/async/user';
 
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Label, Text } from '../elements';
-import { plus, insplace } from '../images/index';
+import { plus } from '../images/index';
 import Modal from '../components/common/Modal';
 
-const MyPageEdit = () => {
+const MyPageEdit = props => {
   const dispatch = useDispatch();
-  const userInfo = useSelector(state => state.user.userInfo);
-  const fileInput = React.useRef();
-  const [info, setInfo] = React.useState({
-    nickname: userInfo.nickname,
-    email: userInfo.email,
-    profileImage: insplace,
-  });
-  const { nickname, email } = info;
-  const mbtiInfo = useSelector(state => state.user.userMbti);
   const modalStatus = useSelector(state => state.user.modalStatus);
+  const mbtiInfo = useSelector(state => state.user.userMbti);
   const [maleFemale, setMaleFemale] = React.useState(null);
-  const selectGender = gender => {
-    setMaleFemale(gender);
-  };
-  const [preview, setPreview] = useState('');
+  const [preview, setPreview] = React.useState('');
+  /* 이전 페이지에서 가지고 있던 유저 정보를 params로 넘겨줌 */
+  const newParams = props.history.location.state.userInfo;
+  const [info, setInfo] = React.useState({
+    nickname: newParams.nickname,
+    email: newParams.email,
+    userImage: newParams.userImage,
+    mbti: newParams.mbti,
+    userId: newParams.userId,
+  });
+  const { nickname, email, userImage, mbti, userId } = info;
+  const fileInput = React.useRef();
 
   const selectFile = () => {
     const reader = new FileReader();
@@ -36,18 +40,39 @@ const MyPageEdit = () => {
     reader.onload = () => {
       setPreview(reader.result);
     };
+    setInfo({ ...info, userImage: file });
     // file 읽기 실패되었을때 실행
     reader.onerror = error => {
       console.log('error = ', error);
     };
   };
+
   const openModal = () => {
     dispatch(setModalOn());
   };
   const onChange = e => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
-
+  const selectGender = gender => {
+    setMaleFemale(gender);
+  };
+  /* 수정 요청 */
+  const onSubmitHandler = () => {
+    const formData = new FormData();
+    formData.append('nickname', nickname);
+    formData.append('email', email);
+    formData.append('userImage', userImage);
+    if (!mbtiInfo.mbtiId) {
+      formData.append('mbtiId', getPeopleMbti(mbti));
+    } else {
+      formData.append('mbtiId', mbtiInfo.mbtiId);
+    }
+    const params = {
+      id: userId,
+      data: formData,
+    };
+    dispatch(editProfileDB(params));
+  };
   return (
     <>
       <Header _back _content="프로필 수정" />
@@ -58,7 +83,7 @@ const MyPageEdit = () => {
               type="circle"
               width="169px"
               height="169px"
-              src={preview || info.profileImage}
+              src={preview || info.userImage}
             />
             <UploadWrap>
               <UploadLabel htmlFor="uploadProfile">
@@ -92,7 +117,7 @@ const MyPageEdit = () => {
               MBTI
             </Label>
             <MBTIDiv onClick={openModal}>
-              <Text>{mbtiInfo.type ? mbtiInfo.type : userInfo.mbti}</Text>
+              <Text>{mbtiInfo.mbtiId ? mbtiInfo.type : mbti}</Text>
             </MBTIDiv>
           </Grid>
           <Grid margin="0 0 32px 0">
@@ -139,7 +164,9 @@ const MyPageEdit = () => {
           </Grid>
         </Grid>
         <BottomWrap>
-          <Button type="fullSizeBlack">수정하기</Button>
+          <Button type="fullSizeBlack" _onClick={onSubmitHandler}>
+            수정하기
+          </Button>
         </BottomWrap>
         {modalStatus === true ? <Modal /> : null}
       </Container>
