@@ -44,6 +44,8 @@ import profile3 from './profile3.png';
 import profile4 from './profile4.png';
 import noLikePlace from './illustration/no-like_place.png';
 import noVisitedPlace from './illustration/no-visited_place.png';
+import placeSearch from './illustration/search_img.png';
+import placeSearchResult from './illustration/search_result_img.png';
 
 export {
   bookmark,
@@ -78,4 +80,6 @@ export {
   noLikePlace,
   noVisitedPlace,
   x,
+  placeSearch,
+  placeSearchResult,
 };

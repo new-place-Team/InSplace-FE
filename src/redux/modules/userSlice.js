@@ -11,6 +11,7 @@ import {
   kakaoLogin,
   getFavoritesDB,
   getVisitedDB,
+  editProfileDB,
 } from '../async/user';
 
 // inititalState
@@ -112,6 +113,10 @@ const userSlice = createSlice({
     /* 유저 가본곳 리스트 조회 성공시 */
     [getVisitedDB.fulfilled]: (state, { payload }) => {
       state.userPickPlaces.visitedList = payload.visitedPosts;
+    },
+    /* 유저 정보 수정 */
+    [editProfileDB.fulfilled]: (state, { payload }) => {
+      state.userInfo = payload;
     },
   },
 });

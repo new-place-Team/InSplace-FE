@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Container, Grid, Image } from '../elements';
+import { Button, Container, Grid, Image, Text } from '../elements';
 import Swiper from '../components/common/SwiperLB';
 import ContentsTitle from '../components/common/ContentsTitle';
 import Header from '../components/common/Header';
@@ -40,19 +40,15 @@ const SearchTypeList = props => {
         <SelectedCategory tag={selectedCategory} />
         {/* 실내 리스트 */}
         <Grid isFlex>
-          <ContentsTitle title="실내" />
-          <Button _onClick={() => onSearchConditionMore(1)}>
-            <Image margin="0 0 0 5px" width="24px" height="24px" src={right} />
-          </Button>
-        </Grid>
-        <Grid>
-          <Swiper list={inSideList} type="selectResult" />
-        </Grid>
-        {/* 실외 리스트  */}
-        <Grid margin="28px 0 0 0" padding="0 0 100px 0">
-          <Grid isFlex>
-            <ContentsTitle title="실외에서 시원한 바람과 함께" />
-            <Button _onClick={() => onSearchConditionMore(0)}>
+          <ContentsTitle
+            title={
+              inSideList && inSideList.length === 0
+                ? '실내검색 결과가 없습니다.'
+                : '실내'
+            }
+          />
+          {inSideList && inSideList.length !== 0 && (
+            <Button _onClick={() => onSearchConditionMore(1)}>
               <Image
                 margin="0 0 0 5px"
                 width="24px"
@@ -60,6 +56,32 @@ const SearchTypeList = props => {
                 src={right}
               />
             </Button>
+          )}
+        </Grid>
+        <Grid>
+          <Swiper list={inSideList} type="selectResult" />
+        </Grid>
+        {/* 실외 리스트  */}
+
+        <Grid margin="28px 0 0 0" padding="0 0 100px 0">
+          <Grid isFlex>
+            <ContentsTitle
+              title={
+                outSideList && outSideList.length === 0
+                  ? '실외검색 결과가 없습니다.'
+                  : '실외에서 시원한 바람과 함께'
+              }
+            />
+            {outSideList && outSideList.length !== 0 && (
+              <Button _onClick={() => onSearchConditionMore(0)}>
+                <Image
+                  margin="0 0 0 5px"
+                  width="24px"
+                  height="24px"
+                  src={right}
+                />
+              </Button>
+            )}
           </Grid>
           <Swiper list={outSideList} type="selectResult" />
         </Grid>
