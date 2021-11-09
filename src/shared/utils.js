@@ -1,3 +1,4 @@
+/* eslint-disable no-unneeded-ternary */
 /* eslint-disable import/no-cycle */
 /* eslint-disable func-names */
 /* eslint-disable no-inner-declarations */
@@ -24,6 +25,12 @@ export const getToken = () => {
       resolve(null);
     }
   });
+};
+
+/* localStorage 토큰유무 확인 */
+export const getTokenYn = () => {
+  // eslint-disable-next-line no-undef
+  return localStorage.getItem('USER_TOKEN') ? true : false;
 };
 
 /* 현재위치 위도경도 가져오기 */

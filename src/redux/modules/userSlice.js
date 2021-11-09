@@ -62,15 +62,17 @@ const userSlice = createSlice({
     addUserVisitedPost: (state, { payload }) => {
       let visitedList = state.userPickPlaces.visitedList;
       if (visitedList) {
-        visitedList = [...visitedList, payload];
+        state.userPickPlaces.visitedList = [...visitedList, payload];
       }
     },
     /* 유저 방문 포스트 삭제 */
     deleteUserVisitedPost: (state, { payload }) => {
-      state.userPickPlaces.visitedList =
-        state.userPickPlaces.visitedList.filter(
+      let visitedList = state.userPickPlaces.visitedList;
+      if (visitedList) {
+        state.userPickPlaces.visitedList = visitedList.filter(
           v => v.postId !== payload.postId,
         );
+      }
     },
   },
   extraReducers: {

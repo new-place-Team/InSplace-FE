@@ -2,18 +2,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
 import { Grid, Text } from '../../elements/index';
-import {
-  map,
-  search,
-  close,
-  heartFilled,
-  share,
-  settings,
-} from '../../images/index';
+import { map, close, heartFilled, share, settings } from '../../images/index';
 import { ReactComponent as LeftIcon } from '../../images/ic-left.svg';
+import { ReactComponent as Search } from '../../images/Icon/ic_header_search.svg';
 
 const Header = props => {
   const {
@@ -69,7 +62,9 @@ const Header = props => {
             )}
             {_search && (
               <Grid _onClick={gotoSearchPage}>
-                <Icon src={search} />
+                <IconArea>
+                  <Search />
+                </IconArea>
               </Grid>
             )}
             {_close && (
@@ -123,7 +118,9 @@ const Header = props => {
             )}
             {_search && (
               <Grid _onClick={gotoSearchPage}>
-                <Icon src={search} />
+                <IconArea>
+                  <Search />
+                </IconArea>
               </Grid>
             )}
             {_close && (

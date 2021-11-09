@@ -42,7 +42,8 @@ import profile1 from './profile1.png';
 import profile2 from './profile2.png';
 import profile3 from './profile3.png';
 import profile4 from './profile4.png';
-import isNoPick from './illustration/isNoPick.png';
+import noLikePlace from './illustration/no-like_place.png';
+import noVisitedPlace from './illustration/no-visited_place.png';
 import placeSearch from './illustration/search_img.png';
 import placeSearchResult from './illustration/search_result_img.png';
 
@@ -76,7 +77,8 @@ export {
   profile2,
   profile3,
   profile4,
-  isNoPick,
+  noLikePlace,
+  noVisitedPlace,
   x,
   placeSearch,
   placeSearchResult,

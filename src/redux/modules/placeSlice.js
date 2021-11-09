@@ -131,7 +131,7 @@ const placeSlice = createSlice({
     /* 가본장소 추가 실패 */
     [setVisitedPostDB.rejected]: (state, action) => {
       const { payload } = action;
-      console.log(payload.response.status);
+      console.log(payload);
     },
   },
 });
