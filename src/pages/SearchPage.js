@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Grid } from '../elements';
+import { Grid, Image, Text } from '../elements';
 import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
 import { history } from '../redux/configureStore';
+import { placeSearch } from '../images';
 
 const SearchPage = () => {
   const [state, setState] = useState('');
@@ -20,25 +21,31 @@ const SearchPage = () => {
     history.goBack();
   };
   return (
-    <HeaderBar>
-      <Content>
-        <Grid isFlex width="100%">
-          <Grid margin="0 13px 0 0" _onClick={goBack}>
-            <IconArea>
-              <LeftIcon />
-            </IconArea>
+    <>
+      <HeaderBar>
+        <Content>
+          <Grid isFlex width="100%">
+            <Grid margin="0 13px 0 0" _onClick={goBack}>
+              <IconArea>
+                <LeftIcon />
+              </IconArea>
+            </Grid>
+            <Grid flex>
+              <Input
+                value={state}
+                placeholder="어떤 장소가 궁금하세요?"
+                onChange={onChange}
+                onKeyPress={e => e.key === 'Enter' && GotoSearchPage(e)}
+              />
+            </Grid>
           </Grid>
-          <Grid flex>
-            <Input
-              value={state}
-              placeholder="어떤 장소가 궁금하세요?"
-              onChange={onChange}
-              onKeyPress={e => e.key === 'Enter' && GotoSearchPage(e)}
-            />
-          </Grid>
-        </Grid>
-      </Content>
-    </HeaderBar>
+        </Content>
+      </HeaderBar>
+      <ImageContainer>
+        <Image src={placeSearch} />
+        <Text color="#3E4042">궁금하신 장소를 입력해주세요.</Text>
+      </ImageContainer>
+    </>
   );
 };
 const HeaderBar = styled.div`
@@ -77,4 +84,23 @@ const Input = styled.input`
     color: #c2c6cb;
   }
 `;
+
+const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+  flex-direction: column;
+  img {
+    width: 461px;
+    display: block;
+  }
+  @media (max-width: 500px) {
+    margin-top: 20%;
+    img {
+      width: 100%;
+    }
+  }
+`;
+
 export default SearchPage;

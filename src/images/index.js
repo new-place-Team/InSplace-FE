@@ -43,6 +43,8 @@ import profile2 from './profile2.png';
 import profile3 from './profile3.png';
 import profile4 from './profile4.png';
 import isNoPick from './illustration/isNoPick.png';
+import placeSearch from './illustration/search_img.png';
+import placeSearchResult from './illustration/search_result_img.png';
 
 export {
   bookmark,
@@ -76,4 +78,6 @@ export {
   profile4,
   isNoPick,
   x,
+  placeSearch,
+  placeSearchResult,
 };

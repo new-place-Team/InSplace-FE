@@ -3,11 +3,12 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
-import { Container, Grid, Text } from '../elements';
+import { Container, Grid, Text, Image } from '../elements';
 import ListCard from '../components/place/ListCard';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { getSearchConditionList } from '../shared/api/placeApi';
+import { placeSearchResult } from '../images';
 
 const PlaceList = props => {
   const url = props.location.search;
@@ -68,34 +69,48 @@ const PlaceList = props => {
       }
     };
     // 새로운 observer를 생성해서 타겟을 잡는다.
-    const observer = new IntersectionObserver(moreFun, options);
-    if (observer) {
-      observer.observe(pageRef.current);
+    if (list.length !== 0) {
+      const observer = new IntersectionObserver(moreFun, options);
+      if (observer) {
+        observer.observe(pageRef.current);
+      }
     }
     // 컴포넌트가 종료될때 observer를 해지해준다.
-    return () => observer && observer.disconnect();
+    return () => list.length !== 0 && observer && observer.disconnect();
   }, [loading]);
 
   return (
     <>
       <Header _back _content="검색결과" _map _search />
       <Container>
-        <Text margin="40px 0 0 0" fontSize="20px" bold>
-          {list.length === 0 ? '검색 결과가 없습니다.' : title}
-        </Text>
-        <PlaceGrid>
-          {list &&
-            list.map(info => {
-              return (
-                <CardWrap key={`key-${info.postId}`}>
-                  <ListCard type="searchList" info={info} />
-                </CardWrap>
-              );
-            })}
-        </PlaceGrid>
-        <Grid padding="0 0 112px 0">
-          <LodingSpiner ref={pageRef}>더보기</LodingSpiner>
-        </Grid>
+        {list.length === 0 ? (
+          <ImageContainer>
+            <Image src={placeSearchResult} />
+            <Text color="#3E4042">
+              <b>{title}</b> 검색 결과가 없습니다.
+            </Text>
+          </ImageContainer>
+        ) : (
+          <>
+            <Text margin="40px 0 0 0" fontSize="20px" bold>
+              {title}
+            </Text>
+            <PlaceGrid>
+              {list &&
+                list.map(info => {
+                  return (
+                    <CardWrap key={`key-${info.postId}`}>
+                      <ListCard type="searchList" info={info} />
+                    </CardWrap>
+                  );
+                })}
+            </PlaceGrid>
+
+            <Grid padding="0 0 112px 0">
+              <LodingSpiner ref={pageRef}>더보기</LodingSpiner>
+            </Grid>
+          </>
+        )}
       </Container>
       <Navbar />
     </>
@@ -130,5 +145,21 @@ const CardWrap = styled.div`
     height: 290px;
   }
 `;
-
+const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+  flex-direction: column;
+  img {
+    width: 461px;
+    display: block;
+  }
+  @media (max-width: 500px) {
+    margin-top: 20%;
+    img {
+      width: 100%;
+    }
+  }
+`;
 export default PlaceList;

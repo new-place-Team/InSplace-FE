@@ -84,9 +84,9 @@ const MyPage = () => {
           </Info>
           <Info>
             <Text>버전정보</Text>
-            <BottomText>
-              <Text>V1.0.2</Text>
-            </BottomText>
+            <BottomBox>
+              <TextBox>V1.0.2</TextBox>
+            </BottomBox>
           </Info>
           <Info
             onClick={() => {
@@ -94,6 +94,7 @@ const MyPage = () => {
             }}
           >
             <Text>후원</Text>
+            <BottomBox />
           </Info>
         </InfoGrid>
       </Container>
@@ -113,38 +114,52 @@ const Bg = styled.div`
 
 const InfoGrid = styled.div`
   width: 95%;
-  background-color: #fff;
   display: flex;
   flex-wrap: wrap;
   margin: 0 0 0 auto;
-  position: absolute;
-  right: 0;
-  bottom: 65px;
+  padding-bottom: 66px;
 `;
 
 const Info = styled.div`
+  position: relative;
   width: 50%;
-  height: 225px;
+  height: 265px;
   padding: 24px;
   background-color: #fff;
-  position: relative;
   border: 1px solid #e6e9ec;
-  @media (min-width: 768px) {
-    height: 320px;
+
+  @media (max-width: 500px) {
+    min-height: 180px;
+    height: auto;
   }
 `;
 
 const BottomBox = styled.div`
-  width: 34px;
-  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 100%;
+  padding-bottom: 16px;
+  img {
+    width: 66px;
+  }
+  @media (max-width: 500px) {
+    img {
+      width: 32px;
+    }
+  }
+  /* position: absolute;
   bottom: 7%;
-  right: 7%;
+  right: 7%; */
 `;
-
-const BottomText = styled.div`
-  position: absolute;
-  bottom: 7%;
-  right: 7%;
+const TextBox = styled.p`
+  width: 100%;
+  height: 66px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  font-size: 22px;
+  font-weight: bold;
 `;
 
 export default MyPage;
