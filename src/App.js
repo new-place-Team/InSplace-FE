@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { ThemeProvider } from 'styled-components';
 import { history } from './redux/configureStore';
-import { getToken } from './shared/utils';
+import { getTokenYn } from './shared/utils';
 import { logInCheckDB } from './redux/async/user';
 // import { getCurrentCoordinate } from './redux/modules/placeSlice';
 // eslint-disable-next-line import/named
@@ -38,16 +38,15 @@ import Setting from './pages/Setting';
 function App() {
   const dispatch = useDispatch();
   const location = useSelector(state => state.place.location);
-  // 새로고침 했을때 토큰이 있으면 로그인 체크
-  if (getToken()) {
-    useEffect(() => {
-      dispatch(logInCheckDB());
-    }, []);
-  }
-  // 현재위치를 받아보자!
+
   useEffect(() => {
+    // 새로고침 했을때 토큰이 있으면 로그인 체크
     if (!location) {
       dispatch(getCurrentCoordinateWEB());
+    }
+    // 현재위치를 받아보자!
+    if (getTokenYn()) {
+      dispatch(logInCheckDB());
     }
   }, []);
 
