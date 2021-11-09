@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import api from './index';
 
 // 비동기 통신들
@@ -16,6 +17,8 @@ const logInKakao = code => api.get(`/users/kakao/auth?code=${code}`);
 const getFavories = () => api.get('/favorites');
 /* 유저별 가본곳 list */
 const getVisited = () => api.get('/visitedPosts');
+/* 프로필 수정 */
+const editProfile = params => api.put(`/users/${params.id}/info`, params.data);
 
 export {
   addUser,
@@ -25,4 +28,5 @@ export {
   logInKakao,
   getFavories,
   getVisited,
+  editProfile,
 };

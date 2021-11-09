@@ -49,7 +49,7 @@ const Main = () => {
     <>
       <Container padding="0">
         <Grid>
-          <Header _onBg _content="Logo" _search />
+          <Header _onBg _content="InSplace" _search _color="#fff" />
           {/* Weather Section */}
           <Bg src={weatherBg} />
           <WeatherBox info={weatherInfo} />

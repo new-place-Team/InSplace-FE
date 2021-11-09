@@ -11,6 +11,7 @@ import {
   kakaoLogin,
   getFavoritesDB,
   getVisitedDB,
+  editProfileDB,
 } from '../async/user';
 
 // inititalState
@@ -61,15 +62,17 @@ const userSlice = createSlice({
     addUserVisitedPost: (state, { payload }) => {
       let visitedList = state.userPickPlaces.visitedList;
       if (visitedList) {
-        visitedList = [...visitedList, payload];
+        state.userPickPlaces.visitedList = [...visitedList, payload];
       }
     },
     /* 유저 방문 포스트 삭제 */
     deleteUserVisitedPost: (state, { payload }) => {
-      state.userPickPlaces.visitedList =
-        state.userPickPlaces.visitedList.filter(
+      let visitedList = state.userPickPlaces.visitedList;
+      if (visitedList) {
+        state.userPickPlaces.visitedList = visitedList.filter(
           v => v.postId !== payload.postId,
         );
+      }
     },
   },
   extraReducers: {
@@ -110,6 +113,10 @@ const userSlice = createSlice({
     /* 유저 가본곳 리스트 조회 성공시 */
     [getVisitedDB.fulfilled]: (state, { payload }) => {
       state.userPickPlaces.visitedList = payload.visitedPosts;
+    },
+    /* 유저 정보 수정 */
+    [editProfileDB.fulfilled]: (state, { payload }) => {
+      state.userInfo = payload;
     },
   },
 });

@@ -6,7 +6,7 @@ import { Container, Grid, Text, Image, Icons } from '../elements';
 import { ReactComponent as SelectedHeart } from '../images/Icon/ic_heart-dark.svg';
 import { ReactComponent as PinFilled } from '../images/Icon/ic_pin-filled.svg';
 import { getCategoryText } from '../shared/transferText';
-import { isNoPick } from '../images/index';
+import { noLikePlace, noVisitedPlace } from '../images/index';
 
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
@@ -123,8 +123,8 @@ const Pick = () => {
                   padding="0 0 65px  0"
                 >
                   <IsNoneArea>
-                    <Image src={isNoPick} />
-                    <Text>찜한 곳이 없습니다.</Text>
+                    <Image src={noLikePlace} />
+                    <Text margin="69px 0 0 0">찜한 곳이 없습니다.</Text>
                   </IsNoneArea>
                 </Grid>
               </>
@@ -171,8 +171,8 @@ const Pick = () => {
               })
             ) : (
               <IsNoneArea>
-                <Image src={isNoPick} />
-                <Text>가본 곳이 없습니다.</Text>
+                <Image src={noVisitedPlace} />
+                <Text margin="69px 0 0 0">가본 곳이 없습니다.</Text>
               </IsNoneArea>
             )}
           </Grid>
