@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable no-undef */
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Grid, Text } from '../elements';
@@ -8,54 +9,43 @@ import { getReviewLikesList, getReviewList } from '../shared/api/placeApi';
 
 const ReviewList = props => {
   const { postId } = props;
-  // const dispatch = useDispatch();
-  // const reviewList = useSelector(state => state.place.reviewList);
-  // const reviewLikeList = useSelector(state => state.place.reivewLikesList);
-
+  const pageRef = useRef();
   const userInfo = useSelector(state => state.user.userInfo);
-
   const [active, setActive] = useState({ likeList: false, newList: true });
-  const [reviews, setReviews] = useState({
-    postId,
-    pageNumbr: 1,
-    reviewList: [],
-  });
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const reviewListLoad = async value => {
+    const params = { postId, pageNumber };
     const type = value === 'list';
+
     try {
       const res = type
-        ? await getReviewList(reviews)
-        : await getReviewLikesList(reviews);
-      const { data } = res;
-
-      if (res.data) {
-        setReviews({ ...reviews, reviewList: data.reviews });
+        ? await getReviewList(params)
+        : await getReviewLikesList(params);
+      const list = res.data.reviews;
+      if (list.length !== 0) {
+        setLoading(true);
+        setReviews(prev => [...prev, ...list]);
+      } else {
+        setLoading(false);
       }
     } catch (e) {
       console.log(e);
     }
   };
 
-  // 최신순, 추천순 클릭시 list 새로 담는 부분 수정해야함
-  // const getReviewsListLoad = type => {
-  //   // 최신순
-  //   if (type === 'list') {
-  //     dispatch(getReviewListDB(reviews));
-  //     setReviews({ ...reviews, reviewList: [].concat(reviewList) });
-  //   } else {
-  //     // 추천순
-  //     dispatch(getReviewLikesListDB(reviews));
-  //     setReviews({ ...reviews, reviewList: [].concat(reviewLikeList) });
-  //   }
-  // };
-
   // 최신순 추천순 버튼
   const onClick = e => {
     if (e.target.name === 'likeList') {
+      setReviews([]);
+      setPageNumber(1);
       setActive({ ...active, likeList: true, newList: false });
       reviewListLoad();
     } else {
+      setReviews([]);
+      setPageNumber(1);
       setActive({ ...active, likeList: false, newList: true });
       reviewListLoad('list');
     }
@@ -65,7 +55,34 @@ const ReviewList = props => {
   // 컴포넌트 안에 들어왔을때 미들웨어 호출해서 보여주려고 했었음.
   useEffect(() => {
     reviewListLoad('list');
-  }, []);
+  }, [pageNumber]);
+
+  const updatePage = () => {
+    setPageNumber(prevPageNumber => prevPageNumber + 1);
+  };
+
+  // 무한 스크롤 구현
+  useEffect(() => {
+    const options = { rootMargin: `50px`, thredhold: 1.0 };
+    const moreFun = (entires, observer) => {
+      // 서버에서 받아온 데이터가 있을때만 loading 이 true되면서 아래 실행
+      if (loading) {
+        if (entires[0].isIntersecting) {
+          updatePage();
+          observer.unobserve(pageRef.current);
+        }
+      }
+    };
+
+    // 새로운 observer를 생성해서 타겟을 잡는다.
+    const observer = new IntersectionObserver(moreFun, options);
+    if (observer) {
+      observer.observe(pageRef.current);
+    }
+
+    // 컴포넌트가 종료될때 observer를 해지해준다.
+    return () => reviews.length !== 0 && observer && observer.disconnect();
+  }, [loading]);
 
   return (
     <ReviewWrap>
@@ -73,7 +90,7 @@ const ReviewList = props => {
         <Grid justify="space-between">
           <Grid>
             <Text fontSize="18px" color="#282828" bold>
-              리뷰 ({reviews.reviewList.length})
+              리뷰 ({reviews && reviews.length})
             </Text>
           </Grid>
           <Grid isFlex>
@@ -96,14 +113,14 @@ const ReviewList = props => {
           </Grid>
         </Grid>
       </ReviewTitle>
-      {reviews.reviewList &&
-        reviews.reviewList.map(item => {
+      {reviews &&
+        reviews.map(item => {
           return (
             <ReviewCard
               key={item.userID}
               loginUser={userInfo.nickname}
-              postId={reviews.postId}
-              list={reviews.reviewList}
+              postId={postId}
+              list={reviews}
               reviewListLoad={reviewListLoad}
               {...item}
             />
@@ -121,6 +138,10 @@ const ReviewList = props => {
             />
           );
         })} */}
+
+      <Grid padding="0 0 112px 0">
+        <LodingSpiner ref={pageRef}>더보기</LodingSpiner>
+      </Grid>
     </ReviewWrap>
   );
 };
@@ -153,5 +174,12 @@ const ReviewButton = styled.button`
     font-weight: 600;
   }
 `;
-
+const LodingSpiner = styled.div`
+  width: 100%;
+  padding: 20px;
+  font-size: 14px;
+  text-align: center;
+  color: #fff;
+  background-color: #232529;
+`;
 export default React.memo(ReviewList);
