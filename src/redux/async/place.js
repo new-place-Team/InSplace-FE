@@ -23,6 +23,7 @@ import {
   postVisitedPost,
   deleteVisitedPost,
   reviewLikeCancel,
+  getSearchConditionList,
 } from '../../shared/api/placeApi';
 import { getLocationAddress } from '../../shared/api/kakaoApi';
 import { getPosition } from '../../shared/utils';
@@ -116,7 +117,6 @@ export const setFavoritesPostDB = createAsyncThunk(
         thunkAPI.dispatch(addUserLikePost(params));
       }
       if (response) {
-        console.log('>>>>>>>', response);
         thunkAPI.dispatch(setConditionPlaces(params));
         return params;
       }
@@ -140,6 +140,21 @@ export const setVisitedPostDB = createAsyncThunk(
       }
       if (response) {
         return response;
+      }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);
+
+/* 장소(실내 or 실외) 리스트, 검색 장소 리스트 조회 */
+export const getSearchConditionListDB = createAsyncThunk(
+  'place/placeSearchList',
+  async (params, thunkAPI) => {
+    try {
+      const response = await getSearchConditionList(params);
+      if (response) {
+        return response.data;
       }
     } catch (err) {
       return thunkAPI.rejectWithValue(err);

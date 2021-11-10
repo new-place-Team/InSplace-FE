@@ -1,89 +1,73 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-alert */
 /* eslint-disable no-undef */
 /* eslint-disable react/destructuring-assignment */
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Container, Grid, Text, Image } from '../elements';
+import { useSelector, useDispatch } from 'react-redux';
+import { Container, Text, Image } from '../elements';
 import ListCard from '../components/place/ListCard';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
-import { getSearchConditionList } from '../shared/api/placeApi';
 import { placeSearchResult } from '../images';
+import { getSearchConditionListDB } from '../redux/async/place';
 
 const PlaceList = props => {
+  const dispatch = useDispatch();
   const url = props.location.search;
   const searchType = props.match.params.params;
-  const pageRef = useRef();
-  const [list, setList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [pageNumber, setPageNumber] = useState(1);
-  const qureryString = `search/pages/${pageNumber}/${searchType}${url}`;
+  const placeList = useSelector(state => state.place.placeList);
+  const pagination = useSelector(state => state.place.placePagination);
+  /* target 을 지켜보다 target이 정해진 threshold 비율만큼 지정 행동 */
+  const [target, setTarget] = useState(null);
 
   let title = '';
-  if (qureryString.indexOf('inside=1') !== -1) {
+  if (url.indexOf('inside=1') !== -1) {
     title = '실내';
-  } else if (qureryString.indexOf('inside=0') !== -1) {
+  } else if (url.indexOf('inside=0') !== -1) {
     title = '실외';
-  } else if (qureryString.indexOf('result') !== -1) {
+  } else if (url.indexOf('result') !== -1) {
     const findText = url.split('?result=').reverse()[0];
     title = decodeURIComponent(findText);
   }
 
-  const onLoad = async () => {
-    try {
-      const res = await getSearchConditionList(qureryString);
-      const { posts } = res.data;
-      // 서버에서 받아온 데이터가 있을 때만 loading true로 변경되어야함
-      if (posts.length !== 0) {
-        setLoading(true);
-      } else {
-        setLoading(false);
-      }
-      setList(prev => [...prev, ...posts]);
-    } catch (e) {
-      console.log('error', e);
-    }
-  };
-
   useEffect(() => {
-    onLoad();
-  }, [pageNumber]);
-
-  const updatePage = () => {
-    setPageNumber(prevPageNumber => prevPageNumber + 1);
-  };
+    if (!placeList) {
+      const qureryString = `search/pages/${pagination.page}/${searchType}${url}`;
+      dispatch(getSearchConditionListDB(qureryString));
+    }
+  }, []);
 
   // 무한 스크롤 구현
   useEffect(() => {
-    const options = { rootMargin: `50px`, thredhold: 1.0 };
-    const moreFun = (entires, observer) => {
-      // 서버에서 받아온 데이터가 있을때만 loading 이 true되면서 아래 실행
-      if (loading) {
-        if (entires[0].isIntersecting) {
-          // observer가 타겟을 관측하면, page의 숫자를 더해준다.
-          updatePage();
-          // 관찰 중지 시켜준다.
-          observer.unobserve(pageRef.current);
-          setLoading(false);
-        }
+    // observer 설정 값
+    const options = { threshold: 0.5 };
+    // observer 가 수행할 행동
+    const moreFun = ([entires], observer) => {
+      if (!entires.isIntersecting) {
+        return;
       }
+      const qureryString = `search/pages/${
+        pagination.page + 1
+      }/${searchType}${url}`;
+      dispatch(getSearchConditionListDB(qureryString));
+      observer.unobserve(entires.target); // 관찰 중지 시켜준다.
     };
-    // 새로운 observer를 생성해서 타겟을 잡는다.
-    if (list.length !== 0) {
-      const observer = new IntersectionObserver(moreFun, options);
-      if (observer) {
-        observer.observe(pageRef.current);
-      }
+    // 새로운 observer를 생성
+    const observer = new IntersectionObserver(moreFun, options);
+    if (target) observer.observe(target);
+    if (!pagination.isNext) {
+      observer.disconnect();
     }
-    // 컴포넌트가 종료될때 observer를 해지해준다.
-    return () => list.length !== 0 && observer && observer.disconnect();
-  }, [loading]);
+    // 컴포넌트가 종료될때 observer를 해지
+    return () => observer && observer.disconnect();
+  }, [target]);
 
   return (
     <>
       <Header _back _content="검색결과" _map _search />
       <Container>
-        {list.length === 0 ? (
+        {placeList && placeList.length <= 0 ? (
           <ImageContainer>
             <Image src={placeSearchResult} />
             <Text color="#3E4042">
@@ -96,19 +80,20 @@ const PlaceList = props => {
               {title}
             </Text>
             <PlaceGrid>
-              {list &&
-                list.map(info => {
+              {placeList &&
+                placeList.map((info, idx) => {
+                  const lastItem = idx === placeList.length - 1;
                   return (
                     <CardWrap key={`key-${info.postId}`}>
-                      <ListCard type="searchList" info={info} />
+                      <ListCard
+                        type="searchList"
+                        info={info}
+                        ref={lastItem ? setTarget : null}
+                      />
                     </CardWrap>
                   );
                 })}
             </PlaceGrid>
-
-            <Grid padding="0 0 112px 0">
-              <LodingSpiner ref={pageRef}>더보기</LodingSpiner>
-            </Grid>
           </>
         )}
       </Container>
@@ -117,14 +102,6 @@ const PlaceList = props => {
   );
 };
 
-const LodingSpiner = styled.div`
-  width: 100%;
-  padding: 20px;
-  font-size: 14px;
-  text-align: center;
-  color: #fff;
-  background-color: #232529;
-`;
 const PlaceGrid = styled.div`
   display: flex;
   justify-content: flex-start;

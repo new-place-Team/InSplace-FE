@@ -45,6 +45,7 @@ const Login = () => {
   };
 
   React.useEffect(() => {
+    console.log('kakao redirect url', KAKAO_AUTH_URL);
     if (state.email !== '') {
       return setButtonStatus({ ...buttonStatus, emailStatus: true });
     }

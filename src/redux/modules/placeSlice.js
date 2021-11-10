@@ -16,6 +16,7 @@ import {
   setVisitedPostDB,
   getReviewEditDB,
   updateReviewDB,
+  getSearchConditionListDB,
 } from '../async/place';
 
 /* init */
@@ -30,6 +31,8 @@ const initialState = {
   conditionPlaces: null,
   detailInfo: {},
   currentCoordinate: {},
+  placeList: null,
+  placePagination: { page: 1, isNext: true },
   reviewList: [],
   reivewLikesList: [],
   review: null,
@@ -55,6 +58,7 @@ const placeSlice = createSlice({
       console.log(payload);
       state.map = payload;
     },
+    /* 선택 결과 장소 좋아요 */
     setConditionPlaces: (state, { payload }) => {
       const { postId } = payload;
       const { conditionPlaces } = state;
@@ -121,25 +125,27 @@ const placeSlice = createSlice({
     },
     /* 좋아요 toggle 성공시 */
     [setFavoritesPostDB.fulfilled]: (state, { payload }) => {
-      console.log(payload);
       const { postId } = payload;
       // 상세 좋아요 적용
-      state.detailInfo.favoriteState = !state.detailInfo.favoriteState;
-      state.detailInfo.favoriteState
-        ? (state.detailInfo.favoriteCnt += 1)
-        : (state.detailInfo.favoriteCnt -= 1);
-      // const { postId } = state.detailInfo;
-      const { mainLists } = state;
+      if (state.detailInfo) {
+        state.detailInfo.favoriteState = !state.detailInfo.favoriteState;
+        state.detailInfo.favoriteState
+          ? (state.detailInfo.favoriteCnt += 1)
+          : (state.detailInfo.favoriteCnt -= 1);
+      }
       // 메인 좋아요 적용
-      for (const key in mainLists) {
-        if (key && key !== 'weather') {
-          const idx = mainLists[`${key}`].findIndex(v => v.postId === postId);
-          if (idx > -1) {
-            const target = mainLists[`${key}`][idx];
-            target.favoriteState = !target.favoriteState;
-            target.favoriteState
-              ? (target.favoriteCnt += 1)
-              : (target.favoriteCnt -= 1);
+      const { mainLists } = state;
+      if (mainLists) {
+        for (const key in mainLists) {
+          if (key && key !== 'weather') {
+            const idx = mainLists[`${key}`].findIndex(v => v.postId === postId);
+            if (idx > -1) {
+              const target = mainLists[`${key}`][idx];
+              target.favoriteState = !target.favoriteState;
+              target.favoriteState
+                ? (target.favoriteCnt += 1)
+                : (target.favoriteCnt -= 1);
+            }
           }
         }
       }
@@ -152,6 +158,23 @@ const placeSlice = createSlice({
     [setVisitedPostDB.rejected]: (state, action) => {
       const { payload } = action;
       console.log(payload);
+    },
+    /* list 페이지 조회 */
+    [getSearchConditionListDB.fulfilled]: (state, { payload }) => {
+      console.log('>> payload', payload);
+      if (state.placeList) {
+        // 더보기 추가
+        state.placeList = [...state.placeList, ...payload.posts];
+        state.placePagination = {
+          ...state.placePagination,
+          page: payload.page,
+          lastPage: payload.lastPage,
+          isNext: payload.page !== payload.lastPage,
+        };
+      } else {
+        // 최초 로드
+        state.placeList = payload.posts;
+      }
     },
   },
 });

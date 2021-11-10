@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Grid, Image, Text } from '../../elements/index';
@@ -14,7 +14,7 @@ import { ReactComponent as SelectedHeader } from '../../images/Icon/ic_heart-fil
 import { setFavoritesPostDB } from '../../redux/async/place';
 import { isLoginChk } from '../../shared/utils';
 
-const ListCard = props => {
+const ListCard = forwardRef((props, ref) => {
   const { type, info } = props;
   const dispatch = useDispatch();
   const isLogin = useSelector(state => state.user.isLogin);
@@ -124,7 +124,7 @@ const ListCard = props => {
 
   if (type === 'searchList') {
     return (
-      <Grid width="100%" margin="0 0 46px 0" cursor>
+      <GridArea ref={ref}>
         <Grid _onClick={gotoDetail}>
           <Image width="100%" height="196px" src={info && info.postImage} />
         </Grid>
@@ -147,7 +147,7 @@ const ListCard = props => {
             {info && info.addressShort}
           </Text>
         </Grid>
-      </Grid>
+      </GridArea>
     );
   }
 
@@ -174,7 +174,7 @@ const ListCard = props => {
       </Grid>
     </>
   );
-};
+});
 
 ListCard.defaultProps = {
   type: 'list',
@@ -199,5 +199,10 @@ const IconArea = styled.div`
   height: 24px;
   margin: 0 8px 8px 0;
   cursor: pointer;
+`;
+
+const GridArea = styled.div`
+  width: 100%;
+  margin: 0 0 46px 0;
 `;
 export default ListCard;

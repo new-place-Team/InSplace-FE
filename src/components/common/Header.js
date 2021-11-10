@@ -165,7 +165,7 @@ const HeaderBar = styled.div`
   top: 0;
   box-shadow: 0px 2px 3px rgb(196 196 196 / 25%);
   background-color: #fff;
-  z-index: 3;
+  z-index: 4;
 `;
 
 const ContentArea = styled.div`
