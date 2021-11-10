@@ -13,9 +13,9 @@ import { right, mypageNext, profile1 } from '../images/index';
 const MyPage = () => {
   const userInfo = useSelector(state => state.user.userInfo);
   const isLogin = useSelector(state => state.user.isLogin);
-  if (!getToken()) {
-    window.alert('로그인을 해주세요!');
-    history.push('/login');
+
+  if (!isLogin) {
+    history.push('/main');
   }
   const gotoDetailPage = () => {
     if (!getToken()) {
