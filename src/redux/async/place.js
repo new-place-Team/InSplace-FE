@@ -33,6 +33,7 @@ import {
   addUserVisitedPost,
   deleteUserVisitedPost,
 } from '../modules/userSlice';
+import { setConditionPlaces } from '../modules/placeSlice';
 
 /* 메인 리스트 호출 */
 export const getMainListDB = createAsyncThunk(
@@ -115,6 +116,8 @@ export const setFavoritesPostDB = createAsyncThunk(
         thunkAPI.dispatch(addUserLikePost(params));
       }
       if (response) {
+        console.log('>>>>>>>', response);
+        thunkAPI.dispatch(setConditionPlaces(params));
         return params;
       }
     } catch (err) {
