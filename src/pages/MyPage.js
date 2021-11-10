@@ -44,7 +44,7 @@ const MyPage = () => {
 
   return (
     <>
-      <Container padding="0" height="100vh">
+      <Container padding="0" height="100%">
         <Header _onBg _content="MyPage" _settings />
         <Bg src={sunBg} />
         <Grid isFlex justify="center" padding="59px 40px">
