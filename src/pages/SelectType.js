@@ -163,7 +163,6 @@ const SelectedType = () => {
 const ChangeContainer = styled.div`
   position: fixed;
   width: 100%;
-  margin-top: 2px;
   background-color: #fff;
   z-index: 3;
 `;
@@ -176,6 +175,7 @@ const ChangeText = styled.div`
   &.hide {
     padding: 40px 34px;
   }
+
   @media (max-width: 500px) {
     width: 100%;
     &.hide {
