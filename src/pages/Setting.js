@@ -15,6 +15,7 @@ const Setting = () => {
   const goLogoOut = () => {
     dispatch(logOut());
     history.push('/');
+    // window.location.replace('/');
   };
   const goUnRegister = () => {
     dispatch(unRegisterDB());

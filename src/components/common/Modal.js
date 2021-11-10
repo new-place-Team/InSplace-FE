@@ -178,7 +178,7 @@ const Overlay = styled.div`
   left: 0;
   right: 0;
   position: fixed;
-  z-index: 5;
+  z-index: 999;
 `;
 
 const ModalContent = styled.div`
@@ -190,7 +190,7 @@ const ModalContent = styled.div`
   left: 0;
   padding: 0 24px;
   transition: bottom 0.3s ease-out;
-  z-index: 10;
+  z-index: 999;
   overflow: auto;
   border-radius: 10px;
 `;
@@ -207,8 +207,6 @@ const MBTIDiv = styled.div`
 
 const AbsolBtn = styled.button`
   position: absolute;
-  /* top: 33px;
-  right: 0; */
   top: 46px;
   right: -70px;
   transform: translate(-50%, -50%);

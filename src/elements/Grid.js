@@ -92,7 +92,7 @@ Grid.defaultProps = {
   border: 'none',
   position: 'relative',
   borderBottom: 'none',
-  cursor: false,
+  // cursor: false,
   _onClick: () => {},
 };
 

@@ -1,30 +1,43 @@
+/* eslint-disable no-else-return */
 /* eslint-disable no-alert */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import Header from '../components/common/Header';
 import { history } from '../redux/configureStore';
-import { getToken } from '../shared/utils';
+import { getTokenYn } from '../shared/utils';
+
+import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
+import { right, mypageNext, profile1 } from '../images/index';
 import { Button, Container, Grid, Image, Text } from '../elements';
 import sunBg from '../images/weather/sun1.jpg';
-import { right, mypageNext, profile1 } from '../images/index';
 
 const MyPage = () => {
   const userInfo = useSelector(state => state.user.userInfo);
-  const isLogin = useSelector(state => state.user.isLogin);
-  if (!getToken()) {
-    window.alert('로그인을 해주세요!');
-    history.push('/login');
-  }
+
+  /* 유저 이미지가 있으면 그 이미지 없으면 기본 이미지 */
+  const setNomalImage = profile => {
+    if (userInfo.userImage !== null) {
+      return userInfo.userImage;
+    } else return profile;
+  };
+  const realUserInfo = { ...userInfo, userImage: setNomalImage(profile1) };
+  /* 만약 이 페이지에서 토큰없을시 로그인 페이지 이동 */
+  useEffect(() => {
+    if (getTokenYn() === false) {
+      window.alert('로그인을 해주세요!');
+      history.push('/login');
+    }
+  }, []);
+  /* 프로필 수정 페이지로 이동, 이동시 state 같이 전달 */
   const gotoDetailPage = () => {
-    if (!getToken()) {
+    if (getTokenYn() === false) {
       window.alert('로그인을 해주세요!');
       history.push('/login');
     } else {
       history.push({
         pathname: '/mypage/1',
-        state: { userInfo },
+        state: { userInfo: realUserInfo },
       });
     }
   };
@@ -39,7 +52,7 @@ const MyPage = () => {
             type="circle"
             width="169px"
             height="169px"
-            src={userInfo.userImage}
+            src={userInfo.userImage ? userInfo.userImage : profile1}
           />
           <Grid flex margin="0 0 0 36px">
             <Grid isFlex>

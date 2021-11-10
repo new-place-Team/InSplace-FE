@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 /* eslint-disable consistent-return */
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -30,13 +30,6 @@ const Signup = () => {
 
   // 여자,남자 상태를 useState를 통해 관리
   const [maleFemale, setMaleFemale] = React.useState(null);
-
-  // const [match, setMatch] = useState(false);
-  // const [rematch, setRematch] = useState(false);
-  // const [passMatch, setPassMatch] = useState(false);
-  // const [passLengthMatch, setPassLengthMatch] = useState(false);
-  // const [checkPass, setCheckPass] = useState(false);
-  // const [wrond, setWrong] = useState(false);
 
   // 클릭했을때 여자는 1이 남자는 0이 state에 저장
   const selectGender = gender => {
@@ -69,31 +62,22 @@ const Signup = () => {
     }
     if (!emailCheck(userInfoDB.email)) {
       window.alert('이메일 형식이 맞지않습니다.');
-      // setMatch(false);
-      // setRematch(true);
       return;
     }
     if (userInfo.password === '') {
       window.alert('비밀번호를 입력해주세요!');
-      // setPassMatch(true);
-      // setMatch(false);
-      // setRematch(false);
       return;
     }
     if (userInfo.password.length < 8) {
       window.alert('비밀번호는 8자리 이상으로 입력해주세요');
-      // setPassMatch(false);
-      // setPassLengthMatch(true);
       return;
     }
     if (userInfo.passwordCheck === '') {
       window.alert('비밀번호 확인을 입력해주세요!');
-      // setCheckPass(true);
       return;
     }
     if (userInfo.password !== userInfo.passwordCheck) {
       window.alert('비밀번호가 일치하지 않습니다.');
-      // setCheckPass(true);
       return;
     }
     if (userInfo.nickname === '') {
@@ -107,7 +91,6 @@ const Signup = () => {
     if (!userInfoDB.mbtiId) {
       window.alert('mbti도 선택해 볼까요?!');
     }
-    console.log('회원가입폼', userInfoDB);
     // 회원정보 미들웨어로 dispatch
     dispatch(addUserDB(userInfoDB));
   };
@@ -224,9 +207,7 @@ const Signup = () => {
 };
 
 const BottomWrap = styled.div`
-  /* position: absolute; */
-  padding: 0 20px;
-  /* bottom: 50px; */
+  padding: 40px 20px;
   width: 100%;
 `;
 

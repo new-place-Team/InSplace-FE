@@ -2,24 +2,34 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable import/named */
 /* eslint-disable no-undef */
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalOn } from '../redux/modules/userSlice';
 import { getPeopleMbti } from '../shared/transferText';
 import { editProfileDB } from '../redux/async/user';
+import { history } from '../redux/configureStore';
+import { getTokenYn } from '../shared/utils';
 
+import Modal from '../components/common/Modal';
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Label, Text } from '../elements';
 import { plus } from '../images/index';
-import Modal from '../components/common/Modal';
 
 const MyPageEdit = props => {
   const dispatch = useDispatch();
   const modalStatus = useSelector(state => state.user.modalStatus);
   const mbtiInfo = useSelector(state => state.user.userMbti);
+  /* 만약 이 페이지에서 토큰없을시 로그인 페이지 이동 */
+  useEffect(() => {
+    if (getTokenYn() === false) {
+      window.alert('로그인을 해주세요!');
+      history.push('/login');
+    }
+  }, []);
   const [maleFemale, setMaleFemale] = React.useState(null);
   const [preview, setPreview] = React.useState('');
+
   /* 이전 페이지에서 가지고 있던 유저 정보를 params로 넘겨줌 */
   const newParams = props.history.location.state.userInfo;
   const [info, setInfo] = React.useState({
@@ -56,7 +66,7 @@ const MyPageEdit = props => {
   const selectGender = gender => {
     setMaleFemale(gender);
   };
-  /* 수정 요청 */
+  /* 수정 요청 form data */
   const onSubmitHandler = () => {
     const formData = new FormData();
     formData.append('nickname', nickname);
@@ -183,7 +193,7 @@ const ProfileWrap = styled.div`
 `;
 const UploadWrap = styled.div`
   margin: -40px -120px 0 0;
-  z-index: 100;
+  z-index: 50;
 `;
 const UploadLabel = styled.label`
   display: flex;
@@ -247,9 +257,7 @@ const MBTIDiv = styled.div`
 `;
 
 const BottomWrap = styled.div`
-  position: absolute;
-  padding: 0 20px;
-  bottom: 50px;
+  padding: 40px 20px;
   width: 100%;
 `;
 

@@ -10,12 +10,10 @@ import Header from '../components/common/Header';
 import { close } from '../images';
 import { KAKAO_AUTH_URL } from '../shared/KakaoOAuth';
 import { ReactComponent as KakaoIcon } from '../images/kakaoLogin/join_kakao.svg';
-// import { largeWide } from '../images/kakaoLogin/index';
-
-// import {unRegisterDB } from '../redux/async/user';
 
 const Login = () => {
   const dispatch = useDispatch();
+  /* email,password 하나의 state에서 관리 */
   const [state, setState] = React.useState({
     email: '',
     password: '',
@@ -24,17 +22,16 @@ const Login = () => {
     emailStatus: false,
     pwStatus: false,
   });
-
+  /* Input 관리 */
   const onChange = e => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
-
-  // 서버에 전달할 정보
+  /* 서버에 전달할 정보 */
   const userInfo = {
     email: state.email,
     password: state.password,
   };
-  // 로그인 제출
+  /* 로그인 제출 */
   const submitUserInfo = () => {
     if (userInfo.email === '') {
       window.alert('이메일을 입력해주세요!');
@@ -46,17 +43,6 @@ const Login = () => {
     }
     dispatch(logInDB(userInfo));
   };
-  // 로그아웃
-  // const userLogout = () => {
-  //   dispatch(logOut());
-  //   state.email = '';
-  //   state.password = '';
-  //   history.push('/');
-  // };
-  // // 회원탈퇴
-  // const deleteUser = () => {
-  //   dispatch(unRegisterDB());
-  // };
 
   React.useEffect(() => {
     if (state.email !== '') {
@@ -120,12 +106,6 @@ const Login = () => {
           </KakaoButton>
           <Button onClick={submitUserInfo}>로그인</Button>
           <Button onClick={() => history.push('/signUp')}>회원가입</Button>
-          {/* <Button type="fullSizeBlack" onClick={userLogout}>
-            로그아웃
-          </Button>
-          <Button type="fullSizeBlack" onClick={deleteUser}>
-            회원탈퇴
-          </Button> */}
         </BottomWrap>
       </Container>
     </>
@@ -135,9 +115,7 @@ const Wrap = styled.div`
   margin-bottom: 32px;
 `;
 const BottomWrap = styled.div`
-  position: absolute;
-  padding: 0 20px;
-  bottom: 50px;
+  padding: 40px 20px;
   width: 100%;
 `;
 const Button = styled.button`
