@@ -55,6 +55,26 @@ const placeSlice = createSlice({
       console.log(payload);
       state.map = payload;
     },
+    setConditionPlaces: (state, { payload }) => {
+      const { postId } = payload;
+      const { conditionPlaces } = state;
+      if (conditionPlaces) {
+        for (const key in conditionPlaces) {
+          if (key) {
+            const idx = conditionPlaces[`${key}`].findIndex(
+              v => v.postId === postId,
+            );
+            if (idx > -1) {
+              const target = conditionPlaces[`${key}`][idx];
+              target.favoriteState = !target.favoriteState;
+              target.favoriteState
+                ? (target.favoriteCnt += 1)
+                : (target.favoriteCnt -= 1);
+            }
+          }
+        }
+      }
+    },
   },
 
   extraReducers: {
@@ -141,6 +161,7 @@ export const {
   setSelectedCategory,
   setFocusCoord,
   createMap,
+  setConditionPlaces,
 } = placeSlice.actions;
 
 export default placeSlice;

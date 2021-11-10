@@ -34,8 +34,8 @@ const ListCard = props => {
     }
     const params = {
       postId,
-      categoryId: info.categoryId,
-      postImage: info.postImages,
+      category: info.category,
+      postImage: info.postImage,
       title: info.title,
       favoriteState: info.favoriteState,
     };
@@ -47,10 +47,10 @@ const ListCard = props => {
     return (
       <>
         <Grid _onClick={gotoDetail} width="237px" cursor>
-          <Image width="237px" height="320px" src={info && info.postImages} />
+          <Image width="237px" height="320px" src={info && info.postImage} />
           <Tag>
             <Text color="#fff" fontSize="14px">
-              {info && getCategoryText(info.categoryId)}
+              {info && getCategoryText(info.category)}
             </Text>
           </Tag>
           <IconArea onClick={setFavorites}>
