@@ -39,11 +39,11 @@ function App() {
   const location = useSelector(state => state.place.location);
 
   useEffect(() => {
-    // 새로고침 했을때 토큰이 있으면 로그인 체크
+    // 현재위치를 받아보자
     if (!location) {
       dispatch(getCurrentCoordinateWEB());
     }
-    // 현재위치를 받아보자!
+    // 새로고침 했을때 토큰이 있으면 로그인 체크
     if (getTokenYn()) {
       dispatch(logInCheckDB());
     }

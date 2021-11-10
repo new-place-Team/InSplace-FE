@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import Header from '../components/common/Header';
 import { Container, Text, Grid } from '../elements';
-import { history } from '../redux/configureStore';
+// import { history } from '../redux/configureStore';
 
 import { logOut } from '../redux/modules/userSlice';
 import { unRegisterDB } from '../redux/async/user';
@@ -14,8 +14,7 @@ const Setting = () => {
   const dispatch = useDispatch();
   const goLogoOut = () => {
     dispatch(logOut());
-    history.push('/');
-    // window.location.replace('/');
+    window.location.href = '/';
   };
   const goUnRegister = () => {
     dispatch(unRegisterDB());
