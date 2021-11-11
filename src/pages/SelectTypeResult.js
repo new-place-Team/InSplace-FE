@@ -35,7 +35,14 @@ const SearchTypeList = props => {
 
   return (
     <>
-      <Header _type="search" _back _content="검색 결과" _map _search />
+      <Header
+        _type="search"
+        _back
+        _content="검색 결과"
+        _map
+        _search
+        _color="#000"
+      />
       <Container>
         <SelectedCategory tag={selectedCategory} />
         {/* 실내 리스트 */}

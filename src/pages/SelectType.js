@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/alt-text */
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/common/Header';
@@ -23,6 +23,10 @@ const SelectedType = () => {
     gender: '',
     category: '',
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const showCategory =
     state.MemberCnt === '' && state.gender === '' && state.category === '';
