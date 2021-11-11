@@ -7,7 +7,7 @@ import { Container, Grid, Input, Label } from '../elements';
 import { history } from '../redux/configureStore';
 import { logInDB } from '../redux/async/user';
 import Header from '../components/common/Header';
-import { close } from '../images';
+import { xcircle } from '../images/index';
 import { KAKAO_AUTH_URL } from '../shared/KakaoOAuth';
 import { ReactComponent as KakaoIcon } from '../images/kakaoLogin/join_kakao.svg';
 
@@ -18,10 +18,8 @@ const Login = () => {
     email: '',
     password: '',
   });
-  const [buttonStatus, setButtonStatus] = React.useState({
-    emailStatus: false,
-    pwStatus: false,
-  });
+  const [emailCloseBtn, setEmailCloseBtn] = React.useState(false);
+  const [pwCloseBtn, setpwCloseBtn] = React.useState(false);
   /* Input 관리 */
   const onChange = e => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -45,19 +43,18 @@ const Login = () => {
   };
 
   React.useEffect(() => {
-    console.log('kakao redirect url', KAKAO_AUTH_URL);
     if (state.email !== '') {
-      return setButtonStatus({ ...buttonStatus, emailStatus: true });
+      setEmailCloseBtn(true);
     }
     if (state.email === '') {
-      return setButtonStatus({ ...buttonStatus, emailStatus: false });
+      setEmailCloseBtn(false);
     }
     // 3번째 확인할 것
     if (state.password !== '') {
-      return setButtonStatus({ ...buttonStatus, pwStatus: true });
+      setpwCloseBtn(true);
     }
     if (state.password === '') {
-      return setButtonStatus({ ...buttonStatus, pwStatus: false });
+      setpwCloseBtn(false);
     }
   }, [state]);
 
@@ -67,6 +64,7 @@ const Login = () => {
       <Container padding="66px 0 0 0">
         <Grid padding="42px 20px 0 20px">
           <Wrap>
+            {/* 이메일 */}
             <Label type="form">이메일</Label>
             <Input
               inputType="form"
@@ -76,8 +74,16 @@ const Login = () => {
               _onChange={onChange}
               placeholder="이메일 주소를 입력해주세요"
             />
-            {buttonStatus.emailStatus && <InputCloseButton src={close} />}
+            {emailCloseBtn ? (
+              <CloseButton
+                src={xcircle}
+                onClick={() => {
+                  setState((state.email = ''));
+                }}
+              />
+            ) : null}
           </Wrap>
+          {/* 비밀번호 */}
           <Wrap>
             <Label type="form">비밀번호</Label>
             <Input
@@ -88,7 +94,7 @@ const Login = () => {
               _onChange={onChange}
               placeholder="비밀번호를 입력해주세요"
             />
-            {buttonStatus.pwStatus && <InputCloseButton src={close} />}
+            {pwCloseBtn ? <CloseButton src={xcircle} /> : null}
           </Wrap>
         </Grid>
         <BottomWrap>
@@ -114,6 +120,7 @@ const Login = () => {
 };
 const Wrap = styled.div`
   margin-bottom: 32px;
+  position: relative;
 `;
 const BottomWrap = styled.div`
   padding: 40px 20px;
@@ -128,7 +135,6 @@ const Button = styled.button`
   color: #fff;
   margin-top: 20px;
 `;
-
 const KakaoButton = styled.div`
   display: flex;
   justify-content: center;
@@ -143,7 +149,6 @@ const KakaoButton = styled.div`
   position: relative;
   cursor: pointer;
 `;
-
 const IconArea = styled.div`
   position: absolute;
   bottom: 16px;
@@ -155,11 +160,10 @@ const IconArea = styled.div`
     height: 35px;
   }
 `;
-
-const InputCloseButton = styled.img`
+const CloseButton = styled.img`
   position: absolute;
   right: 11px;
   bottom: 17px;
-  width: 14px;
+  width: 16px;
 `;
 export default Login;
