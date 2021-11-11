@@ -58,10 +58,10 @@ const placeSlice = createSlice({
       console.log(payload);
       state.map = payload;
     },
-    /* 선택 결과 장소 좋아요 */
+    /* 선택 결과 장소 , 검새 결과 장소 좋아요 */
     setConditionPlaces: (state, { payload }) => {
       const { postId } = payload;
-      const { conditionPlaces } = state;
+      const { conditionPlaces, placeList } = state;
       if (conditionPlaces) {
         for (const key in conditionPlaces) {
           if (key) {
@@ -77,6 +77,14 @@ const placeSlice = createSlice({
             }
           }
         }
+      }
+      if (placeList) {
+        const idx = placeList.findIndex(v => v.postId === postId);
+        const target = placeList[idx];
+        target.favoriteState = !target.favoriteState;
+        target.favoriteState
+          ? (target.favoriteCnt += 1)
+          : (target.favoriteCnt -= 1);
       }
     },
   },

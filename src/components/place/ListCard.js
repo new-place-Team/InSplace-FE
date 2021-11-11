@@ -127,6 +127,13 @@ const ListCard = forwardRef((props, ref) => {
       <GridArea ref={ref}>
         <Grid _onClick={gotoDetail}>
           <Image width="100%" height="196px" src={info && info.postImage} />
+          <IconArea onClick={setFavorites}>
+            {info && info.favoriteState ? (
+              <SelectedHeader />
+            ) : (
+              <NoSelectedHeader />
+            )}
+          </IconArea>
         </Grid>
         <Grid margin="12px 0 0 0">
           <Text fontSize="12px" color="#A3A6AA">
