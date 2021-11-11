@@ -11,6 +11,7 @@ import { getSearchConditionDB } from '../redux/async/place';
 import SelectedCategory from '../components/place/SelectedCategory';
 import { right } from '../images/index';
 import { history } from '../redux/configureStore';
+import { setPlaceListInit } from '../redux/modules/placeSlice';
 
 const SearchTypeList = props => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const SearchTypeList = props => {
   }, []);
 
   const onSearchConditionMore = value => {
+    dispatch(setPlaceListInit());
     const params = `condition?weather=${weatherStatus.status}&category=${selectedCategory.category.value}&num=${selectedCategory.MemberCnt.value}&gender=${selectedCategory.gender.value}&inside=${value}`;
     history.push(`/place/list/${params}`);
   };

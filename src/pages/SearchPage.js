@@ -5,7 +5,6 @@ import { Grid, Image, Text } from '../elements';
 import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
 import { history } from '../redux/configureStore';
 import { placeSearch } from '../images';
-import { getSearchConditionListDB } from '../redux/async/place';
 import { setPlaceListInit } from '../redux/modules/placeSlice';
 
 const SearchPage = () => {
