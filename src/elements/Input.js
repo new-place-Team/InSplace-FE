@@ -11,13 +11,13 @@ const Input = props => {
     type,
     name,
     value,
-    flex,
+    color,
     _onChange,
     placeholder,
   } = props;
   const styles = {
     margin,
-    flex,
+    color,
   };
 
   if (inputType === 'form') {
@@ -60,7 +60,7 @@ Input.defaultProps = {
 const DefaultInput = styled.input`
   width: 100%;
   ${props => (props.margin ? `margin:${props.margin}` : '')};
-  ${props => (props.flex ? `flex:${props.flex}` : '')};
+  color: #c2c6cb;
   border: none;
   border-bottom: 1px solid #212121;
   box-sizing: border-box;

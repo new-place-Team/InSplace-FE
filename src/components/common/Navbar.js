@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
-import { Grid } from '../../elements/index';
+import { Grid, Image } from '../../elements/index';
 import theme from '../../styles/theme';
 /* weather Icon */
 import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
@@ -21,7 +21,9 @@ import { isLoginChk } from '../../shared/utils';
 const Navbar = () => {
   const pathName = history.location.pathname;
   const isLogin = useSelector(state => state.user.isLogin);
+  const userInfo = useSelector(state => state.user.userInfo);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
+
   /* 로그인 필요 확인 */
   const pageMove = url => {
     if (!isLoginChk(isLogin)) {
@@ -78,12 +80,21 @@ const Navbar = () => {
           >
             <HeartIcon />
           </Icon>
-          <Icon
-            color={pathName === '/mypage' ? '#000' : ''}
-            onClick={() => pageMove('/mypage')}
-          >
-            <MypageIcon />
-          </Icon>
+          {isLogin === false ? (
+            <Icon
+              color={pathName === '/mypage' ? '#000' : ''}
+              onClick={() => pageMove('/mypage')}
+            >
+              <MypageIcon />
+            </Icon>
+          ) : (
+            <UserImage
+              width="24px"
+              height="24px"
+              src={userInfo.userImage}
+              onClick={() => pageMove('/mypage')}
+            />
+          )}
         </Wrap>
       </Content>
     </Nav>
@@ -129,6 +140,16 @@ const Icon = styled.div`
   svg {
     fill: ${({ color }) => color || '#A4A9B1'};
   }
+`;
+
+const UserImage = styled.div`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-image: url('${props => props.src}');
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
 `;
 
 export default Navbar;
