@@ -191,7 +191,8 @@ const ModalContent = styled.div`
   padding: 0 24px;
   transition: bottom 0.3s ease-out;
   z-index: 999;
-  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
   border-radius: 10px;
 `;
 

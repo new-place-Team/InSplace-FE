@@ -33,9 +33,10 @@ import pin from './ic-pin.svg';
 import bad from './ic-bad.svg';
 import good from './ic-good.svg';
 import next from './ic-next.svg';
-import polygon from './Polygon 3.svg';
+import polygon from './Polygon.svg';
 import whiteClose from './close.svg';
 import plus from './plus.svg';
+import polygonimg from './Polygon.png';
 import insplace from './Insplace.png';
 import mypageNext from './next.svg';
 import profile1 from './profile1.png';
@@ -82,4 +83,5 @@ export {
   x,
   placeSearch,
   placeSearchResult,
+  polygonimg,
 };

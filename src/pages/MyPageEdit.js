@@ -14,7 +14,7 @@ import { getTokenYn } from '../shared/utils';
 import Modal from '../components/common/Modal';
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Label, Text } from '../elements';
-import { plus } from '../images/index';
+import { plus, close, polygonimg } from '../images/index';
 
 const MyPageEdit = props => {
   const dispatch = useDispatch();
@@ -128,6 +128,7 @@ const MyPageEdit = props => {
             </Label>
             <MBTIDiv onClick={openModal}>
               <Text>{mbtiInfo.mbtiId ? mbtiInfo.type : mbti}</Text>
+              <Icon src={polygonimg} />
             </MBTIDiv>
           </Grid>
           <Grid margin="0 0 32px 0">
@@ -253,12 +254,18 @@ const MBTIDiv = styled.div`
   border-bottom: 1px solid #e6e9ec;
   color: white;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 `;
 
 const BottomWrap = styled.div`
   padding: 40px 20px;
   width: 100%;
+`;
+
+const Icon = styled.img`
+  margin: ${({ margin }) => margin || '0'};
+  vertical-align: text-bottom;
 `;
 
 export default MyPageEdit;

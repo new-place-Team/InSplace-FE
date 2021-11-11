@@ -3,9 +3,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { setModalOn } from '../redux/modules/userSlice';
 import { Container, Grid, Input, Label, Button, Text } from '../elements';
+import { polygonimg } from '../images/index';
 import { emailCheck } from '../shared/emailCheck';
 import { addUserDB } from '../redux/async/user';
 
@@ -191,6 +191,7 @@ const Signup = () => {
             <Label type="form">MBTI </Label>
             <MBTIDiv onClick={openModal}>
               <Text>{mbtiInfo.type ? mbtiInfo.type : 'MBTI 선택안함'}</Text>
+              <Icon src={polygonimg} />
             </MBTIDiv>
           </Wrap>
         </Grid>
@@ -200,6 +201,7 @@ const Signup = () => {
             회원가입
           </Button>
         </BottomWrap>
+
         {modalStatus === true ? <Modal /> : null}
       </Container>
     </>
@@ -238,7 +240,14 @@ const MBTIDiv = styled.div`
   border-bottom: 1px solid #c4c4c4;
   color: white;
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  position: relative;
+`;
+
+const Icon = styled.img`
+  margin: ${({ margin }) => margin || '0'};
+  vertical-align: text-bottom;
 `;
 
 export default Signup;
