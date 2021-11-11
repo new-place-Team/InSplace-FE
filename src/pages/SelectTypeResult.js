@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Container, Grid, Image, Text } from '../elements';
+import { Button, Container, Grid, Image } from '../elements';
 import Swiper from '../components/common/SwiperLB';
 import ContentsTitle from '../components/common/ContentsTitle';
 import Header from '../components/common/Header';
