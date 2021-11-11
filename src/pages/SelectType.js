@@ -94,8 +94,6 @@ const SelectedType = () => {
     });
   };
 
-  console.log('state == ', state);
-
   return (
     <>
       <Header _content="유형선택" _back _type="search" />

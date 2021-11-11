@@ -34,7 +34,14 @@ import {
   addUserVisitedPost,
   deleteUserVisitedPost,
 } from '../modules/userSlice';
-import { setConditionPlaces } from '../modules/placeSlice';
+import {
+  setConditionPlaces,
+  addReviewList,
+  deleteReviewList,
+  updateReviewList,
+  reviewLikesList,
+  reviewLikesCancelList,
+} from '../modules/placeSlice';
 
 /* 메인 리스트 호출 */
 export const getMainListDB = createAsyncThunk(
@@ -202,6 +209,7 @@ export const addReviewDB = createAsyncThunk(
         },
       };
       const response = await addReview(params, config);
+      thunkAPI.dispatch(addReviewList(response.data.post));
       if (response) {
         window.alert('리뷰가 등록되었습니다.');
         history.goBack();
@@ -212,7 +220,7 @@ export const addReviewDB = createAsyncThunk(
   },
 );
 
-/* 리뷰 수정페이지 조회 */
+/* 리뷰 수정페이지 조회, 추후 삭제할 수 있음. */
 export const getReviewEditDB = createAsyncThunk(
   'place/getReviewEdit',
   async (params, thunkAPI) => {
@@ -238,6 +246,7 @@ export const updateReviewDB = createAsyncThunk(
         },
       };
       const response = await updateReview(params, config);
+      thunkAPI.dispatch(updateReviewList(response.data.post));
       if (response) {
         window.alert('리뷰가 수정되었습니다.');
         history.goBack();
@@ -253,8 +262,10 @@ export const deleteReviewDB = createAsyncThunk(
   async (params, thunkAPI) => {
     try {
       const response = await deleteReview(params);
+      thunkAPI.dispatch(deleteReviewList(params));
       if (response) {
         window.alert('리뷰가 삭제되었습니다.');
+        return params;
       }
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
@@ -267,7 +278,11 @@ export const reviewLikeDB = createAsyncThunk(
   'place/reviewLike',
   async (params, thunkAPI) => {
     try {
-      await reviewLike(params);
+      const response = await reviewLike(params);
+      thunkAPI.dispatch(reviewLikesList(params));
+      if (response) {
+        return params;
+      }
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
@@ -278,7 +293,11 @@ export const reviewLikeCancelDB = createAsyncThunk(
   'place/reviewLikeCancel',
   async (params, thunkAPI) => {
     try {
-      await reviewLikeCancel(params);
+      const response = await reviewLikeCancel(params);
+      thunkAPI.dispatch(reviewLikesCancelList(params));
+      if (response) {
+        return params;
+      }
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
