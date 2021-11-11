@@ -5,8 +5,17 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const Textarea = props => {
-  const { margin, name, _onChange, placeholder, color } = props;
-  const styles = { margin, color };
+  const {
+    margin,
+    padding,
+    name,
+    _onChange,
+    placeholder,
+    color,
+    border,
+    value,
+  } = props;
+  const styles = { margin, padding, color, border };
 
   return (
     <>
@@ -15,6 +24,7 @@ const Textarea = props => {
         rows={5}
         onChange={_onChange}
         placeholder={placeholder}
+        value={value}
         {...styles}
       />
     </>
@@ -23,6 +33,7 @@ const Textarea = props => {
 
 Textarea.defaultProps = {
   margin: false,
+  padding: false,
   _onChange: () => {},
   placeholder: '텍스트를 입력해주세요',
   color: `${theme.color.mainColor}`,
@@ -30,10 +41,11 @@ Textarea.defaultProps = {
 
 const DefaultTextarea = styled.textarea`
   width: 100%;
-  ${props => (props.margin ? `margin:${props.margin}` : '')};
-  border: none;
+  margin: ${({ margin }) => margin};
+  padding: ${({ padding }) => padding};
   box-sizing: border-box;
   resize: none;
+  border: ${({ border }) => border};
   &:focus {
     outline: none;
   }

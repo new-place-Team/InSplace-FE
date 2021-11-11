@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/no-cycle */
 import { combineReducers } from 'redux';
 import { createBrowserHistory } from 'history';
 import { connectRouter } from 'connected-react-router';
@@ -5,14 +7,18 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { logger } from 'redux-logger';
 
 /* slice module */
-import counterSlice from './modules/counterSlice';
+import placeSlice from './modules/placeSlice';
+import loadedSlice from './modules/loadedSlice';
+import userSlice from './modules/userSlice';
 
 export const history = createBrowserHistory();
 
 /* Reducer combine */
 const reducer = combineReducers({
+  place: placeSlice.reducer,
+  loaded: loadedSlice.reducer,
+  user: userSlice.reducer,
   router: connectRouter(history),
-  counter: counterSlice.reducer,
 });
 
 const middlewares = [];

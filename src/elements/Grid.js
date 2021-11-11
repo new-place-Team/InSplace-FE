@@ -5,31 +5,47 @@ import styled from 'styled-components';
 
 const Grid = props => {
   const {
+    id,
     justify,
+    justifyContent,
     isFlex,
     flex,
+    flexFlow,
     direction,
     width,
     height,
     margin,
     padding,
     bg,
+    wrap,
     border,
+    borderBottom,
     _onClick,
     children,
+    position,
+    zIndex,
+    cursor,
   } = props;
 
   const styles = {
+    id,
     justify,
+    justifyContent,
     isFlex,
     flex,
+    flexFlow,
     direction,
     width,
     height,
     margin,
     padding,
     bg,
+    wrap,
     border,
+    borderBottom,
+    position,
+    zIndex,
+    cursor,
   };
 
   if (justify === 'space-between') {
@@ -74,6 +90,10 @@ Grid.defaultProps = {
   padding: 0,
   bg: 'transparent',
   border: 'none',
+  position: 'relative',
+  borderBottom: 'none',
+  // cursor: false,
+  _onClick: () => {},
 };
 
 const DefaultGrid = styled.div`
@@ -83,11 +103,19 @@ const DefaultGrid = styled.div`
   padding: ${props => props.padding};
   background-color: ${props => props.bg};
   border: ${props => props.border};
-  position: relative;
+  position: ${props => props.position};
   ${props => props.isFlex && `display:flex`};
-  ${props => props.isFlex && `flex-direction:${props.direction}`};
-  ${props => (props.flex ? `flex:1` : '')};
+  ${props => (props.flexFlow ? ` flex-flow:${props.flexFlow}` : '')};
+  ${props => props.wrap && `flex-wrap:wrap`};
   box-sizing: border-box;
+  ${props => (props.flex ? `flex:1` : '')};
+  ${props => (props.direction ? ` flex-direction:${props.direction}` : '')};
+  align-items: center;
+  flex-wrap: wrap;
+  ${props => (props.zIndex ? ` z-index:${props.zIndex}` : '')};
+  ${props =>
+    props.justifyContent ? `justify-content:${props.justifyContent}` : ''};
+  ${props => (props.cursor ? `cursor:pointer` : '')};
 `;
 const BetweenGrid = styled.div`
   ${props =>
@@ -102,6 +130,8 @@ const BetweenGrid = styled.div`
   padding: ${props => props.padding};
   background-color: ${props => props.bg};
   border: ${props => props.border};
+  ${props => props.wrap && `flex-wrap:wrap`};
+  ${props => (props.cursor ? `cursor:pointer` : '')};
 `;
 const CenterGrid = styled.div`
   ${props =>
@@ -116,6 +146,9 @@ const CenterGrid = styled.div`
   padding: ${props => props.padding};
   background-color: ${props => props.bg};
   border: ${props => props.border};
+  border-bottom: ${({ borderBottom }) => borderBottom || ''};
+  position: ${props => props.position};
+  ${props => props.wrap && `flex-wrap:wrap`};
 `;
 const EndGrid = styled.div`
   ${props =>
@@ -130,5 +163,7 @@ const EndGrid = styled.div`
   padding: ${props => props.padding};
   background-color: ${props => props.bg};
   border: ${props => props.border};
+  ${props => props.wrap && `flex-wrap:wrap`};
+  ${props => (props.cursor ? `cursor:pointer` : '')};
 `;
 export default Grid;

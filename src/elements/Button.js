@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const Button = props => {
-  console.log('props === ', props);
-  // props로 전달받을 값들
   const {
     type,
     width,
@@ -18,10 +16,11 @@ const Button = props => {
     size,
     bold,
     bg,
+    focus,
     _onClick,
     children,
   } = props;
-  // props 중에서 style 속성들
+
   const styles = {
     width,
     margin,
@@ -32,6 +31,7 @@ const Button = props => {
     size,
     bold,
     bg,
+    focus,
   };
 
   if (type === 'fullSizeBlack') {
@@ -101,6 +101,7 @@ Button.defaultProps = {
   radius: 0,
   size: '14px',
   bold: false,
+  focus: false,
   bg: 'transparent',
   border: 'none',
   _onClick: () => {},
@@ -138,6 +139,7 @@ const FullSizeWhite = styled.button`
   background-color: ${theme.color.white};
   color: ${theme.color.mainColor};
   border: 1px solid ${theme.color.mainColor};
+  margin: ${props => props.margin};
 `;
 const TypeButton = styled.button`
   width: ${props => (props.width ? props.width : 'auto')};
@@ -148,13 +150,24 @@ const TypeButton = styled.button`
   color: ${props => (props.color ? props.color : '#646464')};
   background-color: ${props => (props.bg ? props.bg : `#fff`)};
   border: 1px solid #646464;
+  &:focus {
+    color: #fff;
+    background-color: #838383;
+    border: 1px solid #838383;
+  }
 `;
 // Text가 들어간 tag 버튼
 const TagButton = styled.button`
   padding: 6px 16px;
-  font-size: ${props => props.size};
-  background-color: ${props => (props.bg ? props.bg : `#F0F0F0`)};
+  margin-right: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: ${({ color }) => color || '#646464'};
+  background-color: ${({ bg }) => bg || ' #f0f0f0'};
   border: ${props => (props.border ? props.border : 'none')};
+  &:last-child {
+    margin-right: 0;
+  }
 `;
 // 정사각형 이동 버튼
 const RecButton = styled.button`

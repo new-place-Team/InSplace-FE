@@ -26,6 +26,13 @@ const theme = {
   },
   shadow: `box-shadow: 8px 8px 16px 4px rgba(133, 139, 146, 0.06)`,
   border_box: `box-sizing:border-box;`,
+
+  weatherColor: {
+    sun: '#FEB544',
+    cloud: '#423F44',
+    rain: '#558ED0',
+    snow: '#81BCDA',
+  },
 };
 
 export default theme;

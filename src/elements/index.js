@@ -6,5 +6,6 @@ import Input from './Input';
 import Label from './Label';
 import Text from './Text';
 import Textarea from './Textarea';
+import Container from './Container';
 
-export { Grid, Button, Icons, Image, Input, Label, Text, Textarea };
+export { Grid, Button, Icons, Image, Input, Label, Text, Textarea, Container };

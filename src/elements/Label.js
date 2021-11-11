@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const Label = props => {
-  const { flex, margin, padding, fontSize, color, children, bold } = props;
+  const { type, flex, margin, padding, fontSize, color, children, bold } =
+    props;
   const styles = {
     flex,
     margin,
@@ -14,6 +15,9 @@ const Label = props => {
     color,
     bold,
   };
+  if (type === 'form') {
+    return <LabelForm {...styles}>{children}</LabelForm>;
+  }
   return <LabelWrap {...styles}>{children}</LabelWrap>;
 };
 
@@ -36,5 +40,12 @@ const LabelWrap = styled.label`
     props.bold
       ? `${theme.fontWeight.extraBold}`
       : `${theme.fontWeight.regular}`};
+`;
+const LabelForm = styled.label`
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #b5b5b5;
 `;
 export default Label;
