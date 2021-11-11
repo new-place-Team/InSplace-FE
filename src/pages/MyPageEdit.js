@@ -1,3 +1,6 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-else-return */
+/* eslint-disable no-alert */
 /* eslint-disable no-unneeded-ternary */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable import/named */
@@ -10,11 +13,12 @@ import { getPeopleMbti } from '../shared/transferText';
 import { editProfileDB } from '../redux/async/user';
 import { history } from '../redux/configureStore';
 import { getTokenYn } from '../shared/utils';
+import { nicknameCheck } from '../shared/api/userApi';
 
 import Modal from '../components/common/Modal';
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Label, Text } from '../elements';
-import { plus } from '../images/index';
+import { plus, polygonimg } from '../images/index';
 
 const MyPageEdit = props => {
   const dispatch = useDispatch();
@@ -25,11 +29,16 @@ const MyPageEdit = props => {
     if (getTokenYn() === false) {
       window.alert('로그인을 해주세요!');
       history.push('/login');
+      console.log('useEffect 실행');
     }
   }, []);
+
   const [maleFemale, setMaleFemale] = React.useState(null);
   const [preview, setPreview] = React.useState('');
-
+  /* 닉네임이 존재하는지 안하는지 유무 존재하면 true, 존재하지 않으면 false */
+  const [nicknameDuplicate, setNicknameDuplicate] = React.useState(null);
+  /* 버튼 활성화 state */
+  const [buttonStatus, setButtonStatus] = React.useState(false);
   /* 이전 페이지에서 가지고 있던 유저 정보를 params로 넘겨줌 */
   const newParams = props.history.location.state.userInfo;
   const [info, setInfo] = React.useState({
@@ -42,6 +51,7 @@ const MyPageEdit = props => {
   const { nickname, email, userImage, mbti, userId } = info;
   const fileInput = React.useRef();
 
+  /* 사진 */
   const selectFile = () => {
     const reader = new FileReader();
     const file = fileInput.current.files[0];
@@ -56,22 +66,62 @@ const MyPageEdit = props => {
       console.log('error = ', error);
     };
   };
-
+  /* 모달 열기 */
   const openModal = () => {
     dispatch(setModalOn());
   };
+  /* 이메일, 닉네임 변경 */
   const onChange = e => {
     setInfo({ ...info, [e.target.name]: e.target.value });
+    setButtonStatus(true);
   };
+  /* 성별 선택 */
   const selectGender = gender => {
     setMaleFemale(gender);
   };
-  /* 수정 요청 form data */
+
+  /* 닉네임 중복 확인 */
+  const userCheck = async () => {
+    const nickCheck = { nickname: info.nickname };
+    /* 닉네임값이 빈값 일때 */
+    if (info.nickname === '') {
+      return window.alert('닉네임을 입력해주세요!');
+    }
+    if (info.nickname.length < 2) {
+      return window.alert('닉네임은 두글자 이상으로 입력해주세요!');
+    }
+    try {
+      const response = await nicknameCheck(nickCheck);
+      if (response) {
+        const result = response.data.Msg;
+        if (result === true) {
+          setNicknameDuplicate(result);
+          window.alert('이미 존재하는 닉네임입니다.');
+        } else {
+          window.alert('시용가능한 닉네임입니다!');
+          setNicknameDuplicate(result);
+        }
+      }
+    } catch (err) {
+      console.log('error ::::::', err);
+    }
+    setButtonStatus(false);
+  };
+
+  /* 유저정보 수정 요청 */
   const onSubmitHandler = () => {
+    if (nickname === '') {
+      return window.alert('닉네임을 입력해주세요!');
+    }
+    console.log(nicknameDuplicate);
+    if (nicknameDuplicate) {
+      return window.alert('닉네임 중복 체크를 먼저 해주세요!');
+    }
     const formData = new FormData();
     formData.append('nickname', nickname);
     formData.append('email', email);
     formData.append('userImage', userImage);
+    formData.append('maleYN', maleFemale);
     if (!mbtiInfo.mbtiId) {
       formData.append('mbtiId', getPeopleMbti(mbti));
     } else {
@@ -83,6 +133,7 @@ const MyPageEdit = props => {
     };
     dispatch(editProfileDB(params));
   };
+
   return (
     <>
       <Header _back _content="프로필 수정" />
@@ -114,13 +165,36 @@ const MyPageEdit = props => {
             <Label fontSize="16px" color="#A3A6AA">
               닉네임
             </Label>
-            <Input name="nickname" value={nickname} onChange={onChange} />
+            <Div>
+              <Input name="nickname" value={nickname} onChange={onChange} />
+              {buttonStatus === false ? (
+                <Button
+                  type="tag"
+                  bg="#fff"
+                  color="#C4C4C4"
+                  border="1px solid #C4C4C4"
+                  _onClick={userCheck}
+                >
+                  중복확인
+                </Button>
+              ) : (
+                <Button
+                  type="tag"
+                  bg="black"
+                  color="#fff"
+                  border="1px solid #C4C4C4"
+                  _onClick={userCheck}
+                >
+                  중복확인
+                </Button>
+              )}
+            </Div>
           </Grid>
           <Grid margin="0 0 32px 0">
             <Label fontSize="16px" color="#A3A6AA">
               이메일
             </Label>
-            <Input name="email" value={email} onChange={onChange} />
+            <Input name="email" value={email} onChange={onChange} readonly />
           </Grid>
           <Grid margin="0 0 32px 0">
             <Label fontSize="16px" color="#A3A6AA">
@@ -128,6 +202,7 @@ const MyPageEdit = props => {
             </Label>
             <MBTIDiv onClick={openModal}>
               <Text>{mbtiInfo.mbtiId ? mbtiInfo.type : mbti}</Text>
+              <Icon src={polygonimg} />
             </MBTIDiv>
           </Grid>
           <Grid margin="0 0 32px 0">
@@ -191,6 +266,9 @@ const ProfileWrap = styled.div`
   flex-direction: column;
   margin: 50px 0 50px;
 `;
+const Div = styled.div`
+  display: flex;
+`;
 const UploadWrap = styled.div`
   margin: -40px -120px 0 0;
   z-index: 50;
@@ -253,12 +331,18 @@ const MBTIDiv = styled.div`
   border-bottom: 1px solid #e6e9ec;
   color: white;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 `;
 
 const BottomWrap = styled.div`
   padding: 40px 20px;
   width: 100%;
+`;
+
+const Icon = styled.img`
+  margin: ${({ margin }) => margin || '0'};
+  vertical-align: text-bottom;
 `;
 
 export default MyPageEdit;

@@ -118,6 +118,10 @@ const userSlice = createSlice({
     [editProfileDB.fulfilled]: (state, { payload }) => {
       state.userInfo = payload;
     },
+    /* 유저 정보 수정 실패시 */
+    [editProfileDB.rejected]: (state, action) => {
+      window.alert('닉네임 중복 체크를 해주세요!');
+    },
   },
 });
 

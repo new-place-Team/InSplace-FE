@@ -156,6 +156,7 @@ export const editProfileDB = createAsyncThunk(
       history.push('/mypage');
       return response.data;
     } catch (err) {
+      console.log('error ::::::', err);
       return thunkAPI.rejectWithValue('<<', err);
     }
   },

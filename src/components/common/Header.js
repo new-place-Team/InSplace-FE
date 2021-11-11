@@ -62,7 +62,7 @@ const Header = props => {
             )}
             {_search && (
               <Grid _onClick={gotoSearchPage}>
-                <IconArea>
+                <IconArea color={_color}>
                   <Search />
                 </IconArea>
               </Grid>

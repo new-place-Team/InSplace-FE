@@ -36,7 +36,7 @@ const MyPage = () => {
       history.push('/login');
     } else {
       history.push({
-        pathname: '/mypage/1',
+        pathname: `/mypage/${userInfo.userId}`,
         state: { userInfo: realUserInfo },
       });
     }

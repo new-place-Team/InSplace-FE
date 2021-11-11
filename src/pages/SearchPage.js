@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import { Grid, Image, Text } from '../elements';
 import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
 import { history } from '../redux/configureStore';
 import { placeSearch } from '../images';
+import { setPlaceListInit } from '../redux/modules/placeSlice';
 
 const SearchPage = () => {
+  const dispatch = useDispatch();
   const [state, setState] = useState('');
   const onChange = e => {
     setState(e.target.value);
@@ -13,6 +16,7 @@ const SearchPage = () => {
 
   const GotoSearchPage = () => {
     const params = `total?result=${state}`;
+    dispatch(setPlaceListInit());
     history.push(`/place/list/${params}`);
     setState('');
   };

@@ -3,9 +3,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { setModalOn } from '../redux/modules/userSlice';
 import { Container, Grid, Input, Label, Button, Text } from '../elements';
+import { polygonimg, xcircle } from '../images/index';
 import { emailCheck } from '../shared/emailCheck';
 import { addUserDB } from '../redux/async/user';
 
@@ -101,14 +101,17 @@ const Signup = () => {
         <Grid padding="42px 20px 0 20px">
           <Wrap>
             <Label type="form">이메일</Label>
-            <Input
-              inputType="form"
-              type="text"
-              value={userInfo.email}
-              name="email"
-              _onChange={onChange}
-              placeholder="이메일 주소를 입력해주세요"
-            />
+            <Div>
+              <Input
+                inputType="form"
+                type="text"
+                value={userInfo.email}
+                name="email"
+                _onChange={onChange}
+                placeholder="이메일 주소를 입력해주세요"
+              />
+              <Icon src={xcircle} />
+            </Div>
           </Wrap>
 
           <Wrap>
@@ -191,6 +194,7 @@ const Signup = () => {
             <Label type="form">MBTI </Label>
             <MBTIDiv onClick={openModal}>
               <Text>{mbtiInfo.type ? mbtiInfo.type : 'MBTI 선택안함'}</Text>
+              <Icon src={polygonimg} />
             </MBTIDiv>
           </Wrap>
         </Grid>
@@ -200,6 +204,7 @@ const Signup = () => {
             회원가입
           </Button>
         </BottomWrap>
+
         {modalStatus === true ? <Modal /> : null}
       </Container>
     </>
@@ -214,6 +219,11 @@ const BottomWrap = styled.div`
 const Wrap = styled.div`
   position: relative;
   margin-bottom: 32px;
+`;
+
+const Div = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const GenderButton = styled.div`
@@ -238,7 +248,15 @@ const MBTIDiv = styled.div`
   border-bottom: 1px solid #c4c4c4;
   color: white;
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  position: relative;
+`;
+
+const Icon = styled.img`
+  width: 16px;
+  margin: ${({ margin }) => margin || '0'};
+  vertical-align: text-bottom;
 `;
 
 export default Signup;

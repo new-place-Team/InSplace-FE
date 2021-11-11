@@ -12,11 +12,8 @@ import {
   setFavoritesPostDB,
   getReviewListDB,
   getReviewLikesListDB,
-  reviewLikeDB,
   setVisitedPostDB,
   getReviewEditDB,
-  deleteReviewDB,
-  updateReviewDB,
   getSearchConditionListDB,
 } from '../async/place';
 
@@ -62,10 +59,14 @@ const placeSlice = createSlice({
       console.log(payload);
       state.map = payload;
     },
-    /* 선택 결과 장소 좋아요 */
+    setPlaceListInit: state => {
+      state.placeList = null;
+      state.placePagination = { page: 1, isNext: true };
+    },
+    /* 선택 결과 장소 , 검새 결과 장소 좋아요 */
     setConditionPlaces: (state, { payload }) => {
       const { postId } = payload;
-      const { conditionPlaces } = state;
+      const { conditionPlaces, placeList } = state;
       if (conditionPlaces) {
         for (const key in conditionPlaces) {
           if (key) {
@@ -81,6 +82,14 @@ const placeSlice = createSlice({
             }
           }
         }
+      }
+      if (placeList) {
+        const idx = placeList.findIndex(v => v.postId === postId);
+        const target = placeList[idx];
+        target.favoriteState = !target.favoriteState;
+        target.favoriteState
+          ? (target.favoriteCnt += 1)
+          : (target.favoriteCnt -= 1);
       }
     },
     addReviewList: (state, { payload }) => {
@@ -256,7 +265,6 @@ const placeSlice = createSlice({
     },
     /* list 페이지 조회 */
     [getSearchConditionListDB.fulfilled]: (state, { payload }) => {
-      console.log('>> payload', payload);
       if (state.placeList) {
         // 더보기 추가
         state.placeList = [...state.placeList, ...payload.posts];
@@ -285,6 +293,7 @@ export const {
   deleteReviewList,
   reviewLikesList,
   reviewLikesCancelList,
+  setPlaceListInit,
 } = placeSlice.actions;
 
 export default placeSlice;
