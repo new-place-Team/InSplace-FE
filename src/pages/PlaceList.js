@@ -19,7 +19,6 @@ const PlaceList = props => {
   const placeList = useSelector(state => state.place.placeList);
   const pagination = useSelector(state => state.place.placePagination);
   /* target 을 지켜보다 target이 정해진 threshold 비율만큼 지정 행동 */
-  console.log('lender test');
   const [target, setTarget] = useState(null);
 
   let title = '';

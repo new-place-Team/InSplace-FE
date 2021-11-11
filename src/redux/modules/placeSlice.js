@@ -58,6 +58,10 @@ const placeSlice = createSlice({
       console.log(payload);
       state.map = payload;
     },
+    setPlaceListInit: state => {
+      state.placeList = null;
+      state.placePagination = { page: 1, isNext: true };
+    },
     /* 선택 결과 장소 , 검새 결과 장소 좋아요 */
     setConditionPlaces: (state, { payload }) => {
       const { postId } = payload;
@@ -169,7 +173,6 @@ const placeSlice = createSlice({
     },
     /* list 페이지 조회 */
     [getSearchConditionListDB.fulfilled]: (state, { payload }) => {
-      console.log('>> payload', payload);
       if (state.placeList) {
         // 더보기 추가
         state.placeList = [...state.placeList, ...payload.posts];
@@ -193,6 +196,7 @@ export const {
   setFocusCoord,
   createMap,
   setConditionPlaces,
+  setPlaceListInit,
 } = placeSlice.actions;
 
 export default placeSlice;
