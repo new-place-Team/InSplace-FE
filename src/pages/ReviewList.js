@@ -1,88 +1,98 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-alert */
 /* eslint-disable no-undef */
-import React, { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+/* eslint-disable react/destructuring-assignment */
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Grid, Text } from '../elements';
 import ReviewCard from '../components/place/ReviewCard';
-import { getReviewLikesList, getReviewList } from '../shared/api/placeApi';
-// import { getReviewLikesListDB, getReviewListDB } from '../redux/async/place';
+import { getReviewLikesListDB, getReviewListDB } from '../redux/async/place';
 
 const ReviewList = props => {
   const { postId } = props;
-  const pageRef = useRef();
+  const dispatch = useDispatch();
   const userInfo = useSelector(state => state.user.userInfo);
-  const [active, setActive] = useState({ likeList: false, newList: true });
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [pageNumber, setPageNumber] = useState(1);
+  const reviewList = useSelector(state => state.place.reviewList);
+  const reviewPagination = useSelector(state => state.place.reviewPagination);
+  const reviewLikeList = useSelector(state => state.place.reviewLikesList);
+  const reviewLikesPagination = useSelector(
+    state => state.place.reviewLikesPagination,
+  );
 
-  const reviewListLoad = async value => {
-    const params = { postId, pageNumber };
-    const type = value === 'list';
+  const [target, setTarget] = useState(null);
+  const [likeTarget, setLikeTarget] = useState(null);
 
-    try {
-      const res = type
-        ? await getReviewList(params)
-        : await getReviewLikesList(params);
-      const list = res.data.reviews;
-      if (list.length !== 0) {
-        setLoading(true);
-        setReviews(prev => [...prev, ...list]);
-      } else {
-        setLoading(false);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
+  const [active, setActive] = useState({
+    likeList: false,
+    newList: true,
+  });
   // 최신순 추천순 버튼
   const onClick = e => {
     if (e.target.name === 'likeList') {
-      setReviews([]);
-      setPageNumber(1);
       setActive({ ...active, likeList: true, newList: false });
-      reviewListLoad();
+      const qureryString = `/posts/${postId}/reviews/pages/1/orders/likes`;
+
+      dispatch(getReviewLikesListDB(qureryString));
     } else {
-      setReviews([]);
-      setPageNumber(1);
       setActive({ ...active, likeList: false, newList: true });
-      reviewListLoad('list');
     }
   };
 
-  // 원래는 리뷰 컴포넌트 분리해서,
-  // 컴포넌트 안에 들어왔을때 미들웨어 호출해서 보여주려고 했었음.
   useEffect(() => {
-    reviewListLoad('list');
-  }, [pageNumber]);
+    // 최초한번
+    if (!reviewList) {
+      const qureryString = `/posts/${postId}/reviews/pages/${reviewPagination.page}/orders/latest`;
+      dispatch(getReviewListDB(qureryString));
+    }
+  }, []);
 
-  const updatePage = () => {
-    setPageNumber(prevPageNumber => prevPageNumber + 1);
-  };
-
-  // 무한 스크롤 구현
+  // 리뷰 최신순
   useEffect(() => {
-    const options = { rootMargin: `50px`, thredhold: 1.0 };
-    const moreFun = (entires, observer) => {
-      // 서버에서 받아온 데이터가 있을때만 loading 이 true되면서 아래 실행
-      if (loading) {
-        if (entires[0].isIntersecting) {
-          updatePage();
-          observer.unobserve(pageRef.current);
-        }
+    const options = { threshold: 0.5 };
+    const moreFun = ([entires], observer) => {
+      if (!entires.isIntersecting) {
+        return;
       }
+      const qureryString = `/posts/${postId}/reviews/pages/${
+        reviewPagination.page + 1
+      }/orders/latest`;
+
+      dispatch(getReviewListDB(qureryString));
+      observer.unobserve(entires.target);
+    };
+    const observer = new IntersectionObserver(moreFun, options);
+    if (target) observer.observe(target);
+    if (!reviewPagination.isNext) {
+      observer.disconnect();
+    }
+    // 컴포넌트가 종료될때 observer를 해지
+    return () => observer && observer.disconnect();
+  }, [target]);
+
+  // 리뷰 추천순
+  useEffect(() => {
+    const options = { threshold: 0.5 };
+    const moreFun = ([entires], observer) => {
+      if (!entires.isIntersecting) {
+        return;
+      }
+      const qureryString = `/posts/${postId}/reviews/pages/${
+        reviewLikesPagination.page + 1
+      }/orders/likes`;
+
+      dispatch(getReviewLikesListDB(qureryString));
+      observer.unobserve(entires.target);
     };
 
-    // 새로운 observer를 생성해서 타겟을 잡는다.
     const observer = new IntersectionObserver(moreFun, options);
-    if (observer) {
-      observer.observe(pageRef.current);
+    if (likeTarget) observer.observe(likeTarget);
+    if (!reviewLikesPagination.isNext) {
+      observer.disconnect();
     }
 
-    // 컴포넌트가 종료될때 observer를 해지해준다.
-    return () => reviews.length !== 0 && observer && observer.disconnect();
-  }, [loading]);
+    return () => observer && observer.disconnect();
+  }, [likeTarget]);
 
   return (
     <ReviewWrap>
@@ -90,7 +100,11 @@ const ReviewList = props => {
         <Grid justify="space-between">
           <Grid>
             <Text fontSize="18px" color="#282828" bold>
-              리뷰 ({reviews && reviews.length})
+              리뷰 (
+              {active.newList && reviewList
+                ? reviewList.length
+                : active.likeList && reviewLikeList && reviewLikeList.length}
+              )
             </Text>
           </Grid>
           <Grid isFlex>
@@ -113,35 +127,38 @@ const ReviewList = props => {
           </Grid>
         </Grid>
       </ReviewTitle>
-      {reviews &&
-        reviews.map(item => {
+      {active.newList === true &&
+        reviewList &&
+        reviewList.map((item, idx) => {
+          const lastItem = idx === reviewList.length - 1;
           return (
-            <ReviewCard
-              key={item.userID}
-              loginUser={userInfo.nickname}
-              postId={postId}
-              list={reviews}
-              reviewListLoad={reviewListLoad}
-              {...item}
-            />
+            <>
+              <ReviewCard
+                key={item.userID}
+                loginUser={userInfo.nickname}
+                postId={postId}
+                info={item}
+                ref={lastItem ? setTarget : null}
+              />
+            </>
           );
         })}
-      {/* {reviewsList &&
-        reviewsList.map(item => {
+      {reviewLikeList &&
+        reviewLikeList.map((item, idx) => {
+          const lastItem = idx === reviewLikeList.length - 1;
           return (
-            <ReviewCard
-              key={item.userID}
-              loginUser={userInfo.nickname}
-              postId={reviews.postId}
-              list={reviews.reviewList}
-              {...item}
-            />
+            <>
+              <ReviewCard
+                type="like"
+                key={item.userID}
+                loginUser={userInfo.nickname}
+                postId={postId}
+                info={item}
+                ref={lastItem ? setLikeTarget : null}
+              />
+            </>
           );
-        })} */}
-
-      <Grid padding="0 0 112px 0">
-        <LodingSpiner ref={pageRef}>더보기</LodingSpiner>
-      </Grid>
+        })}
     </ReviewWrap>
   );
 };
@@ -174,12 +191,5 @@ const ReviewButton = styled.button`
     font-weight: 600;
   }
 `;
-const LodingSpiner = styled.div`
-  width: 100%;
-  padding: 20px;
-  font-size: 14px;
-  text-align: center;
-  color: #fff;
-  background-color: #232529;
-`;
+
 export default React.memo(ReviewList);

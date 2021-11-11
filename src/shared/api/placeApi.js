@@ -31,15 +31,13 @@ const deleteVisitedPost = params =>
 // 리뷰
 const getReviewPostInfo = params => api.get(`/posts/${params}/reviews/write`);
 // 리뷰 최신순 조회
-const getReviewList = params =>
-  api.get(
-    `/posts/${params.postId}/reviews/pages/${params.pageNumber}/orders/latest`,
-  );
+const getReviewList = params => {
+  return api.get(`${params}`);
+};
 // 리뷰 추천순 조회
-const getReviewLikesList = params =>
-  api.get(
-    `/posts/${params.postId}/reviews/pages/${params.pageNumber}/orders/likes`,
-  );
+const getReviewLikesList = params => {
+  return api.get(`${params}`);
+};
 // 리뷰 CRUD
 const addReview = (params, config) =>
   api.post(`/posts/${params.postId}/reviews`, params.data, config);
