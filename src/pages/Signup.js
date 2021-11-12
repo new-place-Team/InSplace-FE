@@ -110,7 +110,7 @@ const Signup = () => {
                 _onChange={onChange}
                 placeholder="이메일 주소를 입력해주세요"
               />
-              <Icon src={xcircle} />
+              {/* <Icon src={xcircle} /> */}
             </Div>
           </Wrap>
 
