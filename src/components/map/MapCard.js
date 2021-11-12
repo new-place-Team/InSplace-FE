@@ -56,15 +56,6 @@ const MapCard = props => {
   );
 };
 
-const AbsoluteBox = styled.div`
-  position: absolute;
-  top: ${props => props.top};
-  bottom: ${props => props.bottom};
-  left: ${props => props.left};
-  right: ${props => props.right};
-  transform: translate(-50%, -50%);
-`;
-
 const MapCardCotainer = styled.div`
   width: 90%;
   background-color: transparent;

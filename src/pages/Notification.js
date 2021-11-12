@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from '../components/common/Header';
-import { Grid, Text, Container } from '../elements';
-import { heartFilled, pin, polygon } from '../images/index';
+import { Text, Container } from '../elements';
+// import { heartFilled, pin, polygon } from '../images/index';
 
 const Notification = () => {
   return (
