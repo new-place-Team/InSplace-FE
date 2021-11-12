@@ -8,6 +8,7 @@ import { Container, Grid, Input, Label, Button, Text } from '../elements';
 import { polygonimg, xcircle } from '../images/index';
 import { emailCheck } from '../shared/emailCheck';
 import { addUserDB } from '../redux/async/user';
+import { nicknameCheck } from '../shared/api/userApi';
 
 import Header from '../components/common/Header';
 import Modal from '../components/common/Modal';
@@ -31,18 +32,61 @@ const Signup = () => {
   // 여자,남자 상태를 useState를 통해 관리
   const [maleFemale, setMaleFemale] = React.useState(null);
 
+  /* 닉네임이 존재하는지 안하는지 유무 존재하면 true, 존재하지 않으면 false */
+  const [nicknameDuplicate, setNicknameDuplicate] = React.useState(null);
+
+  /* 버튼 활성화/비활성화 state */
+  const [buttonStatus, setButtonStatus] = React.useState(false);
+
   // 클릭했을때 여자는 1이 남자는 0이 state에 저장
   const selectGender = gender => {
     setMaleFemale(gender);
   };
 
-  // 모달on/off 상태를 redux에서 관리
+  // 모든 input을 하나의 state로 관리
   const onChange = e => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+    if (userInfo.nickname) {
+      setButtonStatus(true);
+    }
   };
   // 모달 on
   const openModal = () => {
     dispatch(setModalOn());
+  };
+
+  /* 닉네임 중복 확인 */
+  const userCheck = async () => {
+    const nickCheck = { nickname: userInfo.nickname };
+    /* 닉네임값이 빈값 일때 */
+    if (userInfo.nickname === '') {
+      setButtonStatus(false);
+      return window.alert('닉네임을 입력해주세요!');
+    }
+    if (userInfo.nickname.length < 2) {
+      setButtonStatus(false);
+      return window.alert('닉네임은 두글자 이상으로 입력해주세요!');
+    }
+    if (userInfo.nickname.length > 12) {
+      setButtonStatus(false);
+      return window.alert('닉네임은 12자리 이하로 입력해주세요!');
+    }
+    try {
+      const response = await nicknameCheck(nickCheck);
+      if (response) {
+        const result = response.data.Msg;
+        if (result === true) {
+          setNicknameDuplicate(result);
+          window.alert('이미 존재하는 닉네임입니다.');
+        } else {
+          window.alert('시용가능한 닉네임입니다!');
+          setNicknameDuplicate(result);
+        }
+      }
+    } catch (err) {
+      console.log('error ::::::', err);
+    }
+    setButtonStatus(false);
   };
 
   // 서버에 전달할 유저 정보
@@ -83,6 +127,9 @@ const Signup = () => {
     if (userInfo.nickname === '') {
       window.alert('닉네임을 입력해주세요!');
       return;
+    }
+    if (nicknameDuplicate) {
+      return window.alert('닉네임 중복 체크를 먼저 해주세요!');
     }
     if (userInfoDB.maleYN === undefined) {
       window.alert('성별을 선택해 주세요!');
@@ -146,6 +193,29 @@ const Signup = () => {
               _onChange={onChange}
               placeholder="닉네임을 입력해주세요"
             />
+            <AbsolDiv>
+              {buttonStatus === false ? (
+                <Button
+                  type="tag"
+                  bg="#fff"
+                  color="#C4C4C4"
+                  border="1px solid #C4C4C4"
+                  _onClick={userCheck}
+                >
+                  중복확인
+                </Button>
+              ) : (
+                <Button
+                  type="tag"
+                  bg="black"
+                  color="#fff"
+                  border="1px solid #C4C4C4"
+                  _onClick={userCheck}
+                >
+                  중복확인
+                </Button>
+              )}
+            </AbsolDiv>
           </Wrap>
 
           <Wrap>
@@ -257,6 +327,12 @@ const Icon = styled.img`
   width: 16px;
   margin: ${({ margin }) => margin || '0'};
   vertical-align: text-bottom;
+`;
+
+const AbsolDiv = styled.div`
+  position: absolute;
+  top: 25px;
+  right: 0;
 `;
 
 export default Signup;

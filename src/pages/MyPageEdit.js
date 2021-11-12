@@ -39,7 +39,7 @@ const MyPageEdit = props => {
   const [nicknameDuplicate, setNicknameDuplicate] = React.useState(null);
   /* 버튼 활성화/비활성화 state */
   const [buttonStatus, setButtonStatus] = React.useState(false);
-  const [statement, setStatement] = React.useState(false);
+  // const [statement, setStatement] = React.useState(false);
   /* 이전 페이지에서 가지고 있던 유저 정보를 params로 넘겨줌 */
   const newParams = props.history.location.state.userInfo;
   const [info, setInfo] = React.useState({
