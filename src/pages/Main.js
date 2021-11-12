@@ -77,12 +77,12 @@ const Main = () => {
         {/* Place Section */}
         <Grid>
           {/* 날씨에 따른 공간 */}
-          <Grid margin="0 0 48px 24px">
+          <Grid padding="0 0 48px 24px">
             <ContentsTitle title="날씨에 따른 공간" />
             <Swiper list={weatherList} />
           </Grid>
           {/* 좋아요 순 추천 공간 */}
-          <Grid margin="0 0 48px 24px">
+          <Grid padding="0 0 48px 24px">
             <ContentsTitle title="좋아요를 많이 받은" />
             <Swiper list={likeList} />
           </Grid>
