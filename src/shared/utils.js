@@ -53,7 +53,7 @@ export const mapscript = (mapDiv, allPlaces, lati, loni) => {
     ),
     level: 5,
   };
-  // 🔥🔥🔥🔥🔥🔥🔥🔥 문제점 : 밑의 2,3 함수에서 map을 쓰는데 이걸 어떻게 분리해야할까?!?!?!  🔥🔥🔥🔥🔥🔥🔥🔥
+  // 🔥🔥🔥🔥🔥🔥🔥 문제점 : 밑의 2,3 함수에서 map을 쓰는데 이걸 어떻게 분리해야할까?!?!?!  🔥🔥🔥🔥🔥🔥🔥🔥
   const map = new kakao.maps.Map(mapDiv.current, options);
 
   /* 2️⃣ 마커들을 찍는 함수 */
