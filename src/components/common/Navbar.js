@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-alert */
 /* eslint-disable import/no-unresolved */
 import React from 'react';
@@ -16,6 +17,7 @@ import { ReactComponent as HomeIcon } from '../../images/nav/ic_nav_home.svg';
 import { ReactComponent as FilterIcon } from '../../images/nav/ic_nav_fliter.svg';
 import { ReactComponent as HeartIcon } from '../../images/nav/ic_nav_heart.svg';
 import { ReactComponent as MypageIcon } from '../../images/nav/ic_nav_mypage.svg';
+import { profile1 } from '../../images/index';
 import { isLoginChk } from '../../shared/utils';
 
 const Navbar = () => {
@@ -87,6 +89,14 @@ const Navbar = () => {
             >
               <MypageIcon />
             </Icon>
+          ) : // 로그인 상태일때
+          userInfo.userImage === null ? (
+            <UserImage
+              width="24px"
+              height="24px"
+              src={profile1}
+              onClick={() => pageMove('/mypage')}
+            />
           ) : (
             <UserImage
               width="24px"

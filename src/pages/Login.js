@@ -44,17 +44,17 @@ const Login = () => {
 
   React.useEffect(() => {
     if (state.email !== '') {
-      setEmailCloseBtn(true);
+      return setEmailCloseBtn(true);
     }
     if (state.email === '') {
-      setEmailCloseBtn(false);
+      return setEmailCloseBtn(false);
     }
     // 3번째 확인할 것
     if (state.password !== '') {
-      setpwCloseBtn(true);
+      return setpwCloseBtn(true);
     }
     if (state.password === '') {
-      setpwCloseBtn(false);
+      return setpwCloseBtn(false);
     }
   }, [state]);
 
@@ -78,7 +78,7 @@ const Login = () => {
               <CloseButton
                 src={xcircle}
                 onClick={() => {
-                  setState((state.email = ''));
+                  setState({ email: '' });
                 }}
               />
             ) : null}
