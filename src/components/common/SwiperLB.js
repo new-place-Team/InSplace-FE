@@ -14,16 +14,28 @@ const SwiperLB = props => {
     breakpoints: {
       // mobile
       320: {
-        slidesPerView: 2,
-        spaceBetween: 146,
+        slidesPerView: 1,
+        spaceBetween: type === 'selectResult' ? -20 : -45,
+      },
+      360: {
+        slidesPerView: 1,
+        spaceBetween: type === 'selectResult' ? -60 : -85,
+      },
+      375: {
+        slidesPerView: 1,
+        spaceBetween: type === 'selectResult' ? -75 : -100,
+      },
+      410: {
+        slidesPerView: 1,
+        spaceBetween: type === 'selectResult' ? -110 : -135,
       },
       500: {
         slidesPerView: 2,
-        spaceBetween: 16,
+        spaceBetween: type === 'selectResult' ? 16 : -9,
       },
       768: {
         slidesPerView: 3,
-        spaceBetween: 16,
+        spaceBetween: type === 'selectResult' ? 41 : 16,
       },
     },
   };

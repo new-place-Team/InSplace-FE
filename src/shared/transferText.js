@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 /**
  * 타입별 날씨 텍스트 변경
  * @param type 1.맑음  2.비 3.눈
@@ -72,19 +73,62 @@ const getPeopleText = type => {
  * @param type 1.여자끼리 2.남자끼리 3.혼성
  * @returns
  */
-const getDuoText = type => {
-  let text = '';
+const getPeopleMbti = type => {
+  let number = 0;
   switch (type) {
-    case 1:
-      text = '여자끼리';
+    case 'ISTJ':
+      number = 1;
       break;
-    case 2:
-      text = '남자끼리';
+    case 'ISFJ':
+      number = 2;
       break;
-    default:
-      text = '혼성';
+    case 'INFJ':
+      number = 3;
+      break;
+    case 'INTJ':
+      number = 4;
+      break;
+    case 'ISTP':
+      number = 5;
+      break;
+    case 'ISFP':
+      number = 6;
+      break;
+    case 'INFP':
+      number = 7;
+      break;
+    case 'INTP':
+      number = 8;
+      break;
+    case 'ESTP':
+      number = 9;
+      break;
+    case 'ESFP':
+      number = 10;
+      break;
+    case 'ENFP':
+      number = 11;
+      break;
+    case 'ENTP':
+      number = 12;
+      break;
+    case 'ESTJ':
+      number = 13;
+      break;
+    case 'ESFJ':
+      number = 14;
+      break;
+    case 'ENFJ':
+      number = 15;
+      break;
+    case 'ENTJ':
+      number = 16;
+      break;
+    case '선택안함':
+      number = 17;
+      break;
   }
-  return text;
+  return number;
 };
 
 /**
@@ -104,10 +148,34 @@ const get어제대비온도 = dgree => {
   return text;
 };
 
+/**
+ * 받은 MBTI 타입숫자 변경
+ * @param type 1.여자끼리 2.남자끼리 3.혼성
+ * @returns
+ */
+const getDuoText = type => {
+  let text = '';
+  switch (type) {
+    case 1:
+      text = '한명';
+      break;
+    case 2:
+      text = '두명';
+      break;
+    case 3:
+      text = '네명 미만';
+      break;
+    default:
+      text = '네명 이상';
+  }
+  return text;
+};
+
 export {
   getWeatherText,
   getCategoryText,
   getPeopleText,
   getDuoText,
   get어제대비온도,
+  getPeopleMbti,
 };

@@ -1,147 +1,143 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-alert */
 /* eslint-disable no-undef */
-/* eslint-disable no-shadow */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-import { Container, Grid, Text } from '../elements';
+import { useSelector, useDispatch } from 'react-redux';
+import { Container, Text, Image } from '../elements';
 import ListCard from '../components/place/ListCard';
 import Header from '../components/common/Header';
-// import Navbar from '../components/common/Navbar';
-import { getSearchConditionMore } from '../shared/api/placeApi';
-import { history } from '../redux/configureStore';
-// import { getSearchConditionMoreDB } from '../redux/async/place';
+import Navbar from '../components/common/Navbar';
+import { placeSearchResult } from '../images';
+import { getSearchConditionListDB } from '../redux/async/place';
 
 const PlaceList = props => {
-  // const dispatch = useDispatch();
-  const selectedCategory = useSelector(state => state.place.selectedCategory);
-  const weatherStatus = useSelector(state => state.place.weatherStatus);
-  const conditionPlacesList = useSelector(
-    state => state.place.conditionPlacesMore,
-  );
-  console.log('conditionPlacesList == ', conditionPlacesList);
-  const { type } = props.match.params;
-  const [list, setList] = useState([]);
-  // const [list, setList] = useState(
-  //   conditionPlacesList && conditionPlacesList.posts,
-  // );
-  console.log('list ? ', list);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const pageRef = useRef();
-  const Title = type === '1' ? '실내' : '실외';
+  const dispatch = useDispatch();
+  const url = props.location.search;
+  const searchType = props.match.params.params;
+  const placeList = useSelector(state => state.place.placeList);
+  const pagination = useSelector(state => state.place.placePagination);
+  /* target 을 지켜보다 target이 정해진 threshold 비율만큼 지정 행동 */
+  const [target, setTarget] = useState(null);
 
-  // const onLoad = async pageNumber => {
-  //   console.log('pageNumber ? ', pageNumber);
-  //   const params = {
-  //     weather: weatherStatus.status,
-  //     num: selectedCategory.MemberCnt.value,
-  //     gender: selectedCategory.gender.value,
-  //     inside: type,
-  //     category: selectedCategory.category.value,
-  //     number: pageNumber,
-  //   };
-  //   await dispatch(getSearchConditionMoreDB(params));
-
-  //   setList(conditionPlacesList.posts);
-  //   console.log('list 2222222222222222 ', list);
-  // };
-  const onLoad = async pageNumber => {
-    console.log('2');
-    setLoading(false);
-    try {
-      const params = {
-        weather: weatherStatus.status,
-        num: selectedCategory.MemberCnt.value,
-        gender: selectedCategory.gender.value,
-        inside: type,
-        category: selectedCategory.category.value,
-        number: pageNumber,
-      };
-      console.log('pageNumber === ', pageNumber);
-      const res = await getSearchConditionMore(params);
-      const { posts } = res.data;
-      setList(prev => [...prev, ...posts]);
-      console.log('list === ', list);
-      setLoading(true);
-    } catch (error) {
-      alert('검색 결과가 없습니다.');
-      history.goBack();
-      console.log('error', error.response);
-    }
-  };
+  let title = '';
+  if (url.indexOf('inside=1') !== -1) {
+    title = '실내';
+  } else if (url.indexOf('inside=0') !== -1) {
+    title = '실외';
+  } else if (url.indexOf('result') !== -1) {
+    const findText = url.split('?result=').reverse()[0];
+    title = decodeURIComponent(findText);
+  }
 
   useEffect(() => {
-    console.log('1');
-    onLoad(pageNumber);
-  }, [pageNumber]);
-
-  const updatePage = () => {
-    setPageNumber(prevPageNumber => prevPageNumber + 1);
-    console.log('update page ', pageNumber);
-  };
-
-  useEffect(() => {
-    // console.log('3');
-    let observer;
-    if (loading) {
-      observer = new IntersectionObserver(
-        entires => {
-          if (entires[0].isIntersecting) {
-            // 여기서 페이지 번호를 업데이트 하면, 이전 값을 참고해서
-            // 콜백으로 빼줌
-            updatePage();
-          }
-        },
-        { rootMargin: `50px`, thredhold: 1.0 },
-      );
-      // 관찰할 대상 등록
-      observer.observe(pageRef.current);
+    if (!placeList) {
+      const qureryString = `search/pages/${pagination.page}/${searchType}${url}`;
+      dispatch(getSearchConditionListDB(qureryString));
     }
-    console.log('4 list == ', list);
-    // return () => {
-    //   observer.unobserve();
-    // };
-  }, [loading]);
+  }, []);
+
+  // 무한 스크롤 구현
+  useEffect(() => {
+    // observer 설정 값
+    const options = { threshold: 0.5 };
+    // observer 가 수행할 행동
+    const moreFun = ([entires], observer) => {
+      if (!entires.isIntersecting) {
+        return;
+      }
+      const qureryString = `search/pages/${
+        pagination.page + 1
+      }/${searchType}${url}`;
+      dispatch(getSearchConditionListDB(qureryString));
+      observer.unobserve(entires.target); // 관찰 중지 시켜준다.
+    };
+    // 새로운 observer를 생성
+    const observer = new IntersectionObserver(moreFun, options);
+    if (target) observer.observe(target);
+    if (!pagination.isNext) {
+      observer.disconnect();
+    }
+    // 컴포넌트가 종료될때 observer를 해지
+    return () => observer && observer.disconnect();
+  }, [target]);
 
   return (
     <>
       <Header _back _content="검색결과" _map _search />
       <Container>
-        <Grid margin="24px 0">
-          <Text fontSize="20px" bold>
-            {Title}
-          </Text>
-        </Grid>
-        <Grid justify="space-between" wrap>
-          {!list && <Text>검색 결과가 없습니다.</Text>}
-          {list &&
-            list.map(info => {
-              return (
-                <CardWrap key={`실내-${info.postId}`}>
-                  <ListCard type="searchList" info={info} />
-                </CardWrap>
-              );
-            })}
-        </Grid>
-        {loading && <LodingSpiner ref={pageRef}>더보기</LodingSpiner>}
+        {placeList && placeList.length <= 0 ? (
+          <ImageContainer>
+            <Image src={placeSearchResult} />
+            <Text color="#3E4042">
+              <b>{title}</b> 검색 결과가 없습니다.
+            </Text>
+          </ImageContainer>
+        ) : (
+          <>
+            <Text margin="40px 0 0 0" fontSize="20px" bold>
+              {title}
+            </Text>
+            <PlaceGrid>
+              {placeList &&
+                placeList.map((info, idx) => {
+                  const lastItem = idx === placeList.length - 1;
+                  return (
+                    <CardWrap key={`key-${info.postId}`}>
+                      <ListCard
+                        type="searchList"
+                        info={info}
+                        ref={lastItem ? setTarget : null}
+                      />
+                    </CardWrap>
+                  );
+                })}
+            </PlaceGrid>
+          </>
+        )}
       </Container>
-      {/* <Navbar /> */}
+      <Navbar />
     </>
   );
 };
-const CardWrap = styled.div`
-  width: 25%;
+
+const PlaceGrid = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
 `;
-const LodingSpiner = styled.div`
-  width: 100%;
-  padding: 20px;
-  font-size: 14px;
-  text-align: center;
-  color: #fff;
-  background-color: #232529;
+const CardWrap = styled.div`
+  width: 23.5%;
+  height: 290px;
+  margin: 24px 0;
+  margin-right: 2%;
+  cursor: pointer;
+
+  &:nth-child(4n + 0) {
+    margin-right: 0px;
+  }
+  @media (max-width: 500px) {
+    width: 48%;
+    height: 290px;
+  }
+`;
+const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+  flex-direction: column;
+  img {
+    width: 461px;
+    display: block;
+  }
+  @media (max-width: 500px) {
+    margin-top: 20%;
+    img {
+      width: 100%;
+    }
+  }
 `;
 export default PlaceList;

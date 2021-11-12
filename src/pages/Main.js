@@ -12,6 +12,7 @@ import Navbar from '../components/common/Navbar';
 import sunBg from '../images/weather/sun1.jpg';
 import rainBg from '../images/weather/rain1.jpg';
 import snowBg from '../images/weather/snow1.jpg';
+import cloudBg from '../images/weather/cloud.jpg';
 import { ReactComponent as Marker } from '../images/ic-marker.svg';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import Swiper from '../components/common/SwiperLB';
@@ -20,20 +21,25 @@ const Main = () => {
   const dispatch = useDispatch();
   const mainLists = useSelector(state => state.place.mainLists);
   const location = useSelector(state => state.place.location);
+
   const likeList = mainLists && mainLists.likePlace;
   const pickList = mainLists && mainLists.pickPlace;
   const weatherList = mainLists && mainLists.weatherPlace;
   const weatherInfo = mainLists && mainLists.weather;
   let weatherBg = '';
   if (weatherInfo) {
-    if (weatherInfo.status === 2) {
+    const weatherStatus = weatherInfo.frontWeather;
+    if (weatherStatus === 2) {
       weatherBg = rainBg;
-    } else if (weatherInfo.status === 3) {
+    } else if (weatherStatus === 3) {
       weatherBg = snowBg;
+    } else if (weatherStatus === 4) {
+      weatherBg = cloudBg;
     } else {
       weatherBg = sunBg;
     }
   }
+
   useEffect(() => {
     if (mainLists) return;
     dispatch(getMainListDB());
@@ -43,7 +49,7 @@ const Main = () => {
     <>
       <Container padding="0">
         <Grid>
-          <Header _onBg _content="Logo" _search />
+          <Header _onBg _content="InSplace" _search _color="#fff" />
           {/* Weather Section */}
           <Bg src={weatherBg} />
           <WeatherBox info={weatherInfo} />
@@ -52,19 +58,19 @@ const Main = () => {
               <Marker />
             </Icon>
             <Text fontSize="14px" color="#fff" bold>
+              {/* 현재위치 주소 */}
               {location && location.address}
-              {/* 서울시 마포구 상암동 */}
             </Text>
           </Grid>
 
           {/* 장소 추천받기 */}
-          <SelectTypeBtn>
+          <SelectTypeBtn onClick={() => history.push('/select-type')}>
             <Grid height="22px" margin="19px 0 0 18px">
               <Text fontSize="16px" color="#fff" bold>
                 장소 추천 받기
               </Text>
             </Grid>
-            <NextButton onClick={() => history.push('/select-type')}>
+            <NextButton>
               <Right />
             </NextButton>
           </SelectTypeBtn>
@@ -119,6 +125,7 @@ const SelectTypeBtn = styled.div`
   width: 133px;
   height: 125px;
   background-color: #232323;
+  cursor: pointer;
 `;
 
 const NextButton = styled.div`
@@ -127,7 +134,6 @@ const NextButton = styled.div`
   right: 0;
   width: 50px;
   height: 50px;
-  cursor: pointer;
   svg {
     width: 50px;
     height: 50px;

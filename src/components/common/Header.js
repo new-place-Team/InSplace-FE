@@ -2,11 +2,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
 import { Grid, Text } from '../../elements/index';
-import { map, search, close, heartFilled, share } from '../../images/index';
+import { map, close, heartFilled, share, settings } from '../../images/index';
 import { ReactComponent as LeftIcon } from '../../images/ic-left.svg';
+import { ReactComponent as Search } from '../../images/Icon/ic_header_search.svg';
 
 const Header = props => {
   const {
@@ -19,15 +19,23 @@ const Header = props => {
     _like,
     _share,
     _color,
+    _settings,
   } = props;
 
   const gotoMapPage = () => {
     history.push('/place/map');
   };
+  const gotoSearchPage = () => {
+    history.push('/search');
+  };
+  const gotoSettingPage = () => {
+    history.push('/setting');
+  };
 
   const goBack = () => {
     history.goBack();
   };
+
   if (_onBg) {
     return (
       <ContentArea>
@@ -53,8 +61,10 @@ const Header = props => {
               </Grid>
             )}
             {_search && (
-              <Grid>
-                <Icon src={search} />
+              <Grid _onClick={gotoSearchPage}>
+                <IconArea color={_color}>
+                  <Search />
+                </IconArea>
               </Grid>
             )}
             {_close && (
@@ -70,6 +80,11 @@ const Header = props => {
             {_share && (
               <Grid>
                 <Icon src={share} />
+              </Grid>
+            )}
+            {_settings && (
+              <Grid>
+                <Icon src={settings} onClick={gotoSettingPage} />
               </Grid>
             )}
           </Grid>
@@ -102,8 +117,10 @@ const Header = props => {
               </Grid>
             )}
             {_search && (
-              <Grid>
-                <Icon src={search} />
+              <Grid _onClick={gotoSearchPage}>
+                <IconArea>
+                  <Search />
+                </IconArea>
               </Grid>
             )}
             {_close && (
@@ -119,6 +136,11 @@ const Header = props => {
             {_share && (
               <Grid>
                 <Icon src={share} />
+              </Grid>
+            )}
+            {_settings && (
+              <Grid>
+                <Icon src={settings} onClick={gotoSettingPage} />
               </Grid>
             )}
           </Grid>
@@ -143,7 +165,7 @@ const HeaderBar = styled.div`
   top: 0;
   box-shadow: 0px 2px 3px rgb(196 196 196 / 25%);
   background-color: #fff;
-  z-index: 3;
+  z-index: 4;
 `;
 
 const ContentArea = styled.div`

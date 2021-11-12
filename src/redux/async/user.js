@@ -1,3 +1,5 @@
+/* eslint-disable no-unreachable */
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-alert */
 /* eslint-disable consistent-return */
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -9,6 +11,9 @@ import {
   logInCheck,
   unRegister,
   logInKakao,
+  getFavories,
+  getVisited,
+  editProfile,
 } from '../../shared/api/userApi';
 
 // 회원등록
@@ -114,3 +119,45 @@ export const kakaoLogin = createAsyncThunk('user/kakaoRegister', async code => {
     history.replace('/');
   }
 });
+/* 유저 좋아요 리스트 조회 */
+export const getFavoritesDB = createAsyncThunk(
+  'user/getFavorites',
+  async thunkAPI => {
+    try {
+      const response = await getFavories();
+      return response.data;
+    } catch (err) {
+      console.log('error ::::::', err);
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);
+/* 유저 가본곳 리스트 조회 */
+export const getVisitedDB = createAsyncThunk(
+  'user/getVisited',
+  async thunkAPI => {
+    try {
+      const response = await getVisited();
+      return response.data;
+    } catch (err) {
+      console.log('error ::::::', err);
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);
+
+/* 유저 정보 수정 */
+export const editProfileDB = createAsyncThunk(
+  'user/editProfile',
+  async (params, thunkAPI) => {
+    try {
+      const response = await editProfile(params);
+      window.alert('회원정보가 수정되었습니다.');
+      history.push('/mypage');
+      return response.data;
+    } catch (err) {
+      console.log('error ::::::', err);
+      return thunkAPI.rejectWithValue('<<', err);
+    }
+  },
+);

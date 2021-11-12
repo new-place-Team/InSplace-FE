@@ -5,12 +5,23 @@ import styled from 'styled-components';
 import { insplace } from '../images/index';
 
 const Image = props => {
-  const { type, width, height, margin, color, src } = props;
+  const {
+    type,
+    width,
+    height,
+    margin,
+    padding,
+    color,
+    src,
+    children,
+    _onClick,
+  } = props;
 
   const styles = {
     width,
     height,
     margin,
+    padding,
     src,
     color,
   };
@@ -18,7 +29,7 @@ const Image = props => {
   if (type === 'circle') {
     return (
       <>
-        <ProfileImage {...styles} />
+        <ProfileImage {...styles} onClick={_onClick} />
       </>
     );
   }
@@ -26,7 +37,9 @@ const Image = props => {
   if (type === 'bg') {
     return (
       <>
-        <BgImage {...styles} />
+        <BgImage {...styles} onClick={_onClick}>
+          {children}
+        </BgImage>
       </>
     );
   }
@@ -43,7 +56,9 @@ Image.defaultProps = {
   height: 'auto',
   type: false,
   margin: false,
+  padding: false,
   src: insplace,
+  _onChange: () => {},
 };
 
 // 기본 사각 이미지들
@@ -69,20 +84,31 @@ const BgImage = styled.div`
   background-size: cover;
   background-position: center;
   ${props => (props.margin ? `margin:${props.margin}` : '')};
+  ${props => (props.padding ? `padding:${props.padding}` : '')};
   display: block;
+  position: relative;
 `;
 
 // 프로필 이미지 (원형)
 const ProfileImage = styled.div`
   position: relative;
   width: ${props => props.width};
-  height: ${props => props.width};
+  height: ${props => props.height};
   border-radius: 50%;
   background-image: url('${props => props.src}');
   background-size: cover;
   background-position: center;
+  cursor: pointer;
   ${props => (props.margin ? `margin:${props.margin}` : '')};
-  display: block;
+  display: inline-block;
+  @media (max-width: 1024px) {
+    width: 169px;
+    height: 169px;
+  }
+  @media (max-width: 768px) {
+    width: 110px;
+    height: 110px;
+  }
 `;
 
 export default Image;

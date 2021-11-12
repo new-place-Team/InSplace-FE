@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { Grid, Text } from '../../elements';
+import { Grid, Text, Image } from '../../elements';
 import { getMbti, setModalOff } from '../../redux/modules/userSlice';
+import { x } from '../../images/index';
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,14 @@ const Modal = () => {
         <Grid>
           <ModalContent>
             <Text margin="32px 0px">MBTI를 선택해주세요!</Text>
+            <MBTIDiv
+              onClick={() => {
+                const info = { mbtiId: 17, type: 'MBTI 선택안함' };
+                selectMbti(info);
+              }}
+            >
+              <Text>MBTI 선택안함</Text>
+            </MBTIDiv>
             <MBTIDiv
               onClick={() => {
                 const info = { mbtiId: 1, type: 'ISTJ' };
@@ -152,7 +161,9 @@ const Modal = () => {
             >
               <Text bold>ENTJ</Text>
             </MBTIDiv>
-            <AbsolBtn onClick={modaloff}>❌</AbsolBtn>
+            <AbsolBtn onClick={modaloff}>
+              <Image width="30%" src={x} />
+            </AbsolBtn>
           </ModalContent>
         </Grid>
       </Overlay>
@@ -167,7 +178,7 @@ const Overlay = styled.div`
   left: 0;
   right: 0;
   position: fixed;
-  z-index: 5;
+  z-index: 999;
 `;
 
 const ModalContent = styled.div`
@@ -179,8 +190,9 @@ const ModalContent = styled.div`
   left: 0;
   padding: 0 24px;
   transition: bottom 0.3s ease-out;
-  z-index: 10;
-  overflow: auto;
+  z-index: 999;
+  overflow-y: scroll;
+  overflow-x: hidden;
   border-radius: 10px;
 `;
 
@@ -196,8 +208,8 @@ const MBTIDiv = styled.div`
 
 const AbsolBtn = styled.button`
   position: absolute;
-  top: 44px;
-  right: 24px;
+  top: 46px;
+  right: -70px;
   transform: translate(-50%, -50%);
 `;
 
