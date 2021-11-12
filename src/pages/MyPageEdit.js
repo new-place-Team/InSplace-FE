@@ -37,8 +37,9 @@ const MyPageEdit = props => {
   const [preview, setPreview] = React.useState('');
   /* 닉네임이 존재하는지 안하는지 유무 존재하면 true, 존재하지 않으면 false */
   const [nicknameDuplicate, setNicknameDuplicate] = React.useState(null);
-  /* 버튼 활성화 state */
+  /* 버튼 활성화/비활성화 state */
   const [buttonStatus, setButtonStatus] = React.useState(false);
+  // const [statement, setStatement] = React.useState(false);
   /* 이전 페이지에서 가지고 있던 유저 정보를 params로 넘겨줌 */
   const newParams = props.history.location.state.userInfo;
   const [info, setInfo] = React.useState({
@@ -73,6 +74,7 @@ const MyPageEdit = props => {
   /* 이메일, 닉네임 변경 */
   const onChange = e => {
     setInfo({ ...info, [e.target.name]: e.target.value });
+    // 닉네임만 변경했을때?를 어떻게 써야할지?
     setButtonStatus(true);
   };
   /* 성별 선택 */
@@ -90,6 +92,13 @@ const MyPageEdit = props => {
     if (info.nickname.length < 2) {
       return window.alert('닉네임은 두글자 이상으로 입력해주세요!');
     }
+    if (info.nickname.length > 12) {
+      return window.alert('닉네임은 12자리 이하로 입력해주세요!');
+    }
+    if (newParams.nickname === nickname) {
+      window.alert('사용가능한 닉네임 입니다.');
+      return setNicknameDuplicate(false);
+    }
     try {
       const response = await nicknameCheck(nickCheck);
       if (response) {
@@ -97,9 +106,11 @@ const MyPageEdit = props => {
         if (result === true) {
           setNicknameDuplicate(result);
           window.alert('이미 존재하는 닉네임입니다.');
+          // setStatement('이미 존재하는 닉네임입니다.');
         } else {
           window.alert('시용가능한 닉네임입니다!');
           setNicknameDuplicate(result);
+          // setStatement('시용가능한 닉네임입니다!');
         }
       }
     } catch (err) {
@@ -113,7 +124,6 @@ const MyPageEdit = props => {
     if (nickname === '') {
       return window.alert('닉네임을 입력해주세요!');
     }
-    console.log(nicknameDuplicate);
     if (nicknameDuplicate) {
       return window.alert('닉네임 중복 체크를 먼저 해주세요!');
     }
@@ -165,8 +175,8 @@ const MyPageEdit = props => {
             <Label fontSize="16px" color="#A3A6AA">
               닉네임
             </Label>
+            <Input name="nickname" value={nickname} onChange={onChange} />
             <Div>
-              <Input name="nickname" value={nickname} onChange={onChange} />
               {buttonStatus === false ? (
                 <Button
                   type="tag"
@@ -194,7 +204,13 @@ const MyPageEdit = props => {
             <Label fontSize="16px" color="#A3A6AA">
               이메일
             </Label>
-            <Input name="email" value={email} onChange={onChange} readonly />
+            <Input
+              name="email"
+              value={email}
+              onChange={onChange}
+              color="#C2C6CB"
+              readOnly
+            />
           </Grid>
           <Grid margin="0 0 32px 0">
             <Label fontSize="16px" color="#A3A6AA">
@@ -267,7 +283,9 @@ const ProfileWrap = styled.div`
   margin: 50px 0 50px;
 `;
 const Div = styled.div`
-  display: flex;
+  position: absolute;
+  top: 25px;
+  right: 0;
 `;
 const UploadWrap = styled.div`
   margin: -40px -120px 0 0;
@@ -307,10 +325,10 @@ const Input = styled.input`
   font-size: 18px;
   padding: 10px 0;
   border: none;
+  ${props => (props.color ? `color:${props.color}` : '')};
   border-bottom: 1px solid #e6e9ec;
   &:focus {
     outline: none;
-    border-bottom: 1px solid #232529;
   }
 `;
 

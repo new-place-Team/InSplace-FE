@@ -29,7 +29,7 @@ const Image = props => {
   if (type === 'circle') {
     return (
       <>
-        <ProfileImage {...styles} />
+        <ProfileImage {...styles} onClick={_onClick} />
       </>
     );
   }
@@ -58,6 +58,7 @@ Image.defaultProps = {
   margin: false,
   padding: false,
   src: insplace,
+  _onChange: () => {},
 };
 
 // 기본 사각 이미지들
@@ -92,11 +93,12 @@ const BgImage = styled.div`
 const ProfileImage = styled.div`
   position: relative;
   width: ${props => props.width};
-  height: ${props => props.width};
+  height: ${props => props.height};
   border-radius: 50%;
   background-image: url('${props => props.src}');
   background-size: cover;
   background-position: center;
+  cursor: pointer;
   ${props => (props.margin ? `margin:${props.margin}` : '')};
   display: inline-block;
   @media (max-width: 1024px) {
