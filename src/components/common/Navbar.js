@@ -5,7 +5,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
-import { Grid, Image } from '../../elements/index';
+import { Grid } from '../../elements/index';
 import theme from '../../styles/theme';
 /* weather Icon */
 import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';

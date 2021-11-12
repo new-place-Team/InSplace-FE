@@ -15,7 +15,6 @@ import {
   reviewLikeDB,
   setVisitedPostDB,
   getReviewEditDB,
-  updateReviewDB,
   getSearchConditionListDB,
 } from '../async/place';
 

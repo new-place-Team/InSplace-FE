@@ -37,11 +37,6 @@ const Setting = () => {
   );
 };
 
-const Wrap = styled.div`
-  position: relative;
-  margin-bottom: 32px;
-`;
-
 const MBTIDiv = styled.div`
   width: 100%;
   height: 4rem;

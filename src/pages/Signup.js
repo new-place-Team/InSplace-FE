@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalOn } from '../redux/modules/userSlice';
 import { Container, Grid, Input, Label, Button, Text } from '../elements';
-import { polygonimg, xcircle } from '../images/index';
+import { polygonimg } from '../images/index';
 import { emailCheck } from '../shared/emailCheck';
 import { addUserDB } from '../redux/async/user';
 import { nicknameCheck } from '../shared/api/userApi';
