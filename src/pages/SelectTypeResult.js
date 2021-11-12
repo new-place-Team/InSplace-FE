@@ -45,7 +45,7 @@ const SearchTypeList = props => {
         _search
         _color="#000"
       />
-      <Container>
+      <Container height="auto">
         <SelectedCategory tag={selectedCategory} />
         {/* 실내 리스트 */}
         <Grid isFlex>
@@ -56,6 +56,7 @@ const SearchTypeList = props => {
                 : '실내'
             }
           />
+
           {inSideList && inSideList.length !== 0 && (
             <Button _onClick={() => onSearchConditionMore(1)}>
               <Image
@@ -67,6 +68,8 @@ const SearchTypeList = props => {
             </Button>
           )}
         </Grid>
+      </Container>
+      <Container padding="0 0 0 24px">
         <Grid>
           <Swiper list={inSideList} type="selectResult" />
         </Grid>

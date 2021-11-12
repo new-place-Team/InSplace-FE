@@ -53,19 +53,19 @@ const Navbar = () => {
         <Wrap>
           <Grid
             bg={theme.weatherColor[weatherKey]}
-            width="75px"
-            height="100%"
-            isFlex
             justifyContent="center"
+            width="100%"
           >
             <Icon color="#fff">{WeatherIcon}</Icon>
           </Grid>
+
           <Icon
             color={pathName === '/' ? '#000' : ''}
             onClick={() => history.push('/')}
           >
             <HomeIcon />
           </Icon>
+
           <Icon
             color={pathName === '/select-type' ? '#000' : ''}
             onClick={() => history.push('/select-type')}
@@ -123,11 +123,18 @@ const Wrap = styled.div`
 `;
 
 const Icon = styled.div`
-  width: 24px;
-  height: 24px;
+  width: 100%;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* width: 24px;
+  height: 24px; */
   cursor: pointer;
+
   svg {
     fill: ${({ color }) => color || '#A4A9B1'};
+    margin-bottom: 7px;
   }
 `;
 

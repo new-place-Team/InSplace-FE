@@ -18,7 +18,7 @@ const ListCard = forwardRef((props, ref) => {
   const { type, info } = props;
   const dispatch = useDispatch();
   const isLogin = useSelector(state => state.user.isLogin);
-  console.log('place ref = ', ref);
+
   // 각 포스트에 해당하는 id (props로 받아옴)
   const postId = info && info.postId;
 
@@ -86,6 +86,7 @@ const ListCard = forwardRef((props, ref) => {
       <>
         <Grid
           _onClick={() => history.push(`/place/detail/${info.postId}`)}
+          width="242px"
           cursor
         >
           <Grid width="237px">

@@ -62,7 +62,6 @@ const Main = () => {
               {location && location.address}
             </Text>
           </Grid>
-
           {/* 장소 추천받기 */}
           <SelectTypeBtn onClick={() => history.push('/select-type')}>
             <Grid height="22px" margin="19px 0 0 18px">
@@ -75,7 +74,6 @@ const Main = () => {
             </NextButton>
           </SelectTypeBtn>
         </Grid>
-
         {/* Place Section */}
         <Grid>
           {/* 날씨에 따른 공간 */}
