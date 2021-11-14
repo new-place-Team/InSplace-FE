@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { Grid, Text } from '../elements';
 import ReviewCard from '../components/place/ReviewCard';
 import { getReviewLikesListDB, getReviewListDB } from '../redux/async/place';
+import Spinner from '../components/common/Spinner';
 
 const ReviewList = props => {
   const { postId } = props;
@@ -96,6 +97,7 @@ const ReviewList = props => {
 
   return (
     <ReviewWrap>
+      <Spinner />
       <ReviewTitle>
         <Grid justify="space-between">
           <Grid>

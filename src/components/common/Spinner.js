@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import { share } from '../../images/index';
+import { spinner } from '../../images/index';
 
 const Spinner = () => {
   return (
     <Outter>
-      <Icon src={share} />
+      <Icon src={spinner} />
     </Outter>
   );
 };
 
 const Outter = styled.div`
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(255, 255, 255, 0.7);
   width: 100vw;
   height: 100%;
   position: fixed;
@@ -25,8 +25,6 @@ const Outter = styled.div`
 
 const Icon = styled.img`
   width: 100px;
-  ${props => props.margin && `margin:${props.margin}`};
-  vertical-align: text-bottom;
 `;
 
 export default Spinner;

@@ -47,6 +47,7 @@ import noLikePlace from './illustration/no-like_place.png';
 import noVisitedPlace from './illustration/no-visited_place.png';
 import placeSearch from './illustration/search_img.png';
 import placeSearchResult from './illustration/search_result_img.png';
+import spinner from './spinner.gif';
 
 export {
   bookmark,
@@ -84,4 +85,5 @@ export {
   placeSearch,
   placeSearchResult,
   polygonimg,
+  spinner,
 };
