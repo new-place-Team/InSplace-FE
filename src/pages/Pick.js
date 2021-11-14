@@ -35,7 +35,6 @@ const Pick = () => {
 
   return (
     <>
-      {isLoading && <Spinner />}
       <Header _content="나만의 장소 Pick" _color="#fff" />
       <Container padding="66px 0 0 0">
         <PickPlace>
@@ -47,6 +46,7 @@ const Pick = () => {
               isLikeSelected ? '2px solid #000' : '1px solid #A4A9B1'
             }
             _onClick={() => toggleSelected(true)}
+            cursor
           >
             <Icons
               margin="0 8px 0 0"
@@ -69,6 +69,7 @@ const Pick = () => {
               isLikeSelected ? '1px solid #A4A9B1' : '2px solid #000'
             }
             _onClick={() => toggleSelected(false)}
+            cursor
           >
             <Icons
               margin="0 8px 0 0"
@@ -88,6 +89,7 @@ const Pick = () => {
         {isLikeSelected ? (
           /* 좋아요 리스트 */
           <>
+            {isLoading && <Spinner />}
             {userPickPlaces.likeList && userPickPlaces.likeList.length > 0 ? (
               <Grid width="100%" isFlex wrap padding="0 0 65px  0">
                 {userPickPlaces.likeList.map(item => {
@@ -116,6 +118,7 @@ const Pick = () => {
               </Grid>
             ) : (
               <>
+                {isLoading && <Spinner />}
                 <Grid
                   width="100%"
                   height="80%"
