@@ -11,6 +11,7 @@ import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { placeSearchResult } from '../images';
 import { getSearchConditionListDB } from '../redux/async/place';
+import Spinner from '../components/common/Spinner';
 
 const PlaceList = props => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const PlaceList = props => {
   const searchType = props.match.params.params;
   const placeList = useSelector(state => state.place.placeList);
   const pagination = useSelector(state => state.place.placePagination);
+  const isLoading = useSelector(state => state.loaded.is_loaded);
   /* target 을 지켜보다 target이 정해진 threshold 비율만큼 지정 행동 */
   const [target, setTarget] = useState(null);
 
@@ -65,6 +67,7 @@ const PlaceList = props => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <Header _back _content="검색결과" _map _search />
       <Container>
         {placeList && placeList.length <= 0 ? (

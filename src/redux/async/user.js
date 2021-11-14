@@ -2,6 +2,7 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-alert */
 /* eslint-disable consistent-return */
+
 import { createAsyncThunk } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { history } from '../configureStore';
@@ -15,6 +16,7 @@ import {
   getVisited,
   editProfile,
 } from '../../shared/api/userApi';
+import { getLoaded } from '../modules/loadedSlice';
 
 // 회원등록
 export const addUserDB = createAsyncThunk(
@@ -122,10 +124,14 @@ export const kakaoLogin = createAsyncThunk('user/kakaoRegister', async code => {
 /* 유저 좋아요 리스트 조회 */
 export const getFavoritesDB = createAsyncThunk(
   'user/getFavorites',
-  async thunkAPI => {
+  async (_params, thunkAPI) => {
     try {
+      thunkAPI.dispatch(getLoaded(true));
       const response = await getFavories();
-      return response.data;
+      if (response) {
+        thunkAPI.dispatch(getLoaded(false));
+        return response.data;
+      }
     } catch (err) {
       console.log('error ::::::', err);
       return thunkAPI.rejectWithValue(err);
@@ -137,8 +143,12 @@ export const getVisitedDB = createAsyncThunk(
   'user/getVisited',
   async thunkAPI => {
     try {
+      thunkAPI.dispatch(getLoaded(true));
       const response = await getVisited();
-      return response.data;
+      if (response) {
+        thunkAPI.dispatch(getLoaded(false));
+        return response.data;
+      }
     } catch (err) {
       console.log('error ::::::', err);
       return thunkAPI.rejectWithValue(err);
