@@ -11,16 +11,16 @@ const Spinner = () => {
 };
 
 const Outter = styled.div`
-  background-color: rgba(255, 255, 255, 0.7);
-  width: 100vw;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999999;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.7);
 `;
 
 const Icon = styled.img`

@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { history } from '../redux/configureStore';
 import { getTokenYn } from '../shared/utils';
-
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { right, mypageNext, profile1 } from '../images/index';

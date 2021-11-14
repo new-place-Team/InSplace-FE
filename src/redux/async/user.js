@@ -15,6 +15,7 @@ import {
   getVisited,
   editProfile,
 } from '../../shared/api/userApi';
+import { getLoaded } from '../modules/loadedSlice';
 
 // 회원등록
 export const addUserDB = createAsyncThunk(
@@ -124,8 +125,12 @@ export const getFavoritesDB = createAsyncThunk(
   'user/getFavorites',
   async thunkAPI => {
     try {
+      thunkAPI.dispatch(getLoaded(true));
       const response = await getFavories();
-      return response.data;
+      if (response) {
+        thunkAPI.dispatch(getLoaded(false));
+        return response.data;
+      }
     } catch (err) {
       console.log('error ::::::', err);
       return thunkAPI.rejectWithValue(err);

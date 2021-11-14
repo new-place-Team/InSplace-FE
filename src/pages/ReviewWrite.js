@@ -2,7 +2,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Text, Textarea } from '../elements';
 import { whiteClose, xcircle } from '../images/index';
@@ -10,11 +10,13 @@ import SelectedContents from '../components/place/SelectedContents';
 import { addReviewDB, updateReviewDB } from '../redux/async/place';
 import ReviewPostInfo from '../components/place/ReviewPostInfo';
 import { getReviewEdit } from '../shared/api/placeApi';
+import Spinner from '../components/common/Spinner';
 
 const ReviewWrite = props => {
   const { id } = props.match.params;
   const reviewId = props.history.location.state;
   const dispatch = useDispatch();
+  const isLoading = useSelector(state => state.loaded.is_loaded);
   const fileInput = useRef();
   const reviewTypeEdit = reviewId !== undefined;
   const [preview, setPreview] = useState([]);
@@ -157,6 +159,7 @@ const ReviewWrite = props => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <Header _back _content={reviewTypeEdit ? '리뷰 수정' : '리뷰 쓰기'} />
       <Container>
         <ReviewPostInfo postId={id} />

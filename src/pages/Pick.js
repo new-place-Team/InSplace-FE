@@ -7,15 +7,15 @@ import { ReactComponent as SelectedHeart } from '../images/Icon/ic_heart-dark.sv
 import { ReactComponent as PinFilled } from '../images/Icon/ic_pin-filled.svg';
 import { getCategoryText } from '../shared/transferText';
 import { noLikePlace, noVisitedPlace } from '../images/index';
-
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
-
 import { getFavoritesDB, getVisitedDB } from '../redux/async/user';
+import Spinner from '../components/common/Spinner';
 
 const Pick = () => {
   const dispatch = useDispatch();
   const userPickPlaces = useSelector(state => state.user.userPickPlaces);
+  const isLoading = useSelector(state => state.loaded.is_loaded);
   const [isLikeSelected, setIsLikeSelected] = useState(true);
   console.log('userPickPlaces', userPickPlaces);
   useEffect(() => {
@@ -35,6 +35,7 @@ const Pick = () => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <Header _content="나만의 장소 Pick" _color="#fff" />
       <Container padding="66px 0 0 0">
         <PickPlace>

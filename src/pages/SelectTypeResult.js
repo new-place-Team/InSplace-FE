@@ -12,9 +12,11 @@ import SelectedCategory from '../components/place/SelectedCategory';
 import { right } from '../images/index';
 import { history } from '../redux/configureStore';
 import { setPlaceListInit } from '../redux/modules/placeSlice';
+import Spinner from '../components/common/Spinner';
 
 const SearchTypeList = props => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(state => state.loaded.is_loaded);
   const conditionPlaces = useSelector(state => state.place.conditionPlaces);
   const selectedCategory = useSelector(state => state.place.selectedCategory);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
@@ -37,6 +39,7 @@ const SearchTypeList = props => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <Header
         _type="search"
         _back

@@ -20,6 +20,7 @@ const ReviewList = props => {
   const reviewLikesPagination = useSelector(
     state => state.place.reviewLikesPagination,
   );
+  const isLoading = useSelector(state => state.loaded.is_loaded);
 
   const [target, setTarget] = useState(null);
   const [likeTarget, setLikeTarget] = useState(null);
@@ -96,72 +97,74 @@ const ReviewList = props => {
   }, [likeTarget]);
 
   return (
-    <ReviewWrap>
-      <Spinner />
-      <ReviewTitle>
-        <Grid justify="space-between">
-          <Grid>
-            <Text fontSize="18px" color="#282828" bold>
-              리뷰 (
-              {active.newList && reviewList
-                ? reviewList.length
-                : active.likeList && reviewLikeList && reviewLikeList.length}
-              )
-            </Text>
+    <>
+      {isLoading && <Spinner />}
+      <ReviewWrap>
+        <ReviewTitle>
+          <Grid justify="space-between">
+            <Grid>
+              <Text fontSize="18px" color="#282828" bold>
+                리뷰 (
+                {active.newList && reviewList
+                  ? reviewList.length
+                  : active.likeList && reviewLikeList && reviewLikeList.length}
+                )
+              </Text>
+            </Grid>
+            <Grid isFlex>
+              <ReviewButton
+                className={active.newList && 'active'}
+                name="newList"
+                onClick={onClick}
+              >
+                {active.newList && <Dotted />}
+                최신순
+              </ReviewButton>
+              <ReviewButton
+                className={active.likeList && 'active'}
+                name="likeList"
+                onClick={onClick}
+              >
+                {active.likeList && <Dotted />}
+                추천순
+              </ReviewButton>
+            </Grid>
           </Grid>
-          <Grid isFlex>
-            <ReviewButton
-              className={active.newList && 'active'}
-              name="newList"
-              onClick={onClick}
-            >
-              {active.newList && <Dotted />}
-              최신순
-            </ReviewButton>
-            <ReviewButton
-              className={active.likeList && 'active'}
-              name="likeList"
-              onClick={onClick}
-            >
-              {active.likeList && <Dotted />}
-              추천순
-            </ReviewButton>
-          </Grid>
-        </Grid>
-      </ReviewTitle>
-      {active.newList === true &&
-        reviewList &&
-        reviewList.map((item, idx) => {
-          const lastItem = idx === reviewList.length - 1;
-          return (
-            <>
-              <ReviewCard
-                key={item.userID}
-                loginUser={userInfo.nickname}
-                postId={postId}
-                info={item}
-                ref={lastItem ? setTarget : null}
-              />
-            </>
-          );
-        })}
-      {reviewLikeList &&
-        reviewLikeList.map((item, idx) => {
-          const lastItem = idx === reviewLikeList.length - 1;
-          return (
-            <>
-              <ReviewCard
-                type="like"
-                key={item.userID}
-                loginUser={userInfo.nickname}
-                postId={postId}
-                info={item}
-                ref={lastItem ? setLikeTarget : null}
-              />
-            </>
-          );
-        })}
-    </ReviewWrap>
+        </ReviewTitle>
+        {active.newList === true &&
+          reviewList &&
+          reviewList.map((item, idx) => {
+            const lastItem = idx === reviewList.length - 1;
+            return (
+              <>
+                <ReviewCard
+                  key={item.userID}
+                  loginUser={userInfo.nickname}
+                  postId={postId}
+                  info={item}
+                  ref={lastItem ? setTarget : null}
+                />
+              </>
+            );
+          })}
+        {reviewLikeList &&
+          reviewLikeList.map((item, idx) => {
+            const lastItem = idx === reviewLikeList.length - 1;
+            return (
+              <>
+                <ReviewCard
+                  type="like"
+                  key={item.userID}
+                  loginUser={userInfo.nickname}
+                  postId={postId}
+                  info={item}
+                  ref={lastItem ? setLikeTarget : null}
+                />
+              </>
+            );
+          })}
+      </ReviewWrap>
+    </>
   );
 };
 
