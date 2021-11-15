@@ -9,6 +9,7 @@ import { ReactComponent as LeftIcon } from '../../images/ic-left.svg';
 import { ReactComponent as Search } from '../../images/Icon/ic_header_search.svg';
 
 const Header = props => {
+  console.log('history', history);
   const {
     _onBg,
     _back,

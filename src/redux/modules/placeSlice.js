@@ -70,10 +70,6 @@ const placeSlice = createSlice({
       payload;
       state.focusCoord = payload;
     },
-    createMap: (state, { payload }) => {
-      console.log(payload);
-      state.map = payload;
-    },
     setPlaceListInit: state => {
       state.placeList = null;
       state.placePagination = { page: 1, isNext: true };
@@ -305,7 +301,6 @@ export const {
   getCurrentCoordinate,
   setSelectedCategory,
   setFocusCoord,
-  createMap,
   setConditionPlaces,
   addReviewList,
   updateReviewList,

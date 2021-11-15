@@ -3,7 +3,6 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { mapscript } from '../../shared/utils';
-import { createMap } from '../../redux/modules/placeSlice';
 
 const Map = props => {
   const coord = useSelector(state => state.place.focusCoord);
@@ -14,11 +13,6 @@ const Map = props => {
   useEffect(() => {
     mapscript(mapDiv, allPlaces, coord.lat, coord.lon);
   }, [mapDiv, allPlaces, coord.lat, coord.lon]);
-
-  // useEffect(() => {
-  //   dispatch(createMap(mapscript2(mapDiv, allPlaces)));
-  //   markerMake(map, allPlaces);
-  // }, [allPlaces]);
 
   return (
     <>
