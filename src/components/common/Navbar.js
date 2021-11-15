@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-alert */
 /* eslint-disable import/no-unresolved */
+// eslint-disable-next-line import/named
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
@@ -93,14 +94,12 @@ const Navbar = () => {
           userInfo.userImage === null ? (
             <UserImage
               width="24px"
-              height="24px"
               src={profile1}
               onClick={() => pageMove('/mypage')}
             />
           ) : (
             <UserImage
               width="24px"
-              height="24px"
               src={userInfo.userImage}
               onClick={() => pageMove('/mypage')}
             />
@@ -149,8 +148,6 @@ const Icon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* width: 24px;
-  height: 24px; */
   cursor: pointer;
 
   svg {
@@ -163,6 +160,7 @@ const UserImage = styled.div`
   width: 24px;
   height: 24px;
   border-radius: 50%;
+  margin-bottom: 8px;
   background-image: url('${props => props.src}');
   background-size: cover;
   background-position: center;

@@ -1,13 +1,11 @@
 /* eslint-disable import/no-cycle */
 import api from './index';
 
+const getWeatherInfo = () => api.get('weather/info');
+
 const getMainList = () => api.get('main');
 
-const getSearchCondition = params => {
-  return api.get(
-    `search/condition?weather=${params.weather}&category=${params.category}&num=${params.num}&gender=${params.gender}`,
-  );
-};
+const getSearchCondition = params => api.get(`search/condition${params}`);
 
 const getSearchConditionList = params => api.get(`${params}`);
 const getPlaceDetail = params => api.get(`posts/${params}`);
@@ -60,6 +58,7 @@ const reviewLikeCancel = params =>
   api.delete(`/posts/${params.postId}/reviews/${params.reviewId}/likes`);
 
 export {
+  getWeatherInfo,
   getMainList,
   getSearchCondition,
   getPlaceDetail,

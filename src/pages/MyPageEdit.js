@@ -5,7 +5,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable import/named */
 /* eslint-disable no-undef */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalOn } from '../redux/modules/userSlice';
@@ -24,24 +24,23 @@ const MyPageEdit = props => {
   const dispatch = useDispatch();
   const modalStatus = useSelector(state => state.user.modalStatus);
   const mbtiInfo = useSelector(state => state.user.userMbti);
+
   /* 만약 이 페이지에서 토큰없을시 로그인 페이지 이동 */
   useEffect(() => {
     if (getTokenYn() === false) {
       window.alert('로그인을 해주세요!');
       history.push('/login');
-      console.log('useEffect 실행');
     }
   }, []);
-
-  const [maleFemale, setMaleFemale] = React.useState(null);
+  /* 이전 페이지에서 가지고 있던 유저 정보를 params로 넘겨줌 */
+  const newParams = props.history.location.state.userInfo;
+  const [maleFemale, setMaleFemale] = React.useState(newParams.maleYN);
   const [preview, setPreview] = React.useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   /* 닉네임이 존재하는지 안하는지 유무 존재하면 true, 존재하지 않으면 false */
   const [nicknameDuplicate, setNicknameDuplicate] = React.useState(null);
   /* 버튼 활성화/비활성화 state */
   const [buttonStatus, setButtonStatus] = React.useState(false);
-  // const [statement, setStatement] = React.useState(false);
-  /* 이전 페이지에서 가지고 있던 유저 정보를 params로 넘겨줌 */
-  const newParams = props.history.location.state.userInfo;
   const [info, setInfo] = React.useState({
     nickname: newParams.nickname,
     email: newParams.email,
@@ -87,16 +86,20 @@ const MyPageEdit = props => {
     const nickCheck = { nickname: info.nickname };
     /* 닉네임값이 빈값 일때 */
     if (info.nickname === '') {
-      return window.alert('닉네임을 입력해주세요!');
+      // return window.alert('닉네임을 입력해주세요!');
+      return setErrorMessage('닉네임을 입력해주세요!');
     }
     if (info.nickname.length < 2) {
-      return window.alert('닉네임은 두글자 이상으로 입력해주세요!');
+      // return window.alert('닉네임은 두글자 이상으로 입력해주세요!');
+      return setErrorMessage('닉네임은 두글자 이상으로 입력해주세요!');
     }
     if (info.nickname.length > 12) {
-      return window.alert('닉네임은 12자리 이하로 입력해주세요!');
+      // return window.alert('닉네임은 12자리 이하로 입력해주세요!');
+      return setErrorMessage('닉네임은 12자리 이하로 입력해주세요!');
     }
     if (newParams.nickname === nickname) {
-      window.alert('사용가능한 닉네임 입니다.');
+      // window.alert('사용가능한 닉네임 입니다.');
+      setErrorMessage('사용 가능한 닉네임 입니다!');
       return setNicknameDuplicate(false);
     }
     try {
@@ -105,9 +108,11 @@ const MyPageEdit = props => {
         const result = response.data.Msg;
         if (result === true) {
           setNicknameDuplicate(result);
-          window.alert('이미 존재하는 닉네임입니다.');
+          // window.alert('이미 존재하는 닉네임입니다.');
           // setStatement('이미 존재하는 닉네임입니다.');
+          return setErrorMessage('이미 존재하는 닉네임입니다.');
         } else {
+          setErrorMessage('사용 가능한 닉네임 입니다!');
           window.alert('시용가능한 닉네임입니다!');
           setNicknameDuplicate(result);
           // setStatement('시용가능한 닉네임입니다!');
@@ -124,7 +129,7 @@ const MyPageEdit = props => {
     if (nickname === '') {
       return window.alert('닉네임을 입력해주세요!');
     }
-    if (nicknameDuplicate) {
+    if (nicknameDuplicate === true) {
       return window.alert('닉네임 중복 체크를 먼저 해주세요!');
     }
     const formData = new FormData();
@@ -176,6 +181,16 @@ const MyPageEdit = props => {
               닉네임
             </Label>
             <Input name="nickname" value={nickname} onChange={onChange} />
+            {errorMessage === '사용 가능한 닉네임 입니다!' ? (
+              <Text fontSize="12px" color="green">
+                {errorMessage}
+              </Text>
+            ) : (
+              <Text fontSize="12px" color="#ff4949">
+                {errorMessage}
+              </Text>
+            )}
+
             <Div>
               {buttonStatus === false ? (
                 <Button
@@ -351,6 +366,7 @@ const MBTIDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 `;
 
 const BottomWrap = styled.div`

@@ -1,5 +1,4 @@
 /* eslint-disable no-alert */
-/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
@@ -11,14 +10,12 @@ import { Container, Grid, Text } from '../elements/index';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import { history } from '../redux/configureStore';
 import { getPeopleText } from '../shared/transferText';
-import { setSelectedCategory } from '../redux/modules/placeSlice';
 import { getSearchConditionDB } from '../redux/async/place';
 
 const SelectedType = () => {
   const dispatch = useDispatch();
   const weatherStatus = useSelector(state => state.place.weatherStatus);
-
-  const [state, setState] = React.useState({
+  const [categoryInfo, setCategoryInfo] = React.useState({
     MemberCnt: '',
     gender: '',
     category: '',
@@ -29,7 +26,9 @@ const SelectedType = () => {
   }, []);
 
   const showCategory =
-    state.MemberCnt === '' && state.gender === '' && state.category === '';
+    categoryInfo.MemberCnt === '' &&
+    categoryInfo.gender === '' &&
+    categoryInfo.category === '';
 
   const [selectData, setSelectData] = React.useState([
     {
@@ -70,28 +69,19 @@ const SelectedType = () => {
     },
   ]);
 
-  const onClick = () => {
+  const goSearch = () => {
     if (
-      state.gender === '' ||
-      state.MemberCnt === '' ||
-      state.category === ''
+      categoryInfo.gender === '' ||
+      categoryInfo.MemberCnt === '' ||
+      categoryInfo.category === ''
     ) {
       window.alert('유형을 모두 선택해주세요');
       return;
     }
-    const params = {
-      weather: weatherStatus ? weatherStatus.status : 1,
-      category: state.category.value,
-      num: state.MemberCnt.value,
-      gender: state.gender.value,
-    };
-    dispatch(setSelectedCategory(state));
+
+    const params = `?weather=${weatherStatus.status}&category=${categoryInfo.category.value}&num=${categoryInfo.MemberCnt.value}&gender=${categoryInfo.gender.value}`;
     dispatch(getSearchConditionDB(params));
-    // 유저가 선택한 유형을 history state에 담아서 보낸다.
-    history.push({
-      pathname: '/select-type/result',
-      state: { weatherStatus: params, selectedCategory: state },
-    });
+    history.push(`/select-type/result${params}`);
   };
 
   return (
@@ -100,28 +90,28 @@ const SelectedType = () => {
       <Container padding="66px 0 0 0">
         <ChangeContainer>
           <ChangeText className={!showCategory && 'hide'}>
-            {state.gender !== '' && (
+            {categoryInfo.gender !== '' && (
               <Grid isFlex>
                 <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                  {state.gender.selecteText}
+                  {categoryInfo.gender.selecteText}
                 </Text>
               </Grid>
             )}
-            {state.MemberCnt !== '' && (
+            {categoryInfo.MemberCnt !== '' && (
               <Grid isFlex margin="0 10px">
                 <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                  {getPeopleText(state.MemberCnt.value)}
+                  {getPeopleText(categoryInfo.MemberCnt.value)}
                 </Text>
                 <Text bold fontSize="20px" color="#C0C0C0">
                   &nbsp;이
                 </Text>
               </Grid>
             )}
-            {state.category !== '' && (
+            {categoryInfo.category !== '' && (
               <>
                 <Grid isFlex>
                   <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                    {state.category.selecteText}
+                    {categoryInfo.category.selecteText}
                   </Text>
                   <Text bold fontSize="20px" color="#C0C0C0">
                     &nbsp;장소 을(를)
@@ -142,15 +132,15 @@ const SelectedType = () => {
               <SelectedContents
                 key={`key-${item.title}`}
                 {...item}
-                state={state}
-                setState={setState}
+                state={categoryInfo}
+                setState={setCategoryInfo}
                 selectData={selectData}
                 setSelectData={setSelectData}
               />
             );
           })}
         </SelectContainer>
-        <Grid _onClick={onClick}>
+        <Grid _onClick={goSearch}>
           <NextButton>
             <Right />
           </NextButton>

@@ -1,8 +1,8 @@
 /* eslint-disable */
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { mapscript, mapscript2, markerMake } from '../../shared/utils';
+import { useSelector } from 'react-redux';
+import { mapscript } from '../../shared/utils';
 import { createMap } from '../../redux/modules/placeSlice';
 
 const Map = props => {
