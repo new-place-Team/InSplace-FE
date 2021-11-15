@@ -159,11 +159,13 @@ const IconArea = styled.div`
     width: 35px;
     height: 35px;
   }
+  cursor: pointer;
 `;
 const CloseButton = styled.img`
   position: absolute;
   right: 11px;
   bottom: 17px;
   width: 16px;
+  cursor: pointer;
 `;
 export default Login;

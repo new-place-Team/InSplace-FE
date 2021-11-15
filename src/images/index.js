@@ -36,6 +36,7 @@ import next from './ic-next.svg';
 import polygon from './Polygon.svg';
 import whiteClose from './close.svg';
 import plus from './plus.svg';
+import check from './ic_check.svg';
 import polygonimg from './Polygon.png';
 import insplace from './Insplace.png';
 import mypageNext from './next.svg';
@@ -86,4 +87,5 @@ export {
   placeSearchResult,
   polygonimg,
   spinner,
+  check,
 };

@@ -140,7 +140,9 @@ const Header = props => {
             )}
             {_settings && (
               <Grid>
-                <Icon src={settings} onClick={gotoSettingPage} />
+                <IconArea>
+                  <Icon src={settings} onClick={gotoSettingPage} />
+                </IconArea>
               </Grid>
             )}
           </Grid>
@@ -187,6 +189,7 @@ const Icon = styled.img`
   width: 24px;
   margin: ${({ margin }) => margin || '0'};
   vertical-align: text-bottom;
+  cursor: pointer;
 `;
 
 const IconArea = styled.div`

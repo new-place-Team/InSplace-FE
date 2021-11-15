@@ -45,6 +45,7 @@ const MBTIDiv = styled.div`
   color: white;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 export default Setting;
