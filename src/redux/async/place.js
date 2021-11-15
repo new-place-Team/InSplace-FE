@@ -279,7 +279,6 @@ export const deleteReviewDB = createAsyncThunk(
       const response = await deleteReview(params);
       thunkAPI.dispatch(deleteReviewList(params));
       if (response) {
-        window.alert('리뷰가 삭제되었습니다.');
         return params;
       }
     } catch (err) {
