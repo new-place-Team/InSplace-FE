@@ -11,9 +11,11 @@ const ConfirmModal = props => {
   const CloseConfirmModal = () => {
     props.setConfirmModal(false);
   };
+
   const CloseModal = () => {
     props.setModal(false);
   };
+
   const onDelete = () => {
     props.onDelete();
   };
@@ -46,11 +48,8 @@ const ConfirmModal = props => {
           },
         }}
       >
-        <ContentContainer>
-          <Title>{title}</Title>
-          <Content>{content}</Content>
-        </ContentContainer>
-
+        <Title>{title}</Title>
+        <Content>{content}</Content>
         <Grid justify="space-between" margin="40px 0 0 0">
           {isOk ? (
             <ModalButton className="fullButton" onClick={CloseModal}>
@@ -69,7 +68,7 @@ const ConfirmModal = props => {
     </>
   );
 };
-const ContentContainer = styled.div``;
+
 const Title = styled.h3`
   margin-bottom: 16px;
   font-size: 20px;

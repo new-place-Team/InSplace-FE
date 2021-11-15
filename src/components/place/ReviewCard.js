@@ -56,11 +56,11 @@ const ReviewCard = forwardRef((props, ref) => {
     try {
       const res = await deleteReview(params);
       if (res.data === 'OK') {
-        showModal();
+        setModal(true);
         dispatch(deleteReviewList(params));
       }
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log(err);
     }
   };
 
