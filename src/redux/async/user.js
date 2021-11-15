@@ -46,6 +46,7 @@ export const logInDB = createAsyncThunk(
       const response = await logIn(data);
       if (response) {
         // eslint-disable-next-line prefer-destructuring
+        console.log(response);
         const USER_TOKEN = response.data.token;
         window.localStorage.setItem('USER_TOKEN', USER_TOKEN);
         const userInfo = {

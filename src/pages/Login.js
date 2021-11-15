@@ -5,6 +5,7 @@ import Header from '../components/common/Header';
 import { Container, Grid, Input, Label } from '../elements';
 import { history } from '../redux/configureStore';
 import { logInDB } from '../redux/async/user';
+// eslint-disable-next-line import/named
 import { xcircle } from '../images/index';
 import { KAKAO_AUTH_URL } from '../shared/KakaoOAuth';
 import { ReactComponent as KakaoIcon } from '../images/kakaoLogin/join_kakao.svg';
@@ -145,6 +146,7 @@ const IconArea = styled.div`
     width: 35px;
     height: 35px;
   }
+  cursor: pointer;
 `;
 const CloseButton = styled.img`
   position: absolute;

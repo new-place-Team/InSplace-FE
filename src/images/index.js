@@ -48,7 +48,6 @@ import noVisitedPlace from './illustration/no-visited_place.png';
 import placeSearch from './illustration/search_img.png';
 import placeSearchResult from './illustration/search_result_img.png';
 import spinner from './spinner.gif';
-import check from './Icon/ic_check.svg';
 import more from './Icon/ic_more.svg';
 
 export {
@@ -88,6 +87,5 @@ export {
   placeSearchResult,
   polygonimg,
   spinner,
-  check,
   more,
 };
