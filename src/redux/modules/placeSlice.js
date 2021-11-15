@@ -1,6 +1,4 @@
-/* eslint-disable no-alert */
 /* eslint-disable no-unused-expressions */
-/* eslint-disable no-undef */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { createSlice, current } from '@reduxjs/toolkit';
@@ -17,6 +15,7 @@ import {
   getSearchConditionListDB,
   getWeatherDB,
 } from '../async/place';
+import { getCategoryArrText } from '../../shared/transferText';
 
 /* init */
 const initialState = {
@@ -26,7 +25,8 @@ const initialState = {
   /* 위치 정보 */
   location: null,
   /* 선택 카테고리 */
-  selectedCategory: null,
+  categoryParams: null,
+  categoryList: null,
   conditionPlaces: null,
   detailInfo: {},
   currentCoordinate: {},
@@ -51,9 +51,23 @@ const placeSlice = createSlice({
       state.weatherList = payload.weatherPlace;
     },
     setSelectedCategory: (state, { payload }) => {
-      state.selectedCategory = payload;
+      const objList = payload.replace('?', '').split('&');
+      const categoryArr = ['gender', 'num', 'category'];
+      const newCategoryList = categoryArr.map(item => {
+        let typeValue = 0;
+        objList.forEach(v => {
+          const objArr = v.split('=');
+          if (objArr[0] === item) {
+            typeValue = Number(objArr[1]);
+          }
+        });
+        return getCategoryArrText(item, typeValue);
+      });
+      state.categoryList = newCategoryList;
+      state.categoryParams = payload;
     },
     setFocusCoord: (state, { payload }) => {
+      payload;
       state.focusCoord = payload;
     },
     createMap: (state, { payload }) => {
@@ -172,7 +186,6 @@ const placeSlice = createSlice({
   extraReducers: {
     /* 날씨 정보 처리 완료 */
     [getWeatherDB.fulfilled]: (state, { payload }) => {
-      console.log(payload);
       state.weatherStatus = payload;
     },
     /* Fulfilled(이행) 처리 완료 */

@@ -1,53 +1,27 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { history } from '../../redux/configureStore';
 import { Grid } from '../../elements';
-import {
-  getGenderText,
-  getCategoryText,
-  getPeopleText,
-} from '../../shared/transferText';
+import { setSelectedCategory } from '../../redux/modules/placeSlice';
 
 const SelectedCategory = () => {
-  const categoryInfo = useSelector(state => state.place.selectedCategory);
-  console.log('categoryInfo', categoryInfo);
-  const [tagList, setTagList] = useState([]);
+  const dispatch = useDispatch();
+  const categoryList = useSelector(state => state.place.categoryList);
 
-  const setTagListFn = param => {
-    const objList = param.replace('?', '').split('&');
-    const list = objList.map(v => {
-      const objArr = v.split('=');
-      let text = '';
-      if (objArr[0] === 'gender') {
-        text = getGenderText(Number(objArr[1]));
-      } else if (objArr[0] === 'num') {
-        text = getPeopleText(Number(objArr[1]));
-      } else if (objArr[0] === 'category') {
-        text = getCategoryText(Number(objArr[1]));
-      }
-      return text;
-    });
-    list.shift();
-    setTagList(list);
-  };
   useEffect(() => {
-    let params = '';
-    if (categoryInfo) {
-      params = categoryInfo;
-    } else {
-      params = history.location.search;
+    if (!categoryList) {
+      dispatch(setSelectedCategory(history.location.search));
     }
-    setTagListFn(params);
   }, []);
 
   return (
     <>
       <Grid isFlex margin="20px 0 40px 0">
-        {tagList &&
-          tagList.map((item, idx) => {
+        {categoryList &&
+          categoryList.map((item, idx) => {
             return (
               <React.Fragment key={`key_${idx}`}>
                 <TagButton key={item.value}>{item}</TagButton>

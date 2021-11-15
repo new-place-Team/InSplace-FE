@@ -17,8 +17,7 @@ const SearchTypeList = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.loaded.is_loaded);
   const conditionPlaces = useSelector(state => state.place.conditionPlaces);
-  const selectedCategory = useSelector(state => state.place.selectedCategory);
-  const weatherStatus = useSelector(state => state.place.weatherStatus);
+  const categoryParams = useSelector(state => state.place.categoryParams);
   const inSideList = conditionPlaces && conditionPlaces.insidePlaces;
   const outSideList = conditionPlaces && conditionPlaces.outSidePlaces;
 
@@ -30,7 +29,7 @@ const SearchTypeList = () => {
   }, []);
 
   const onSearchConditionMore = value => {
-    const params = `condition?weather=${weatherStatus.status}&category=${selectedCategory.category.value}&num=${selectedCategory.MemberCnt.value}&gender=${selectedCategory.gender.value}&inside=${value}`;
+    const params = `condition${categoryParams}&inside=${value}`;
     dispatch(setPlaceListInit());
     history.push(`/place/list/${params}`);
   };

@@ -11,7 +11,6 @@ import Header from '../components/common/Header';
 import SelectedCategory from '../components/place/SelectedCategory';
 
 const MapContainer = () => {
-  const selectedCategory = useSelector(state => state.place.selectedCategory);
   const conditionPlaces = useSelector(state => state.place.conditionPlaces);
   const inSideList = conditionPlaces && conditionPlaces.insidePlaces;
   const outSideList = conditionPlaces && conditionPlaces.outSidePlaces;
@@ -24,7 +23,7 @@ const MapContainer = () => {
       <Container padding="66px 0 0 0">
         <Grid>
           <Grid padding="0 24px">
-            <SelectedCategory tag={selectedCategory} />
+            <SelectedCategory />
           </Grid>
           <SwiperMap list={allPlaces} />
           {/* 카카오지도 현재 위도 경도로 중심 찾기, 위도 경도로 리스트들 마커 찍기 */}
