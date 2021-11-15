@@ -51,6 +51,7 @@ const placeSlice = createSlice({
       state.weatherList = payload.weatherPlace;
     },
     setSelectedCategory: (state, { payload }) => {
+      // ?weather=1&category=2&num=1&gender=1
       const objList = payload.replace('?', '').split('&');
       const categoryArr = ['gender', 'num', 'category'];
       const newCategoryList = categoryArr.map(item => {

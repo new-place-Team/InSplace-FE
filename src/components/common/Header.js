@@ -9,7 +9,6 @@ import { ReactComponent as LeftIcon } from '../../images/ic-left.svg';
 import { ReactComponent as Search } from '../../images/Icon/ic_header_search.svg';
 
 const Header = props => {
-  console.log('history', history);
   const {
     _onBg,
     _back,
@@ -24,7 +23,10 @@ const Header = props => {
   } = props;
 
   const gotoMapPage = () => {
-    history.push('/place/map');
+    const { search, pathname } = history.location;
+    const pathArr = pathname.split('/');
+    const type = pathArr[pathArr.length - 1];
+    history.push(`/place-map/${type}${search}`);
   };
   const gotoSearchPage = () => {
     history.push('/search');
