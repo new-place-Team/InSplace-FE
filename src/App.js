@@ -15,7 +15,6 @@ import { logInCheckDB } from './redux/async/user';
 import { getCurrentCoordinateWEB } from './redux/async/place';
 
 import Main from './pages/Main';
-import UI from './pages/UI';
 import theme from './styles/theme';
 import PlaceMap from './pages/PlaceMap';
 import SelectTypeResult from './pages/SelectTypeResult';
@@ -54,7 +53,6 @@ function App() {
       <ThemeProvider theme={theme}>
         <Switch>
           <Route path="/" exact component={Main} />
-          <Route path="/ui" exact component={UI} />
           <Route path="/select-type" exact component={SelectType} />
           <Route
             path="/select-type/result"
