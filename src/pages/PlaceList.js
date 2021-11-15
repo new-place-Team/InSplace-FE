@@ -9,7 +9,7 @@ import { Container, Text, Image } from '../elements';
 import ListCard from '../components/place/ListCard';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
-import { placeSearchResult } from '../images';
+import { placeSearchResult } from '../images/index';
 import { getSearchConditionListDB } from '../redux/async/place';
 import Spinner from '../components/common/Spinner';
 import SelectedCategory from '../components/place/SelectedCategory';

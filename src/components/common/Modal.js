@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Text, Image } from '../../elements';
 import { getMbti, setModalOff } from '../../redux/modules/userSlice';
-// eslint-disable-next-line import/named
-import { x, checkIcon } from '../../images/index';
+import { x } from '../../images/index';
+import checked from '../../images/Icon/ic_check.svg';
 import { getPeopleMbti } from '../../shared/transferText';
 
 const Modal = () => {
@@ -46,7 +46,7 @@ const Modal = () => {
               }}
             >
               <Text>MBTI 선택안함</Text>
-              {currentMbtiId === 17 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 17 ? <Icon src={checked} /> : null}
             </MBTIDiv>
 
             <MBTIDiv
@@ -56,7 +56,7 @@ const Modal = () => {
               }}
             >
               <Text>ISTJ</Text>
-              {currentMbtiId === 1 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 1 ? <Icon src={checked} /> : null}
             </MBTIDiv>
 
             <MBTIDiv
@@ -66,7 +66,7 @@ const Modal = () => {
               }}
             >
               <Text>ISFJ</Text>
-              {currentMbtiId === 2 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 2 ? <Icon src={checked} /> : null}
             </MBTIDiv>
 
             <MBTIDiv
@@ -76,7 +76,7 @@ const Modal = () => {
               }}
             >
               <Text>INFJ</Text>
-              {currentMbtiId === 3 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 3 ? <Icon src={checked} /> : null}
             </MBTIDiv>
 
             <MBTIDiv
@@ -86,7 +86,7 @@ const Modal = () => {
               }}
             >
               <Text>INTJ</Text>
-              {currentMbtiId === 4 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 4 ? <Icon src={checked} /> : null}
             </MBTIDiv>
             <MBTIDiv
               onClick={() => {
@@ -95,7 +95,7 @@ const Modal = () => {
               }}
             >
               <Text>ISTP</Text>
-              {currentMbtiId === 5 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 5 ? <Icon src={checked} /> : null}
             </MBTIDiv>
             <MBTIDiv
               onClick={() => {
@@ -104,7 +104,7 @@ const Modal = () => {
               }}
             >
               <Text>ISFP</Text>
-              {currentMbtiId === 6 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 6 ? <Icon src={checked} /> : null}
             </MBTIDiv>
             <MBTIDiv
               onClick={() => {
@@ -113,7 +113,7 @@ const Modal = () => {
               }}
             >
               <Text>INFP</Text>
-              {currentMbtiId === 7 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 7 ? <Icon src={checked} /> : null}
             </MBTIDiv>
             <MBTIDiv
               onClick={() => {
@@ -122,7 +122,7 @@ const Modal = () => {
               }}
             >
               <Text>INTP</Text>
-              {currentMbtiId === 8 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 8 ? <Icon src={checked} /> : null}
             </MBTIDiv>
             <MBTIDiv
               onClick={() => {
@@ -131,7 +131,7 @@ const Modal = () => {
               }}
             >
               <Text>ESTP</Text>
-              {currentMbtiId === 9 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 9 ? <Icon src={checked} /> : null}
             </MBTIDiv>
             <MBTIDiv
               onClick={() => {
@@ -140,7 +140,7 @@ const Modal = () => {
               }}
             >
               <Text>ESFP</Text>
-              {currentMbtiId === 10 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 10 ? <Icon src={checked} /> : null}
             </MBTIDiv>
             <MBTIDiv
               onClick={() => {
@@ -149,7 +149,7 @@ const Modal = () => {
               }}
             >
               <Text>ENFP</Text>
-              {currentMbtiId === 11 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 11 ? <Icon src={checked} /> : null}
             </MBTIDiv>
             <MBTIDiv
               onClick={() => {
@@ -158,7 +158,7 @@ const Modal = () => {
               }}
             >
               <Text>ENTP</Text>
-              {currentMbtiId === 12 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 12 ? <Icon src={checked} /> : null}
             </MBTIDiv>
             <MBTIDiv
               onClick={() => {
@@ -167,7 +167,7 @@ const Modal = () => {
               }}
             >
               <Text>ESTJ</Text>
-              {currentMbtiId === 13 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 13 ? <Icon src={checked} /> : null}
             </MBTIDiv>
             <MBTIDiv
               onClick={() => {
@@ -176,7 +176,7 @@ const Modal = () => {
               }}
             >
               <Text>ESFJ</Text>
-              {currentMbtiId === 14 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 14 ? <Icon src={checked} /> : null}
             </MBTIDiv>
             <MBTIDiv
               onClick={() => {
@@ -185,7 +185,7 @@ const Modal = () => {
               }}
             >
               <Text>ENFJ</Text>
-              {currentMbtiId === 15 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 15 ? <Icon src={checked} /> : null}
             </MBTIDiv>
             <MBTIDiv
               onClick={() => {
@@ -194,7 +194,7 @@ const Modal = () => {
               }}
             >
               <Text>ENTJ</Text>
-              {currentMbtiId === 16 ? <Icon src={checkIcon} /> : null}
+              {currentMbtiId === 16 ? <Icon src={checked} /> : null}
             </MBTIDiv>
             <AbsolBtn onClick={modaloff}>
               <Image width="30%" src={x} />

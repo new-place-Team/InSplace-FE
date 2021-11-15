@@ -8,7 +8,7 @@ import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { getSearchConditionDB } from '../redux/async/place';
 import SelectedCategory from '../components/place/SelectedCategory';
-import { right } from '../images/index';
+import right from '../images/ic-right.svg';
 import { history } from '../redux/configureStore';
 import { setPlaceListInit } from '../redux/modules/placeSlice';
 import Spinner from '../components/common/Spinner';
