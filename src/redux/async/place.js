@@ -44,6 +44,7 @@ import {
   reviewLikesCancelList,
   setSelectedCategory,
 } from '../modules/placeSlice';
+import { getLoaded } from '../modules/loadedSlice';
 
 export const getWeatherDB = createAsyncThunk(
   'place/weatherInfo',
@@ -64,8 +65,10 @@ export const getMainListDB = createAsyncThunk(
   'place/mainList',
   async (params, thunkAPI) => {
     try {
+      thunkAPI.dispatch(getLoaded(true));
       const response = await getMainList(params);
       if (response) {
+        thunkAPI.dispatch(getLoaded(false));
         return response.data;
       }
     } catch (err) {
@@ -78,10 +81,12 @@ export const getMainListDB = createAsyncThunk(
 export const getSearchConditionDB = createAsyncThunk(
   'place/searchCondition',
   async (params, thunkAPI) => {
+    thunkAPI.dispatch(getLoaded(true));
     try {
       const response = await getSearchCondition(params);
       if (response) {
         thunkAPI.dispatch(setSelectedCategory(params));
+        thunkAPI.dispatch(getLoaded(false));
         return response.data;
       }
     } catch (err) {
@@ -95,8 +100,10 @@ export const getPlaceDetailDB = createAsyncThunk(
   'place/detail',
   async (params, thunkAPI) => {
     try {
+      thunkAPI.dispatch(getLoaded(true));
       const response = await getPlaceDetail(params);
       if (response) {
+        thunkAPI.dispatch(getLoaded(false));
         return response.data;
       }
     } catch (err) {
@@ -176,8 +183,10 @@ export const getSearchConditionListDB = createAsyncThunk(
   'place/placeSearchList',
   async (params, thunkAPI) => {
     try {
+      thunkAPI.dispatch(getLoaded(true));
       const response = await getSearchConditionList(params);
       if (response) {
+        thunkAPI.dispatch(getLoaded(false));
         return response.data;
       }
     } catch (err) {
@@ -191,8 +200,10 @@ export const getReviewListDB = createAsyncThunk(
   'place/reviewList',
   async (params, thunkAPI) => {
     try {
+      thunkAPI.dispatch(getLoaded(true));
       const response = await getReviewList(params);
       if (response) {
+        thunkAPI.dispatch(getLoaded(false));
         return response.data;
       }
     } catch (err) {
@@ -205,8 +216,10 @@ export const getReviewLikesListDB = createAsyncThunk(
   'place/reviewLikesList',
   async (params, thunkAPI) => {
     try {
+      thunkAPI.dispatch(getLoaded(true));
       const response = await getReviewLikesList(params);
       if (response) {
+        thunkAPI.dispatch(getLoaded(false));
         return response.data;
       }
     } catch (err) {
@@ -242,8 +255,10 @@ export const getReviewEditDB = createAsyncThunk(
   'place/getReviewEdit',
   async (params, thunkAPI) => {
     try {
+      thunkAPI.dispatch(getLoaded(true));
       const response = await getReviewEdit(params);
       if (response) {
+        thunkAPI.dispatch(getLoaded(false));
         return response.data;
       }
     } catch (err) {

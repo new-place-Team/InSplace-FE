@@ -1,33 +1,28 @@
-/* eslint-disable no-alert */
-/* eslint-disable consistent-return */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
+import Header from '../components/common/Header';
 import { Container, Grid, Input, Label } from '../elements';
 import { history } from '../redux/configureStore';
 import { logInDB } from '../redux/async/user';
-import Header from '../components/common/Header';
 import { xcircle } from '../images/index';
 import { KAKAO_AUTH_URL } from '../shared/KakaoOAuth';
 import { ReactComponent as KakaoIcon } from '../images/kakaoLogin/join_kakao.svg';
 
 const Login = () => {
   const dispatch = useDispatch();
-  /* email,password 하나의 state에서 관리 */
-  const [state, setState] = React.useState({
+  const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
   });
-  const [emailCloseBtn, setEmailCloseBtn] = React.useState(false);
-  const [pwCloseBtn, setpwCloseBtn] = React.useState(false);
-  /* Input 관리 */
+
   const onChange = e => {
-    setState({ ...state, [e.target.name]: e.target.value });
+    setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
   };
   /* 서버에 전달할 정보 */
   const userInfo = {
-    email: state.email,
-    password: state.password,
+    email: loginInfo.email,
+    password: loginInfo.password,
   };
   /* 로그인 제출 */
   const submitUserInfo = () => {
@@ -42,59 +37,49 @@ const Login = () => {
     dispatch(logInDB(userInfo));
   };
 
-  React.useEffect(() => {
-    if (state.email !== '') {
-      return setEmailCloseBtn(true);
-    }
-    if (state.email === '') {
-      return setEmailCloseBtn(false);
-    }
-    // 3번째 확인할 것
-    if (state.password !== '') {
-      return setpwCloseBtn(true);
-    }
-    if (state.password === '') {
-      return setpwCloseBtn(false);
-    }
-  }, [state]);
-
   return (
     <>
       <Header _back _content="로그인" />
       <Container padding="66px 0 0 0">
         <Grid padding="42px 20px 0 20px">
           <Wrap>
-            {/* 이메일 */}
             <Label type="form">이메일</Label>
             <Input
               inputType="form"
               type="text"
-              value={state.email}
+              value={loginInfo.email}
               name="email"
               _onChange={onChange}
               placeholder="이메일 주소를 입력해주세요"
             />
-            {emailCloseBtn ? (
+            {loginInfo.email !== '' && (
               <CloseButton
                 src={xcircle}
                 onClick={() => {
-                  setState({ email: '' });
+                  setLoginInfo({ ...loginInfo, email: '' });
                 }}
               />
-            ) : null}
+            )}
           </Wrap>
-          {/* 비밀번호 */}
           <Wrap>
             <Label type="form">비밀번호</Label>
             <Input
               inputType="form"
               type="password"
-              value={state.password}
+              value={loginInfo.password}
               name="password"
               _onChange={onChange}
               placeholder="비밀번호를 입력해주세요"
             />
-            {pwCloseBtn ? <CloseButton src={xcircle} /> : null}
+
+            {loginInfo.password !== '' && (
+              <CloseButton
+                src={xcircle}
+                onClick={() => {
+                  setLoginInfo({ ...loginInfo, password: '' });
+                }}
+              />
+            )}
           </Wrap>
         </Grid>
         <BottomWrap>
@@ -155,6 +140,7 @@ const IconArea = styled.div`
   left: 16px;
   width: 24px;
   height: 24px;
+
   svg {
     width: 35px;
     height: 35px;
@@ -164,6 +150,7 @@ const CloseButton = styled.img`
   position: absolute;
   right: 11px;
   bottom: 17px;
-  width: 16px;
+  width: 20px;
+  cursor: pointer;
 `;
 export default Login;

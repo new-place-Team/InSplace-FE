@@ -12,6 +12,7 @@ const loadedSlice = createSlice({
   initialState,
   reducers: {
     getLoaded: (state, { payload }) => {
+      console.log('loading == ', payload);
       state.is_loaded = payload;
     },
   },

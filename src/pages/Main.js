@@ -16,12 +16,13 @@ import cloudBg from '../images/weather/cloud.jpg';
 import { ReactComponent as Marker } from '../images/ic-marker.svg';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import Swiper from '../components/common/SwiperLB';
+import Spinner from '../components/common/Spinner';
 
 const Main = () => {
   const dispatch = useDispatch();
   const mainLists = useSelector(state => state.place.mainLists);
   const location = useSelector(state => state.place.location);
-
+  const isLoading = useSelector(state => state.loaded.is_loaded);
   const likeList = mainLists && mainLists.likePlace;
   const pickList = mainLists && mainLists.pickPlace;
   const weatherList = mainLists && mainLists.weatherPlace;
@@ -47,6 +48,7 @@ const Main = () => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <Container padding="0">
         <Grid>
           <Header _onBg _content="InSplace" _search _color="#fff" />

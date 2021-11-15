@@ -149,6 +149,7 @@ const CenterGrid = styled.div`
   border-bottom: ${({ borderBottom }) => borderBottom || ''};
   position: ${props => props.position};
   ${props => props.wrap && `flex-wrap:wrap`};
+  ${props => (props.cursor ? `cursor:pointer` : '')};
 `;
 const EndGrid = styled.div`
   ${props =>
