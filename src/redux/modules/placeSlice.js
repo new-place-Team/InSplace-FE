@@ -15,6 +15,7 @@ import {
   setVisitedPostDB,
   getReviewEditDB,
   getSearchConditionListDB,
+  getWeatherDB,
 } from '../async/place';
 
 /* init */
@@ -25,7 +26,7 @@ const initialState = {
   /* 위치 정보 */
   location: null,
   /* 선택 카테고리 */
-  selectedCategory: [],
+  selectedCategory: null,
   conditionPlaces: null,
   detailInfo: {},
   currentCoordinate: {},
@@ -169,6 +170,11 @@ const placeSlice = createSlice({
   },
 
   extraReducers: {
+    /* 날씨 정보 처리 완료 */
+    [getWeatherDB.fulfilled]: (state, { payload }) => {
+      console.log(payload);
+      state.weatherStatus = payload;
+    },
     /* Fulfilled(이행) 처리 완료 */
     [getMainListDB.fulfilled]: (state, { payload }) => {
       state.mainLists = payload;
