@@ -28,15 +28,14 @@ import search from './ic-search.svg';
 import settings from './ic-settings.svg';
 import share from './ic-share.svg';
 import write from './ic-write.svg';
-import xcircle from './ic-xcircle.svg';
+import xcircle from './Icon/ic_xcircle.svg';
 import pin from './ic-pin.svg';
-import bad from './ic-bad.svg';
-import good from './ic-good.svg';
+import bad from './Icon/ic_bad.svg';
+import good from './Icon/ic_good.svg';
 import next from './ic-next.svg';
 import polygon from './Polygon.svg';
 import whiteClose from './close.svg';
 import plus from './plus.svg';
-import check from './ic_check.svg';
 import polygonimg from './Polygon.png';
 import insplace from './Insplace.png';
 import mypageNext from './next.svg';
@@ -49,6 +48,8 @@ import noVisitedPlace from './illustration/no-visited_place.png';
 import placeSearch from './illustration/search_img.png';
 import placeSearchResult from './illustration/search_result_img.png';
 import spinner from './spinner.gif';
+import checkIcon from './Icon/ic_check.svg';
+import more from './Icon/ic_more.svg';
 
 export {
   bookmark,
@@ -87,5 +88,6 @@ export {
   placeSearchResult,
   polygonimg,
   spinner,
-  check,
+  checkIcon,
+  more,
 };

@@ -8,6 +8,7 @@
 /* eslint-disable prettier/prettier */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
+  getWeatherInfo,
   getMainList,
   getSearchCondition,
   getPlaceDetail,
@@ -41,8 +42,23 @@ import {
   updateReviewList,
   reviewLikesList,
   reviewLikesCancelList,
+  setSelectedCategory,
 } from '../modules/placeSlice';
 import { getLoaded } from '../modules/loadedSlice';
+
+export const getWeatherDB = createAsyncThunk(
+  'place/weatherInfo',
+  async thunkAPI => {
+    try {
+      const response = await getWeatherInfo();
+      if (response) {
+        return response.data;
+      }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);
 
 /* 메인 리스트 호출 */
 export const getMainListDB = createAsyncThunk(
@@ -69,6 +85,7 @@ export const getSearchConditionDB = createAsyncThunk(
     try {
       const response = await getSearchCondition(params);
       if (response) {
+        thunkAPI.dispatch(setSelectedCategory(params));
         thunkAPI.dispatch(getLoaded(false));
         return response.data;
       }

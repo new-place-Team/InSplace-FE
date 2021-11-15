@@ -1,22 +1,20 @@
 /* eslint-disable no-alert */
-/* eslint-disable consistent-return */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalOn } from '../redux/modules/userSlice';
 import { Container, Grid, Input, Label, Button, Text } from '../elements';
-import { polygonimg } from '../images/index';
+import { polygonimg, xcircle } from '../images/index';
 import { emailCheck } from '../shared/emailCheck';
 import { addUserDB } from '../redux/async/user';
 import { nicknameCheck } from '../shared/api/userApi';
-
 import Header from '../components/common/Header';
 import Modal from '../components/common/Modal';
 
 const Signup = () => {
   const dispatch = useDispatch();
   // input값을 하나의 state에서 관리한다.
-  const [userInfo, setUserInfo] = React.useState({
+  const [userInfo, setUserInfo] = useState({
     email: '',
     password: '',
     passwordCheck: '',
@@ -30,13 +28,13 @@ const Signup = () => {
   const modalStatus = useSelector(state => state.user.modalStatus);
 
   // 여자,남자 상태를 useState를 통해 관리
-  const [maleFemale, setMaleFemale] = React.useState(null);
+  const [maleFemale, setMaleFemale] = useState(null);
 
   /* 닉네임이 존재하는지 안하는지 유무 존재하면 true, 존재하지 않으면 false */
-  const [nicknameDuplicate, setNicknameDuplicate] = React.useState(null);
+  const [nicknameDuplicate, setNicknameDuplicate] = useState(null);
 
   /* 버튼 활성화/비활성화 state */
-  const [buttonStatus, setButtonStatus] = React.useState(false);
+  const [buttonStatus, setButtonStatus] = useState(false);
 
   // 클릭했을때 여자는 1이 남자는 0이 state에 저장
   const selectGender = gender => {
@@ -86,7 +84,7 @@ const Signup = () => {
     } catch (err) {
       console.log('error ::::::', err);
     }
-    setButtonStatus(false);
+    return setButtonStatus(false);
   };
 
   // 서버에 전달할 유저 정보
@@ -129,7 +127,8 @@ const Signup = () => {
       return;
     }
     if (nicknameDuplicate) {
-      return window.alert('닉네임 중복 체크를 먼저 해주세요!');
+      window.alert('닉네임 중복 체크를 먼저 해주세요!');
+      return;
     }
     if (userInfoDB.maleYN === undefined) {
       window.alert('성별을 선택해 주세요!');
@@ -157,7 +156,14 @@ const Signup = () => {
                 _onChange={onChange}
                 placeholder="이메일 주소를 입력해주세요"
               />
-              {/* <Icon src={xcircle} /> */}
+              {userInfo.email !== '' && (
+                <CloseButton
+                  src={xcircle}
+                  onClick={() => {
+                    setUserInfo({ ...userInfo, email: '' });
+                  }}
+                />
+              )}
             </Div>
           </Wrap>
 
@@ -171,6 +177,14 @@ const Signup = () => {
               _onChange={onChange}
               placeholder="비밀번호를 입력해주세요"
             />
+            {userInfo.password !== '' && (
+              <CloseButton
+                src={xcircle}
+                onClick={() => {
+                  setUserInfo({ ...userInfo, password: '' });
+                }}
+              />
+            )}
           </Wrap>
           <Wrap>
             <Label type="form">비밀번호 확인</Label>
@@ -182,6 +196,14 @@ const Signup = () => {
               _onChange={onChange}
               placeholder="비밀번호를 한번 더 입력해주세요"
             />
+            {userInfo.passwordCheck !== '' && (
+              <CloseButton
+                src={xcircle}
+                onClick={() => {
+                  setUserInfo({ ...userInfo, passwordCheck: '' });
+                }}
+              />
+            )}
           </Wrap>
           <Wrap>
             <Label type="form">닉네임</Label>
@@ -193,6 +215,14 @@ const Signup = () => {
               _onChange={onChange}
               placeholder="닉네임을 입력해주세요"
             />
+            {userInfo.nickname !== '' && (
+              <CloseButton
+                src={xcircle}
+                onClick={() => {
+                  setUserInfo({ ...userInfo, nickname: '' });
+                }}
+              />
+            )}
             <AbsolDiv>
               {buttonStatus === false ? (
                 <Button
@@ -275,7 +305,7 @@ const Signup = () => {
           </Button>
         </BottomWrap>
 
-        {modalStatus === true ? <Modal /> : null}
+        {modalStatus === true && <Modal />}
       </Container>
     </>
   );
@@ -334,5 +364,11 @@ const AbsolDiv = styled.div`
   top: 25px;
   right: 0;
 `;
-
+const CloseButton = styled.img`
+  position: absolute;
+  right: 11px;
+  bottom: 17px;
+  width: 20px;
+  cursor: pointer;
+`;
 export default Signup;

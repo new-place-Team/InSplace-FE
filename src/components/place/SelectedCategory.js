@@ -1,25 +1,30 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { history } from '../../redux/configureStore';
 import { Grid } from '../../elements';
+import { setSelectedCategory } from '../../redux/modules/placeSlice';
 
-const SelectedCategory = props => {
-  const { tag } = props;
-  const tagList = [];
-  tagList.push(tag.gender);
-  tagList.push(tag.MemberCnt);
-  tagList.push(tag.category);
+const SelectedCategory = () => {
+  const dispatch = useDispatch();
+  const categoryList = useSelector(state => state.place.categoryList);
+
+  useEffect(() => {
+    if (!categoryList) {
+      dispatch(setSelectedCategory(history.location.search));
+    }
+  }, []);
+
   return (
     <>
       <Grid isFlex margin="20px 0 40px 0">
-        {tagList &&
-          tagList.map((item, idx) => {
+        {categoryList &&
+          categoryList.map((item, idx) => {
             return (
               <React.Fragment key={`key_${idx}`}>
-                <TagButton key={item.value} type="tag">
-                  {item.selecteText}
-                </TagButton>
+                <TagButton key={item.value}>{item}</TagButton>
               </React.Fragment>
             );
           })}

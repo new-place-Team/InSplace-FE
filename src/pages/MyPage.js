@@ -7,6 +7,7 @@ import { history } from '../redux/configureStore';
 import { getTokenYn } from '../shared/utils';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
+// eslint-disable-next-line import/named
 import { right, mypageNext, profile1 } from '../images/index';
 import { Button, Container, Grid, Image, Text } from '../elements';
 import sunBg from '../images/weather/sun1.jpg';

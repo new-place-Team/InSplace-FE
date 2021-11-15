@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-alert */
 /* eslint-disable import/no-unresolved */
+// eslint-disable-next-line import/named
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';

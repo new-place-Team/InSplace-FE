@@ -1,7 +1,6 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable prefer-const */
 /* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,10 +11,9 @@ import { getTokenYn } from './shared/utils';
 import { logInCheckDB } from './redux/async/user';
 // import { getCurrentCoordinate } from './redux/modules/placeSlice';
 // eslint-disable-next-line import/named
-import { getCurrentCoordinateWEB } from './redux/async/place';
+import { getCurrentCoordinateWEB, getWeatherDB } from './redux/async/place';
 
 import Main from './pages/Main';
-import UI from './pages/UI';
 import theme from './styles/theme';
 import PlaceMap from './pages/PlaceMap';
 import SelectTypeResult from './pages/SelectTypeResult';
@@ -37,8 +35,10 @@ import Setting from './pages/Setting';
 function App() {
   const dispatch = useDispatch();
   const location = useSelector(state => state.place.location);
+  const weatherStatus = useSelector(state => state.place.weatherStatus);
 
   useEffect(() => {
+    console.log('렌더 체크');
     // 현재위치를 받아보자
     if (!location) {
       dispatch(getCurrentCoordinateWEB());
@@ -47,6 +47,9 @@ function App() {
     if (getTokenYn()) {
       dispatch(logInCheckDB());
     }
+    if (!weatherStatus) {
+      dispatch(getWeatherDB());
+    }
   }, []);
 
   return (
@@ -54,7 +57,6 @@ function App() {
       <ThemeProvider theme={theme}>
         <Switch>
           <Route path="/" exact component={Main} />
-          <Route path="/ui" exact component={UI} />
           <Route path="/select-type" exact component={SelectType} />
           <Route
             path="/select-type/result"
