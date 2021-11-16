@@ -60,6 +60,7 @@ export const logInDB = createAsyncThunk(
         const userInfo = {
           userId: response.data.userId,
           email: response.data.email,
+          maleYN: response.data.maleYN,
           nickname: response.data.nickname,
           userImage: response.data.userImage,
           mbti: response.data.mbti,
@@ -99,7 +100,9 @@ export const unRegisterDB = createAsyncThunk(
     const userId = thunkAPI.getState().user.userInfo.userId;
     try {
       const response = await unRegister(userId);
-      // window.alert('회원 탈퇴 되었습니다!');
+      // eslint-disable-next-line no-undef
+      localStorage.removeItem('USER_TOKEN');
+
       console.log(response);
       history.replace('/login');
     } catch (err) {
