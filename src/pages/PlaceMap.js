@@ -9,12 +9,18 @@ import SwiperMap from '../components/map/SwiperMap';
 import Map from '../components/map/Map';
 import Header from '../components/common/Header';
 import SelectedCategory from '../components/place/SelectedCategory';
+import { history } from '../redux/configureStore';
 
 const MapContainer = () => {
-  const conditionPlaces = useSelector(state => state.place.conditionPlaces);
-  const inSideList = conditionPlaces && conditionPlaces.insidePlaces;
-  const outSideList = conditionPlaces && conditionPlaces.outSidePlaces;
-  const allPlaces = [...inSideList, ...outSideList];
+  const { pathname } = history.location;
+  const pathArr = pathname.split('/');
+  const type = pathArr[pathArr.length - 1];
+  console.log(type);
+  let placeList = [];
+  if (type === 'result') {
+    const conditionPlaces = useSelector(state => state.place.conditionPlaces);
+    placeList = [...conditionPlaces.inSideList, ...conditionPlaces.outSideList];
+  }
   const currentCoord = useSelector(state => state.place.focusCoord);
 
   return (
@@ -25,13 +31,13 @@ const MapContainer = () => {
           <Grid padding="0 24px">
             <SelectedCategory />
           </Grid>
-          <SwiperMap list={allPlaces} />
+          <SwiperMap list={placeList} />
           {/* 카카오지도 현재 위도 경도로 중심 찾기, 위도 경도로 리스트들 마커 찍기 */}
           <MapDiv>
             <Map
               width="100vw"
               height="80vh"
-              allPlaces={allPlaces}
+              allPlaces={placeList}
               currentCoord={currentCoord}
             />
           </MapDiv>
