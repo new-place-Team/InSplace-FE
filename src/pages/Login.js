@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/common/Header';
 import { Container, Grid, Input, Label } from '../elements';
 import { history } from '../redux/configureStore';
 import { logInDB } from '../redux/async/user';
-// eslint-disable-next-line import/named
 import { xcircle } from '../images/index';
 import { KAKAO_AUTH_URL } from '../shared/KakaoOAuth';
 import { ReactComponent as KakaoIcon } from '../images/kakaoLogin/join_kakao.svg';
+import CommonModal from '../components/common/CommonModal';
+// import { setCommonModalOn } from '../redux/modules/commonSlice';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const commomModal = useSelector(state => state.common.modalStatus);
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
@@ -36,10 +38,15 @@ const Login = () => {
       return;
     }
     dispatch(logInDB(userInfo));
+    // const modalParams = {
+    //   title: '로그인에 성공하셨습니다.',
+    // };
+    // dispatch(setCommonModalOn(modalParams));
   };
 
   return (
     <>
+      {commomModal && <CommonModal />}
       <Header _back _content="로그인" />
       <Container padding="66px 0 0 0">
         <Grid padding="42px 20px 0 20px">

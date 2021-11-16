@@ -1,7 +1,7 @@
 /* eslint-disable import/named */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Container, Grid, Text, Image, Button, Icons } from '../elements';
@@ -25,13 +25,15 @@ import PlaceSwiper from '../components/place/PlaceSwiper';
 import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
 import ReviewList from './ReviewList';
 import { getCategoryText } from '../shared/transferText';
-import { isLoginChk } from '../shared/utils';
+// import { isLoginChk } from '../shared/utils';
+import ConfirmModal from '../components/common/ConfirmModal';
 
 const Detail = props => {
   const dispatch = useDispatch();
   const { id } = props.match.params;
   const detailData = useSelector(state => state.place.detailInfo);
   const isLogin = useSelector(state => state.user.isLogin);
+  const [confirmModal, setConfirmModal] = useState(false);
 
   const newAddr = detailData.addressShort
     ? detailData.addressShort.split(' ')
@@ -51,7 +53,8 @@ const Detail = props => {
 
   // 리뷰 쓰기 페이지로 이동
   const goReviewPage = () => {
-    if (!isLoginChk(isLogin)) {
+    if (!isLogin) {
+      setConfirmModal(true);
       return;
     }
     history.push(`/review/write/${id}`);
@@ -60,6 +63,7 @@ const Detail = props => {
   const goBack = () => {
     history.goBack();
   };
+
   /* postInfo parameter */
   const getParams = () => {
     const params = {
@@ -73,7 +77,11 @@ const Detail = props => {
 
   /* 좋아요 추가 및 삭제 */
   const setFavorites = () => {
-    if (!isLoginChk(isLogin)) {
+    // if (!isLoginChk(isLogin)) {
+    //   return;
+    // }
+    if (!isLogin) {
+      setConfirmModal(true);
       return;
     }
     const defaultParams = getParams();
@@ -85,7 +93,11 @@ const Detail = props => {
   };
   /* 가본장소 추가 및 삭제 */
   const setVisited = () => {
-    if (!isLoginChk(isLogin)) {
+    // if (!isLoginChk(isLogin)) {
+    //   return;
+    // }
+    if (!isLogin) {
+      setConfirmModal(true);
       return;
     }
     const defaultParams = getParams();
@@ -98,6 +110,13 @@ const Detail = props => {
 
   return (
     <>
+      {confirmModal && (
+        <ConfirmModal
+          title="로그인을 해야 이용할 수 있는 서비스입니다. 로그인 하시겠습니까?"
+          setConfirmModal={setConfirmModal}
+          goToLogin
+        />
+      )}
       <Container padding="0">
         <Grid>
           <PlaceSwiper list={detailData.postImages} />

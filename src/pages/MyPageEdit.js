@@ -19,12 +19,13 @@ import Modal from '../components/common/Modal';
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Label, Text } from '../elements';
 import { plus, polygonimg } from '../images/index';
+import CommonModal from '../components/common/CommonModal';
 
 const MyPageEdit = props => {
   const dispatch = useDispatch();
   const modalStatus = useSelector(state => state.user.modalStatus);
   const mbtiInfo = useSelector(state => state.user.userMbti);
-
+  const commomModal = useSelector(state => state.common.modalStatus);
   /* 만약 이 페이지에서 토큰없을시 로그인 페이지 이동 */
   useEffect(() => {
     if (getTokenYn() === false) {
@@ -146,11 +147,13 @@ const MyPageEdit = props => {
       id: userId,
       data: formData,
     };
+
     dispatch(editProfileDB(params));
   };
 
   return (
     <>
+      {commomModal && <CommonModal />}
       <Header _back _content="프로필 수정" />
       <Container padding="20px 0 0 0">
         <Grid padding="42px 20px 0 20px">

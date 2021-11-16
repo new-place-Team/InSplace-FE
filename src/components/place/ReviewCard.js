@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-shadow */
 import React, { forwardRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Button, Grid, Text, Image } from '../../elements/index';
 import { good, bad, profile1 } from '../../images/index';
@@ -11,13 +11,14 @@ import { history } from '../../redux/configureStore';
 import ConfirmModal from '../common/ConfirmModal';
 import { deleteReview } from '../../shared/api/placeApi';
 import { deleteReviewList } from '../../redux/modules/placeSlice';
+import { setCommonModalOn } from '../../redux/modules/commonSlice';
+import CommonModal from '../common/CommonModal';
 
 const ReviewCard = forwardRef((props, ref) => {
   const { info, postId, loginUser, type } = props;
   const dispatch = useDispatch();
   const [confirmModal, setConfirmModal] = useState(false);
-  const [modal, setModal] = useState(false);
-
+  const modalStatus = useSelector(state => state.common.modalStatus);
   const date = info.createdAt.split('T')[0];
 
   const params = {
@@ -45,18 +46,12 @@ const ReviewCard = forwardRef((props, ref) => {
     setConfirmModal(true);
   };
 
-  // 리뷰 삭제 완료된 modal
-  const showModal = () => {
-    setModal(true);
-  };
-
   // 리뷰 삭제
   const onDeleteReview = async () => {
     setConfirmModal(false);
     try {
       const res = await deleteReview(params);
       if (res.data === 'OK') {
-        setModal(true);
         dispatch(deleteReviewList(params));
       }
     } catch (err) {
@@ -66,14 +61,7 @@ const ReviewCard = forwardRef((props, ref) => {
 
   return (
     <>
-      {modal && (
-        <ConfirmModal
-          title="리뷰가 삭제되었습니다."
-          showModal={showModal}
-          setModal={setModal}
-          isOk
-        />
-      )}
+      {modalStatus && <CommonModal />}
       {confirmModal && (
         <ConfirmModal
           title="리뷰를 삭제하시겠어요?"

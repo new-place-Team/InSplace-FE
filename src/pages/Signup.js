@@ -12,9 +12,11 @@ import { addUserDB } from '../redux/async/user';
 import { nicknameCheck } from '../shared/api/userApi';
 import Header from '../components/common/Header';
 import Modal from '../components/common/Modal';
+import CommonModal from '../components/common/CommonModal';
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const commomModal = useSelector(state => state.common.modalStatus);
   // input값을 하나의 state에서 관리한다.
   const [userInfo, setUserInfo] = useState({
     email: '',
@@ -138,12 +140,15 @@ const Signup = () => {
     }
     if (!userInfoDB.mbtiId) {
       window.alert('mbti도 선택해 볼까요?!');
+      return;
     }
     // 회원정보 미들웨어로 dispatch
     dispatch(addUserDB(userInfoDB));
   };
+
   return (
     <>
+      {commomModal && <CommonModal />}
       <Header _back _content="회원가입" />
       <Container padding="66px 0 0 0">
         <Grid padding="42px 20px 0 20px">

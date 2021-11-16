@@ -1,73 +1,102 @@
 import React from 'react';
-import ReactModal from 'react-modal';
 import styled from 'styled-components';
 import { Grid } from '../../elements';
-
-ReactModal.setAppElement('#root');
+import { history } from '../../redux/configureStore';
 
 const ConfirmModal = props => {
-  const { title, content, isOk } = props;
+  const { title, content, isOk, Type, goToLogin } = props;
 
-  const CloseConfirmModal = () => {
+  const CloseConfirmModal = e => {
+    const name = e.target.className;
+    if (name.indexOf('close') === -1) {
+      return;
+    }
     props.setConfirmModal(false);
+    if (props.pageMove) {
+      props.pageMove();
+    }
   };
 
-  const CloseModal = () => {
+  const CloseModal = e => {
+    const name = e.target.className;
+    if (name.indexOf('close') === -1) {
+      return;
+    }
     props.setModal(false);
+    if (props.pageMove) {
+      props.pageMove();
+    }
   };
 
   const onDelete = () => {
     props.onDelete();
   };
 
+  const goToLoginPage = () => {
+    history.push('/login');
+  };
+
   return (
     <>
-      <ReactModal
-        isOpen
-        onRequestClose={isOk ? CloseModal : CloseConfirmModal}
-        style={{
-          overlay: {
-            position: 'fixed',
-            zIndex: 100,
-            top: 0,
-            left: 0,
-            width: '100vw',
-            height: '100vh',
-            background: 'rgba(0, 0, 0, 0.75)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          },
-          content: {
-            position: 'relative',
-            background: '#fff',
-            width: '375px',
-            overflowY: 'auto',
-            borderRadius: '4px',
-            padding: '32px',
-          },
-        }}
+      <ModalContainer
+        className="close"
+        onClick={e => (isOk ? CloseModal(e) : CloseConfirmModal(e))}
       >
-        <Title>{title}</Title>
-        <Content>{content}</Content>
-        <Grid justify="space-between" margin="40px 0 0 0">
-          {isOk ? (
-            <ModalButton className="fullButton" onClick={CloseModal}>
-              확인
-            </ModalButton>
-          ) : (
-            <>
-              <ModalButton onClick={CloseConfirmModal}>취소</ModalButton>
-              <ModalButton className="black" onClick={onDelete}>
-                삭제
+        <ModalContent>
+          <Title>{title}</Title>
+          <Content>{content}</Content>
+          <Grid justify="space-between" margin="40px 0 0 0">
+            {isOk ? (
+              <ModalButton className="fullButton close" onClick={CloseModal}>
+                확인
               </ModalButton>
-            </>
-          )}
-        </Grid>
-      </ReactModal>
+            ) : (
+              <>
+                <ModalButton className="close" onClick={CloseConfirmModal}>
+                  취소
+                </ModalButton>
+                {!Type && !goToLogin ? (
+                  <ModalButton className="black" onClick={onDelete}>
+                    삭제
+                  </ModalButton>
+                ) : (
+                  <ModalButton
+                    className="black close"
+                    onClick={e =>
+                      !goToLogin ? CloseConfirmModal(e) : goToLoginPage()
+                    }
+                  >
+                    확인
+                  </ModalButton>
+                )}
+              </>
+            )}
+          </Grid>
+        </ModalContent>
+      </ModalContainer>
     </>
   );
 };
+const ModalContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 999;
+`;
+const ModalContent = styled.div`
+  position: relative;
+  width: 375px;
+  padding: 32px;
+  border-radius: 4px;
+  overflow-y: auto;
+  background-color: #fff;
+`;
 
 const Title = styled.h3`
   margin-bottom: 16px;

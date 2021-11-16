@@ -40,7 +40,8 @@ const userSlice = createSlice({
       localStorage.removeItem('USER_TOKEN');
       state.userInfo = {};
       state.isLogin = false;
-      window.alert('로그아웃 되었습니다!');
+
+      // window.alert('로그아웃 되었습니다!');
     },
     /* 유저 좋아요 포스트 추가 */
     addUserLikePost: (state, { payload }) => {
@@ -78,7 +79,7 @@ const userSlice = createSlice({
   extraReducers: {
     // 회원가입 성공시
     [addUserDB.fulfilled]: (state, { payload }) => {
-      window.alert('회원가입이 완료 되었습니다!');
+      // window.alert('회원가입이 완료 되었습니다!');
     },
     // 회원가입 실패시
     [addUserDB.rejected]: (state, action) => {
@@ -88,7 +89,7 @@ const userSlice = createSlice({
     [logInDB.fulfilled]: (state, { payload }) => {
       state.userInfo = payload;
       state.isLogin = true;
-      window.alert('로그인 되셨습니다! 환영합니다!');
+      // window.alert('로그인 되셨습니다! 환영합니다!');
     },
     [kakaoLogin.fulfilled]: (state, { payload }) => {
       state.userInfo = payload;
@@ -103,6 +104,7 @@ const userSlice = createSlice({
       state.userInfo = payload;
       state.isLogin = true;
     },
+
     [unRegisterDB.rejected]: (state, action) => {
       window.alert(action.meta.response.data.errMsg);
     },

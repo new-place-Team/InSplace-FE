@@ -45,6 +45,7 @@ import {
   setSelectedCategory,
 } from '../modules/placeSlice';
 import { getLoaded } from '../modules/loadedSlice';
+import { setCommonModalOn } from '../modules/commonSlice';
 
 export const getWeatherDB = createAsyncThunk(
   'place/weatherInfo',
@@ -239,10 +240,13 @@ export const addReviewDB = createAsyncThunk(
         },
       };
       const response = await addReview(params, config);
-      thunkAPI.dispatch(addReviewList(response.data.post));
+
       if (response) {
-        window.alert('리뷰가 등록되었습니다.');
-        history.goBack();
+        const modalParams = {
+          title: '리뷰가 등록되었습니다.',
+        };
+        thunkAPI.dispatch(setCommonModalOn(modalParams));
+        thunkAPI.dispatch(addReviewList(response.data.post));
       }
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
@@ -278,9 +282,13 @@ export const updateReviewDB = createAsyncThunk(
         },
       };
       const response = await updateReview(params, config);
+      const modalParams = {
+        title: '리뷰가 수정되었습니다.',
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       thunkAPI.dispatch(updateReviewList(response.data.post));
+
       if (response) {
-        window.alert('리뷰가 수정되었습니다.');
         history.goBack();
       }
     } catch (err) {

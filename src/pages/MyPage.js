@@ -1,8 +1,8 @@
 /* eslint-disable no-else-return */
 /* eslint-disable no-alert */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { history } from '../redux/configureStore';
 import { getTokenYn } from '../shared/utils';
 import Header from '../components/common/Header';
@@ -10,10 +10,15 @@ import Navbar from '../components/common/Navbar';
 import { right, mypageNext, profile1 } from '../images/index';
 import { Button, Container, Grid, Image, Text } from '../elements';
 import sunBg from '../images/weather/sun1.jpg';
+import ConfirmModal from '../components/common/ConfirmModal';
+import CommonModal from '../components/common/CommonModal';
+import { setCommonModalOn } from '../redux/modules/commonSlice';
 
 const MyPage = () => {
+  const dispatch = useDispatch();
   const userInfo = useSelector(state => state.user.userInfo);
-
+  const [loginModal, setLoginModal] = useState(false);
+  const modalStatus = useSelector(state => state.common.modalStatus);
   /* 유저 이미지가 있으면 그 이미지 없으면 기본 이미지 */
   const setNomalImage = profile => {
     if (userInfo.userImage !== null) {
@@ -22,17 +27,24 @@ const MyPage = () => {
   };
   const realUserInfo = { ...userInfo, userImage: setNomalImage(profile1) };
   /* 만약 이 페이지에서 토큰없을시 로그인 페이지 이동 */
+
+  const pageMove = () => {
+    history.push('/login');
+  };
   useEffect(() => {
     if (getTokenYn() === false) {
-      window.alert('로그인을 해주세요!');
-      history.push('/login');
+      setLoginModal(true);
+
+      // window.alert('로그인을 해주세요!');
+      // history.push('/login');
     }
   }, []);
   /* 프로필 수정 페이지로 이동, 이동시 state 같이 전달 */
   const gotoDetailPage = () => {
     if (getTokenYn() === false) {
-      window.alert('로그인을 해주세요!');
-      history.push('/login');
+      setLoginModal(true);
+      // window.alert('로그인을 해주세요!');
+      // history.push('/login');
     } else {
       history.push({
         pathname: `/mypage/${userInfo.userId}`,
@@ -41,8 +53,23 @@ const MyPage = () => {
     }
   };
 
+  const showModal = () => {
+    const params = {
+      title: '서비스 준비중입니다.',
+    };
+    dispatch(setCommonModalOn(params));
+  };
   return (
     <>
+      {loginModal && (
+        <ConfirmModal
+          title="로그인이 필요한 서비스입니다."
+          setModal={setLoginModal}
+          isOk
+          pageMove={pageMove}
+        />
+      )}
+      {modalStatus && <CommonModal />}
       <Container padding="0" height="100%">
         <Header _onBg _content="MyPage" _settings />
         <Bg src={sunBg} />
@@ -75,9 +102,10 @@ const MyPage = () => {
         {/* 인포 그리드 */}
         <InfoGrid>
           <Info
-            onClick={() => {
-              window.alert('서비스 준비중입니다.');
-            }}
+            onClick={showModal}
+            // onClick={() => {
+            //   window.alert('서비스 준비중입니다.');
+            // }}
           >
             <Text>공지사항</Text>
             <BottomBox>
@@ -85,9 +113,10 @@ const MyPage = () => {
             </BottomBox>
           </Info>
           <Info
-            onClick={() => {
-              window.alert('서비스 준비중입니다.');
-            }}
+            onClick={showModal}
+            // onClick={() => {
+            //   window.alert('서비스 준비중입니다.');
+            // }}
           >
             <Text>의견보내기</Text>
             <BottomBox>
@@ -101,9 +130,10 @@ const MyPage = () => {
             </BottomBox>
           </Info>
           <Info
-            onClick={() => {
-              window.alert('서비스 준비중입니다.');
-            }}
+            onClick={showModal}
+            // onClick={() => {
+            //   window.alert('서비스 준비중입니다.');
+            // }}
           >
             <Text>후원</Text>
             <BottomBox />
@@ -130,6 +160,7 @@ const InfoGrid = styled.div`
   flex-wrap: wrap;
   margin: 0 0 0 auto;
   padding-bottom: 66px;
+  cursor: pointer;
 `;
 
 const Info = styled.div`

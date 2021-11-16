@@ -7,7 +7,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { history } from '../configureStore';
 import {
-  addUser,
   logIn,
   logInCheck,
   unRegister,
@@ -17,6 +16,7 @@ import {
   editProfile,
 } from '../../shared/api/userApi';
 import { getLoaded } from '../modules/loadedSlice';
+import { setCommonModalOn } from '../modules/commonSlice';
 
 // 회원등록
 export const addUserDB = createAsyncThunk(
@@ -24,12 +24,18 @@ export const addUserDB = createAsyncThunk(
   // eslint-disable-next-line consistent-return
   async (data, thunkAPI) => {
     try {
-      const response = await addUser(data);
-      if (response) {
-        console.log(response);
-        history.push('/login');
-        return response;
-      }
+      // history.push('/login');
+      // const response = await addUser(data);
+      // if (response) {
+      //   console.log(response);
+      //   history.push('/login');
+      //   return response;
+      // }
+      const modalParams = {
+        title: '회원가입에 성공하셨습니다',
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
+      history.push('/login');
     } catch (err) {
       console.log('error ::::::', err);
       return thunkAPI.rejectWithValue('<<', err);
@@ -44,9 +50,11 @@ export const logInDB = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await logIn(data);
+
       if (response) {
         // eslint-disable-next-line prefer-destructuring
         console.log(response);
+
         const USER_TOKEN = response.data.token;
         window.localStorage.setItem('USER_TOKEN', USER_TOKEN);
         const userInfo = {
@@ -56,6 +64,7 @@ export const logInDB = createAsyncThunk(
           userImage: response.data.userImage,
           mbti: response.data.mbti,
         };
+
         history.replace('/');
         return userInfo;
       }
@@ -90,7 +99,7 @@ export const unRegisterDB = createAsyncThunk(
     const userId = thunkAPI.getState().user.userInfo.userId;
     try {
       const response = await unRegister(userId);
-      window.alert('회원 탈퇴 되었습니다!');
+      // window.alert('회원 탈퇴 되었습니다!');
       console.log(response);
       history.replace('/login');
     } catch (err) {
@@ -134,7 +143,7 @@ export const getFavoritesDB = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
-      console.log('error ::::::', err);
+      console.log('error ::::::', err.response);
       return thunkAPI.rejectWithValue(err);
     }
   },
@@ -163,7 +172,12 @@ export const editProfileDB = createAsyncThunk(
   async (params, thunkAPI) => {
     try {
       const response = await editProfile(params);
-      window.alert('회원정보가 수정되었습니다.');
+      // window.alert('회원정보가 수정되었습니다.');
+      // history.push('/mypage');
+      const modalParams = {
+        title: '회원정보가 수정되었습니다.',
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       history.push('/mypage');
       return response.data;
     } catch (err) {
