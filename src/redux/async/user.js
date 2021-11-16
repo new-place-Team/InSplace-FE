@@ -52,6 +52,7 @@ export const logInDB = createAsyncThunk(
         const userInfo = {
           userId: response.data.userId,
           email: response.data.email,
+          maleYN: response.data.maleYN,
           nickname: response.data.nickname,
           userImage: response.data.userImage,
           mbti: response.data.mbti,

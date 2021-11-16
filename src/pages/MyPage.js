@@ -40,7 +40,6 @@ const MyPage = () => {
       });
     }
   };
-
   return (
     <>
       <Container padding="0" height="100%">
