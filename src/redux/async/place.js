@@ -28,16 +28,16 @@ import {
 } from '../../shared/api/placeApi';
 import { getLocationAddress } from '../../shared/api/kakaoApi';
 import { getPosition } from '../../shared/utils';
-import { history } from '../configureStore';
+
 import {
   addUserLikePost,
   deleteUserLikePost,
   addUserVisitedPost,
   deleteUserVisitedPost,
 } from '../modules/userSlice';
+
 import {
   setConditionPlaces,
-  addReviewList,
   deleteReviewList,
   updateReviewList,
   reviewLikesList,
@@ -45,6 +45,7 @@ import {
   setSelectedCategory,
 } from '../modules/placeSlice';
 import { getLoaded } from '../modules/loadedSlice';
+import { setCommonModalOn } from '../modules/commonSlice';
 
 export const getWeatherDB = createAsyncThunk(
   'place/weatherInfo',
@@ -55,6 +56,11 @@ export const getWeatherDB = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err);
     }
   },
@@ -72,6 +78,11 @@ export const getMainListDB = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err);
     }
   },
@@ -90,6 +101,11 @@ export const getSearchConditionDB = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err);
     }
   },
@@ -107,6 +123,11 @@ export const getPlaceDetailDB = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err);
     }
   },
@@ -130,7 +151,7 @@ export const getCurrentCoordinateWEB = createAsyncThunk(
         return { latLon, address };
       }
     } catch (err) {
-      console.log(err);
+      console.log(err.response);
     }
   },
 );
@@ -152,6 +173,11 @@ export const setFavoritesPostDB = createAsyncThunk(
         return params;
       }
     } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err);
     }
   },
@@ -173,6 +199,11 @@ export const setVisitedPostDB = createAsyncThunk(
         return response;
       }
     } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err);
     }
   },
@@ -190,6 +221,11 @@ export const getSearchConditionListDB = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err);
     }
   },
@@ -207,10 +243,16 @@ export const getReviewListDB = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err);
     }
   },
 );
+
 /* 리뷰 추천순 받아오기 */
 export const getReviewLikesListDB = createAsyncThunk(
   'place/reviewLikesList',
@@ -223,6 +265,11 @@ export const getReviewLikesListDB = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err);
     }
   },
@@ -239,12 +286,21 @@ export const addReviewDB = createAsyncThunk(
         },
       };
       const response = await addReview(params, config);
-      thunkAPI.dispatch(addReviewList(response.data.post));
+
       if (response) {
-        window.alert('리뷰가 등록되었습니다.');
-        history.goBack();
+        const modalParams = {
+          title: '리뷰가 등록되었습니다.',
+          goPage: 'back',
+        };
+        thunkAPI.dispatch(setCommonModalOn(modalParams));
+        // thunkAPI.dispatch(addReviewList(response.data.post));
       }
     } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err);
     }
   },
@@ -262,6 +318,11 @@ export const getReviewEditDB = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err);
     }
   },
@@ -278,12 +339,18 @@ export const updateReviewDB = createAsyncThunk(
         },
       };
       const response = await updateReview(params, config);
+      const modalParams = {
+        title: '리뷰가 수정되었습니다.',
+        goPage: 'back',
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       thunkAPI.dispatch(updateReviewList(response.data.post));
-      if (response) {
-        window.alert('리뷰가 수정되었습니다.');
-        history.goBack();
-      }
     } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err);
     }
   },
@@ -296,10 +363,14 @@ export const deleteReviewDB = createAsyncThunk(
       const response = await deleteReview(params);
       thunkAPI.dispatch(deleteReviewList(params));
       if (response) {
-        window.alert('리뷰가 삭제되었습니다.');
         return params;
       }
     } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err);
     }
   },
@@ -316,6 +387,11 @@ export const reviewLikeDB = createAsyncThunk(
         return params;
       }
     } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err.response.data);
     }
   },
@@ -331,6 +407,11 @@ export const reviewLikeCancelDB = createAsyncThunk(
         return params;
       }
     } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err.response.data);
     }
   },

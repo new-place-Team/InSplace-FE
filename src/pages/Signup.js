@@ -11,9 +11,11 @@ import { addUserDB } from '../redux/async/user';
 import { nicknameCheck } from '../shared/api/userApi';
 import Header from '../components/common/Header';
 import Modal from '../components/common/Modal';
+import CommonModal from '../components/common/CommonModal';
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const commomModal = useSelector(state => state.common.modalStatus);
   // input값을 하나의 state에서 관리한다.
   const [userInfo, setUserInfo] = useState({
     email: '',
@@ -64,17 +66,14 @@ const Signup = () => {
     /* 닉네임값이 빈값 일때 */
     if (userInfo.nickname === '') {
       setButtonStatus(false);
-      // return window.alert('닉네임을 입력해주세요!');
       return setNicknameError('닉네임을 입력해 주세요!');
     }
     if (userInfo.nickname.length < 2) {
       setButtonStatus(false);
-      // return window.alert('닉네임은 두글자 이상으로 입력해주세요!');
       return setNicknameError('닉네임을 두글자 이상으로 입력해주세요!');
     }
     if (userInfo.nickname.length > 12) {
       setButtonStatus(false);
-      // return window.alert('닉네임은 12자리 이하로 입력해주세요!');
       return setNicknameError('닉네임은 12자리 이하로 입력해주세요!');
     }
     try {
@@ -83,10 +82,8 @@ const Signup = () => {
         const result = response.data.Msg;
         if (result === true) {
           setNicknameDuplicate(result);
-          // window.alert('이미 존재하는 닉네임입니다.');
           setNicknameError('이미 존재하는 닉네임 입니다.');
         } else {
-          // window.alert('시용가능한 닉네임입니다!');
           setNicknameError('사용 가능한 닉네임 입니다.');
           setNicknameDuplicate(result);
         }
@@ -112,12 +109,10 @@ const Signup = () => {
       setEmailError('');
     }
     if (userInfo.email === '') {
-      // window.alert('이메일을 입력해주세요!');
       setEmailError('이메일을 입력해주세요!');
       return;
     }
     if (!emailCheck(userInfoDB.email)) {
-      // window.alert('이메일 형식이 맞지않습니다.');
       setEmailError('이메일 형식이 맞지않습니다.');
       return;
     }
@@ -125,12 +120,10 @@ const Signup = () => {
       setPassError('');
     }
     if (userInfo.password === '') {
-      // window.alert('비밀번호를 입력해주세요!');
       setPassError('비밀번호를 입력해주세요!');
       return;
     }
     if (userInfo.password.length < 8) {
-      // window.alert('비밀번호는 8자리 이상으로 입력해주세요');
       setPassError('비밀번호는 8자리 이상으로 입력해주세요!');
       return;
     }
@@ -138,7 +131,6 @@ const Signup = () => {
       setPassError('');
     }
     if (userInfo.passwordCheck === '') {
-      // window.alert('비밀번호 확인을 입력해주세요!');
       setPassconfrimError('비밀번호 확인을 입력해주세요!');
       return;
     }
@@ -146,23 +138,19 @@ const Signup = () => {
       setPassconfrimError('');
     }
     if (userInfo.password !== userInfo.passwordCheck) {
-      // window.alert('비밀번호가 일치하지 않습니다.');
       setPassconfrimError('비밀번호가 일치하지 않습니다');
       return;
     }
     if (userInfo.nickname === '') {
-      // window.alert('닉네임을 입력해주세요!');
       setNicknameError('닉네임을 입력해주세요!');
       return;
     }
     if (userInfo.nickname.length > 12) {
-      // window.alert('닉네임을 입력해주세요!');
       setNicknameError('닉네임은 12자리 이하로 입력해주세요!');
       return;
     }
     if (nicknameDuplicate) {
       setNicknameError('닉네임 중복 체크를 먼저 해주세요!');
-      // window.alert('닉네임 중복 체크를 먼저 해주세요!');
       return;
     }
 
@@ -181,8 +169,10 @@ const Signup = () => {
     // console.log(userInfoDB);
     dispatch(addUserDB(userInfoDB));
   };
+
   return (
     <>
+      {commomModal && <CommonModal />}
       <Header _back _content="회원가입" />
       <Container padding="66px 0 0 0">
         <Grid padding="42px 20px 0 20px">
