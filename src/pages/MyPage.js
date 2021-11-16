@@ -40,11 +40,10 @@ const MyPage = () => {
       });
     }
   };
-
   return (
     <>
       <Container padding="0" height="100%">
-        <Header _onBg _content="MyPage" _settings />
+        <Header _onBg _content="MyPage" _color="#fff" _settings />
         <Bg src={sunBg} />
         <Grid isFlex justify="center" padding="59px 40px">
           <Image
@@ -55,7 +54,7 @@ const MyPage = () => {
           />
           <Grid flex margin="0 0 0 36px">
             <Grid isFlex>
-              <Text fontSize="28px" bold color="#282828" margin="0 20px 0 0">
+              <Text fontSize="22px" bold color="#282828" margin="0 20px 0 0">
                 {userInfo.nickname}
               </Text>
               <Button _onClick={gotoDetailPage}>
