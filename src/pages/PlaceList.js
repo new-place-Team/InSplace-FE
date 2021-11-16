@@ -1,7 +1,4 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-alert */
 /* eslint-disable no-undef */
-/* eslint-disable react/destructuring-assignment */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,9 +12,10 @@ import Spinner from '../components/common/Spinner';
 import SelectedCategory from '../components/place/SelectedCategory';
 
 const PlaceList = props => {
+  const { location, match } = props;
   const dispatch = useDispatch();
-  const url = props.location.search;
-  const searchType = props.match.params.params;
+  const url = location.search;
+  const searchType = match.params.params;
   const placeList = useSelector(state => state.place.placeList);
   const pagination = useSelector(state => state.place.placePagination);
   const isLoading = useSelector(state => state.loaded.is_loaded);

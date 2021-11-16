@@ -2,7 +2,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable import/no-unresolved */
 // eslint-disable-next-line import/named
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
@@ -19,21 +19,16 @@ import { ReactComponent as FilterIcon } from '../../images/nav/ic_nav_fliter.svg
 import { ReactComponent as HeartIcon } from '../../images/nav/ic_nav_heart.svg';
 import { ReactComponent as MypageIcon } from '../../images/nav/ic_nav_mypage.svg';
 import { profile1 } from '../../images/index';
-import { isLoginChk } from '../../shared/utils';
+// import { isLoginChk } from '../../shared/utils';
+import ConfirmModal from './ConfirmModal';
 
 const Navbar = () => {
   const pathName = history.location.pathname;
   const isLogin = useSelector(state => state.user.isLogin);
   const userInfo = useSelector(state => state.user.userInfo);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
+  const [confirmModal, setConfirmModal] = useState(false);
 
-  /* 로그인 필요 확인 */
-  const pageMove = url => {
-    if (!isLoginChk(isLogin)) {
-      return;
-    }
-    history.push(url);
-  };
   let WeatherIcon = '';
   let weatherKey = '';
   if (weatherStatus) {
@@ -52,61 +47,91 @@ const Navbar = () => {
       weatherKey = 'sun';
     }
   }
+
+  const pageMove = value => {
+    if (value === undefined && !isLogin) {
+      history.push(`/login`);
+    } else {
+      history.push(`${value}`);
+    }
+  };
+  /* 로그인 필요 확인 */
+  const loginCheck = url => {
+    if (!isLogin) {
+      setConfirmModal(true);
+      return;
+    }
+    pageMove(url);
+    // if (!isLoginChk(isLogin)) {
+    //   return;
+    // }
+    // history.push(url);
+  };
+
   return (
-    <Nav>
-      <Content>
-        <Wrap>
-          <Grid
-            bg={theme.weatherColor[weatherKey]}
-            justifyContent="center"
-            width="100%"
-          >
-            <Icon color="#fff">{WeatherIcon}</Icon>
-          </Grid>
-
-          <Icon
-            color={pathName === '/' ? '#000' : ''}
-            onClick={() => history.push('/')}
-          >
-            <HomeIcon />
-          </Icon>
-
-          <Icon
-            color={pathName === '/select-type' ? '#000' : ''}
-            onClick={() => history.push('/select-type')}
-          >
-            <FilterIcon />
-          </Icon>
-          <Icon
-            color={pathName === '/pickList' ? '#000' : ''}
-            onClick={() => pageMove('/pickList')}
-          >
-            <HeartIcon />
-          </Icon>
-          {isLogin === false ? (
-            <Icon
-              color={pathName === '/mypage' ? '#000' : ''}
-              onClick={() => pageMove('/mypage')}
+    <>
+      {confirmModal && (
+        <ConfirmModal
+          title="로그인을 해야 이용할 수 있는 서비스입니다. 로그인 하시겠습니까?"
+          setConfirmModal={setConfirmModal}
+          goToLogin
+        />
+      )}
+      <Nav>
+        <Content>
+          <Wrap>
+            <Grid
+              bg={theme.weatherColor[weatherKey]}
+              justifyContent="center"
+              width="100%"
             >
-              <MypageIcon />
+              <Icon color="#fff">{WeatherIcon}</Icon>
+            </Grid>
+
+            <Icon
+              color={pathName === '/' ? '#000' : ''}
+              onClick={() => history.push('/')}
+            >
+              <HomeIcon />
             </Icon>
-          ) : // 로그인 상태일때
-          userInfo.userImage === null ? (
-            <UserImage
-              width="24px"
-              src={profile1}
-              onClick={() => pageMove('/mypage')}
-            />
-          ) : (
-            <UserImage
-              width="24px"
-              src={userInfo.userImage}
-              onClick={() => pageMove('/mypage')}
-            />
-          )}
-        </Wrap>
-      </Content>
-    </Nav>
+
+            <Icon
+              color={pathName === '/select-type' ? '#000' : ''}
+              onClick={() => history.push('/select-type')}
+            >
+              <FilterIcon />
+            </Icon>
+            <Icon
+              color={pathName === '/pickList' ? '#000' : ''}
+              onClick={() => loginCheck('/pickList')}
+            >
+              <HeartIcon />
+            </Icon>
+            {isLogin === false ? (
+              <Icon
+                color={pathName === '/mypage' ? '#000' : ''}
+                onClick={() => loginCheck('/mypage')}
+              >
+                <MypageIcon />
+              </Icon>
+            ) : // 로그인 상태일때
+            userInfo.userImage === null ? (
+              <UserImage
+                width="24px"
+                src={profile1}
+                onClick={() => loginCheck('/mypage')}
+              />
+            ) : (
+              <UserImage
+                width="24px"
+                src={userInfo.userImage}
+                onClick={() => loginCheck('/mypage')}
+              />
+            )}
+          </Wrap>
+        </Content>
+      </Nav>
+    </>
   );
 };
 
