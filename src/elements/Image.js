@@ -87,6 +87,10 @@ const BgImage = styled.div`
   ${props => (props.padding ? `padding:${props.padding}` : '')};
   display: block;
   position: relative;
+  @media (min-width: 768px) {
+    background-size: cover;
+    /* background-position: top; */
+  }
 `;
 
 // 프로필 이미지 (원형)

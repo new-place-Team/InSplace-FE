@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalOn } from '../redux/modules/userSlice';
 import { Container, Grid, Input, Label, Button, Text } from '../elements';
-// import { polygonimg, xcircle } from '../images/index';
 import polygonimg from '../images/Polygon.png';
 import xcircle from '../images/ic-xcircle.svg';
 import { emailCheck } from '../shared/emailCheck';
@@ -25,7 +24,6 @@ const Signup = () => {
 
   // 유저 MBTI를 redux에서 가져옴
   const mbtiInfo = useSelector(state => state.user.userMbti);
-
   // 모달on/off 상태를 redux에서 관리
   const modalStatus = useSelector(state => state.user.modalStatus);
 
@@ -37,6 +35,11 @@ const Signup = () => {
 
   /* 버튼 활성화/비활성화 state */
   const [buttonStatus, setButtonStatus] = useState(false);
+
+  const [emailError, setEmailError] = useState('');
+  const [passError, setPassError] = useState('');
+  const [passconfirmError, setPassconfrimError] = useState('');
+  const [nicknameError, setNicknameError] = useState('');
 
   // 클릭했을때 여자는 1이 남자는 0이 state에 저장
   const selectGender = gender => {
@@ -61,15 +64,18 @@ const Signup = () => {
     /* 닉네임값이 빈값 일때 */
     if (userInfo.nickname === '') {
       setButtonStatus(false);
-      return window.alert('닉네임을 입력해주세요!');
+      // return window.alert('닉네임을 입력해주세요!');
+      return setNicknameError('닉네임을 입력해 주세요!');
     }
     if (userInfo.nickname.length < 2) {
       setButtonStatus(false);
-      return window.alert('닉네임은 두글자 이상으로 입력해주세요!');
+      // return window.alert('닉네임은 두글자 이상으로 입력해주세요!');
+      return setNicknameError('닉네임을 두글자 이상으로 입력해주세요!');
     }
     if (userInfo.nickname.length > 12) {
       setButtonStatus(false);
-      return window.alert('닉네임은 12자리 이하로 입력해주세요!');
+      // return window.alert('닉네임은 12자리 이하로 입력해주세요!');
+      return setNicknameError('닉네임은 12자리 이하로 입력해주세요!');
     }
     try {
       const response = await nicknameCheck(nickCheck);
@@ -77,9 +83,11 @@ const Signup = () => {
         const result = response.data.Msg;
         if (result === true) {
           setNicknameDuplicate(result);
-          window.alert('이미 존재하는 닉네임입니다.');
+          // window.alert('이미 존재하는 닉네임입니다.');
+          setNicknameError('이미 존재하는 닉네임 입니다.');
         } else {
-          window.alert('시용가능한 닉네임입니다!');
+          // window.alert('시용가능한 닉네임입니다!');
+          setNicknameError('사용 가능한 닉네임 입니다.');
           setNicknameDuplicate(result);
         }
       }
@@ -100,46 +108,77 @@ const Signup = () => {
 
   // 회원정보 제출 및 유효성 검토
   const submitUserInfo = () => {
+    if (userInfo.email.length !== 0) {
+      setEmailError('');
+    }
     if (userInfo.email === '') {
-      window.alert('이메일을 입력해주세요!');
+      // window.alert('이메일을 입력해주세요!');
+      setEmailError('이메일을 입력해주세요!');
       return;
     }
     if (!emailCheck(userInfoDB.email)) {
-      window.alert('이메일 형식이 맞지않습니다.');
+      // window.alert('이메일 형식이 맞지않습니다.');
+      setEmailError('이메일 형식이 맞지않습니다.');
       return;
     }
+    if (userInfo.password.length !== 0) {
+      setPassError('');
+    }
     if (userInfo.password === '') {
-      window.alert('비밀번호를 입력해주세요!');
+      // window.alert('비밀번호를 입력해주세요!');
+      setPassError('비밀번호를 입력해주세요!');
       return;
     }
     if (userInfo.password.length < 8) {
-      window.alert('비밀번호는 8자리 이상으로 입력해주세요');
+      // window.alert('비밀번호는 8자리 이상으로 입력해주세요');
+      setPassError('비밀번호는 8자리 이상으로 입력해주세요!');
       return;
+    }
+    if (userInfo.passwordCheck.length !== 0) {
+      setPassError('');
     }
     if (userInfo.passwordCheck === '') {
-      window.alert('비밀번호 확인을 입력해주세요!');
+      // window.alert('비밀번호 확인을 입력해주세요!');
+      setPassconfrimError('비밀번호 확인을 입력해주세요!');
       return;
     }
+    if (userInfo.password === userInfo.passwordCheck) {
+      setPassconfrimError('');
+    }
     if (userInfo.password !== userInfo.passwordCheck) {
-      window.alert('비밀번호가 일치하지 않습니다.');
+      // window.alert('비밀번호가 일치하지 않습니다.');
+      setPassconfrimError('비밀번호가 일치하지 않습니다');
       return;
     }
     if (userInfo.nickname === '') {
-      window.alert('닉네임을 입력해주세요!');
+      // window.alert('닉네임을 입력해주세요!');
+      setNicknameError('닉네임을 입력해주세요!');
+      return;
+    }
+    if (userInfo.nickname.length > 12) {
+      // window.alert('닉네임을 입력해주세요!');
+      setNicknameError('닉네임은 12자리 이하로 입력해주세요!');
       return;
     }
     if (nicknameDuplicate) {
-      window.alert('닉네임 중복 체크를 먼저 해주세요!');
+      setNicknameError('닉네임 중복 체크를 먼저 해주세요!');
+      // window.alert('닉네임 중복 체크를 먼저 해주세요!');
       return;
     }
-    if (userInfoDB.maleYN === undefined) {
-      window.alert('성별을 선택해 주세요!');
-      return;
+
+    if (userInfoDB.mbtiId === undefined) {
+      userInfoDB.mbtiId = 17;
     }
-    if (!userInfoDB.mbtiId) {
-      window.alert('mbti도 선택해 볼까요?!');
-    }
+
+    // if (userInfoDB.maleYN === undefined) {
+    //   window.alert('성별을 선택해 주세요!');
+    //   return;
+    // }
+    // if (!userInfoDB.mbtiId) {
+    //   window.alert('mbti도 선택해 볼까요?!');
+    // }
     // 회원정보 미들웨어로 dispatch
+    // console.log(userInfoDB);
     dispatch(addUserDB(userInfoDB));
   };
   return (
@@ -158,6 +197,7 @@ const Signup = () => {
                 _onChange={onChange}
                 placeholder="이메일 주소를 입력해주세요"
               />
+
               {userInfo.email !== '' && (
                 <CloseButton
                   src={xcircle}
@@ -167,6 +207,9 @@ const Signup = () => {
                 />
               )}
             </Div>
+            <Text fontSize="12px" color="#ff4949">
+              {emailError}
+            </Text>
           </Wrap>
 
           <Wrap>
@@ -187,6 +230,9 @@ const Signup = () => {
                 }}
               />
             )}
+            <Text fontSize="12px" color="#ff4949">
+              {passError}
+            </Text>
           </Wrap>
           <Wrap>
             <Label type="form">비밀번호 확인</Label>
@@ -206,6 +252,9 @@ const Signup = () => {
                 }}
               />
             )}
+            <Text fontSize="12px" color="#ff4949">
+              {passconfirmError}
+            </Text>
           </Wrap>
           <Wrap>
             <Label type="form">닉네임</Label>
@@ -217,14 +266,14 @@ const Signup = () => {
               _onChange={onChange}
               placeholder="닉네임을 입력해주세요"
             />
-            {userInfo.nickname !== '' && (
+            {/* {userInfo.nickname !== '' && (
               <CloseButton
                 src={xcircle}
                 onClick={() => {
                   setUserInfo({ ...userInfo, nickname: '' });
                 }}
               />
-            )}
+            )} */}
             <AbsolDiv>
               {buttonStatus === false ? (
                 <Button
@@ -248,6 +297,15 @@ const Signup = () => {
                 </Button>
               )}
             </AbsolDiv>
+            {nicknameError === '사용 가능한 닉네임 입니다.' ? (
+              <Text color="green" fontSize="12px">
+                {nicknameError}
+              </Text>
+            ) : (
+              <Text color="#ff4949" fontSize="12px">
+                {nicknameError}
+              </Text>
+            )}
           </Wrap>
 
           <Wrap>
