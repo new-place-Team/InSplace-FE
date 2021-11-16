@@ -11,7 +11,6 @@ import { history } from '../../redux/configureStore';
 import ConfirmModal from '../common/ConfirmModal';
 import { deleteReview } from '../../shared/api/placeApi';
 import { deleteReviewList } from '../../redux/modules/placeSlice';
-import { setCommonModalOn } from '../../redux/modules/commonSlice';
 import CommonModal from '../common/CommonModal';
 
 const ReviewCard = forwardRef((props, ref) => {
@@ -173,6 +172,7 @@ const ReviewCard = forwardRef((props, ref) => {
     </>
   );
 });
+
 const ReviewCardWrap = styled.div`
   padding: 24px 22px;
   border-top: 1px solid #e6e9ec;

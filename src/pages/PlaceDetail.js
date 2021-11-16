@@ -231,7 +231,6 @@ const Detail = props => {
               </Text>
             </Grid>
           </InfoGrid>
-          {/* 리뷰 */}
           <ReviewList postId={id} reviewsList={detailData.reviews} />
         </Grid>
       </Container>

@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setModalOn } from '../redux/modules/userSlice';
 import { getPeopleMbti } from '../shared/transferText';
 import { editProfileDB } from '../redux/async/user';
-import { history } from '../redux/configureStore';
+// import { history } from '../redux/configureStore';
 import { getTokenYn } from '../shared/utils';
 import { nicknameCheck } from '../shared/api/userApi';
 
@@ -20,6 +20,7 @@ import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Label, Text } from '../elements';
 import { plus, polygonimg } from '../images/index';
 import CommonModal from '../components/common/CommonModal';
+import { setCommonModalOn } from '../redux/modules/commonSlice';
 
 const MyPageEdit = props => {
   const dispatch = useDispatch();
@@ -29,8 +30,13 @@ const MyPageEdit = props => {
   /* 만약 이 페이지에서 토큰없을시 로그인 페이지 이동 */
   useEffect(() => {
     if (getTokenYn() === false) {
-      window.alert('로그인을 해주세요!');
-      history.push('/login');
+      const params = {
+        title: '로그인을 해주세요!',
+        goPage: '/login',
+      };
+      dispatch(setCommonModalOn(params));
+      // window.alert('로그인을 해주세요!');
+      // history.push('/login');
     }
   }, []);
   /* 이전 페이지에서 가지고 있던 유저 정보를 params로 넘겨줌 */
@@ -57,12 +63,10 @@ const MyPageEdit = props => {
     const reader = new FileReader();
     const file = fileInput.current.files[0];
     reader.readAsDataURL(file);
-    // file 읽는게 성공적으로 되었을때 실행
     reader.onload = () => {
       setPreview(reader.result);
     };
     setInfo({ ...info, userImage: file });
-    // file 읽기 실패되었을때 실행
     reader.onerror = error => {
       console.log('error = ', error);
     };
@@ -74,7 +78,6 @@ const MyPageEdit = props => {
   /* 이메일, 닉네임 변경 */
   const onChange = e => {
     setInfo({ ...info, [e.target.name]: e.target.value });
-    // 닉네임만 변경했을때?를 어떻게 써야할지?
     setButtonStatus(true);
   };
   /* 성별 선택 */
@@ -87,19 +90,15 @@ const MyPageEdit = props => {
     const nickCheck = { nickname: info.nickname };
     /* 닉네임값이 빈값 일때 */
     if (info.nickname === '') {
-      // return window.alert('닉네임을 입력해주세요!');
       return setErrorMessage('닉네임을 입력해주세요!');
     }
     if (info.nickname.length < 2) {
-      // return window.alert('닉네임은 두글자 이상으로 입력해주세요!');
       return setErrorMessage('닉네임은 두글자 이상으로 입력해주세요!');
     }
     if (info.nickname.length > 12) {
-      // return window.alert('닉네임은 12자리 이하로 입력해주세요!');
       return setErrorMessage('닉네임은 12자리 이하로 입력해주세요!');
     }
     if (newParams.nickname === nickname) {
-      // window.alert('사용가능한 닉네임 입니다.');
       setErrorMessage('사용 가능한 닉네임 입니다!');
       return setNicknameDuplicate(false);
     }
@@ -109,14 +108,10 @@ const MyPageEdit = props => {
         const result = response.data.Msg;
         if (result === true) {
           setNicknameDuplicate(result);
-          // window.alert('이미 존재하는 닉네임입니다.');
-          // setStatement('이미 존재하는 닉네임입니다.');
           return setErrorMessage('이미 존재하는 닉네임입니다.');
         } else {
           setErrorMessage('사용 가능한 닉네임 입니다!');
-          window.alert('시용가능한 닉네임입니다!');
           setNicknameDuplicate(result);
-          // setStatement('시용가능한 닉네임입니다!');
         }
       }
     } catch (err) {
@@ -147,7 +142,6 @@ const MyPageEdit = props => {
       id: userId,
       data: formData,
     };
-
     dispatch(editProfileDB(params));
   };
 

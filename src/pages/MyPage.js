@@ -102,23 +102,13 @@ const MyPage = () => {
         </Grid>
         {/* 인포 그리드 */}
         <InfoGrid>
-          <Info
-            onClick={showModal}
-            // onClick={() => {
-            //   window.alert('서비스 준비중입니다.');
-            // }}
-          >
+          <Info onClick={showModal}>
             <Text>공지사항</Text>
             <BottomBox>
               <Image src={mypageNext} />
             </BottomBox>
           </Info>
-          <Info
-            onClick={showModal}
-            // onClick={() => {
-            //   window.alert('서비스 준비중입니다.');
-            // }}
-          >
+          <Info onClick={showModal}>
             <Text>의견보내기</Text>
             <BottomBox>
               <Image src={mypageNext} />
@@ -130,12 +120,7 @@ const MyPage = () => {
               <TextBox>V1.0.2</TextBox>
             </BottomBox>
           </Info>
-          <Info
-            onClick={showModal}
-            // onClick={() => {
-            //   window.alert('서비스 준비중입니다.');
-            // }}
-          >
+          <Info onClick={showModal}>
             <Text>후원</Text>
             <BottomBox />
           </Info>

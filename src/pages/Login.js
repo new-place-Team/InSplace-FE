@@ -10,7 +10,6 @@ import { xcircle } from '../images/index';
 import { KAKAO_AUTH_URL } from '../shared/KakaoOAuth';
 import { ReactComponent as KakaoIcon } from '../images/kakaoLogin/join_kakao.svg';
 import CommonModal from '../components/common/CommonModal';
-// import { setCommonModalOn } from '../redux/modules/commonSlice';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -43,14 +42,9 @@ const Login = () => {
       setPassError('');
     }
     if (userInfo.password === '') {
-      // window.alert('비밀번호를 입력해주세요!');
       return setPassError('비밀번호를 입력해주세요!');
     }
     dispatch(logInDB(userInfo));
-    // const modalParams = {
-    //   title: '로그인에 성공하셨습니다.',
-    // };
-    // dispatch(setCommonModalOn(modalParams));
   };
 
   return (

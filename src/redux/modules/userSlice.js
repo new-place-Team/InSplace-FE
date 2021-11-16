@@ -13,6 +13,7 @@ import {
   getVisitedDB,
   editProfileDB,
 } from '../async/user';
+import commonSlice from './commonSlice';
 
 // inititalState
 const initialState = {
@@ -83,7 +84,12 @@ const userSlice = createSlice({
     },
     // 회원가입 실패시
     [addUserDB.rejected]: (state, action) => {
-      window.alert(action.meta.response.data.errMsg);
+      // window.alert(action.meta.response.data.errMsg);
+      console.log('회원가입 실패 ', action.meta.response.data.errMsg);
+      const modalParams = {
+        title: `${action.meta.response.data.errMsg}`,
+      };
+      setCommonModalOn(modalParams);
     },
     // 로그인 성공시
     [logInDB.fulfilled]: (state, { payload }) => {
@@ -97,16 +103,23 @@ const userSlice = createSlice({
     },
     // 로그인 실패시
     [logInDB.rejected]: (state, action) => {
-      window.alert(action.meta.response.data.errMsg);
+      const modalParams = {
+        title: `${action.meta.response.data.errMsg}`,
+      };
+      setCommonModalOn(modalParams);
+      // window.alert(action.meta.response.data.errMsg);
     },
     // 로그인 체크
     [logInCheckDB.fulfilled]: (state, { payload }) => {
       state.userInfo = payload;
       state.isLogin = true;
     },
-
     [unRegisterDB.rejected]: (state, action) => {
-      window.alert(action.meta.response.data.errMsg);
+      const modalParams = {
+        title: `${action.meta.response.data.errMsg}`,
+      };
+      setCommonModalOn(modalParams);
+      // window.alert(action.meta.response.data.errMsg);
     },
     /* 유저 좋아요 리스트 조회 성공시*/
     [getFavoritesDB.fulfilled]: (state, { payload }) => {
@@ -122,7 +135,11 @@ const userSlice = createSlice({
     },
     /* 유저 정보 수정 실패시 */
     [editProfileDB.rejected]: (state, action) => {
-      window.alert('닉네임 중복 체크를 해주세요!');
+      const modalParams = {
+        title: `닉네임 중복 체크를 해주세요!`,
+      };
+      setCommonModalOn(modalParams);
+      // window.alert('닉네임 중복 체크를 해주세요!');
     },
   },
 });
@@ -137,5 +154,5 @@ export const {
   addUserVisitedPost,
   deleteUserVisitedPost,
 } = userSlice.actions;
-
+export const { setCommonModalOff, setCommonModalOn } = commonSlice.actions;
 export default userSlice;

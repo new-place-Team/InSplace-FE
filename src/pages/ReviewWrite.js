@@ -133,6 +133,7 @@ const ReviewWrite = props => {
       reviewId,
       data: formData,
     };
+
     if (reviewTypeEdit) {
       dispatch(updateReviewDB(params));
     } else {

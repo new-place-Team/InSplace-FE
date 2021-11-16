@@ -3,21 +3,25 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCommonModalOff } from '../../redux/modules/commonSlice';
 import { Grid } from '../../elements';
+import { history } from '../../redux/configureStore';
 
-const CommonModal = props => {
+const CommonModal = () => {
   const dispatch = useDispatch();
   const title = useSelector(state => state.common.title);
   const content = useSelector(state => state.common.content);
-  console.log('title ?? ', title);
-  console.log('content ?? ', content);
+  const goPage = useSelector(state => state.common.goPage);
+
   const CloseModal = e => {
+    e.stopPropagation();
     const name = e.target.className;
     if (name.indexOf('close') === -1) {
       return;
     }
     dispatch(setCommonModalOff());
-    if (props.pageMove) {
-      props.pageMove();
+    if (goPage === 'back') {
+      history.goBack();
+    } else if (goPage) {
+      history.push(goPage);
     }
   };
 
@@ -89,4 +93,4 @@ const ModalButton = styled.button`
   }
 `;
 
-export default React.memo(CommonModal);
+export default CommonModal;
