@@ -89,7 +89,7 @@ const BgImage = styled.div`
   position: relative;
   @media (min-width: 768px) {
     background-size: cover;
-    /* background-position: top; */
+    background-position: top;
   }
 `;
 

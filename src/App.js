@@ -31,6 +31,7 @@ import Notification from './pages/Notification';
 import SearchPage from './pages/SearchPage';
 import Setting from './pages/Setting';
 import Boarding from './pages/Boarding';
+import ServiceAgree from './pages/ServiceAgree';
 // import Navbar from './components/Navbar';
 
 function App() {
@@ -80,6 +81,7 @@ function App() {
           <Route path="/setting" exact component={Setting} />
           <Route path="/notification" exact component={Notification} />
           <Route path="/boarding" exact component={Boarding} />
+          <Route path="/service" exact component={ServiceAgree} />
         </Switch>
         {/* <Navbar /> */}
       </ThemeProvider>
