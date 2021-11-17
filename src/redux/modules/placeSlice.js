@@ -16,7 +16,7 @@ import {
   getWeatherDB,
 } from '../async/place';
 import { getCategoryArrText } from '../../shared/transferText';
-
+import loadedSlice from './loadedSlice';
 /* init */
 const initialState = {
   mainLists: null,
@@ -315,4 +315,5 @@ export const {
   setPlaceListInit,
 } = placeSlice.actions;
 
+export const { getLoaded } = loadedSlice.actions;
 export default placeSlice;

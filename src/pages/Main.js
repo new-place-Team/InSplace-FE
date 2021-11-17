@@ -16,7 +16,7 @@ import cloudBg from '../images/weather/cloud.jpg';
 import { ReactComponent as Marker } from '../images/ic-marker.svg';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import Swiper from '../components/common/SwiperLB';
-import Spinner from '../components/common/Spinner';
+import Skeleton from '../components/common/Skeleton';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -48,12 +48,14 @@ const Main = () => {
 
   return (
     <>
-      {isLoading && <Spinner />}
+      {/* {isLoading && <Spinner />} */}
+
       <Container padding="0">
         <Grid>
           <Header _onBg _content="InSplace" _search _color="#fff" />
           {/* Weather Section */}
           <Bg src={weatherBg} />
+          {/* <Skeleton type="mainTop" /> */}
           <WeatherBox info={weatherInfo} />
           <Grid isFlex padding="96px 0  27px 21px">
             <Icon>
@@ -108,6 +110,7 @@ const Bg = styled.div`
   background-image: url('${props => props.src}');
   background-size: cover;
   z-index: -1;
+  border: 2px solid red;
 `;
 
 const Icon = styled.div`

@@ -56,7 +56,6 @@ const SearchTypeList = () => {
                 : '실내'
             }
           />
-
           {inSideList && inSideList.length !== 0 && (
             <Button _onClick={() => onSearchConditionMore(1)}>
               <Image
@@ -74,7 +73,6 @@ const SearchTypeList = () => {
           <Swiper list={inSideList} type="selectResult" />
         </Grid>
         {/* 실외 리스트  */}
-
         <Grid margin="28px 0 0 0" padding="0 0 100px 0">
           <Grid isFlex>
             <ContentsTitle
