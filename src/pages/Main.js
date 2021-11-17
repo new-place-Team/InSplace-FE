@@ -16,7 +16,7 @@ import cloudBg from '../images/weather/cloud.jpg';
 import { ReactComponent as Marker } from '../images/ic-marker.svg';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import Swiper from '../components/common/SwiperLB';
-import Skeleton from '../components/common/Skeleton';
+import Spinner from '../components/common/Spinner';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const Main = () => {
 
   return (
     <>
-      {/* {isLoading && <Spinner />} */}
+      {isLoading && <Spinner />}
 
       <Container padding="0">
         <Grid>
@@ -110,7 +110,6 @@ const Bg = styled.div`
   background-image: url('${props => props.src}');
   background-size: cover;
   z-index: -1;
-  border: 2px solid red;
 `;
 
 const Icon = styled.div`

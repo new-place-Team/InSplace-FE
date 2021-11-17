@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Text, Image } from '../elements';
@@ -111,7 +111,6 @@ const PlaceGrid = styled.div`
   flex-wrap: wrap;
 `;
 const CardWrap = styled.div`
-  /* width: 100%; */
   width: 23.5%;
   height: 290px;
   margin: 24px 0;

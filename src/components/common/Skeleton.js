@@ -13,12 +13,12 @@ const Skeleton = forwardRef(props => {
       </MainContainer>
     );
   }
-  if (type === 'selectResult') {
+  if (type === 'slideCard') {
     return (
-      <CardContainer className="selectResult">
-        <CardImage className="selectResult" />
-        <Title className="selectResult" />
-        <Description className="selectResult" />
+      <CardContainer>
+        <CardImage />
+        <Title />
+        <Description />
       </CardContainer>
     );
   }

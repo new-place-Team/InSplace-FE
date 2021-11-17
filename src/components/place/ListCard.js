@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -18,20 +17,17 @@ const ListCard = forwardRef((props, ref) => {
   const isLogin = useSelector(state => state.user.isLogin);
   const [isLoading, setIsLoading] = useState(false);
   const imgRef = useRef(null);
-  const [test, setTest] = useState(false);
 
   useEffect(() => {
-    console.log('isLoading == ', isLoading);
     const callback = entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          setTest(entry.isIntersecting);
-          console.log('entry == ', entry);
           setIsLoading(true);
         }
       });
     };
     const observer = new IntersectionObserver(callback, {
+      rootMargin: '100px',
       threshold: 0.5,
     });
     if (imgRef.current) {
@@ -73,37 +69,49 @@ const ListCard = forwardRef((props, ref) => {
   if (type === 'main') {
     return (
       <>
-        <Grid _onClick={gotoDetail} width="237px" cursor>
-          <Image width="237px" height="320px" src={info && info.postImage} />
-          <Tag>
-            <Text color="#fff" fontSize="14px">
-              {info && getCategoryText(info.category)}
-            </Text>
-          </Tag>
-          <IconArea onClick={setFavorites}>
-            {info && info.favoriteState ? (
-              <SelectedHeader />
-            ) : (
-              <NoSelectedHeader />
-            )}
-          </IconArea>
-        </Grid>
-        <Grid margin="16px 0 0 0">
-          <Text fontSize="16px" color="#272727" bold>
-            {info && info.title}
-          </Text>
-        </Grid>
-        <Grid margin="6px 0 0 0" isFlex width="100%">
-          <Grid width="15px" height="16px" margin="0 4px 0 0">
-            <Image src={heartFilled} />
-          </Grid>
-          <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
-            {info && info.favoriteCnt}
-          </Text>
-          <Text fontSize="14px" color="#646464">
-            {info && info.addressShort}
-          </Text>
-        </Grid>
+        <SkeletonGrid ref={imgRef}>
+          {!isLoading ? (
+            <Skeleton type="slideCard" />
+          ) : (
+            <>
+              <Grid _onClick={gotoDetail} width="237px" cursor>
+                <Image
+                  width="237px"
+                  height="320px"
+                  src={info && info.postImage}
+                />
+                <Tag>
+                  <Text color="#fff" fontSize="14px">
+                    {info && getCategoryText(info.category)}
+                  </Text>
+                </Tag>
+                <IconArea onClick={setFavorites}>
+                  {info && info.favoriteState ? (
+                    <SelectedHeader />
+                  ) : (
+                    <NoSelectedHeader />
+                  )}
+                </IconArea>
+              </Grid>
+              <Grid margin="16px 0 0 0">
+                <Text fontSize="16px" color="#272727" bold>
+                  {info && info.title}
+                </Text>
+              </Grid>
+              <Grid margin="6px 0 0 0" isFlex width="100%">
+                <Grid width="15px" height="16px" margin="0 4px 0 0">
+                  <Image src={heartFilled} />
+                </Grid>
+                <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
+                  {info && info.favoriteCnt}
+                </Text>
+                <Text fontSize="14px" color="#646464">
+                  {info && info.addressShort}
+                </Text>
+              </Grid>
+            </>
+          )}
+        </SkeletonGrid>
       </>
     );
   }
@@ -113,7 +121,7 @@ const ListCard = forwardRef((props, ref) => {
       <>
         <SkeletonGrid ref={imgRef}>
           {!isLoading ? (
-            <Skeleton type="selectResult" />
+            <Skeleton type="slideCard" />
           ) : (
             <>
               <Grid
@@ -250,7 +258,7 @@ const Tag = styled.div`
   padding: 8px 12px;
   background-color: #000;
 `;
-
+const SkeletonGrid = styled.div``;
 const IconArea = styled.div`
   position: absolute;
   right: 0;
@@ -266,47 +274,4 @@ const GridArea = styled.div`
   margin: 0 0 46px 0;
 `;
 
-const CardImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
-const SkeletonGrid = styled.div``;
 export default ListCard;
-
-//  <Grid _onClick={gotoDetail} border="2px solid red">
-//             <ImageGrid width="100%" height="196px">
-//               <CardImage
-//                 ref={imgRef}
-//                 src={isLoading ? info.postImage : mainCard}
-//               />
-//             </ImageGrid>
-//            <Image width="100%" height="196px" src={info && info.postImage} />
-//             <IconArea onClick={setFavorites}>
-//               {info && info.favoriteState ? (
-//                 <SelectedHeader />
-//               ) : (
-//                 <NoSelectedHeader />
-//               )}
-//             </IconArea>
-//           </Grid>
-//           <Grid margin="12px 0 0 0">
-//             <Text fontSize="12px" color="#A3A6AA">
-//               카테고리
-//             </Text>
-//             <Text fontSize="14px" color="#272727" bold>
-//               {info && info.title}
-//             </Text>
-//           </Grid>
-//           <Grid margin="6px 0 0 0" isFlex>
-//             <Grid width="15px" height="16px" margin="0 4px 0 0">
-//               <Image src={heartFilled} />
-//             </Grid>
-//             <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
-//               {info && info.favoriteCnt}
-//             </Text>
-//             <Text fontSize="14px" color="#646464">
-//               {info && info.addressShort}
-//             </Text>
-//           </Grid>
