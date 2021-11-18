@@ -2,12 +2,21 @@ import React, { forwardRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const Skeleton = forwardRef(props => {
-  const { type } = props;
+  const { type, height } = props;
   if (type === 'mainTop') {
     return (
       <MainContainer>
         <WeatherWrap>
-          <WeatherContent />
+          <WeatherContent>
+            <SquareGrid />
+            <LineGrid>
+              <MainTitle />
+              <MainDescription />
+              <MainDescription />
+            </LineGrid>
+          </WeatherContent>
+          <BottomLine />
+          <BottomLine />
         </WeatherWrap>
         <SelectTypeBtn />
       </MainContainer>
@@ -80,8 +89,13 @@ const MainContainer = styled.div`
   height: 100%;
   position: absolute;
   top: 0;
-  z-index: 1;
+  z-index: -1;
   background-color: #eee;
+`;
+const WeatherWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 111px 59px 0;
 `;
 const SelectTypeBtn = styled.div`
   position: absolute;
@@ -93,23 +107,46 @@ const SelectTypeBtn = styled.div`
   cursor: pointer;
   z-index: 3;
 `;
-const WeatherWrap = styled.div`
-  width: 100%;
-  height: 100%;
-  padding-top: 50px;
-`;
-
 const WeatherContent = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
+  justify-content: flex-start;
+  padding-bottom: 100px;
+`;
+const SquareGrid = styled.div`
+  width: 143px;
+  height: 122px;
+  background-color: #ddd;
+`;
+const LineGrid = styled.div`
+  flex: 1;
+  margin: 10px 0 10px 60px;
 `;
 
+const BottomLine = styled.div`
+  width: 235px;
+  height: 17px;
+  background-color: #ddd;
+
+  &:last-child {
+    width: 190px;
+    margin-top: 12px;
+  }
+`;
+const MainTitle = styled.div`
+  width: 46px;
+  height: 17px;
+  background-color: #ddd;
+`;
+const MainDescription = styled.div`
+  width: 143px;
+  height: 17px;
+  margin-top: 21px;
+  background-color: #ddd;
+`;
 const CardContainer = styled.div`
   position: relative;
   width: 240px;
-  height: 358px;
+  height: ${({ height }) => height || '358px'};
   &.mainTop {
     position: relative;
     width: 100%;

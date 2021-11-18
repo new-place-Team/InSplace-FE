@@ -51,11 +51,13 @@ import spinner from './spinner.gif';
 import more from './Icon/ic_more.svg';
 
 // 스켈레톤
-import main from './skeleton/main.png';
+// import main from './skeleton/main.png';
 import header from './skeleton/header.png';
 import mainCard from './skeleton/mainCard.png';
 import resultCard from './skeleton/resultCard.png';
 import selectResultCard from './skeleton/selectResultCard.png';
+import card from './skeleton/card.jpg';
+import main from './skeleton/vs.jpg';
 
 export {
   bookmark,
@@ -100,4 +102,5 @@ export {
   mainCard,
   resultCard,
   selectResultCard,
+  card,
 };
