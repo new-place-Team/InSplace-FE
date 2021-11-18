@@ -39,7 +39,6 @@ function App() {
   const weatherStatus = useSelector(state => state.place.weatherStatus);
 
   useEffect(() => {
-    console.log('렌더 체크');
     // 현재위치를 받아보자
     if (!location) {
       dispatch(getCurrentCoordinateWEB());
@@ -66,7 +65,7 @@ function App() {
             component={SelectTypeResult}
           />
           <Route path="/search" exact component={SearchPage} />
-          <Route path="/place/map" exact component={PlaceMap} />
+          <Route path="/place-map/:type" exact component={PlaceMap} />
           <Route path="/place/list/:params" exact component={PlaceList} />
           <Route path="/place/detail/:id" exact component={PlaceDetail} />
           <Route path="/review/write/:id" exact component={ReviewWrite} />

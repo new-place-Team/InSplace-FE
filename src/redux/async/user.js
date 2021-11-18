@@ -47,7 +47,6 @@ export const logInDB = createAsyncThunk(
     try {
       const response = await logIn(data);
       if (response) {
-        console.log('login response', response);
         const USER_TOKEN = response.data.token;
         window.localStorage.setItem('USER_TOKEN', USER_TOKEN);
 

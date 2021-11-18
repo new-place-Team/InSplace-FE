@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';

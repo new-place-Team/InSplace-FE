@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Container, Grid, Text, Image } from '../elements';
 import mainImage from '../images/mainImage.jpg';
 import logo from '../images/logo.png';
@@ -29,7 +28,5 @@ const Boarding = () => {
     </>
   );
 };
-
-const responsiveText = styled.p``;
 
 export default Boarding;

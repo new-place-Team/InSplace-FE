@@ -9,10 +9,10 @@ import ContentsTitle from '../components/common/ContentsTitle';
 import { Container, Grid, Text } from '../elements';
 import { getMainListDB } from '../redux/async/place';
 import Navbar from '../components/common/Navbar';
-import sunBg from '../images/weather/sun1.jpg';
-import rainBg from '../images/weather/rain1.jpg';
-import snowBg from '../images/weather/snow1.jpg';
-import cloudBg from '../images/weather/cloud.jpg';
+import sunBg from '../images/weather/sun_bg.jpg';
+import rainBg from '../images/weather/rain_bg.jpg';
+import snowBg from '../images/weather/snow_bg.jpg';
+import cloudBg from '../images/weather/cloud_bg.jpg';
 import { ReactComponent as Marker } from '../images/ic-marker.svg';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import Swiper from '../components/common/SwiperLB';
@@ -147,6 +147,9 @@ const BackImg = styled.img`
   width: 100%;
   height: 672px;
   object-fit: cover;
+  /* background-image: url('${props => props.src}');
+  background-size: cover;
+  background-position: center; */
   z-index: -1;
 `;
 

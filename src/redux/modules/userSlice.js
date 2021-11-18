@@ -84,8 +84,6 @@ const userSlice = createSlice({
     },
     // 회원가입 실패시
     [addUserDB.rejected]: (state, action) => {
-      // window.alert(action.meta.response.data.errMsg);
-      console.log('회원가입 실패 ', action.meta.response.data.errMsg);
       const modalParams = {
         title: `${action.meta.response.data.errMsg}`,
       };

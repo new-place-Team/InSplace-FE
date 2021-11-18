@@ -23,7 +23,10 @@ const Header = props => {
   } = props;
 
   const gotoMapPage = () => {
-    history.push('/place/map');
+    const { search, pathname } = history.location;
+    const pathArr = pathname.split('/');
+    const type = pathArr[pathArr.length - 1];
+    history.push(`/place-map/${type}${search}`);
   };
   const gotoSearchPage = () => {
     history.push('/search');

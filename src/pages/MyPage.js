@@ -1,5 +1,3 @@
-/* eslint-disable no-else-return */
-/* eslint-disable no-alert */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,7 +7,7 @@ import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { right, mypageNext, profile1 } from '../images/index';
 import { Button, Container, Grid, Image, Text } from '../elements';
-import sunBg from '../images/weather/sun1.jpg';
+import sunBg from '../images/weather/sun_bg.jpg';
 import ConfirmModal from '../components/common/ConfirmModal';
 import CommonModal from '../components/common/CommonModal';
 import { setCommonModalOn } from '../redux/modules/commonSlice';
@@ -23,7 +21,8 @@ const MyPage = () => {
   const setNomalImage = profile => {
     if (userInfo.userImage !== null) {
       return userInfo.userImage;
-    } else return profile;
+    }
+    return profile;
   };
   const realUserInfo = { ...userInfo, userImage: setNomalImage(profile1) };
   /* 만약 이 페이지에서 토큰없을시 로그인 페이지 이동 */
@@ -34,17 +33,12 @@ const MyPage = () => {
   useEffect(() => {
     if (getTokenYn() === false) {
       setLoginModal(true);
-
-      // window.alert('로그인을 해주세요!');
-      // history.push('/login');
     }
   }, []);
   /* 프로필 수정 페이지로 이동, 이동시 state 같이 전달 */
   const gotoDetailPage = () => {
     if (getTokenYn() === false) {
       setLoginModal(true);
-      // window.alert('로그인을 해주세요!');
-      // history.push('/login');
     } else {
       history.push({
         pathname: `/mypage/${userInfo.userId}`,
@@ -177,9 +171,6 @@ const BottomBox = styled.div`
       width: 32px;
     }
   }
-  /* position: absolute;
-  bottom: 7%;
-  right: 7%; */
 `;
 const TextBox = styled.p`
   width: 100%;

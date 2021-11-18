@@ -51,6 +51,7 @@ const placeSlice = createSlice({
       state.weatherList = payload.weatherPlace;
     },
     setSelectedCategory: (state, { payload }) => {
+      // ?weather=1&category=2&num=1&gender=1
       const objList = payload.replace('?', '').split('&');
       const categoryArr = ['gender', 'num', 'category'];
       const newCategoryList = categoryArr.map(item => {
@@ -69,10 +70,6 @@ const placeSlice = createSlice({
     setFocusCoord: (state, { payload }) => {
       payload;
       state.focusCoord = payload;
-    },
-    createMap: (state, { payload }) => {
-      console.log(payload);
-      state.map = payload;
     },
     setPlaceListInit: state => {
       state.placeList = null;
@@ -222,7 +219,7 @@ const placeSlice = createSlice({
     },
     // 리뷰 추천순 조회
     [getReviewLikesListDB.fulfilled]: (state, { payload }) => {
-      console.log(current(state.reviewList));
+      // console.log(current(state.reviewList));
       if (state.reviewLikesList) {
         state.reviewLikesList = [...state.reviewLikesList, ...payload.reviews];
         state.reviewLikesPagination = {
@@ -305,7 +302,6 @@ export const {
   getCurrentCoordinate,
   setSelectedCategory,
   setFocusCoord,
-  createMap,
   setConditionPlaces,
   addReviewList,
   updateReviewList,
