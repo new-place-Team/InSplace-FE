@@ -11,20 +11,31 @@ jobs:
       - name: Checkout source code. # 레포지토리 체크아웃
         uses: actions/checkout@master
 
+      - name: Generate Environment Variables File for Production # Github Repository Secrets를 통해 변수 파일을 생성
+        run: |
+          echo "REACT_APP_DOMAIN=$REACT_APP_DOMAIN" >> .env.production
+          echo "REACT_APP_SERVER=$REACT_APP_SERVER" >> .env.production
+          echo "REACT_APP_KAKAO_MAP_KEY=$REACT_APP_KAKAO_MAP_KEY" >> .env.production
+          echo "REACT_APP_KAKAO_REST_KEY=$REACT_APP_KAKAO_REST_KEY" >> .env.production
+        env:
+          REACT_APP_DOMAIN: ${{ secrets.REACT_APP_DOMAIN }}
+          REACT_APP_SERVER: ${{ secrets.REACT_APP_SERVER }}
+          REACT_APP_KAKAO_MAP_KEY: ${{ secrets.REACT_APP_KAKAO_MAP_KEY }}
+          REACT_APP_KAKAO_REST_KEY: ${{ secrets.REACT_APP_KAKAO_REST_KEY }}
+
       - name: Cache node modules # node modules 캐싱
         uses: actions/cache@v1
         with:
           path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.OS }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.OS }}-build-
-            ${{ runner.OS }}-
+            ${{ runner.OS }}-yarn-
 
       - name: Install Dependencies # 의존 파일 설치
-        run: npm install
+        run: yarn install
 
       - name: Build # React Build
-        run: npm run build
+        run: yarn build
 
       - name: Deploy # S3에 배포하기
         env:
