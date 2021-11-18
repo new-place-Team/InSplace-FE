@@ -3,21 +3,19 @@ import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Grid, Image, Text } from '../../elements/index';
-import { card, heartFilled, mainCard, resultCard } from '../../images/index';
+import { heartFilled } from '../../images/index';
 import { getCategoryText } from '../../shared/transferText';
 import { history } from '../../redux/configureStore';
 import { ReactComponent as NoSelectedHeader } from '../../images/Icon/ic_heart.svg';
 import { ReactComponent as SelectedHeader } from '../../images/Icon/ic_heart-filled.svg';
 import { setFavoritesPostDB } from '../../redux/async/place';
 import { isLoginChk } from '../../shared/utils';
-import Skeleton from '../common/Skeleton';
 
 const ListCard = forwardRef((props, ref) => {
   const { type, info } = props;
   const dispatch = useDispatch();
   const isLogin = useSelector(state => state.user.isLogin);
   const [isLoading, setIsLoading] = useState(false);
-
   const imgRef = useRef(null);
 
   useEffect(() => {
@@ -34,13 +32,7 @@ const ListCard = forwardRef((props, ref) => {
     if (imgRef.current) {
       observer.observe(imgRef.current);
     }
-
-    return () => {
-      if (observer) {
-        observer.disconnect();
-      }
-      setIsLoading(false);
-    };
+    return () => observer && observer.disconnect();
   }, []);
 
   // 각 포스트에 해당하는 id (props로 받아옴)
@@ -69,23 +61,27 @@ const ListCard = forwardRef((props, ref) => {
   if (type === 'main') {
     return (
       <>
-        <Grid _onClick={gotoDetail} width="237px" cursor>
-          <CardImageWrap width="237px" height="320px">
-            <CardImage ref={imgRef} src={isLoading ? info.postImage : card} />
-          </CardImageWrap>
-          <Tag>
-            <Text color="#fff" fontSize="14px">
-              {info && getCategoryText(info.category)}
-            </Text>
-          </Tag>
-          <IconArea onClick={setFavorites}>
-            {info && info.favoriteState ? (
-              <SelectedHeader />
-            ) : (
-              <NoSelectedHeader />
-            )}
-          </IconArea>
-        </Grid>
+        <SkeletonBg width="100%" height="320px" ref={imgRef}>
+          {isLoading && (
+            <Grid _onClick={gotoDetail} width="237px" cursor>
+              <CardImageWrap height="320px">
+                <CardImage src={info.postImage} />
+              </CardImageWrap>
+              <Tag>
+                <Text color="#fff" fontSize="14px">
+                  {info && getCategoryText(info.category)}
+                </Text>
+              </Tag>
+              <IconArea onClick={setFavorites}>
+                {info && info.favoriteState ? (
+                  <SelectedHeader />
+                ) : (
+                  <NoSelectedHeader />
+                )}
+              </IconArea>
+            </Grid>
+          )}
+        </SkeletonBg>
         <Grid margin="16px 0 0 0">
           <Text fontSize="16px" color="#272727" bold>
             {info && info.title}
@@ -109,23 +105,26 @@ const ListCard = forwardRef((props, ref) => {
   if (type === 'selectResult') {
     return (
       <>
-        <Grid
-          _onClick={() => history.push(`/place/detail/${info.postId}`)}
-          cursor
-          width="100%"
-        >
-          <CardImageWrap width="237px" height="320px">
-            <CardImage ref={imgRef} src={isLoading ? info.postImage : card} />
-          </CardImageWrap>
-
-          <IconArea onClick={setFavorites}>
-            {info && info.favoriteState ? (
-              <SelectedHeader />
-            ) : (
-              <NoSelectedHeader />
-            )}
-          </IconArea>
-        </Grid>
+        <SkeletonBg width="100%" height="320px" ref={imgRef}>
+          {isLoading && (
+            <Grid
+              _onClick={() => history.push(`/place/detail/${info.postId}`)}
+              cursor
+              width="100%"
+            >
+              <CardImageWrap height="320px">
+                <CardImage src={info.postImage} />
+              </CardImageWrap>
+              <IconArea onClick={setFavorites}>
+                {info && info.favoriteState ? (
+                  <SelectedHeader />
+                ) : (
+                  <NoSelectedHeader />
+                )}
+              </IconArea>
+            </Grid>
+          )}
+        </SkeletonBg>
         <Grid margin="11px 0 0 0">
           <Text fontSize="13px" color="#949494">
             {info.category}
@@ -153,19 +152,22 @@ const ListCard = forwardRef((props, ref) => {
     return (
       <>
         <GridArea ref={ref}>
-          <Grid _onClick={gotoDetail}>
-            <CardImageWrap width="100%" height={isLoading ? '196px' : '300px'}>
-              <CardImage ref={imgRef} src={isLoading ? info.postImage : card} />
-            </CardImageWrap>
-
-            <IconArea onClick={setFavorites}>
-              {info && info.favoriteState ? (
-                <SelectedHeader />
-              ) : (
-                <NoSelectedHeader />
-              )}
-            </IconArea>
-          </Grid>
+          <SkeletonBg width="100%" height="196px" ref={imgRef}>
+            {isLoading && (
+              <Grid _onClick={gotoDetail}>
+                <CardImageWrap height="196px">
+                  <CardImage src={info.postImage} />
+                </CardImageWrap>
+                <IconArea onClick={setFavorites}>
+                  {info && info.favoriteState ? (
+                    <SelectedHeader />
+                  ) : (
+                    <NoSelectedHeader />
+                  )}
+                </IconArea>
+              </Grid>
+            )}
+          </SkeletonBg>
           <Grid margin="12px 0 0 0">
             <Text fontSize="12px" color="#A3A6AA">
               카테고리
@@ -192,10 +194,13 @@ const ListCard = forwardRef((props, ref) => {
 
   return (
     <>
-      <Grid _onClick={gotoDetail} cursor>
-        ddddddddddddddddddddd
-        <Image width="247px" height="306px" src={info && info.postImage} />
-      </Grid>
+      <SkeletonBg width="247px" height="306px" ref={imgRef}>
+        {isLoading && (
+          <Grid _onClick={gotoDetail} cursor>
+            <Image width="247px" height="306px" src={info.postImage} />
+          </Grid>
+        )}
+      </SkeletonBg>
       <Grid margin="16px 0 0 0">
         <Text fontSize="16px" color="#272727" bold>
           {info && info.title}
@@ -223,6 +228,15 @@ ListCard.defaultProps = {
   address: '강남구 · 역삼동',
   category: '카페',
 };
+
+const SkeletonBg = styled.div`
+  position: relative;
+  overflow: hidden;
+  padding-bottom: ${props => (props.height / props.width) * 100};
+  /* padding-bottom: (358/240) * 100; */
+  background-color: #f0f0f0;
+`;
+
 const Tag = styled.div`
   position: absolute;
   left: 0;
@@ -239,7 +253,6 @@ const IconArea = styled.div`
   margin: 0 8px 8px 0;
   cursor: pointer;
 `;
-
 const GridArea = styled.div`
   width: 100%;
   margin: 0 0 46px 0;
@@ -248,7 +261,7 @@ const CardImageWrap = styled.div`
   width: ${({ width }) => width};
   height: ${({ height }) => height};
   margin: ${({ margin }) => margin || '0'};
-  z-index: 99;
+  z-index: 10;
 `;
 const CardImage = styled.img`
   width: 100%;

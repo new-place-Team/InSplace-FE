@@ -2,10 +2,10 @@ import React, { forwardRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const Skeleton = forwardRef(props => {
-  const { type, height } = props;
+  const { type, ref } = props;
   if (type === 'mainTop') {
     return (
-      <MainContainer>
+      <MainContainer ref={ref}>
         <WeatherWrap>
           <WeatherContent>
             <SquareGrid />
@@ -24,7 +24,7 @@ const Skeleton = forwardRef(props => {
   }
   if (type === 'slideCard') {
     return (
-      <CardContainer>
+      <CardContainer ref={ref}>
         <CardImage />
         <Title />
         <Description />
@@ -33,7 +33,7 @@ const Skeleton = forwardRef(props => {
   }
   if (type === 'searchList') {
     return (
-      <CardContainer className="searchList">
+      <CardContainer className="searchList" ref={ref}>
         <CardImage className="searchList">
           <CardShimmerWrapper>
             <Shimmer />
@@ -53,7 +53,7 @@ const Skeleton = forwardRef(props => {
     );
   }
   return (
-    <CardContainer>
+    <CardContainer ref={ref}>
       <CardImage>
         <CardShimmerWrapper>
           <Shimmer />

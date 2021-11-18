@@ -29,6 +29,7 @@ const Main = () => {
   const [imgLoading, setImgLoading] = useState(false);
   const imgRef = useRef(null);
   let weatherBg = '';
+
   if (weatherInfo) {
     const weatherStatus = weatherInfo.frontWeather;
     if (weatherStatus === 2) {
@@ -51,7 +52,6 @@ const Main = () => {
     const callback = entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          console.log('entry ? ', entry);
           setImgLoading(true);
         }
       });
@@ -60,15 +60,9 @@ const Main = () => {
       threshold: 0.5,
     });
     if (imgRef.current) {
-      console.log('main imgRef.current === ', imgRef.current);
       observer.observe(imgRef.current);
     }
-    return () => {
-      if (observer) {
-        observer.disconnect();
-      }
-      setImgLoading(false);
-    };
+    return () => observer && observer.disconnect();
   }, []);
 
   return (
@@ -78,8 +72,7 @@ const Main = () => {
           <Header _onBg _content="InSplace" _search _color="#fff" />
           {/* Weather Section */}
           <>
-            <BackImg src={imgLoading ? weatherBg : main} ref={imgRef} />
-            {/* <Bg src={imgLoading ? weatherBg : main} ref={imgRef} /> */}
+            <BackgroundImg src={imgLoading ? weatherBg : main} ref={imgRef} />
             <WeatherBox info={weatherInfo} />
             <Grid isFlex padding="96px 0  27px 21px">
               <Icon>
@@ -131,25 +124,13 @@ const SkeletonGrid = styled.div`
   position: relative;
   height: 672px;
 `;
-// const Bg = styled.div`
-//   width: 100%;
-//   height: 100%;
-//   position: absolute;
-//   top: 0;
-//   background-image: url('${props => props.src}');
-//   background-size: cover;
-//   z-index: -1;
-// `;
 
-const BackImg = styled.img`
+const BackgroundImg = styled.img`
   position: absolute;
   top: 0;
   width: 100%;
   height: 672px;
   object-fit: cover;
-  /* background-image: url('${props => props.src}');
-  background-size: cover;
-  background-position: center; */
   z-index: -1;
 `;
 

@@ -154,18 +154,25 @@ const ReviewCard = forwardRef((props, ref) => {
         <Grid margin="0 0 24px 0">
           <ReviewSwiper list={info.reviewImages} />
         </Grid>
-        <Grid isFlex>
-          {info.likeState ? (
-            <LikeButton className="active" onClick={handleLikesCancel}>
-              도움이돼요
-            </LikeButton>
+        <Grid justify="space-between">
+          <Grid isFlex>
+            {info.likeState ? (
+              <LikeButton className="active" onClick={handleLikesCancel}>
+                도움이돼요
+              </LikeButton>
+            ) : (
+              <LikeButton onClick={handleLikes}>도움이돼요</LikeButton>
+            )}
+            {info.likeCnt > 0 && (
+              <Text fontSize="13px" color="#3E4042">
+                {info.likeCnt}명에게 도움이 되었습니다
+              </Text>
+            )}
+          </Grid>
+          {loginUser === info.nickname ? (
+            <Button>버튼</Button>
           ) : (
-            <LikeButton onClick={handleLikes}>도움이돼요</LikeButton>
-          )}
-          {info.likeCnt > 0 && (
-            <Text fontSize="13px" color="#3E4042">
-              {info.likeCnt}명에게 도움이 되었습니다
-            </Text>
+            <Button>신고하기</Button>
           )}
         </Grid>
       </ReviewCardWrap>
