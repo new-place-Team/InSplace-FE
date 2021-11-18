@@ -38,7 +38,6 @@ function App() {
   const weatherStatus = useSelector(state => state.place.weatherStatus);
 
   useEffect(() => {
-    console.log('렌더 체크');
     // 현재위치를 받아보자
     if (!location) {
       dispatch(getCurrentCoordinateWEB());

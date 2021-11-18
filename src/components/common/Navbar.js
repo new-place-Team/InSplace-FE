@@ -2,12 +2,13 @@
 /* eslint-disable no-alert */
 /* eslint-disable import/no-unresolved */
 // eslint-disable-next-line import/named
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
 import { Grid } from '../../elements/index';
 import theme from '../../styles/theme';
+import WeatherInfo from './WeatherInfo';
 /* weather Icon */
 import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
 import { ReactComponent as CloudIcon } from '../../images/weather/cloud.svg';
@@ -26,6 +27,7 @@ const Navbar = () => {
   const isLogin = useSelector(state => state.user.isLogin);
   const userInfo = useSelector(state => state.user.userInfo);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
+  const [weatherModalShow, setWeatherModalShow] = useState(false);
 
   /* 로그인 필요 확인 */
   const pageMove = url => {
@@ -52,61 +54,74 @@ const Navbar = () => {
       weatherKey = 'sun';
     }
   }
+  const openWeatherModal = () => {
+    setWeatherModalShow(true);
+  };
+
+  const closeWeatherModal = () => {
+    setWeatherModalShow(false);
+  };
   return (
-    <Nav>
-      <Content>
-        <Wrap>
-          <Grid
-            bg={theme.weatherColor[weatherKey]}
-            justifyContent="center"
-            width="100%"
-          >
-            <Icon color="#fff">{WeatherIcon}</Icon>
-          </Grid>
-
-          <Icon
-            color={pathName === '/' ? '#000' : ''}
-            onClick={() => history.push('/')}
-          >
-            <HomeIcon />
-          </Icon>
-
-          <Icon
-            color={pathName === '/select-type' ? '#000' : ''}
-            onClick={() => history.push('/select-type')}
-          >
-            <FilterIcon />
-          </Icon>
-          <Icon
-            color={pathName === '/pickList' ? '#000' : ''}
-            onClick={() => pageMove('/pickList')}
-          >
-            <HeartIcon />
-          </Icon>
-          {isLogin === false ? (
-            <Icon
-              color={pathName === '/mypage' ? '#000' : ''}
-              onClick={() => pageMove('/mypage')}
+    <>
+      {weatherModalShow && (
+        <WeatherInfo closeWeatherModal={closeWeatherModal} />
+      )}
+      <Nav>
+        <Content>
+          <Wrap>
+            <Grid
+              bg={theme.weatherColor[weatherKey]}
+              justifyContent="center"
+              width="100%"
+              _onClick={openWeatherModal}
             >
-              <MypageIcon />
+              <Icon color="#fff">{WeatherIcon}</Icon>
+            </Grid>
+
+            <Icon
+              color={pathName === '/' ? '#000' : ''}
+              onClick={() => history.push('/')}
+            >
+              <HomeIcon />
             </Icon>
-          ) : // 로그인 상태일때
-          userInfo.userImage === null ? (
-            <UserImage
-              width="24px"
-              src={profile1}
-              onClick={() => pageMove('/mypage')}
-            />
-          ) : (
-            <UserImage
-              width="24px"
-              src={userInfo.userImage}
-              onClick={() => pageMove('/mypage')}
-            />
-          )}
-        </Wrap>
-      </Content>
-    </Nav>
+
+            <Icon
+              color={pathName === '/select-type' ? '#000' : ''}
+              onClick={() => history.push('/select-type')}
+            >
+              <FilterIcon />
+            </Icon>
+            <Icon
+              color={pathName === '/pickList' ? '#000' : ''}
+              onClick={() => pageMove('/pickList')}
+            >
+              <HeartIcon />
+            </Icon>
+            {isLogin === false ? (
+              <Icon
+                color={pathName === '/mypage' ? '#000' : ''}
+                onClick={() => pageMove('/mypage')}
+              >
+                <MypageIcon />
+              </Icon>
+            ) : // 로그인 상태일때
+            userInfo.userImage === null ? (
+              <UserImage
+                width="24px"
+                src={profile1}
+                onClick={() => pageMove('/mypage')}
+              />
+            ) : (
+              <UserImage
+                width="24px"
+                src={userInfo.userImage}
+                onClick={() => pageMove('/mypage')}
+              />
+            )}
+          </Wrap>
+        </Content>
+      </Nav>
+    </>
   );
 };
 

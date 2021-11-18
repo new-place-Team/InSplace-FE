@@ -9,7 +9,7 @@ import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { right, mypageNext, profile1 } from '../images/index';
 import { Button, Container, Grid, Image, Text } from '../elements';
-import sunBg from '../images/weather/sun1.jpg';
+import sunBg from '../images/weather/sun_bg.jpg';
 
 const MyPage = () => {
   const userInfo = useSelector(state => state.user.userInfo);

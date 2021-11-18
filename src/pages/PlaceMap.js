@@ -1,27 +1,57 @@
 /* eslint-disable */
-/* global kakao */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Grid } from '../elements';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-
 import SwiperMap from '../components/map/SwiperMap';
 import Map from '../components/map/Map';
 import Header from '../components/common/Header';
 import SelectedCategory from '../components/place/SelectedCategory';
+import {
+  getSearchConditionDB,
+  getSearchConditionListDB,
+} from '../redux/async/place';
 import { history } from '../redux/configureStore';
 
 const MapContainer = () => {
+  const dispatch = useDispatch();
+  /* 현재 URI Path 조회 */
   const { pathname } = history.location;
+  /* Map에 보여줄 ListType */
   const pathArr = pathname.split('/');
   const type = pathArr[pathArr.length - 1];
-  console.log(type);
-  let placeList = [];
+  /* 장소 List */
+  let placeList = null;
   if (type === 'result') {
+    // 검색[실내, 실외] 결과 리스트
     const conditionPlaces = useSelector(state => state.place.conditionPlaces);
-    placeList = [...conditionPlaces.inSideList, ...conditionPlaces.outSideList];
+    placeList = conditionPlaces
+      ? [...conditionPlaces.insidePlaces, ...conditionPlaces.outSidePlaces]
+      : null;
+  } else {
+    // 실외List or 실내List or 장소검색List
+    placeList = useSelector(state => state.place.placeList);
   }
-  const currentCoord = useSelector(state => state.place.focusCoord);
+  const [latLonFocus, setLatLonFocus] = useState(null);
+  const onChageFocus = latLon => {
+    setLatLonFocus({
+      lat: latLon.lat,
+      lon: latLon.lon,
+    });
+  };
+
+  useEffect(() => {
+    const params = history.location.search;
+    console.log('params', params);
+    if (!placeList) {
+      if (type === 'result') {
+        dispatch(getSearchConditionDB(params));
+      } else {
+        const qureryString = `search/pages/1/${type}${params}`;
+        dispatch(getSearchConditionListDB(qureryString));
+      }
+    }
+  }, []);
 
   return (
     <>
@@ -31,16 +61,17 @@ const MapContainer = () => {
           <Grid padding="0 24px">
             <SelectedCategory />
           </Grid>
-          <SwiperMap list={placeList} />
-          {/* 카카오지도 현재 위도 경도로 중심 찾기, 위도 경도로 리스트들 마커 찍기 */}
+          {/* 카카오 지도 */}
           <MapDiv>
             <Map
               width="100vw"
               height="80vh"
               allPlaces={placeList}
-              currentCoord={currentCoord}
+              latLonFocus={latLonFocus}
             />
           </MapDiv>
+          {/* SwiperList Card */}
+          <SwiperMap list={placeList} _onChageFocus={onChageFocus} />
         </Grid>
       </Container>
     </>

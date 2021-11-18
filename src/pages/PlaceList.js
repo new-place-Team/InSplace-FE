@@ -37,6 +37,7 @@ const PlaceList = props => {
   useEffect(() => {
     if (!placeList) {
       const qureryString = `search/pages/${pagination.page}/${searchType}${url}`;
+      console.log('queryString', qureryString);
       dispatch(getSearchConditionListDB(qureryString));
     }
   }, []);

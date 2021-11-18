@@ -1,20 +1,15 @@
 /* eslint-disable no-undef */
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable import/no-unresolved */
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination, Navigation, History } from 'swiper';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import MapCard from './MapCard';
-import { setFocusCoord } from '../../redux/modules/placeSlice';
 
 SwiperCore.use([Navigation, Pagination, History]);
 
 const SwiperMap = props => {
   // SwiperCore.use([Pagination]);
-  const dispatch = useDispatch();
-  const { list } = props;
+  const { list, _onChageFocus } = props;
   const setting = {
     slidesPerView: 1,
     spaceBetween: -23,
@@ -48,8 +43,9 @@ const SwiperMap = props => {
             lat: list[e.realIndex].postLocationY,
             lon: list[e.realIndex].postLocationX,
           };
-
-          dispatch(setFocusCoord(coord));
+          console.log('coord', coord);
+          _onChageFocus(coord);
+          // dispatch(setFocusCoord(coord));
         }}
         {...setting}
       >

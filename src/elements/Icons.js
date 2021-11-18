@@ -3,13 +3,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Icons = props => {
-  const { width, height, margin, color, children } = props;
+  const { width, height, margin, color, children, size } = props;
 
   const styles = {
     width,
     height,
     margin,
     color,
+    size,
   };
 
   return <IconArea {...styles}>{children}</IconArea>;
@@ -32,6 +33,7 @@ const IconArea = styled.div`
     width: ${({ width }) => width || '24px'};
     height: ${({ height }) => height || '24px'};
     fill: ${({ color }) => color || ''};
+    font-size: ${({ size }) => size || ''};
   }
 `;
 

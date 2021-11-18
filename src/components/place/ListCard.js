@@ -86,7 +86,7 @@ const ListCard = forwardRef((props, ref) => {
       <>
         <Grid
           _onClick={() => history.push(`/place/detail/${info.postId}`)}
-          cursor
+          cursor="true"
           width="237px"
         >
           <Image width="237px" height="320px" src={info && info.postImage} />
