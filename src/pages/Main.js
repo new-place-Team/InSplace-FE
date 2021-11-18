@@ -9,10 +9,14 @@ import ContentsTitle from '../components/common/ContentsTitle';
 import { Container, Grid, Text } from '../elements';
 import { getMainListDB } from '../redux/async/place';
 import Navbar from '../components/common/Navbar';
-import sunBg from '../images/weather/sun_bg.jpg';
-import rainBg from '../images/weather/rain_bg.jpg';
-import snowBg from '../images/weather/snow_bg.jpg';
-import cloudBg from '../images/weather/cloud_bg.jpg';
+import {
+  SunMain768 as sunBg,
+  RainMain768 as rainBg,
+  CloudMain768 as cloudBg,
+  SnowMain768 as snowBg,
+  // Sunshine,
+  // CloudImg,
+} from '../images/weather/index';
 import { ReactComponent as Marker } from '../images/ic-marker.svg';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import Swiper from '../components/common/SwiperLB';
@@ -123,6 +127,9 @@ const Main = () => {
 const SkeletonGrid = styled.div`
   position: relative;
   height: 672px;
+  @media (max-width: 414px) {
+    height: 525px;
+  }
 `;
 
 const BackgroundImg = styled.img`
@@ -132,6 +139,9 @@ const BackgroundImg = styled.img`
   height: 672px;
   object-fit: cover;
   z-index: -1;
+  @media (max-width: 414px) {
+    height: 525px;
+  }
 `;
 
 const Icon = styled.div`
