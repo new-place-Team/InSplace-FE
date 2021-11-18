@@ -27,16 +27,15 @@ jobs:
         uses: actions/cache@v1
         with:
           path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.OS }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.OS }}-build-
-            ${{ runner.OS }}-
+            ${{ runner.OS }}-yarn-
 
       - name: Install Dependencies # 의존 파일 설치
-        run: npm install
+        run: yarn install
 
       - name: Build # React Build
-        run: npm run build
+        run: yarn build
 
       - name: Deploy # S3에 배포하기
         env:
