@@ -75,7 +75,7 @@ const ListCard = forwardRef((props, ref) => {
             <Skeleton type="slideCard" />
           ) : (
             <>
-              <Grid _onClick={gotoDetail} width="237px" cursor>
+              <Grid _onClick={gotoDetail} width="237px" cursor="true">
                 <Image
                   width="237px"
                   height="320px"
@@ -127,7 +127,7 @@ const ListCard = forwardRef((props, ref) => {
             <>
               <Grid
                 _onClick={() => history.push(`/place/detail/${info.postId}`)}
-                cursor
+                cursor="true"
                 width="100%"
               >
                 <Image
@@ -222,7 +222,7 @@ const ListCard = forwardRef((props, ref) => {
 
   return (
     <>
-      <Grid _onClick={gotoDetail} cursor>
+      <Grid _onClick={gotoDetail} cursor="true">
         <Image width="247px" height="306px" src={info && info.postImage} />
       </Grid>
       <Grid margin="16px 0 0 0">
