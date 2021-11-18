@@ -1,10 +1,8 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { insplace } from '../images/index';
 
-const Image = props => {
+const Image = forwardRef(props => {
   const {
     type,
     width,
@@ -13,6 +11,7 @@ const Image = props => {
     padding,
     color,
     src,
+    ref,
     children,
     _onClick,
   } = props;
@@ -46,10 +45,10 @@ const Image = props => {
 
   return (
     <DefaultGrid {...styles}>
-      <DefaultImage {...styles} />
+      <DefaultImage {...styles} ref={ref} />
     </DefaultGrid>
   );
-};
+});
 
 Image.defaultProps = {
   width: 'auto',
@@ -87,6 +86,10 @@ const BgImage = styled.div`
   ${props => (props.padding ? `padding:${props.padding}` : '')};
   display: block;
   position: relative;
+  @media (min-width: 768px) {
+    background-size: cover;
+    /* background-position: top; */
+  }
 `;
 
 // 프로필 이미지 (원형)

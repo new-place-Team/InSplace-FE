@@ -30,6 +30,7 @@ import Pick from './pages/Pick';
 import Notification from './pages/Notification';
 import SearchPage from './pages/SearchPage';
 import Setting from './pages/Setting';
+import Boarding from './pages/Boarding';
 // import Navbar from './components/Navbar';
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
     if (getTokenYn()) {
       dispatch(logInCheckDB());
     }
+    // 날씨 정보를 따로 받아와서 리덕스에 저장.
     if (!weatherStatus) {
       dispatch(getWeatherDB());
     }
@@ -76,6 +78,7 @@ function App() {
           <Route path="/picklist" exact component={Pick} />
           <Route path="/setting" exact component={Setting} />
           <Route path="/notification" exact component={Notification} />
+          <Route path="/boarding" exact component={Boarding} />
         </Switch>
         {/* <Navbar /> */}
       </ThemeProvider>

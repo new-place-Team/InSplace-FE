@@ -1,21 +1,26 @@
+/* eslint-disable consistent-return */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/common/Header';
-import { Container, Grid, Input, Label } from '../elements';
+import { Container, Grid, Input, Label, Text } from '../elements';
 import { history } from '../redux/configureStore';
 import { logInDB } from '../redux/async/user';
-// eslint-disable-next-line import/named
 import { xcircle } from '../images/index';
 import { KAKAO_AUTH_URL } from '../shared/KakaoOAuth';
 import { ReactComponent as KakaoIcon } from '../images/kakaoLogin/join_kakao.svg';
+import CommonModal from '../components/common/CommonModal';
 
 const Login = () => {
   const dispatch = useDispatch();
+
+  const commomModal = useSelector(state => state.common.modalStatus);
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
   });
+  const [emailError, setEmailError] = useState('');
+  const [passError, setPassError] = useState('');
 
   const onChange = e => {
     setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
@@ -27,19 +32,24 @@ const Login = () => {
   };
   /* 로그인 제출 */
   const submitUserInfo = () => {
+    if (userInfo.email.length !== 0) {
+      setEmailError('');
+    }
     if (userInfo.email === '') {
-      window.alert('이메일을 입력해주세요!');
-      return;
+      return setEmailError('이메일을 입력해주세요!');
+    }
+    if (userInfo.password.length !== 0) {
+      setPassError('');
     }
     if (userInfo.password === '') {
-      window.alert('비밀번호를 입력해주세요!');
-      return;
+      return setPassError('비밀번호를 입력해주세요!');
     }
     dispatch(logInDB(userInfo));
   };
 
   return (
     <>
+      {commomModal && <CommonModal />}
       <Header _back _content="로그인" />
       <Container padding="66px 0 0 0">
         <Grid padding="42px 20px 0 20px">
@@ -61,6 +71,9 @@ const Login = () => {
                 }}
               />
             )}
+            <Text fontSize="12px" color="#ff4949">
+              {emailError}
+            </Text>
           </Wrap>
           <Wrap>
             <Label type="form">비밀번호</Label>
@@ -81,6 +94,9 @@ const Login = () => {
                 }}
               />
             )}
+            <Text fontSize="12px" color="#ff4949">
+              {passError}
+            </Text>
           </Wrap>
         </Grid>
         <BottomWrap>

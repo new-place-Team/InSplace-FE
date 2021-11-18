@@ -42,7 +42,6 @@ const MapContainer = () => {
 
   useEffect(() => {
     const params = history.location.search;
-    console.log('params', params);
     if (!placeList) {
       if (type === 'result') {
         dispatch(getSearchConditionDB(params));

@@ -9,7 +9,6 @@ const Map = props => {
   useEffect(() => {
     /* 페이지가 로드 시 지도 생성 */
     if (allPlaces) {
-      console.log(allPlaces);
       mapscript(mapDiv, allPlaces, latLonFocus);
     }
   }, [mapDiv, allPlaces, latLonFocus]);

@@ -43,7 +43,7 @@ const SwiperMap = props => {
             lat: list[e.realIndex].postLocationY,
             lon: list[e.realIndex].postLocationX,
           };
-          console.log('coord', coord);
+          // console.log('coord', coord);
           _onChageFocus(coord);
           // dispatch(setFocusCoord(coord));
         }}

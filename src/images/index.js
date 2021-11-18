@@ -50,6 +50,13 @@ import placeSearchResult from './illustration/search_result_img.png';
 import spinner from './spinner.gif';
 import more from './Icon/ic_more.svg';
 
+// 스켈레톤
+import main from './skeleton/main.png';
+import header from './skeleton/header.png';
+import mainCard from './skeleton/mainCard.png';
+import resultCard from './skeleton/resultCard.png';
+import selectResultCard from './skeleton/selectResultCard.png';
+
 export {
   bookmark,
   close,
@@ -88,4 +95,9 @@ export {
   polygonimg,
   spinner,
   more,
+  main,
+  header,
+  mainCard,
+  resultCard,
+  selectResultCard,
 };

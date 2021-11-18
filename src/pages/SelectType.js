@@ -1,5 +1,3 @@
-/* eslint-disable no-alert */
-/* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,10 +9,13 @@ import { ReactComponent as Right } from '../images/ic-next.svg';
 import { history } from '../redux/configureStore';
 import { getPeopleText } from '../shared/transferText';
 import { getSearchConditionDB } from '../redux/async/place';
+import CommonModal from '../components/common/CommonModal';
+import { setCommonModalOn } from '../redux/modules/commonSlice';
 
 const SelectedType = () => {
   const dispatch = useDispatch();
   const weatherStatus = useSelector(state => state.place.weatherStatus);
+  const commomModal = useSelector(state => state.common.modalStatus);
   const [categoryInfo, setCategoryInfo] = React.useState({
     MemberCnt: '',
     gender: '',
@@ -75,7 +76,10 @@ const SelectedType = () => {
       categoryInfo.MemberCnt === '' ||
       categoryInfo.category === ''
     ) {
-      window.alert('유형을 모두 선택해주세요');
+      const modalParams = {
+        title: '검색 유형을 모두 선택해주세요',
+      };
+      dispatch(setCommonModalOn(modalParams));
       return;
     }
 
@@ -86,6 +90,7 @@ const SelectedType = () => {
 
   return (
     <>
+      {commomModal && <CommonModal />}
       <Header _content="유형선택" _back _type="search" />
       <Container padding="66px 0 0 0">
         <ChangeContainer>

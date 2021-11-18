@@ -1,7 +1,4 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-alert */
 /* eslint-disable no-undef */
-/* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -21,10 +18,8 @@ const ReviewList = props => {
     state => state.place.reviewLikesPagination,
   );
   const isLoading = useSelector(state => state.loaded.is_loaded);
-
   const [target, setTarget] = useState(null);
   const [likeTarget, setLikeTarget] = useState(null);
-
   const [active, setActive] = useState({
     likeList: false,
     newList: true,

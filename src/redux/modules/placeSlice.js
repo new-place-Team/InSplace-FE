@@ -16,7 +16,7 @@ import {
   getWeatherDB,
 } from '../async/place';
 import { getCategoryArrText } from '../../shared/transferText';
-
+import loadedSlice from './loadedSlice';
 /* init */
 const initialState = {
   mainLists: null,
@@ -219,7 +219,7 @@ const placeSlice = createSlice({
     },
     // 리뷰 추천순 조회
     [getReviewLikesListDB.fulfilled]: (state, { payload }) => {
-      console.log(current(state.reviewList));
+      // console.log(current(state.reviewList));
       if (state.reviewLikesList) {
         state.reviewLikesList = [...state.reviewLikesList, ...payload.reviews];
         state.reviewLikesPagination = {
@@ -311,4 +311,5 @@ export const {
   setPlaceListInit,
 } = placeSlice.actions;
 
+export const { getLoaded } = loadedSlice.actions;
 export default placeSlice;

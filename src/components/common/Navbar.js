@@ -1,7 +1,4 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable no-alert */
-/* eslint-disable import/no-unresolved */
-// eslint-disable-next-line import/named
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
@@ -20,7 +17,8 @@ import { ReactComponent as FilterIcon } from '../../images/nav/ic_nav_fliter.svg
 import { ReactComponent as HeartIcon } from '../../images/nav/ic_nav_heart.svg';
 import { ReactComponent as MypageIcon } from '../../images/nav/ic_nav_mypage.svg';
 import { profile1 } from '../../images/index';
-import { isLoginChk } from '../../shared/utils';
+// import { isLoginChk } from '../../shared/utils';
+import ConfirmModal from './ConfirmModal';
 
 const Navbar = () => {
   const pathName = history.location.pathname;
@@ -28,14 +26,8 @@ const Navbar = () => {
   const userInfo = useSelector(state => state.user.userInfo);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
   const [weatherModalShow, setWeatherModalShow] = useState(false);
+  const [confirmModal, setConfirmModal] = useState(false);
 
-  /* 로그인 필요 확인 */
-  const pageMove = url => {
-    if (!isLoginChk(isLogin)) {
-      return;
-    }
-    history.push(url);
-  };
   let WeatherIcon = '';
   let weatherKey = '';
   if (weatherStatus) {
@@ -61,8 +53,36 @@ const Navbar = () => {
   const closeWeatherModal = () => {
     setWeatherModalShow(false);
   };
+
+  const pageMove = value => {
+    if (value === undefined && !isLogin) {
+      history.push(`/login`);
+    } else {
+      history.push(`${value}`);
+    }
+  };
+  /* 로그인 필요 확인 */
+  const loginCheck = url => {
+    if (!isLogin) {
+      setConfirmModal(true);
+      return;
+    }
+    pageMove(url);
+    // if (!isLoginChk(isLogin)) {
+    //   return;
+    // }
+    // history.push(url);
+  };
+
   return (
     <>
+      {confirmModal && (
+        <ConfirmModal
+          title="로그인을 해야 이용할 수 있는 서비스입니다. 로그인 하시겠습니까?"
+          setConfirmModal={setConfirmModal}
+          goToLogin
+        />
+      )}
       {weatherModalShow && (
         <WeatherInfo closeWeatherModal={closeWeatherModal} />
       )}
@@ -93,14 +113,14 @@ const Navbar = () => {
             </Icon>
             <Icon
               color={pathName === '/pickList' ? '#000' : ''}
-              onClick={() => pageMove('/pickList')}
+              onClick={() => loginCheck('/pickList')}
             >
               <HeartIcon />
             </Icon>
             {isLogin === false ? (
               <Icon
                 color={pathName === '/mypage' ? '#000' : ''}
-                onClick={() => pageMove('/mypage')}
+                onClick={() => loginCheck('/mypage')}
               >
                 <MypageIcon />
               </Icon>
@@ -109,13 +129,13 @@ const Navbar = () => {
               <UserImage
                 width="24px"
                 src={profile1}
-                onClick={() => pageMove('/mypage')}
+                onClick={() => loginCheck('/mypage')}
               />
             ) : (
               <UserImage
                 width="24px"
                 src={userInfo.userImage}
-                onClick={() => pageMove('/mypage')}
+                onClick={() => loginCheck('/mypage')}
               />
             )}
           </Wrap>

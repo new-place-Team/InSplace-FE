@@ -49,11 +49,13 @@ const Main = () => {
   return (
     <>
       {isLoading && <Spinner />}
+
       <Container padding="0">
         <Grid>
           <Header _onBg _content="InSplace" _search _color="#fff" />
           {/* Weather Section */}
           <Bg src={weatherBg} />
+          {/* <Skeleton type="mainTop" /> */}
           <WeatherBox info={weatherInfo} />
           <Grid isFlex padding="96px 0  27px 21px">
             <Icon>
