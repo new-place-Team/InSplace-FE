@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable import/no-unresolved */
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
@@ -35,7 +33,7 @@ const SwiperLB = props => {
       },
       768: {
         slidesPerView: 3,
-        spaceBetween: type === 'selectResult' ? 41 : 16,
+        // spaceBetween: type === 'selectResult' ? 41 : 16,
       },
     },
   };
@@ -46,7 +44,11 @@ const SwiperLB = props => {
           list.map(info => {
             return (
               <SwiperSlide key={info.postId}>
-                <ListCard type="selectResult" info={info} />
+                <ListCard
+                  src={info.postImages}
+                  type="selectResult"
+                  info={info}
+                />
               </SwiperSlide>
             );
           })}

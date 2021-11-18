@@ -23,7 +23,10 @@ const Header = props => {
   } = props;
 
   const gotoMapPage = () => {
-    history.push('/place/map');
+    const { search, pathname } = history.location;
+    const pathArr = pathname.split('/');
+    const type = pathArr[pathArr.length - 1];
+    history.push(`/place-map/${type}${search}`);
   };
   const gotoSearchPage = () => {
     history.push('/search');
@@ -140,7 +143,9 @@ const Header = props => {
             )}
             {_settings && (
               <Grid>
-                <Icon src={settings} onClick={gotoSettingPage} />
+                <IconArea>
+                  <Icon src={settings} onClick={gotoSettingPage} />
+                </IconArea>
               </Grid>
             )}
           </Grid>
@@ -187,6 +192,7 @@ const Icon = styled.img`
   width: 24px;
   margin: ${({ margin }) => margin || '0'};
   vertical-align: text-bottom;
+  cursor: pointer;
 `;
 
 const IconArea = styled.div`

@@ -1,9 +1,7 @@
-/* eslint-disable no-alert */
 /* eslint-disable no-unused-expressions */
-/* eslint-disable no-undef */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 import {
   getMainListDB,
   getSearchConditionDB,
@@ -12,12 +10,13 @@ import {
   setFavoritesPostDB,
   getReviewListDB,
   getReviewLikesListDB,
-  reviewLikeDB,
   setVisitedPostDB,
   getReviewEditDB,
   getSearchConditionListDB,
+  getWeatherDB,
 } from '../async/place';
-
+import { getCategoryArrText } from '../../shared/transferText';
+import loadedSlice from './loadedSlice';
 /* init */
 const initialState = {
   mainLists: null,
@@ -26,15 +25,19 @@ const initialState = {
   /* 위치 정보 */
   location: null,
   /* 선택 카테고리 */
-  selectedCategory: [],
+  categoryParams: null,
+  categoryList: null,
   conditionPlaces: null,
   detailInfo: {},
   currentCoordinate: {},
   placeList: null,
   placePagination: { page: 1, isNext: true },
-  reviewList: [],
-  reivewLikesList: [],
+  reviewList: null,
+  reviewPagination: { page: 1, isNext: true },
+  reviewLikesList: null,
+  reviewLikesPagination: { page: 1, isNext: true },
   review: null,
+  reviewlikeState: false,
   focusCoord: {},
   map: null,
 };
@@ -48,14 +51,25 @@ const placeSlice = createSlice({
       state.weatherList = payload.weatherPlace;
     },
     setSelectedCategory: (state, { payload }) => {
-      state.selectedCategory = payload;
+      // ?weather=1&category=2&num=1&gender=1
+      const objList = payload.replace('?', '').split('&');
+      const categoryArr = ['gender', 'num', 'category'];
+      const newCategoryList = categoryArr.map(item => {
+        let typeValue = 0;
+        objList.forEach(v => {
+          const objArr = v.split('=');
+          if (objArr[0] === item) {
+            typeValue = Number(objArr[1]);
+          }
+        });
+        return getCategoryArrText(item, typeValue);
+      });
+      state.categoryList = newCategoryList;
+      state.categoryParams = payload;
     },
     setFocusCoord: (state, { payload }) => {
+      payload;
       state.focusCoord = payload;
-    },
-    createMap: (state, { payload }) => {
-      console.log(payload);
-      state.map = payload;
     },
     setPlaceListInit: state => {
       state.placeList = null;
@@ -90,9 +104,87 @@ const placeSlice = createSlice({
           : (target.favoriteCnt -= 1);
       }
     },
+    addReviewList: (state, { payload }) => {
+      const newReviewList = state.reviewList;
+      if (newReviewList) {
+        state.reviewList = [payload, ...newReviewList];
+      }
+    },
+    updateReviewList: (state, { payload }) => {
+      const newReviewList = state.reviewList;
+      if (newReviewList) {
+        const index = newReviewList.findIndex(item => {
+          return item.reviewId === payload.reviewId;
+        });
+        const weather = [
+          { selecteText: '맑음', value: 1 },
+          { selecteText: '비', value: 2 },
+          { selecteText: '눈', value: 3 },
+          { selecteText: '흐림', value: 4 },
+          { selecteText: '기억안남', value: 5 },
+        ];
+        const findWeather = weather.filter(
+          item => item.value === payload.weather,
+        );
+        const newPayload = { ...payload, weather: findWeather[0].selecteText };
+        state.reviewList[index] = newPayload;
+      }
+    },
+    deleteReviewList: (state, { payload }) => {
+      const newReviewList = state.reviewList;
+      if (newReviewList) {
+        state.reviewList = newReviewList.filter(
+          item => item.reviewId !== payload.reviewId,
+        );
+      }
+    },
+    reviewLikesList: (state, { payload }) => {
+      const newReviewList = state.reviewList;
+      const newLikeReviewList = state.reviewLikesList;
+      // 최신순 리뷰에 좋아요를 클릭했을 때
+      if (!payload.reviewType) {
+        if (newReviewList) {
+          state.reviewList = newReviewList.map(item =>
+            item.reviewId === payload.reviewId
+              ? { ...item, likeState: 1, likeCnt: item.likeCnt + 1 }
+              : item,
+          );
+        }
+      } else if (newLikeReviewList) {
+        state.reviewLikesList = newLikeReviewList.map(item =>
+          item.reviewId === payload.reviewId
+            ? { ...item, likeState: 1, likeCnt: item.likeCnt + 1 }
+            : item,
+        );
+      }
+    },
+    reviewLikesCancelList: (state, { payload }) => {
+      const newReviewList = state.reviewList;
+      const newLikeReviewList = state.reviewLikesList;
+      // 최신순 리뷰에 좋아요 취소를 클릭했을 때
+      if (!payload.reviewType) {
+        if (newReviewList) {
+          state.reviewList = newReviewList.map(item =>
+            item.reviewId === payload.reviewId
+              ? { ...item, likeState: 0, likeCnt: item.likeCnt - 1 }
+              : item,
+          );
+        }
+      } else if (newLikeReviewList) {
+        state.reviewLikesList = newLikeReviewList.map(item =>
+          item.reviewId === payload.reviewId
+            ? { ...item, likeState: 0, likeCnt: item.likeCnt - 1 }
+            : item,
+        );
+      }
+    },
   },
 
   extraReducers: {
+    /* 날씨 정보 처리 완료 */
+    [getWeatherDB.fulfilled]: (state, { payload }) => {
+      state.weatherStatus = payload;
+    },
     /* Fulfilled(이행) 처리 완료 */
     [getMainListDB.fulfilled]: (state, { payload }) => {
       state.mainLists = payload;
@@ -110,26 +202,43 @@ const placeSlice = createSlice({
     [getPlaceDetailDB.fulfilled]: (state, { payload }) => {
       state.detailInfo = payload;
     },
-    /* 리뷰 최신순 조회 처리 완료 */
+    // 리뷰 최신순 조회
     [getReviewListDB.fulfilled]: (state, { payload }) => {
-      state.reviewList = payload.reviews;
+      if (state.reviewList) {
+        state.reviewList = [...state.reviewList, ...payload.reviews];
+        state.reviewPagination = {
+          ...state.reviewPagination,
+          page: payload.page,
+          lastPage: payload.lastPage,
+          isNext: payload.page !== payload.lastPage,
+        };
+      } else {
+        // 최초 로드
+        state.reviewList = payload.reviews;
+      }
     },
-    /* 리뷰 추천순 조회 처리 완료 */
+    // 리뷰 추천순 조회
     [getReviewLikesListDB.fulfilled]: (state, { payload }) => {
-      state.reivewLikesList = payload.reviews;
+      // console.log(current(state.reviewList));
+      if (state.reviewLikesList) {
+        state.reviewLikesList = [...state.reviewLikesList, ...payload.reviews];
+        state.reviewLikesPagination = {
+          ...state.reviewLikesPagination,
+          page: payload.page,
+          lastPage: payload.lastPage,
+          isNext: payload.page !== payload.lastPage,
+        };
+      } else {
+        // 최초 로드
+        state.reviewLikesList = payload.reviews;
+      }
     },
+
     /* 리뷰 수정 조회 처리완료 */
     [getReviewEditDB.fulfilled]: (state, { payload }) => {
       state.review = payload.review;
     },
-    /* 리뷰 수정 처리완료 */
-    // [updateReviewDB.fulfilled]: (state, { payload }) => {
-    //   state.review = payload.post;
-    // },
-    /* 리뷰 좋아요 처리 실패 */
-    [reviewLikeDB.rejected]: (state, { payload }) => {
-      window.alert(payload.errMsg);
-    },
+
     // 현재좌표 받아오기
     [getCurrentCoordinateWEB.fulfilled]: (state, { payload }) => {
       state.location = payload;
@@ -193,9 +302,14 @@ export const {
   getCurrentCoordinate,
   setSelectedCategory,
   setFocusCoord,
-  createMap,
   setConditionPlaces,
+  addReviewList,
+  updateReviewList,
+  deleteReviewList,
+  reviewLikesList,
+  reviewLikesCancelList,
   setPlaceListInit,
 } = placeSlice.actions;
 
+export const { getLoaded } = loadedSlice.actions;
 export default placeSlice;

@@ -9,19 +9,20 @@ import ContentsTitle from '../components/common/ContentsTitle';
 import { Container, Grid, Text } from '../elements';
 import { getMainListDB } from '../redux/async/place';
 import Navbar from '../components/common/Navbar';
-import sunBg from '../images/weather/sun1.jpg';
-import rainBg from '../images/weather/rain1.jpg';
-import snowBg from '../images/weather/snow1.jpg';
-import cloudBg from '../images/weather/cloud.jpg';
+import sunBg from '../images/weather/sun_bg.jpg';
+import rainBg from '../images/weather/rain_bg.jpg';
+import snowBg from '../images/weather/snow_bg.jpg';
+import cloudBg from '../images/weather/cloud_bg.jpg';
 import { ReactComponent as Marker } from '../images/ic-marker.svg';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import Swiper from '../components/common/SwiperLB';
+import Spinner from '../components/common/Spinner';
 
 const Main = () => {
   const dispatch = useDispatch();
   const mainLists = useSelector(state => state.place.mainLists);
   const location = useSelector(state => state.place.location);
-
+  const isLoading = useSelector(state => state.loaded.is_loaded);
   const likeList = mainLists && mainLists.likePlace;
   const pickList = mainLists && mainLists.pickPlace;
   const weatherList = mainLists && mainLists.weatherPlace;
@@ -47,11 +48,14 @@ const Main = () => {
 
   return (
     <>
+      {isLoading && <Spinner />}
+
       <Container padding="0">
         <Grid>
           <Header _onBg _content="InSplace" _search _color="#fff" />
           {/* Weather Section */}
           <Bg src={weatherBg} />
+          {/* <Skeleton type="mainTop" /> */}
           <WeatherBox info={weatherInfo} />
           <Grid isFlex padding="96px 0  27px 21px">
             <Icon>
@@ -62,7 +66,6 @@ const Main = () => {
               {location && location.address}
             </Text>
           </Grid>
-
           {/* 장소 추천받기 */}
           <SelectTypeBtn onClick={() => history.push('/select-type')}>
             <Grid height="22px" margin="19px 0 0 18px">
@@ -75,16 +78,15 @@ const Main = () => {
             </NextButton>
           </SelectTypeBtn>
         </Grid>
-
         {/* Place Section */}
         <Grid>
           {/* 날씨에 따른 공간 */}
-          <Grid margin="0 0 48px 24px">
+          <Grid padding="0 0 48px 24px">
             <ContentsTitle title="날씨에 따른 공간" />
             <Swiper list={weatherList} />
           </Grid>
           {/* 좋아요 순 추천 공간 */}
-          <Grid margin="0 0 48px 24px">
+          <Grid padding="0 0 48px 24px">
             <ContentsTitle title="좋아요를 많이 받은" />
             <Swiper list={likeList} />
           </Grid>
@@ -107,6 +109,7 @@ const Bg = styled.div`
   top: 0;
   background-image: url('${props => props.src}');
   background-size: cover;
+  background-position: center;
   z-index: -1;
 `;
 

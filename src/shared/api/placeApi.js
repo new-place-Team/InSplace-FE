@@ -1,13 +1,11 @@
 /* eslint-disable import/no-cycle */
 import api from './index';
 
+const getWeatherInfo = () => api.get('weather/info');
+
 const getMainList = () => api.get('main');
 
-const getSearchCondition = params => {
-  return api.get(
-    `search/condition?weather=${params.weather}&category=${params.category}&num=${params.num}&gender=${params.gender}`,
-  );
-};
+const getSearchCondition = params => api.get(`search/condition${params}`);
 
 const getSearchConditionList = params => api.get(`${params}`);
 const getPlaceDetail = params => api.get(`posts/${params}`);
@@ -31,15 +29,13 @@ const deleteVisitedPost = params =>
 // 리뷰
 const getReviewPostInfo = params => api.get(`/posts/${params}/reviews/write`);
 // 리뷰 최신순 조회
-const getReviewList = params =>
-  api.get(
-    `/posts/${params.postId}/reviews/pages/${params.pageNumber}/orders/latest`,
-  );
+const getReviewList = params => {
+  return api.get(`${params}`);
+};
 // 리뷰 추천순 조회
-const getReviewLikesList = params =>
-  api.get(
-    `/posts/${params.postId}/reviews/pages/${params.pageNumber}/orders/likes`,
-  );
+const getReviewLikesList = params => {
+  return api.get(`${params}`);
+};
 // 리뷰 CRUD
 const addReview = (params, config) =>
   api.post(`/posts/${params.postId}/reviews`, params.data, config);
@@ -62,6 +58,7 @@ const reviewLikeCancel = params =>
   api.delete(`/posts/${params.postId}/reviews/${params.reviewId}/likes`);
 
 export {
+  getWeatherInfo,
   getMainList,
   getSearchCondition,
   getPlaceDetail,

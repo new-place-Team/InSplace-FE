@@ -1,28 +1,26 @@
-/* eslint-disable no-alert */
 /* eslint-disable no-undef */
-/* eslint-disable react/destructuring-assignment */
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Text, Textarea } from '../elements';
 import { whiteClose, xcircle } from '../images/index';
 import SelectedContents from '../components/place/SelectedContents';
-import {
-  addReviewDB,
-  // getReviewEditDB,
-  updateReviewDB,
-} from '../redux/async/place';
+import { addReviewDB, updateReviewDB } from '../redux/async/place';
 import ReviewPostInfo from '../components/place/ReviewPostInfo';
 import { getReviewEdit } from '../shared/api/placeApi';
+import CommonModal from '../components/common/CommonModal';
+import { setCommonModalOn } from '../redux/modules/commonSlice';
 
 const ReviewWrite = props => {
-  const { id } = props.match.params;
-  const reviewId = props.history.location.state;
-  // const review = useSelector(state => state.place.review);
+  const { history, match } = props;
+  const { id } = match.params;
+  const reviewId = history.location.state;
   const dispatch = useDispatch();
+  const commomModal = useSelector(state => state.common.modalStatus);
   const fileInput = useRef();
   const reviewTypeEdit = reviewId !== undefined;
+  const [preview, setPreview] = useState([]);
 
   const [state, setState] = useState({
     postId: id,
@@ -33,8 +31,6 @@ const ReviewWrite = props => {
     revisitYN: 1,
     reviewId: 0,
   });
-
-  const [preview, setPreview] = useState([]);
 
   const [selectData, setSelectData] = useState([
     {
@@ -68,7 +64,10 @@ const ReviewWrite = props => {
 
   const selectFile = () => {
     if (preview.length >= 3) {
-      window.alert('이미지는 최대 3개까지 등록 가능합니다.');
+      const params = {
+        title: '이미지는 최대 3개까지 등록 가능합니다.',
+      };
+      dispatch(setCommonModalOn(params));
       return;
     }
     const reader = new FileReader();
@@ -84,7 +83,10 @@ const ReviewWrite = props => {
 
     // file 읽기 실패되었을때 실행
     reader.onerror = error => {
-      window.alert('이미지를 읽어들이는데 오류가 발생했습니다.');
+      const params = {
+        title: '이미지를 읽어들이는데 오류가 발생했습니다.',
+      };
+      dispatch(setCommonModalOn(params));
       console.log('error = ', error);
     };
   };
@@ -109,7 +111,10 @@ const ReviewWrite = props => {
   // 리뷰 등록 수정
   const handleReview = () => {
     if (state.reviewDesc.length <= 14) {
-      window.alert('리뷰는 최소 15자 이상으로 적어주세요');
+      const params = {
+        title: '리뷰는 최소 15자 이상으로 적어주세요',
+      };
+      dispatch(setCommonModalOn(params));
       return;
     }
     const formData = new FormData();
@@ -128,6 +133,7 @@ const ReviewWrite = props => {
       reviewId,
       data: formData,
     };
+
     if (reviewTypeEdit) {
       dispatch(updateReviewDB(params));
     } else {
@@ -136,19 +142,14 @@ const ReviewWrite = props => {
   };
 
   // 리뷰 수정일때 정보 받아오기
-  // const getReviewEdit = () => {
-  //   const params = { reviewId, postId: id };
-  //   dispatch(getReviewEditDB(params));
-  // };
-
-  const editLoad = async () => {
-    const params = { reviewId, postId: id };
+  const getReviewEditLoad = async () => {
     try {
-      const res = await getReviewEdit(params);
-      const data = res.data.review;
-      if (data) {
+      const params = { reviewId, postId: id };
+      const response = await getReviewEdit(params);
+      const data = response.data.review;
+      if (response) {
         setState({
-          postId: data.postId,
+          postId: id,
           reviewDesc: data.reviewDesc,
           reviewImages: data.reviewImages,
           weather: data.weather,
@@ -158,19 +159,20 @@ const ReviewWrite = props => {
         });
         setPreview(data.reviewImages);
       }
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log('err == ', err);
     }
   };
 
   useEffect(() => {
-    if (reviewTypeEdit) {
-      editLoad();
+    if (reviewId !== undefined) {
+      getReviewEditLoad();
     }
   }, []);
 
   return (
     <>
+      {commomModal && <CommonModal />}
       <Header _back _content={reviewTypeEdit ? '리뷰 수정' : '리뷰 쓰기'} />
       <Container>
         <ReviewPostInfo postId={id} />

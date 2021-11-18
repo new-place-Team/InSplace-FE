@@ -1,5 +1,4 @@
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Container, Grid, Image } from '../elements';
@@ -9,34 +8,35 @@ import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { getSearchConditionDB } from '../redux/async/place';
 import SelectedCategory from '../components/place/SelectedCategory';
-import { right } from '../images/index';
+import right from '../images/ic-right.svg';
 import { history } from '../redux/configureStore';
 import { setPlaceListInit } from '../redux/modules/placeSlice';
+import Spinner from '../components/common/Spinner';
 
-const SearchTypeList = props => {
+const SearchTypeList = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(state => state.loaded.is_loaded);
   const conditionPlaces = useSelector(state => state.place.conditionPlaces);
-  const selectedCategory = useSelector(state => state.place.selectedCategory);
-  const weatherStatus = useSelector(state => state.place.weatherStatus);
+  const categoryParams = useSelector(state => state.place.categoryParams);
   const inSideList = conditionPlaces && conditionPlaces.insidePlaces;
   const outSideList = conditionPlaces && conditionPlaces.outSidePlaces;
 
   useEffect(() => {
-    // 유저가 선택한 유형 결과에서 새로고침 했을 경우를 대비
-    const newParams = props.history.location.state.weatherStatus;
     if (!conditionPlaces) {
-      dispatch(getSearchConditionDB(newParams));
+      const params = history.location.search;
+      dispatch(getSearchConditionDB(params));
     }
   }, []);
 
   const onSearchConditionMore = value => {
+    const params = `condition${categoryParams}&inside=${value}`;
     dispatch(setPlaceListInit());
-    const params = `condition?weather=${weatherStatus.status}&category=${selectedCategory.category.value}&num=${selectedCategory.MemberCnt.value}&gender=${selectedCategory.gender.value}&inside=${value}`;
     history.push(`/place/list/${params}`);
   };
 
   return (
     <>
+      {isLoading && <Spinner />}
       <Header
         _type="search"
         _back
@@ -45,8 +45,8 @@ const SearchTypeList = props => {
         _search
         _color="#000"
       />
-      <Container>
-        <SelectedCategory tag={selectedCategory} />
+      <Container height="auto">
+        <SelectedCategory />
         {/* 실내 리스트 */}
         <Grid isFlex>
           <ContentsTitle
@@ -67,11 +67,12 @@ const SearchTypeList = props => {
             </Button>
           )}
         </Grid>
+      </Container>
+      <Container padding="0 0 0 24px">
         <Grid>
           <Swiper list={inSideList} type="selectResult" />
         </Grid>
         {/* 실외 리스트  */}
-
         <Grid margin="28px 0 0 0" padding="0 0 100px 0">
           <Grid isFlex>
             <ContentsTitle

@@ -1,23 +1,23 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-alert */
 /* eslint-disable no-undef */
-/* eslint-disable react/destructuring-assignment */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Text, Image } from '../elements';
-import ListCard from '../components/place/ListCard';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
-import { placeSearchResult } from '../images';
+import ListCard from '../components/place/ListCard';
+import { placeSearchResult } from '../images/index';
 import { getSearchConditionListDB } from '../redux/async/place';
+import SelectedCategory from '../components/place/SelectedCategory';
 
 const PlaceList = props => {
   const dispatch = useDispatch();
-  const url = props.location.search;
-  const searchType = props.match.params.params;
+  const { location, match } = props;
+  const url = location.search;
+  const searchType = match.params.params;
   const placeList = useSelector(state => state.place.placeList);
   const pagination = useSelector(state => state.place.placePagination);
+
   /* target 을 지켜보다 target이 정해진 threshold 비율만큼 지정 행동 */
   const [target, setTarget] = useState(null);
 
@@ -41,7 +41,7 @@ const PlaceList = props => {
   // 무한 스크롤 구현
   useEffect(() => {
     // observer 설정 값
-    const options = { threshold: 0.5 };
+    const options = { rootMargin: '30px', threshold: 0.5 };
     // observer 가 수행할 행동
     const moreFun = ([entires], observer) => {
       if (!entires.isIntersecting) {
@@ -65,8 +65,10 @@ const PlaceList = props => {
 
   return (
     <>
+      {/* {isLoading && <Spinner />} */}
       <Header _back _content="검색결과" _map _search />
       <Container>
+        <SelectedCategory />
         {placeList && placeList.length <= 0 ? (
           <ImageContainer>
             <Image src={placeSearchResult} />
@@ -141,3 +143,22 @@ const ImageContainer = styled.div`
   }
 `;
 export default PlaceList;
+
+/* <Text margin="40px 0 0 0" fontSize="20px" bold>
+              {title} ?
+            </Text>
+            <PlaceGrid>
+              {placeList &&
+                placeList.map((info, idx) => {
+                  const lastItem = idx === placeList.length - 1;
+                  return (
+                    <CardWrap key={`key-${info.postId}`}>
+                      <ListCard
+                        type="searchList"
+                        info={info}
+                        ref={lastItem ? setTarget : null}
+                      />
+                    </CardWrap>
+                  );
+                })}
+            </PlaceGrid> */

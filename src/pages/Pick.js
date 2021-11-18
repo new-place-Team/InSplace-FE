@@ -7,17 +7,17 @@ import { ReactComponent as SelectedHeart } from '../images/Icon/ic_heart-dark.sv
 import { ReactComponent as PinFilled } from '../images/Icon/ic_pin-filled.svg';
 import { getCategoryText } from '../shared/transferText';
 import { noLikePlace, noVisitedPlace } from '../images/index';
-
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
-
 import { getFavoritesDB, getVisitedDB } from '../redux/async/user';
+import Spinner from '../components/common/Spinner';
 
 const Pick = () => {
   const dispatch = useDispatch();
   const userPickPlaces = useSelector(state => state.user.userPickPlaces);
+  const isLoading = useSelector(state => state.loaded.is_loaded);
   const [isLikeSelected, setIsLikeSelected] = useState(true);
-  console.log('userPickPlaces', userPickPlaces);
+  // console.log('userPickPlaces', userPickPlaces);
   useEffect(() => {
     if (!userPickPlaces.likeList) {
       dispatch(getFavoritesDB());
@@ -46,6 +46,7 @@ const Pick = () => {
               isLikeSelected ? '2px solid #000' : '1px solid #A4A9B1'
             }
             _onClick={() => toggleSelected(true)}
+            cursor
           >
             <Icons
               margin="0 8px 0 0"
@@ -68,6 +69,7 @@ const Pick = () => {
               isLikeSelected ? '1px solid #A4A9B1' : '2px solid #000'
             }
             _onClick={() => toggleSelected(false)}
+            cursor
           >
             <Icons
               margin="0 8px 0 0"
@@ -87,6 +89,7 @@ const Pick = () => {
         {isLikeSelected ? (
           /* 좋아요 리스트 */
           <>
+            {isLoading && <Spinner />}
             {userPickPlaces.likeList && userPickPlaces.likeList.length > 0 ? (
               <Grid width="100%" isFlex wrap padding="0 0 65px  0">
                 {userPickPlaces.likeList.map(item => {
@@ -115,6 +118,7 @@ const Pick = () => {
               </Grid>
             ) : (
               <>
+                {isLoading && <Spinner />}
                 <Grid
                   width="100%"
                   height="80%"
