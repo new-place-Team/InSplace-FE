@@ -65,7 +65,6 @@ const PlaceList = props => {
 
   return (
     <>
-      {/* {isLoading && <Spinner />} */}
       <Header _back _content="검색결과" _map _search />
       <Container>
         <SelectedCategory />
