@@ -1,11 +1,11 @@
 /* eslint-disable */
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as ArtImg } from '../../images/map/ic_map_art.svg';
-import { ReactComponent as ActivityImg } from '../../images/map/ic_map_activity.svg';
-import { ReactComponent as CafeImg } from '../../images/map/ic_map_cafe.svg';
-import { ReactComponent as TravelImg } from '../../images/map/ic_map_travel.svg';
-import { ReactComponent as RestaurantImg } from '../../images/map/ic_map_restaurant.svg';
+import ArtImg from '../../images/map/ic_map_art.jpg';
+import ActivityImg from '../../images/map/ic_map_activity.jpg';
+import CafeImg from '../../images/map/ic_map_cafe.jpg';
+import TravelImg from '../../images/map/ic_map_travel.jpg';
+import RestaurantImg from '../../images/map/ic_map_restaurant.jpg';
 
 const Map = props => {
   const mapDiv = useRef(null);
@@ -40,15 +40,17 @@ const Map = props => {
     allPlaces.forEach(el => {
       console.log(el, el.category);
       let imageSrc = ActivityImg;
-      if (el.category === 1) {
+      if (el.category === '여행') {
         imageSrc = TravelImg;
-      } else if (el.category === 2) {
+      } else if (el.category === '맛집') {
         imageSrc = RestaurantImg;
-      } else if (el.category === 3) {
+      } else if (el.category === '카페') {
         imageSrc = CafeImg;
+      } else if (el.category === '예술') {
+        imageSrc = ArtImg;
       }
       const imageSize = new kakao.maps.Size(24, 24);
-      let markerImage = new kakao.maps.markerImage(imageSrc, imageSize);
+      let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
       const marker = new kakao.maps.Marker({
         map,
