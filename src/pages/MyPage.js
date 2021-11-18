@@ -7,7 +7,7 @@ import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { right, mypageNext, profile1 } from '../images/index';
 import { Button, Container, Grid, Image, Text } from '../elements';
-import sunBg from '../images/weather/sun_bg.jpg';
+import sunBg from '../images/weather/sun_full_768.jpg';
 import ConfirmModal from '../components/common/ConfirmModal';
 import CommonModal from '../components/common/CommonModal';
 import { setCommonModalOn } from '../redux/modules/commonSlice';
