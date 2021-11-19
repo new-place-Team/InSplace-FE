@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
+
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Text, Textarea } from '../elements';
@@ -17,6 +19,7 @@ const ReviewWrite = props => {
   const { id } = match.params;
   const reviewId = history.location.state;
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const commomModal = useSelector(state => state.common.modalStatus);
   const fileInput = useRef();
   const reviewTypeEdit = reviewId !== undefined;
@@ -34,29 +37,44 @@ const ReviewWrite = props => {
 
   const [selectData, setSelectData] = useState([
     {
-      title: '날씨는 어땠나요?',
+      title: t('ReviewWrite.selectWeather.selectTitle'),
       list: [
-        { selecteText: '맑음', value: 1 },
-        { selecteText: '비', value: 2 },
-        { selecteText: '눈', value: 3 },
-        { selecteText: '흐림', value: 4 },
-        { selecteText: '기억안남', value: 5 },
+        {
+          selecteText: t('ReviewWrite.selectWeather.weatherType.0'),
+          value: 1,
+        },
+        {
+          selecteText: t('ReviewWrite.selectWeather.weatherType.1'),
+          value: 2,
+        },
+        {
+          selecteText: t('ReviewWrite.selectWeather.weatherType.2'),
+          value: 3,
+        },
+        {
+          selecteText: t('ReviewWrite.selectWeather.weatherType.3'),
+          value: 4,
+        },
+        {
+          selecteText: t('ReviewWrite.selectWeather.weatherType.4'),
+          value: 5,
+        },
       ],
       type: 'weather',
     },
     {
-      title: '언제 가셨나요?',
+      title: t('ReviewWrite.selectWeek.selectTitle'),
       list: [
-        { selecteText: '평일', value: 1 },
-        { selecteText: '주말', value: 0 },
+        { selecteText: t('ReviewWrite.selectWeek.weekType.0'), value: 1 },
+        { selecteText: t('ReviewWrite.selectWeek.weekType.1'), value: 0 },
       ],
       type: 'weekdayYN',
     },
     {
-      title: '재방문 의사가 있으신가요?',
+      title: t('ReviewWrite.selectreVisited.selectTitle'),
       list: [
-        { selecteText: '있음', value: 1 },
-        { selecteText: '없음', value: 0 },
+        { selecteText: t('ReviewWrite.selectreVisited.yesOrNo.0'), value: 1 },
+        { selecteText: t('ReviewWrite.selectreVisited.yesOrNo.1'), value: 0 },
       ],
       type: 'revisitYN',
     },
@@ -173,7 +191,14 @@ const ReviewWrite = props => {
   return (
     <>
       {commomModal && <CommonModal />}
-      <Header _back _content={reviewTypeEdit ? '리뷰 수정' : '리뷰 쓰기'} />
+      <Header
+        _back
+        _content={
+          reviewTypeEdit
+            ? t('ReviewWrite.headerSubTitle.0')
+            : t('ReviewWrite.headerSubTitle.1')
+        }
+      />
       <Container>
         <ReviewPostInfo postId={id} />
         <Grid>
@@ -193,12 +218,12 @@ const ReviewWrite = props => {
           })}
         </Grid>
         <ReviewBox>
-          <Text type="Title16">상세한 후기를 써주세요</Text>
+          <Text type="Title16">{t('ReviewWrite.reviewTitle')}</Text>
           <Textarea
             margin="16px 0 0 0"
             padding="20px"
             border="1px solid #E6E9EC"
-            placeholder="최소 15자 이상 써주세요"
+            placeholder={t('ReviewWrite.reviewPlaceholder')}
             value={state.reviewDesc}
             _onChange={onChange}
           >
@@ -210,11 +235,11 @@ const ReviewWrite = props => {
             fontSize="14px"
             color="#C2C6CB"
           >
-            {state.reviewDesc.length} / 최소 15자
+            {state.reviewDesc.length} / {t('ReviewWrite.minText')}
           </Text>
         </ReviewBox>
         <ReviewBox>
-          <Text type="Title16">사진을 올려주세요 (선택)</Text>
+          <Text type="Title16">{t('ReviewWrite.uploadPhoto')}</Text>
           <Grid isFlex margin="16px 0 150px 0">
             <UploadLabel htmlFor="uploadImage">
               <ImageBox>
@@ -244,7 +269,9 @@ const ReviewWrite = props => {
         </ReviewBox>
         <Grid padding="0 0 40px 0">
           <Button type="fullSizeBlack" _onClick={handleReview}>
-            {reviewTypeEdit ? '리뷰 수정하기' : '리뷰 등록하기'}
+            {reviewTypeEdit
+              ? t('ReviewWrite.EditOrRegister.0')
+              : t('ReviewWrite.EditOrRegister.1')}
           </Button>
         </Grid>
       </Container>

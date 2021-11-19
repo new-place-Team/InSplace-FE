@@ -7,6 +7,7 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalOn } from '../redux/modules/userSlice';
 import { getPeopleMbti } from '../shared/transferText';
@@ -24,6 +25,7 @@ import { setCommonModalOn } from '../redux/modules/commonSlice';
 
 const MyPageEdit = props => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const modalStatus = useSelector(state => state.user.modalStatus);
   const mbtiInfo = useSelector(state => state.user.userMbti);
   const commomModal = useSelector(state => state.common.modalStatus);
@@ -148,7 +150,7 @@ const MyPageEdit = props => {
   return (
     <>
       {commomModal && <CommonModal />}
-      <Header _back _content="프로필 수정" />
+      <Header _back _content={t('MyPageEdit.headerSubTitle')} />
       <Container padding="20px 0 0 0">
         <Grid padding="42px 20px 0 20px">
           <ProfileWrap>
@@ -175,7 +177,7 @@ const MyPageEdit = props => {
           </ProfileWrap>
           <Grid margin="0 0 32px 0">
             <Label fontSize="16px" color="#A3A6AA">
-              닉네임
+              {t('MyPageEdit.headerSubTitle')}
             </Label>
             <Input name="nickname" value={nickname} onChange={onChange} />
             {errorMessage === '사용 가능한 닉네임 입니다!' ? (
@@ -197,7 +199,7 @@ const MyPageEdit = props => {
                   border="1px solid #C4C4C4"
                   _onClick={userCheck}
                 >
-                  중복확인
+                  {t('MyPageEdit.duplicate')}
                 </Button>
               ) : (
                 <Button
@@ -207,14 +209,14 @@ const MyPageEdit = props => {
                   border="1px solid #C4C4C4"
                   _onClick={userCheck}
                 >
-                  중복확인
+                  {t('MyPageEdit.duplicate')}
                 </Button>
               )}
             </Div>
           </Grid>
           <Grid margin="0 0 32px 0">
             <Label fontSize="16px" color="#A3A6AA">
-              이메일
+              {t('MyPageEdit.email')}
             </Label>
             <Input
               name="email"
@@ -235,7 +237,7 @@ const MyPageEdit = props => {
           </Grid>
           <Grid margin="0 0 32px 0">
             {/* 선택안함 : 2, 여성 : 0, 남성 : 1 */}
-            <Label type="form">성별</Label>
+            <Label type="form">{t('MyPageEdit.myPagegender')}</Label>
             <Grid isFlex>
               <GenderButton
                 onClick={() => {
@@ -247,7 +249,7 @@ const MyPageEdit = props => {
                   maleFemale === null ? '1px solid #000' : '1px solid #C4C4C4'
                 }
               >
-                선택안함
+                {t('MyPageEdit.genderType.0')}
               </GenderButton>
               <GenderButton
                 onClick={() => {
@@ -259,7 +261,7 @@ const MyPageEdit = props => {
                   maleFemale === 0 ? '1px solid #000' : '1px solid #C4C4C4'
                 }
               >
-                여성
+                {t('MyPageEdit.genderType.1')}
               </GenderButton>
               <GenderButton
                 onClick={() => {
@@ -271,14 +273,14 @@ const MyPageEdit = props => {
                   maleFemale === 1 ? '1px solid #000' : '1px solid #C4C4C4'
                 }
               >
-                남성
+                {t('MyPageEdit.genderType.2')}
               </GenderButton>
             </Grid>
           </Grid>
         </Grid>
         <BottomWrap>
           <Button type="fullSizeBlack" _onClick={onSubmitHandler}>
-            수정하기
+            {t('MyPageEdit.mypageEdit')}
           </Button>
         </BottomWrap>
         {modalStatus === true ? <Modal /> : null}

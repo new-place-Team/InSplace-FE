@@ -10,7 +10,7 @@ import SelectedContents from '../components/place/SelectedContents';
 import { Container, Grid, Text } from '../elements/index';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import { history } from '../redux/configureStore';
-import { getPeopleText } from '../shared/transferText';
+// import { getPeopleText } from '../shared/transferText';
 import { getSearchConditionDB } from '../redux/async/place';
 
 const SelectedType = () => {
@@ -33,6 +33,23 @@ const SelectedType = () => {
     categoryInfo.gender === '' &&
     categoryInfo.category === '';
 
+  const getPeopleText = type => {
+    let text = '';
+    switch (type) {
+      case 1:
+        text = t('selectTypePage.returnText.0');
+        break;
+      case 2:
+        text = t('selectTypePage.returnText.1');
+        break;
+      case 3:
+        text = t('selectTypePage.returnText.2');
+        break;
+      default:
+        text = t('selectTypePage.returnText.3');
+    }
+    return text;
+  };
   const [selectData, setSelectData] = React.useState([
     {
       title: t('selectTypePage.selectGender.selectTitle'),
@@ -99,7 +116,7 @@ const SelectedType = () => {
       categoryInfo.MemberCnt === '' ||
       categoryInfo.category === ''
     ) {
-      window.alert('유형을 모두 선택해주세요');
+      window.alert(t('selectTypePage.alert'));
       return;
     }
 
@@ -107,7 +124,6 @@ const SelectedType = () => {
     dispatch(getSearchConditionDB(params));
     history.push(`/select-type/result${params}`);
   };
-
   return (
     <>
       <Header

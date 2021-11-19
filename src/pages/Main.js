@@ -112,15 +112,15 @@ const Main = () => {
 
         {/* Place Section */}
         <Grid>
-          {/* 임시 한국어 외국어 버튼 */}
-          <Button type="type" _onClick={korean}>
-            한국어
-          </Button>
-          <Button type="type" _onClick={american}>
-            English
-          </Button>
           {/* 날씨에 따른 공간 */}
           <Grid padding="0 0 48px 24px">
+            {/* 임시 한국어 외국어 버튼 */}
+            <Button type="type" _onClick={korean}>
+              한국어
+            </Button>
+            <Button type="type" _onClick={american}>
+              English
+            </Button>
             <ContentsTitle title={t('mainPage.weatherPlace')} />
             <Swiper list={weatherList} />
           </Grid>

@@ -2,6 +2,7 @@
 /* eslint-disable no-shadow */
 import React, { forwardRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { Button, Grid, Text, Image } from '../../elements/index';
 import { good, bad, profile1 } from '../../images/index';
@@ -16,6 +17,7 @@ import CommonModal from '../common/CommonModal';
 const ReviewCard = forwardRef((props, ref) => {
   const { info, postId, loginUser, type } = props;
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const [confirmModal, setConfirmModal] = useState(false);
   const modalStatus = useSelector(state => state.common.modalStatus);
   const date = info.createdAt.split('T')[0];
@@ -63,8 +65,8 @@ const ReviewCard = forwardRef((props, ref) => {
       {modalStatus && <CommonModal />}
       {confirmModal && (
         <ConfirmModal
-          title="리뷰를 삭제하시겠어요?"
-          content="한번 삭제된 리뷰는 영구적으로 삭제됩니다."
+          title={t('ReviewCard.reviewModal.0')}
+          content={t('ReviewCard.reviewModal.1')}
           showModal={showConfirmModal}
           setConfirmModal={setConfirmModal}
           onDelete={onDeleteReview}
@@ -75,7 +77,7 @@ const ReviewCard = forwardRef((props, ref) => {
         {loginUser === info.nickname && (
           <Grid justify="flex-end">
             <Button size="14px" padding="8px" _onClick={goToReviewEditPage}>
-              수정
+              {t('ReviewCard.edit')}
             </Button>
             <Button
               size="14px"
@@ -84,7 +86,7 @@ const ReviewCard = forwardRef((props, ref) => {
               margin="0 0 0 10px"
               _onClick={showConfirmModal}
             >
-              삭제
+              {t('ReviewCard.delete')}
             </Button>
           </Grid>
         )}
@@ -117,7 +119,7 @@ const ReviewCard = forwardRef((props, ref) => {
               color="#3E4042"
               letterSpacing="-0.0008em"
             >
-              날씨
+              {t('ReviewCard.weather')}
             </Text>
             <Text fontSize="14px" color="#7A7D81" letterSpacing="-0.0008em">
               {info.weather}
@@ -130,10 +132,10 @@ const ReviewCard = forwardRef((props, ref) => {
               color="#3E4042"
               letterSpacing="-0.0008em"
             >
-              날짜
+              {t('ReviewCard.days')}
             </Text>
             <Text fontSize="14px" color="#7A7D81" letterSpacing="-0.0008em">
-              {info.weekdayYN ? '평일' : '주말'}
+              {info.weekdayYN ? t('ReviewCard.week.0') : t('ReviewCard.week.1')}
             </Text>
           </Grid>
         </Grid>
@@ -144,7 +146,7 @@ const ReviewCard = forwardRef((props, ref) => {
             color="#3E4042"
             letterSpacing="-0.0008em"
           >
-            재방문의사
+            {t('ReviewCard.revisited')}
           </Text>
           <Grid>
             <Image width="16px" src={info.revisitYN ? good : bad} />
@@ -158,21 +160,24 @@ const ReviewCard = forwardRef((props, ref) => {
           <Grid isFlex>
             {info.likeState ? (
               <LikeButton className="active" onClick={handleLikesCancel}>
-                도움이돼요
+                {t('ReviewCard.help')}
               </LikeButton>
             ) : (
-              <LikeButton onClick={handleLikes}>도움이돼요</LikeButton>
+              <LikeButton onClick={handleLikes}>
+                {t('ReviewCard.help')}
+              </LikeButton>
             )}
             {info.likeCnt > 0 && (
               <Text fontSize="13px" color="#3E4042">
-                {info.likeCnt}명에게 도움이 되었습니다
+                {info.likeCnt}
+                {t('ReviewCard.helpPeople')}
               </Text>
             )}
           </Grid>
           {loginUser === info.nickname ? (
-            <Button>버튼</Button>
+            <Button>{t('ReviewCard.reportButton')}</Button>
           ) : (
-            <Button>신고하기</Button>
+            <Button>{t('ReviewCard.report')}</Button>
           )}
         </Grid>
       </ReviewCardWrap>

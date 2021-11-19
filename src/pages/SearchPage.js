@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Grid, Image, Text } from '../elements';
 import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
 import { history } from '../redux/configureStore';
@@ -9,6 +10,7 @@ import { setPlaceListInit } from '../redux/modules/placeSlice';
 
 const SearchPage = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const [state, setState] = useState('');
   const onChange = e => {
     setState(e.target.value);
@@ -37,7 +39,7 @@ const SearchPage = () => {
             <Grid flex>
               <Input
                 value={state}
-                placeholder="어떤 장소가 궁금하세요?"
+                placeholder={t('SearchPlace.placeholder')}
                 onChange={onChange}
                 onKeyPress={e => e.key === 'Enter' && GotoSearchPage(e)}
               />
@@ -47,7 +49,7 @@ const SearchPage = () => {
       </HeaderBar>
       <ImageContainer>
         <Image src={placeSearch} />
-        <Text color="#3E4042">궁금하신 장소를 입력해주세요.</Text>
+        <Text color="#3E4042">{t('SearchPlace.text')}</Text>
       </ImageContainer>
     </>
   );

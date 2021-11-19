@@ -21,7 +21,9 @@
       "selectTitle": "Choose place you Wanted",
       "placeType": ["Tour", "Tasty room", "Cafe", "Arts", "Activity"]
     },
-    "resultSentence": ["👏🏻", "Place", "Want(s) to go"]
+    "returnText": ["One", "Two", "Less than Four", "More than Four"],
+    "resultSentence": ["", "Place", "Want(s) to go"],
+    "alert": "Please Select all Types"
   },
   "loginPage": {
     "headerSubTitle": "Login",
@@ -46,6 +48,7 @@
     "gender": "Gender",
     "genderType": ["No Select", "Female", "Male"],
     "mbti": "MBTI",
+    "noMbtiSelect": "no Selection",
     "register": "Sign up",
     "placeholder": [
       "Please Fill your Email Address",
@@ -67,55 +70,137 @@
     ],
     "nicNameError": [
       "Please fill your Nickname",
+      "Please fill a Nickname with two or more characters!",
       "Please fill your Nickname with 12 digits or less.",
       "Please check for duplicate nicknames first",
       "This Nickname is already used",
       "This Nickname is available"
     ]
   },
+  "SelectedContents": {
+    "memberCount1": ["Two", "Less than Four", "More than Four"],
+    "memberCount2": ["One", "Two", "Less than Four", "More than Four"]
+  },
   "selectTypeResultPage": {
     "headerSubTitle": "Search Result",
     "outSideResult": [
-      "실외검색 결과가 없습니다.",
-      "실외에서 시원한 바람과 함께"
+      "No result of OuterPlace",
+      "☀️ Outside with a Cool Breeze"
     ],
-    "inSideResult": ["실내검색 결과가 없습니다..", "실내에서 여유로운 시간을"]
+    "inSideResult": [
+      "There is no result of Innerplace",
+      "☕️ Relaxing Time Indoors"
+    ]
+  },
+  "placeList": {
+    "headerSubTitle": "Search Result",
+    "category": ["InnerPlace", "OuterPlace"]
   },
   "placeMapPage": {
     "headerSubTitle": "상세보기"
   },
   "placeDetailPage": {
-    "navigation": ["가본곳", "찜하기", "리뷰쓰기", "공유하기"],
-    "category": ["장소팁", "가게정보", "주소", "전화"]
+    "navigation": ["Visited", "Pick", "Review", "Share"],
+    "category": ["Desc", "Information", "Address", "Phone"]
   },
   "ReviewListPage": {
-    "reviewTitle": "리뷰",
-    "reviewFilter": ["최신순", "추천순"]
+    "reviewTitle": "Review",
+    "reviewFilter": ["Lastest", "Recommended"]
   },
   "ReviewCard": {
-    "modify": "수정",
-    "delete": "삭제",
-    "weather": "날씨",
-    "days": "날짜",
-    "week": ["평일", "주말"],
-    "revisited": "재방문의사",
-    "help": "도움이돼요",
-    "helpPeople": "명에게 도움이 되었습니다."
+    "edit": "Edit",
+    "delete": "Delete",
+    "weather": "Weather",
+    "days": "Days",
+    "week": ["Weeks", "Weekend"],
+    "revisited": "Wants revisit",
+    "help": "Helps",
+    "helpPeople": " helped",
+    "reviewModal": [
+      "Wants to Delete your Reivew",
+      "Reviews that have been deleted will be deleted permanently."
+    ],
+    "reportButton": "Button",
+    "report": "Report"
   },
   "ReviewWrite": {
-    "headerSubTitle": ["리뷰수정", "리뷰쓰기"],
+    "headerSubTitle": ["Review Edit", "Review Write"],
     "selectWeather": {
-      "selectTitle": "날씨는 어땠나요?,",
-      "weatherType": ["맑음", "비", "눈", "흐림", "기억안남"]
+      "selectTitle": "How's the Weather? 🌈",
+      "weatherType": ["Sunny", "Rain", "Snow", "Cloud", "Dont Know"]
     },
-    "selectNumber": {
-      "selectTitle": "성별을 선택해 주세요 ",
-      "genderType": ["1명", "2명", "4명 미만", "4명 이상"]
+    "selectWeek": {
+      "selectTitle": "When did you go?",
+      "weekType": ["Weeks", "Weekend"]
     },
-    "selectPlace": {
-      "selectTitle": "장소를 선택해주세요",
-      "genderType": ["여행", "맛집", "카페", "예술", "액티비티"]
+    "selectreVisited": {
+      "selectTitle": "Are you Willing To Revisit?",
+      "yesOrNo": ["Yes", "No"]
     },
-    "resultSentence": ["이", "장소 을(를)", "가고 싶어요"]
+    "reviewTitle": "Please Write your Story",
+    "reviewPlaceholder": "Please write at least 15 letters",
+    "minText": "At least 15 letters",
+    "uploadPhoto": "📷 Please Upload Photo (Optional)",
+    "EditOrRegister": ["Edit Review", "Upload Review"]
+  },
+  "Pick": {
+    "headerSubTitle": "My Pick Place",
+    "pickPlace": "Pick Place",
+    "visitedPlace": "Visited",
+    "noPickPlace": "No Pick Place.",
+    "noVisitedPlace": "No Visited Place"
+  },
+  "SearchPlace": {
+    "placeholder": "Wants to Search Place?",
+    "text": "Please Type Place 😙!"
+  },
+  "MbtiModal": {
+    "mbtiTitle": "Please Select MBTI 😀",
+    "noSelection": "no Selection"
+  },
+  "Setting": {
+    "headerSubTitle": "Setting",
+    "logOut": "Logout",
+    "withdrawal": "Withdrawal"
+  },
+  "MyPage": {
+    "UpdateIssue": "Update Issue",
+    "Opinion": "Send your hope",
+    "Version": "Version",
+    "Donation": "Donation"
+  },
+  "MyPageEdit": {
+    "headerSubTitle": "Edit Profile",
+    "nickname": "Nickname",
+    "duplicate": "Check",
+    "email": "Email",
+    "myPagegender": "Gender",
+    "genderType": ["No Select", "Female", "Male"],
+    "mypageEdit": "Edit Profile",
+    "noMbtiSelect": "MBTI 선택안함",
+    "register": "가입하기",
+    "placeholder": [
+      "이메일을 입력해주세요",
+      "비밀번호를 입력해주세요",
+      "비밀번호 확인을 입력해주세요",
+      "닉네임을 입력해주세요"
+    ],
+    "idErrorMessage": ["이메일을 입력해주세요", "이메일 형식이 맞지않습니다."],
+    "passErrorMessage": [
+      "비밀번호를 입력해주세요",
+      "비밀번호는 8자리 이상으로 입력해주세요"
+    ],
+    "passconfirmMessage": [
+      "비밀번호 확인을 입력해주세요",
+      "비밀번호가 일치하지 않습니다."
+    ],
+    "nicNameError": [
+      "닉네임을 입력해주세요",
+      "닉네임을 두글자 이상으로 입력해주세요!",
+      "닉네임은 12자리 이하로 입력해수제요",
+      "닉네임 중복 체크를 먼저 해주세요!",
+      "이미 사용중인 닉네임 입니다.",
+      "사용 가능한 닉네임 입니다."
+    ]
   }
 }
