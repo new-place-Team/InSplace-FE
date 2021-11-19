@@ -17,7 +17,7 @@ const Pick = () => {
   const userPickPlaces = useSelector(state => state.user.userPickPlaces);
   const isLoading = useSelector(state => state.loaded.is_loaded);
   const [isLikeSelected, setIsLikeSelected] = useState(true);
-  console.log('userPickPlaces', userPickPlaces);
+  // console.log('userPickPlaces', userPickPlaces);
   useEffect(() => {
     if (!userPickPlaces.likeList) {
       dispatch(getFavoritesDB());

@@ -1,13 +1,11 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable no-alert */
-/* eslint-disable import/no-unresolved */
-// eslint-disable-next-line import/named
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
 import { Grid } from '../../elements/index';
 import theme from '../../styles/theme';
+import WeatherInfo from './WeatherInfo';
 /* weather Icon */
 import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
 import { ReactComponent as CloudIcon } from '../../images/weather/cloud.svg';
@@ -27,6 +25,7 @@ const Navbar = () => {
   const isLogin = useSelector(state => state.user.isLogin);
   const userInfo = useSelector(state => state.user.userInfo);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
+  const [weatherModalShow, setWeatherModalShow] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
 
   let WeatherIcon = '';
@@ -47,6 +46,13 @@ const Navbar = () => {
       weatherKey = 'sun';
     }
   }
+  const openWeatherModal = () => {
+    setWeatherModalShow(true);
+  };
+
+  const closeWeatherModal = () => {
+    setWeatherModalShow(false);
+  };
 
   const pageMove = value => {
     if (value === undefined && !isLogin) {
@@ -77,6 +83,9 @@ const Navbar = () => {
           goToLogin
         />
       )}
+      {weatherModalShow && (
+        <WeatherInfo closeWeatherModal={closeWeatherModal} />
+      )}
       <Nav>
         <Content>
           <Wrap>
@@ -84,6 +93,7 @@ const Navbar = () => {
               bg={theme.weatherColor[weatherKey]}
               justifyContent="center"
               width="100%"
+              _onClick={openWeatherModal}
             >
               <Icon color="#fff">{WeatherIcon}</Icon>
             </Grid>

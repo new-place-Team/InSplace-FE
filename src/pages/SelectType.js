@@ -183,6 +183,7 @@ const SelectedType = () => {
 const ChangeContainer = styled.div`
   position: fixed;
   background-color: #fff;
+  width: 100%;
   z-index: 3;
 `;
 

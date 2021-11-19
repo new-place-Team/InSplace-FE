@@ -1,11 +1,9 @@
-/* eslint-disable no-undef */
-// eslint-disable-next-line prefer-const
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Text, Image } from '../../elements';
 import { getMbti, setModalOff } from '../../redux/modules/userSlice';
-import { x } from '../../images/index';
+import { xclose } from '../../images/index';
 import checked from '../../images/Icon/ic_check.svg';
 import { getPeopleMbti } from '../../shared/transferText';
 
@@ -197,7 +195,7 @@ const Modal = () => {
               {currentMbtiId === 16 ? <Icon src={checked} /> : null}
             </MBTIDiv>
             <AbsolBtn onClick={modaloff}>
-              <Image width="30%" src={x} />
+              <Image width="30%" src={xclose} />
             </AbsolBtn>
           </ModalContent>
         </Grid>

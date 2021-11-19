@@ -23,7 +23,10 @@ const Header = props => {
   } = props;
 
   const gotoMapPage = () => {
-    history.push('/place/map');
+    const { search, pathname } = history.location;
+    const pathArr = pathname.split('/');
+    const type = pathArr[pathArr.length - 1];
+    history.push(`/place-map/${type}${search}`);
   };
   const gotoSearchPage = () => {
     history.push('/search');
@@ -176,6 +179,7 @@ const ContentArea = styled.div`
   min-height: 66px;
   margin: 0 auto;
   padding: 0 26px 0 24px;
+  z-index: 4;
 `;
 
 const Content = styled.div`
@@ -183,6 +187,7 @@ const Content = styled.div`
   max-width: 768px;
   height: 66px;
   min-height: 66px;
+  z-index: 4;
 `;
 
 const Icon = styled.img`

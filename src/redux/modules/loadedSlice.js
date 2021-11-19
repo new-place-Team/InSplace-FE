@@ -16,6 +16,7 @@ const loadedSlice = createSlice({
     },
   },
 });
+
 export const { getLoaded } = loadedSlice.actions;
 
 export default loadedSlice;
