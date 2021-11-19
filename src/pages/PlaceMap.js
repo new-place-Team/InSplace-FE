@@ -61,6 +61,7 @@ const MapContainer = () => {
             <SelectedCategory />
           </Grid>
           {/* 카카오 지도 */}
+
           <MapDiv>
             <Map
               width="100vw"
@@ -69,6 +70,7 @@ const MapContainer = () => {
               latLonFocus={latLonFocus}
             />
           </MapDiv>
+
           {/* SwiperList Card */}
           <SwiperMap list={placeList} _onChageFocus={onChageFocus} />
         </Grid>

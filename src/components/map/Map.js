@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import ArtImg from '../../images/map/ic_map_art.jpg';
-import ActivityImg from '../../images/map/ic_map_activity.jpg';
+import ActivityImg from '../../images/map/ic_map_activity.svg';
 import CafeImg from '../../images/map/ic_map_cafe.jpg';
 import TravelImg from '../../images/map/ic_map_travel.jpg';
 import RestaurantImg from '../../images/map/ic_map_restaurant.jpg';
@@ -38,7 +38,7 @@ const Map = props => {
 
     /* Marker */
     allPlaces.forEach(el => {
-      console.log(el, el.category);
+      // console.log(el, el.category);
       let imageSrc = ActivityImg;
       if (el.category === '여행') {
         imageSrc = TravelImg;
