@@ -1,6 +1,7 @@
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalOn } from '../redux/modules/userSlice';
 import { Container, Grid, Input, Label, Button, Text } from '../elements';
@@ -42,6 +43,7 @@ const Signup = () => {
   const [passError, setPassError] = useState('');
   const [passconfirmError, setPassconfrimError] = useState('');
   const [nicknameError, setNicknameError] = useState('');
+  const { t, i18n } = useTranslation();
 
   // 클릭했을때 여자는 1이 남자는 0이 state에 저장
   const selectGender = gender => {
@@ -173,7 +175,7 @@ const Signup = () => {
   return (
     <>
       {commomModal && <CommonModal />}
-      <Header _back _content="회원가입" />
+      <Header _back _content={t('signUpPage.headerSubTitle')} />
       <Container padding="66px 0 0 0">
         <Grid padding="42px 20px 0 20px">
           <Wrap>

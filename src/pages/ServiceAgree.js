@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid, Input, Label, Button, Text } from '../elements';
+import { Container, Grid, Text } from '../elements';
 
 const ServiceAgree = () => {
   return (

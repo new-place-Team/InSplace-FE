@@ -1,0 +1,121 @@
+{
+  "test": "English Test",
+
+  "mainPage": {
+    "recommend": "Recommend Place",
+    "weatherPlace": "Weather Place",
+    "popularPlace": "👍 Most Recommended",
+    "adminPlace": "Admin's Pick"
+  },
+  "selectTypePage": {
+    "headerSubTitle": "Select type",
+    "selectGender": {
+      "selectTitle": "Choose your Gender",
+      "genderType": ["Woman", "Man", "Couples"]
+    },
+    "selectNumber": {
+      "selectTitle": "Choose Member Counts",
+      "peopleCount": ["One", "Two", "Less than Four", "More than Four"]
+    },
+    "selectPlace": {
+      "selectTitle": "Choose place you Wanted",
+      "placeType": ["Tour", "Tasty room", "Cafe", "Arts", "Activity"]
+    },
+    "resultSentence": ["👏🏻", "Place", "Want(s) to go"]
+  },
+  "loginPage": {
+    "headerSubTitle": "Login",
+    "loginEmail": "Email",
+    "loginPassword": "Password",
+    "loginPlaceholder": [
+      "Please Fill your Email Address",
+      "Please Fill your Password"
+    ],
+    "loginerrMessage": ["Type your Email!", "Type your Password!"],
+    "kakaoLogin": "KaKao Login",
+    "login": "Login",
+    "register": "Sign up"
+  },
+  "signUpPage": {
+    "headerSubTitle": "Sign up",
+    "signUpEmail": "Email",
+    "signUpPassword": "Password",
+    "passwordConfirm": "Password Confirm",
+    "nickName": "Nickname",
+    "duplicateBtn": "Check",
+    "gender": "Gender",
+    "genderType": ["No Select", "Female", "Male"],
+    "mbti": "MBTI",
+    "register": "Sign up",
+    "placeholder": [
+      "Please Fill your Email Address",
+      "Please Fill your Password",
+      "Please Fill your Password Confirm",
+      "Please Fill your NickName"
+    ],
+    "idErrorMessage": [
+      "Please fill your Email!",
+      "Please fill in Email Format"
+    ],
+    "passErrorMessage": [
+      "Please fill your Password!",
+      "Please fill a password of at least 8 digits  "
+    ],
+    "passconfirmMessage": [
+      "Please fill Password Confirmation",
+      "Please Check your Password"
+    ],
+    "nicNameError": [
+      "Please fill your Nickname",
+      "Please fill your Nickname with 12 digits or less.",
+      "Please check for duplicate nicknames first",
+      "This Nickname is already used",
+      "This Nickname is available"
+    ]
+  },
+  "selectTypeResultPage": {
+    "headerSubTitle": "Search Result",
+    "outSideResult": [
+      "실외검색 결과가 없습니다.",
+      "실외에서 시원한 바람과 함께"
+    ],
+    "inSideResult": ["실내검색 결과가 없습니다..", "실내에서 여유로운 시간을"]
+  },
+  "placeMapPage": {
+    "headerSubTitle": "상세보기"
+  },
+  "placeDetailPage": {
+    "navigation": ["가본곳", "찜하기", "리뷰쓰기", "공유하기"],
+    "category": ["장소팁", "가게정보", "주소", "전화"]
+  },
+  "ReviewListPage": {
+    "reviewTitle": "리뷰",
+    "reviewFilter": ["최신순", "추천순"]
+  },
+  "ReviewCard": {
+    "modify": "수정",
+    "delete": "삭제",
+    "weather": "날씨",
+    "days": "날짜",
+    "week": ["평일", "주말"],
+    "revisited": "재방문의사",
+    "help": "도움이돼요",
+    "helpPeople": "명에게 도움이 되었습니다."
+  },
+  "ReviewWrite": {
+    "headerSubTitle": ["리뷰수정", "리뷰쓰기"],
+    "selectWeather": {
+      "selectTitle": "날씨는 어땠나요?,",
+      "weatherType": ["맑음", "비", "눈", "흐림", "기억안남"]
+    },
+    "selectNumber": {
+      "selectTitle": "성별을 선택해 주세요 ",
+      "genderType": ["1명", "2명", "4명 미만", "4명 이상"]
+    },
+    "selectPlace": {
+      "selectTitle": "장소를 선택해주세요",
+      "genderType": ["여행", "맛집", "카페", "예술", "액티비티"]
+    },
+    "resultSentence": ["이", "장소 을(를)", "가고 싶어요"]
+  }
+}
