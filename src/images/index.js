@@ -25,6 +25,9 @@ import bad from './Icon/ic_bad.svg';
 import good from './Icon/ic_good.svg';
 import xcircle from './Icon/ic_xcircle.svg';
 import xclose from './Icon/ic_header_close.svg';
+import report from './Icon/ic_report.svg';
+import modalClose from './Icon/ic_modal_close.svg';
+import checked from './Icon/ic_check.svg';
 
 // illustration
 import profile1 from './illustration/profile1.png';
@@ -94,4 +97,7 @@ export {
   selectResultCard,
   card,
   xclose,
+  report,
+  modalClose,
+  checked,
 };

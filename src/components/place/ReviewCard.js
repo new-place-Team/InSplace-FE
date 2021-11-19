@@ -1,34 +1,24 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-shadow */
-import React, { forwardRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { forwardRef } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Button, Grid, Text, Image } from '../../elements/index';
-import { good, bad, profile1 } from '../../images/index';
+import { good, bad, profile1, report, more } from '../../images/index';
 import { reviewLikeDB, reviewLikeCancelDB } from '../../redux/async/place';
 import ReviewSwiper from './ReviewSwiper';
-import { history } from '../../redux/configureStore';
-import ConfirmModal from '../common/ConfirmModal';
-import { deleteReview } from '../../shared/api/placeApi';
-import { deleteReviewList } from '../../redux/modules/placeSlice';
-import CommonModal from '../common/CommonModal';
+import { setMoreModalOn } from '../../redux/modules/commonSlice';
 
 const ReviewCard = forwardRef((props, ref) => {
-  const { info, postId, loginUser, type } = props;
+  const { info, postId, loginUser, userId, type } = props;
   const dispatch = useDispatch();
-  const [confirmModal, setConfirmModal] = useState(false);
-  const modalStatus = useSelector(state => state.common.modalStatus);
   const date = info.createdAt.split('T')[0];
+  const userCheck = loginUser === info.nickname;
 
   const params = {
     postId,
     reviewId: info.reviewId,
     reviewType: type === 'like',
-  };
-
-  // 리뷰 수정페이지 이동
-  const goToReviewEditPage = () => {
-    history.push({ pathname: `/review/edit/${postId}`, state: info.reviewId });
   };
 
   // 리뷰 좋아요
@@ -40,55 +30,19 @@ const ReviewCard = forwardRef((props, ref) => {
     dispatch(reviewLikeCancelDB(params));
   };
 
-  // 리뷰 삭제 여부 확인하는 modal
-  const showConfirmModal = () => {
-    setConfirmModal(true);
-  };
-
-  // 리뷰 삭제
-  const onDeleteReview = async () => {
-    setConfirmModal(false);
-    try {
-      const res = await deleteReview(params);
-      if (res.data === 'OK') {
-        dispatch(deleteReviewList(params));
-      }
-    } catch (err) {
-      console.log(err);
-    }
+  const showMoreModal = (reviewId, userId, type) => {
+    const params = {
+      postId,
+      reviewId,
+      userId,
+      type,
+    };
+    dispatch(setMoreModalOn(params));
   };
 
   return (
     <>
-      {modalStatus && <CommonModal />}
-      {confirmModal && (
-        <ConfirmModal
-          title="리뷰를 삭제하시겠어요?"
-          content="한번 삭제된 리뷰는 영구적으로 삭제됩니다."
-          showModal={showConfirmModal}
-          setConfirmModal={setConfirmModal}
-          onDelete={onDeleteReview}
-        />
-      )}
-
       <ReviewCardWrap ref={ref}>
-        {loginUser === info.nickname && (
-          <Grid justify="flex-end">
-            <Button size="14px" padding="8px" _onClick={goToReviewEditPage}>
-              수정
-            </Button>
-            <Button
-              size="14px"
-              padding="8px"
-              color="red"
-              margin="0 0 0 10px"
-              _onClick={showConfirmModal}
-            >
-              삭제
-            </Button>
-          </Grid>
-        )}
-        {/* 유저 프로필 */}
         <Grid justify="space-between">
           <Grid isFlex>
             <Grid>
@@ -169,10 +123,20 @@ const ReviewCard = forwardRef((props, ref) => {
               </Text>
             )}
           </Grid>
-          {loginUser === info.nickname ? (
-            <Button>버튼</Button>
+          {userCheck ? (
+            <Button
+              padding="5px 10px"
+              _onClick={() => showMoreModal(info.reviewId, userId, '')}
+            >
+              <Image src={more} />
+            </Button>
           ) : (
-            <Button>신고하기</Button>
+            <Button
+              padding="5px 10px"
+              _onClick={() => showMoreModal(info.reviewId, userId, 'report')}
+            >
+              <Image src={report} />
+            </Button>
           )}
         </Grid>
       </ReviewCardWrap>
