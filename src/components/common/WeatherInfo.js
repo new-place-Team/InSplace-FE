@@ -28,7 +28,7 @@ const WeatherInfo = props => {
   }, []);
 
   if (weatherInfo) {
-    weatherStatus = 4;
+    weatherStatus = 3;
     if (weatherStatus === 2) {
       weatherBg = RainFull768;
     } else if (weatherStatus === 3) {
