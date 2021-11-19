@@ -5,12 +5,14 @@ import { ReactComponent as Close } from '../../images/Icon/ic_close.svg';
 import { ReactComponent as Marker } from '../../images/ic-marker.svg';
 import { ReactComponent as Particlulates } from '../../images/Icon/ic_weather_particulates.svg';
 import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good.svg';
-import sunBg from '../../images/weather/sun_bg_full.jpg';
-import RainBg from '../../images/weather/rain_bg_full.jpg';
-import CloudBg from '../../images/weather/cloud_bg_full.jpg';
-import SnowBg from '../../images/weather/snow_bg_full.jpg';
-import Sunshine from '../../images/weather/sunshine.png';
-import CloudImg from '../../images/weather/cloudImg.png';
+import {
+  SunFull768,
+  RainFull768,
+  CloudFull768,
+  SnowFull768,
+  Sunshine,
+  CloudImg,
+} from '../../images/weather/index.js';
 import { Grid, Text, Icons } from '../../elements';
 
 const WeatherInfo = props => {
@@ -26,15 +28,15 @@ const WeatherInfo = props => {
   }, []);
 
   if (weatherInfo) {
-    weatherStatus = 2;
+    weatherStatus = 4;
     if (weatherStatus === 2) {
-      weatherBg = RainBg;
+      weatherBg = RainFull768;
     } else if (weatherStatus === 3) {
-      weatherBg = SnowBg;
+      weatherBg = SnowFull768;
     } else if (weatherStatus === 4) {
-      weatherBg = CloudBg;
+      weatherBg = CloudFull768;
     } else {
-      weatherBg = sunBg;
+      weatherBg = SunFull768;
     }
   }
 
@@ -84,7 +86,7 @@ const WeatherInfo = props => {
         </CloseBtn>
         <WeatherModal src={weatherBg}>
           {/* Main Info */}
-          <Grid padding="77px 0 0 30px">
+          <Grid padding="77px 0 0 8%">
             {/* 현재위치 주소 */}
             <Grid isFlex>
               <Icons width="16px" height="16px" margin="0 10px 0 0">
@@ -94,9 +96,7 @@ const WeatherInfo = props => {
                 {location && location.address}
               </Text>
             </Grid>
-            <Text fontSize="60px" color="#fff" bold>
-              SEOUL
-            </Text>
+            <CityText>SEOUL</CityText>
             <Text fontSize="96px" color="#fff" bold>
               {weatherInfo && weatherInfo.temperature}&deg;
             </Text>
@@ -105,7 +105,7 @@ const WeatherInfo = props => {
           {/* Sub Info */}
           <SubInfo>
             {/* 미세먼지 */}
-            <Grid isFlex padding="0 0 0 36px" margin="0 0 46px 0">
+            <Grid isFlex padding="0 0 0 8%" margin="0 0 46px 0">
               <Icons width="32px" height="32px" margin="0 12px 0 0">
                 <Particlulates />
               </Icons>
@@ -117,13 +117,13 @@ const WeatherInfo = props => {
               </Icons>
             </Grid>
             {/* 초 미세먼지 */}
-            <Grid isFlex justify="space-between" padding="0 40px">
+            <Grid isFlex justify="space-between" padding="0 8%">
               <Text color="#fff" margin="0 0 8px 0">
                 초미세먼지
               </Text>
               <Text color="#fff">{weatherInfo.pm25}</Text>
             </Grid>
-            <Grid isFlex justify="space-between" padding="0 40px">
+            <Grid isFlex justify="space-between" padding="0 8%">
               <Text color="#fff">습도</Text>
               <Text color="#fff">{weatherInfo.humidity}</Text>
             </Grid>
@@ -131,7 +131,32 @@ const WeatherInfo = props => {
         </WeatherModal>
         {weatherStatus === 1 ? <SunshineArea src={Sunshine} /> : ''}
         {weatherStatus === 2 ? <RainArea>{getRain()}</RainArea> : ''}
-        {weatherStatus === 4 ? <CloudArea src={CloudImg} /> : ''}
+        {weatherStatus === 3 ? (
+          <>
+            <SnowArea animation="snowOne" />
+            <SnowArea backgroundSize="300px" filter="1px" animation="snowTwo" />
+            <SnowArea
+              backgroundSize="800px"
+              filter="2px"
+              height="650px"
+              animation="snowThree"
+            />
+          </>
+        ) : (
+          ''
+        )}
+        {weatherStatus === 4 ? (
+          <>
+            <CloudArea top="-10%" right="-20%">
+              <CloudImage src={CloudImg} />
+            </CloudArea>
+            <CloudArea top="20%" left="-20%">
+              <CloudImage src={CloudImg} />
+            </CloudArea>
+          </>
+        ) : (
+          ''
+        )}
       </Container>
     </Wrap>
   );
@@ -150,6 +175,7 @@ const Container = styled.div`
   max-width: 768px;
   margin: 0 auto;
   height: 100%;
+  overflow: hidden;
 `;
 
 const WeatherModal = styled.div`
@@ -182,7 +208,16 @@ const CloseBtn = styled.div`
 `;
 
 const SubInfo = styled.div`
-  padding-top: 260px;
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+`;
+
+const CityText = styled.div`
+  font-size: 60px;
+  color: #fff;
+  font-weight: 600;
+  font-family: 'Oswald', sans-serif;
 `;
 
 /* Sunshine Interaction */
@@ -307,28 +342,54 @@ const RainArea = styled.div`
 /* Cloud Interaction */
 const CloudArea = styled.div`
   position: absolute;
-  top: 20%;
+  top: ${({ top }) => top || 0};
+  ${props => props.right && `right:${props.right}`};
+  ${props => props.left && `left:${props.left}`};
   width: 100%;
   height: 400px;
-  background-image: url('${props => props.src}');
-  background-size: cover;
-  background-position: center;
-  /* animation: shine 7s infinite linear alternate;
+`;
+const CloudImage = styled.img`
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+`;
 
-  @keyframes shine {
+const SnowArea = styled.div`
+  background: url('https://designshack.net/tutorialexamples/letitsnow/snow.png');
+  background-repeat: repeat;
+  width: 100%;
+  height: ${({ height }) => height || '700px'};
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: ${({ animation }) => animation || 'snowOne'} 13s infinite linear;
+  ${props => props.backgroundSize && `background-size:${props.backgroundSize}`};
+  ${props => props.filter && `filter:blur(${props.filter})`};
+
+  @keyframes snowOne {
     0% {
-      opacity: 0.4;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.7;
-      transform: scale(1.1);
+      background-position: 0px 0px;
     }
     100% {
-      opacity: 1;
-      transform: scale(1.2);
+      background-position: 100px 750px;
     }
-  } */
+  }
+  @keyframes snowTwo {
+    0% {
+      background-position: 0px -100px;
+    }
+    100% {
+      background-position: 0px 750px;
+    }
+  }
+  @keyframes snowThree {
+    0% {
+      background-position: 0px 100px;
+    }
+    100% {
+      background-position: 300px 750px;
+    }
+  }
 `;
 
 export default WeatherInfo;
