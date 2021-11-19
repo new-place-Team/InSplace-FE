@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Text, Image } from '../../elements';
 import { getMbti, setModalOff } from '../../redux/modules/userSlice';
-import { xclose } from '../../images/index';
-import checked from '../../images/Icon/ic_check.svg';
+import { xclose, checked } from '../../images/index';
 import { getPeopleMbti } from '../../shared/transferText';
 
 const Modal = () => {

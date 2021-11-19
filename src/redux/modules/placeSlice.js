@@ -51,7 +51,6 @@ const placeSlice = createSlice({
       state.weatherList = payload.weatherPlace;
     },
     setSelectedCategory: (state, { payload }) => {
-      // ?weather=1&category=2&num=1&gender=1
       const objList = payload.replace('?', '').split('&');
       const categoryArr = ['gender', 'num', 'category'];
       const newCategoryList = categoryArr.map(item => {
@@ -104,6 +103,18 @@ const placeSlice = createSlice({
           : (target.favoriteCnt -= 1);
       }
     },
+    resetReviewList: state => {
+      state.reviewList = null;
+    },
+    resetReviewLikeList: state => {
+      state.reviewLikesList = null;
+    },
+    resetReviewPagination: state => {
+      state.reviewList = null;
+      state.reviewLikesList = null;
+      state.reviewPagination = { page: 1, isNext: true };
+      state.reviewLikesPagination = { page: 1, isNext: true };
+    },
     addReviewList: (state, { payload }) => {
       const newReviewList = state.reviewList;
       if (newReviewList) {
@@ -141,7 +152,7 @@ const placeSlice = createSlice({
     reviewLikesList: (state, { payload }) => {
       const newReviewList = state.reviewList;
       const newLikeReviewList = state.reviewLikesList;
-      // 최신순 리뷰에 좋아요를 클릭했을 때
+      // 리뷰에 좋아요를 클릭했을 때
       if (!payload.reviewType) {
         if (newReviewList) {
           state.reviewList = newReviewList.map(item =>
@@ -161,7 +172,7 @@ const placeSlice = createSlice({
     reviewLikesCancelList: (state, { payload }) => {
       const newReviewList = state.reviewList;
       const newLikeReviewList = state.reviewLikesList;
-      // 최신순 리뷰에 좋아요 취소를 클릭했을 때
+      // 리뷰에 좋아요 취소를 클릭했을 때
       if (!payload.reviewType) {
         if (newReviewList) {
           state.reviewList = newReviewList.map(item =>
@@ -219,7 +230,7 @@ const placeSlice = createSlice({
     },
     // 리뷰 추천순 조회
     [getReviewLikesListDB.fulfilled]: (state, { payload }) => {
-      // console.log(current(state.reviewList));
+      // console.log(current(state.reviewLikesList));
       if (state.reviewLikesList) {
         state.reviewLikesList = [...state.reviewLikesList, ...payload.reviews];
         state.reviewLikesPagination = {
@@ -309,6 +320,9 @@ export const {
   reviewLikesList,
   reviewLikesCancelList,
   setPlaceListInit,
+  resetReviewList,
+  resetReviewLikeList,
+  resetReviewPagination,
 } = placeSlice.actions;
 
 export const { getLoaded } = loadedSlice.actions;

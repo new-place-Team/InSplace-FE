@@ -25,6 +25,7 @@ import {
   deleteVisitedPost,
   reviewLikeCancel,
   getSearchConditionList,
+  reviewReport,
 } from '../../shared/api/placeApi';
 import { getLocationAddress } from '../../shared/api/kakaoApi';
 import { getPosition } from '../../shared/utils';
@@ -43,9 +44,12 @@ import {
   reviewLikesList,
   reviewLikesCancelList,
   setSelectedCategory,
+  resetReviewLikeList,
+  resetReviewList,
+  resetReviewPagination,
 } from '../modules/placeSlice';
 import { getLoaded } from '../modules/loadedSlice';
-import { setCommonModalOn } from '../modules/commonSlice';
+import { setCommonModalOn, setMoreModalOff } from '../modules/commonSlice';
 
 export const getWeatherDB = createAsyncThunk(
   'place/weatherInfo',
@@ -240,6 +244,7 @@ export const getReviewListDB = createAsyncThunk(
       const response = await getReviewList(params);
       if (response) {
         thunkAPI.dispatch(getLoaded(false));
+        thunkAPI.dispatch(resetReviewLikeList);
         return response.data;
       }
     } catch (err) {
@@ -262,6 +267,7 @@ export const getReviewLikesListDB = createAsyncThunk(
       const response = await getReviewLikesList(params);
       if (response) {
         thunkAPI.dispatch(getLoaded(false));
+        thunkAPI.dispatch(resetReviewList);
         return response.data;
       }
     } catch (err) {
@@ -286,14 +292,14 @@ export const addReviewDB = createAsyncThunk(
         },
       };
       const response = await addReview(params, config);
-
+      thunkAPI.dispatch(resetReviewPagination());
       if (response) {
         const modalParams = {
           title: '리뷰가 등록되었습니다.',
           goPage: 'back',
         };
         thunkAPI.dispatch(setCommonModalOn(modalParams));
-        // thunkAPI.dispatch(addReviewList(response.data.post));
+        // 리뷰 페이지 번호가 변경되었을 경우를 대비해서 페이지 초기화
       }
     } catch (err) {
       console.log(err.response);
@@ -313,6 +319,7 @@ export const getReviewEditDB = createAsyncThunk(
     try {
       thunkAPI.dispatch(getLoaded(true));
       const response = await getReviewEdit(params);
+      thunkAPI.dispatch(resetReviewPagination());
       if (response) {
         thunkAPI.dispatch(getLoaded(false));
         return response.data;
@@ -405,6 +412,28 @@ export const reviewLikeCancelDB = createAsyncThunk(
       thunkAPI.dispatch(reviewLikesCancelList(params));
       if (response) {
         return params;
+      }
+    } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  },
+);
+export const reviewReportDB = createAsyncThunk(
+  'place/reviewReport',
+  async (params, thunkAPI) => {
+    try {
+      const response = await reviewReport(params);
+      thunkAPI.dispatch(setMoreModalOff());
+      if (response) {
+        const modalParams = {
+          title: '신고가 접수되었습니다.',
+        };
+        thunkAPI.dispatch(setCommonModalOn(modalParams));
       }
     } catch (err) {
       console.log(err.response);
