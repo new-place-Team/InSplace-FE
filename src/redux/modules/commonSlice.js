@@ -5,12 +5,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   modalStatus: false,
   modalInfo: null,
-  confirmModalStatus: false,
-  confirmModalInfo: null,
   goPage: null,
-  dispatchFun: null,
   moreModalStatus: false,
   moreInfo: null,
+  reportModalStatus: false,
 };
 
 const commonSlice = createSlice({
@@ -21,13 +19,11 @@ const commonSlice = createSlice({
       state.modalStatus = false;
       state.modalInfo = null;
       state.goPage = null;
-      state.dispatchFun = null;
     },
     setCommonModalOn: (state, { payload }) => {
       state.modalStatus = true;
       state.modalInfo = payload;
       state.goPage = payload.goPage;
-      state.dispatchFun = payload.dispatchFun;
     },
     setMoreModalOff: state => {
       state.moreModalStatus = false;
@@ -37,13 +33,13 @@ const commonSlice = createSlice({
       state.moreModalStatus = true;
       state.moreInfo = payload;
     },
-    setConfirmMoreModalOff: state => {
-      state.confirmModalStatus = false;
-      state.confirmModalInfo = null;
+    setReportModalOff: state => {
+      state.reportModalStatus = false;
+      state.modalInfo = null;
     },
-    setConfirmMoreModalOn: (state, { payload }) => {
-      state.confirmModalStatus = true;
-      state.confirmModalInfo = payload;
+    setReportModalOn: (state, { payload }) => {
+      state.reportModalStatus = true;
+      state.modalInfo = payload;
     },
   },
 });
@@ -53,6 +49,8 @@ export const {
   setCommonModalOn,
   setMoreModalOff,
   setMoreModalOn,
+  setReportModalOff,
+  setReportModalOn,
 } = commonSlice.actions;
 
 export default commonSlice;

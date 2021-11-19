@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   setCommonModalOff,
   setMoreModalOff,
+  setReportModalOff,
 } from '../../redux/modules/commonSlice';
 import { Grid, Image, Text, Textarea } from '../../elements';
 import { history } from '../../redux/configureStore';
@@ -32,7 +33,11 @@ const CommonModal = ({ type, showConfirmModal }) => {
     if (name.indexOf('close') === -1) {
       return;
     }
-    dispatch(setCommonModalOff());
+    if (type === 'report') {
+      dispatch(setReportModalOff());
+    } else {
+      dispatch(setCommonModalOff());
+    }
     if (goPage === 'back') {
       history.goBack();
     } else if (goPage) {

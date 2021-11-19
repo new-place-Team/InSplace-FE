@@ -49,7 +49,11 @@ import {
   resetReviewPagination,
 } from '../modules/placeSlice';
 import { getLoaded } from '../modules/loadedSlice';
-import { setCommonModalOn, setMoreModalOff } from '../modules/commonSlice';
+import {
+  setCommonModalOn,
+  setMoreModalOff,
+  setReportModalOn,
+} from '../modules/commonSlice';
 
 export const getWeatherDB = createAsyncThunk(
   'place/weatherInfo',
@@ -319,7 +323,6 @@ export const getReviewEditDB = createAsyncThunk(
     try {
       thunkAPI.dispatch(getLoaded(true));
       const response = await getReviewEdit(params);
-      thunkAPI.dispatch(resetReviewPagination());
       if (response) {
         thunkAPI.dispatch(getLoaded(false));
         return response.data;
@@ -346,6 +349,7 @@ export const updateReviewDB = createAsyncThunk(
         },
       };
       const response = await updateReview(params, config);
+      thunkAPI.dispatch(resetReviewPagination());
       const modalParams = {
         title: '리뷰가 수정되었습니다.',
         goPage: 'back',
@@ -433,7 +437,7 @@ export const reviewReportDB = createAsyncThunk(
         const modalParams = {
           title: '신고가 접수되었습니다.',
         };
-        thunkAPI.dispatch(setCommonModalOn(modalParams));
+        return thunkAPI.dispatch(setReportModalOn(modalParams));
       }
     } catch (err) {
       console.log(err.response);

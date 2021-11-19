@@ -27,6 +27,9 @@ const ReviewList = props => {
 
   // 모달 정보
   const moreInfo = useSelector(state => state.common.moreInfo);
+  const reportModalStatus = useSelector(
+    state => state.common.reportModalStatus,
+  );
   const moreModalStatus = useSelector(state => state.common.moreModalStatus);
   const [confirmModal, setConfirmModal] = useState(false);
 
@@ -135,6 +138,8 @@ const ReviewList = props => {
       {moreModalStatus && (
         <CommonModal type="more" showConfirmModal={showConfirmModal} />
       )}
+      {/* 신고되었다는 확인 메세지 */}
+      {reportModalStatus && <CommonModal type="report" />}
       {/* 리뷰 삭제 버튼 클릭시 한번 더 확인하는 모달 */}
       {/* reviewList 컴포넌트에 둬야 한번만 렌더링됨 */}
       {confirmModal && (
@@ -146,6 +151,7 @@ const ReviewList = props => {
           onDelete={onDeleteReview}
         />
       )}
+
       <ReviewWrap>
         <ReviewTitle>
           <Grid justify="space-between">
@@ -184,7 +190,6 @@ const ReviewList = props => {
             const lastItem = idx === reviewList.length - 1;
             return (
               <>
-                최신순 카드
                 <ReviewCard
                   key={item.reviewId}
                   loginUser={userInfo.nickname}
@@ -202,7 +207,6 @@ const ReviewList = props => {
             const lastItem = idx === reviewLikeList.length - 1;
             return (
               <>
-                추천순 카드
                 <ReviewCard
                   type="like"
                   key={item.reviewId}
