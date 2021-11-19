@@ -8,22 +8,17 @@ import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Text, Textarea } from '../elements';
 import { whiteClose, xcircle } from '../images/index';
 import SelectedContents from '../components/place/SelectedContents';
-import {
-  addReviewDB,
-  // getReviewEditDB,
-  updateReviewDB,
-} from '../redux/async/place';
+import { addReviewDB, updateReviewDB } from '../redux/async/place';
 import ReviewPostInfo from '../components/place/ReviewPostInfo';
 import { getReviewEdit } from '../shared/api/placeApi';
 
 const ReviewWrite = props => {
   const { id } = props.match.params;
   const reviewId = props.history.location.state;
-  // const review = useSelector(state => state.place.review);
   const dispatch = useDispatch();
   const fileInput = useRef();
   const reviewTypeEdit = reviewId !== undefined;
-
+  const [preview, setPreview] = useState([]);
   const [state, setState] = useState({
     postId: id,
     reviewDesc: '',
@@ -33,8 +28,6 @@ const ReviewWrite = props => {
     revisitYN: 1,
     reviewId: 0,
   });
-
-  const [preview, setPreview] = useState([]);
 
   const [selectData, setSelectData] = useState([
     {
@@ -136,19 +129,14 @@ const ReviewWrite = props => {
   };
 
   // 리뷰 수정일때 정보 받아오기
-  // const getReviewEdit = () => {
-  //   const params = { reviewId, postId: id };
-  //   dispatch(getReviewEditDB(params));
-  // };
-
-  const editLoad = async () => {
-    const params = { reviewId, postId: id };
+  const getReviewEditLoad = async () => {
     try {
-      const res = await getReviewEdit(params);
-      const data = res.data.review;
-      if (data) {
+      const params = { reviewId, postId: id };
+      const response = await getReviewEdit(params);
+      const data = response.data.review;
+      if (response) {
         setState({
-          postId: data.postId,
+          postId: id,
           reviewDesc: data.reviewDesc,
           reviewImages: data.reviewImages,
           weather: data.weather,
@@ -158,14 +146,13 @@ const ReviewWrite = props => {
         });
         setPreview(data.reviewImages);
       }
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log('err == ', err);
     }
   };
-
   useEffect(() => {
-    if (reviewTypeEdit) {
-      editLoad();
+    if (reviewId !== undefined) {
+      getReviewEditLoad();
     }
   }, []);
 

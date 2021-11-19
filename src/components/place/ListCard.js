@@ -87,36 +87,35 @@ const ListCard = forwardRef((props, ref) => {
         <Grid
           _onClick={() => history.push(`/place/detail/${info.postId}`)}
           cursor
+          width="237px"
         >
-          <Grid width="237px">
-            <Image width="237px" height="320px" src={info && info.postImage} />
-            <IconArea onClick={setFavorites}>
-              {info && info.favoriteState ? (
-                <SelectedHeader />
-              ) : (
-                <NoSelectedHeader />
-              )}
-            </IconArea>
-          </Grid>
-          <Grid margin="11px 0 0 0">
-            <Text fontSize="13px" color="#949494">
-              {info.category}
-            </Text>
-          </Grid>
-          <Text fontSize="16px" color="#272727" bold>
-            {info.title}
+          <Image width="237px" height="320px" src={info && info.postImage} />
+          <IconArea onClick={setFavorites}>
+            {info && info.favoriteState ? (
+              <SelectedHeader />
+            ) : (
+              <NoSelectedHeader />
+            )}
+          </IconArea>
+        </Grid>
+        <Grid margin="11px 0 0 0">
+          <Text fontSize="13px" color="#949494">
+            {info.category}
           </Text>
-          <Grid margin="6px 0 0 0" isFlex width="100%">
-            <Grid width="15px" height="16px" margin="0 4px 0 0">
-              <Image src={heartFilled} />
-            </Grid>
-            <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
-              {info && info.favoriteCnt}
-            </Text>
-            <Text fontSize="14px" color="#646464">
-              {info && info.addressShort}
-            </Text>
+        </Grid>
+        <Text fontSize="16px" color="#272727" bold>
+          {info.title}
+        </Text>
+        <Grid margin="6px 0 0 0" isFlex width="100%">
+          <Grid width="15px" height="16px" margin="0 4px 0 0">
+            <Image src={heartFilled} />
           </Grid>
+          <Text fontSize="14px" color="#272727" margin="0 12px 0 0">
+            {info && info.favoriteCnt}
+          </Text>
+          <Text fontSize="14px" color="#646464">
+            {info && info.addressShort}
+          </Text>
         </Grid>
       </>
     );

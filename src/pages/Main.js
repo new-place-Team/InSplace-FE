@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import React, { useEffect, lazy } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { history } from '../redux/configureStore';
@@ -62,7 +62,6 @@ const Main = () => {
               {location && location.address}
             </Text>
           </Grid>
-
           {/* 장소 추천받기 */}
           <SelectTypeBtn onClick={() => history.push('/select-type')}>
             <Grid height="22px" margin="19px 0 0 18px">
@@ -75,16 +74,15 @@ const Main = () => {
             </NextButton>
           </SelectTypeBtn>
         </Grid>
-
         {/* Place Section */}
         <Grid>
           {/* 날씨에 따른 공간 */}
-          <Grid margin="0 0 48px 24px">
+          <Grid padding="0 0 48px 24px">
             <ContentsTitle title="날씨에 따른 공간" />
             <Swiper list={weatherList} />
           </Grid>
           {/* 좋아요 순 추천 공간 */}
-          <Grid margin="0 0 48px 24px">
+          <Grid padding="0 0 48px 24px">
             <ContentsTitle title="좋아요를 많이 받은" />
             <Swiper list={likeList} />
           </Grid>

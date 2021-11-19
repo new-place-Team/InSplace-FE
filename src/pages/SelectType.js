@@ -76,7 +76,7 @@ const SelectedType = () => {
       state.MemberCnt === '' ||
       state.category === ''
     ) {
-      window.alert('모두 입력해주세요');
+      window.alert('유형을 모두 선택해주세요');
       return;
     }
     const params = {
@@ -93,8 +93,6 @@ const SelectedType = () => {
       state: { weatherStatus: params, selectedCategory: state },
     });
   };
-
-  console.log('state == ', state);
 
   return (
     <>
@@ -152,8 +150,8 @@ const SelectedType = () => {
             );
           })}
         </SelectContainer>
-        <Grid>
-          <NextButton onClick={onClick}>
+        <Grid _onClick={onClick}>
+          <NextButton>
             <Right />
           </NextButton>
         </Grid>
@@ -166,7 +164,6 @@ const SelectedType = () => {
 
 const ChangeContainer = styled.div`
   position: fixed;
-  width: 100%;
   background-color: #fff;
   z-index: 3;
 `;
