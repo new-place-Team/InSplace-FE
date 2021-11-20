@@ -16,16 +16,12 @@ const SelectedType = () => {
   const dispatch = useDispatch();
   const weatherStatus = useSelector(state => state.place.weatherStatus);
   const { t } = useTranslation();
-
+  console.log('render check', t);
   const [categoryInfo, setCategoryInfo] = React.useState({
     MemberCnt: '',
     gender: '',
     category: '',
   });
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const showCategory =
     categoryInfo.MemberCnt === '' &&
@@ -49,6 +45,7 @@ const SelectedType = () => {
     }
     return text;
   };
+  let aa = 1;
   const [selectData, setSelectData] = React.useState([
     {
       title: t('selectTypePage.selectGender.selectTitle'),
@@ -108,7 +105,7 @@ const SelectedType = () => {
       bg: '#bbc0cf',
     },
   ]);
-
+  console.log('selectData', selectData);
   const goSearch = () => {
     if (
       categoryInfo.gender === '' ||
@@ -123,6 +120,12 @@ const SelectedType = () => {
     dispatch(getSearchConditionDB(params));
     history.push(`/select-type/result${params}`);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    aa = 2;
+  }, [selectData]);
+
   return (
     <>
       <Header

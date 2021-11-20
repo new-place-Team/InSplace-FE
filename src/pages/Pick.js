@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-
 import styled from 'styled-components';
 import { history } from '../redux/configureStore';
 import { Container, Grid, Text, Image, Icons } from '../elements';

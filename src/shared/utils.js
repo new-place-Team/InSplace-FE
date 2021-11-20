@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-alert */
 /* eslint-disable import/no-cycle */
 import { history } from '../redux/configureStore';
@@ -12,10 +13,27 @@ export const logger = msg => {
 /* localStorage에서 토큰 가져오기 */
 export const getToken = () => {
   return new Promise(resolve => {
-    // eslint-disable-next-line no-undef
     const token = localStorage.getItem('USER_TOKEN');
     if (token) {
       resolve(`Bearer ${token}`);
+    } else {
+      resolve(null);
+    }
+  });
+};
+
+/* localStorage에서 language 가져오기 */
+export const getLanguage = () => {
+  return new Promise(resolve => {
+    const lang = localStorage.getItem('i18nextLng');
+    const langArr = lang.split('-');
+    let language = langArr[0];
+    console.log(langArr, language);
+    if (language !== 'ko') {
+      language = 'en';
+    }
+    if (language) {
+      resolve(language);
     } else {
       resolve(null);
     }
