@@ -299,7 +299,7 @@ export const addReviewDB = createAsyncThunk(
       thunkAPI.dispatch(resetReviewPagination());
       if (response) {
         const modalParams = {
-          title: '리뷰가 등록되었습니다.',
+          title: params.msg,
           goPage: 'back',
         };
         thunkAPI.dispatch(setCommonModalOn(modalParams));
@@ -351,7 +351,7 @@ export const updateReviewDB = createAsyncThunk(
       const response = await updateReview(params, config);
       thunkAPI.dispatch(resetReviewPagination());
       const modalParams = {
-        title: '리뷰가 수정되었습니다.',
+        title: params.msg,
         goPage: 'back',
       };
       thunkAPI.dispatch(setCommonModalOn(modalParams));

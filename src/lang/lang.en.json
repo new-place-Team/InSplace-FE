@@ -19,7 +19,13 @@
     },
     "selectPlace": {
       "selectTitle": "Choose place you Wanted",
-      "placeType": ["Tour", "Tasty room", "Cafe", "Arts", "Activity"]
+      "placeType": [
+        "Tour 📷",
+        "Tasty room 🥓",
+        "Cafe ☕️",
+        "Arts 🖼",
+        "Activity 🚴🏻‍♀️"
+      ]
     },
     "returnText": ["One", "Two", "Less than Four", "More than Four"],
     "resultSentence": ["", "Place", "Want(s) to go"],
@@ -141,7 +147,13 @@
     "reviewPlaceholder": "Please write at least 15 letters",
     "minText": "At least 15 letters",
     "uploadPhoto": "📷 Please Upload Photo (Optional)",
-    "EditOrRegister": ["Edit Review", "Upload Review"]
+    "EditOrRegister": ["Edit Review", "Upload Review"],
+    "Modal": {
+      "minReview": "Please write at least 15 letters for the review.",
+      "minPhoto": "You can register up to 3 images.",
+      "errorPhoto": "There was an error reading the image.",
+      "msg": "Review Uploaded 😻"
+    }
   },
   "Pick": {
     "headerSubTitle": "My Pick Place",
@@ -208,7 +220,15 @@
     ],
     "Modal": {
       "service": "I will be Back 🤖",
-      "goLogin": "Could you Login?"
+      "goLogin": "Could you Login?",
+      "complete": "Edit Complete 👍"
     }
+  },
+  "Navbar": {
+    "login": "You have to log in to use this service. You want to Login? 🙆🏼"
+  },
+  "CommonModal": {
+    "agree": "ok",
+    "disagree": "cancel"
   }
 }

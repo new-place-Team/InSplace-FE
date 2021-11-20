@@ -16,6 +16,8 @@ import CommonModal from '../components/common/CommonModal';
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const { t, i18n } = useTranslation();
+
   const commomModal = useSelector(state => state.common.modalStatus);
   // input값을 하나의 state에서 관리한다.
   const [userInfo, setUserInfo] = useState({
@@ -43,7 +45,6 @@ const Signup = () => {
   const [passError, setPassError] = useState('');
   const [passconfirmError, setPassconfrimError] = useState('');
   const [nicknameError, setNicknameError] = useState('');
-  const { t, i18n } = useTranslation();
 
   // 클릭했을때 여자는 1이 남자는 0이 state에 저장
   const selectGender = gender => {
@@ -289,7 +290,7 @@ const Signup = () => {
                 </Button>
               )}
             </AbsolDiv>
-            {nicknameError === '사용 가능한 닉네임 입니다.' ? (
+            {nicknameError === t('signUpPage.nicNameError.5') ? (
               <Text color="green" fontSize="12px">
                 {nicknameError}
               </Text>

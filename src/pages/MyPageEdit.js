@@ -141,6 +141,7 @@ const MyPageEdit = props => {
     const params = {
       id: userId,
       data: formData,
+      msg: t('MyPageEdit.Modal.complete'),
     };
     dispatch(editProfileDB(params));
   };
@@ -178,7 +179,7 @@ const MyPageEdit = props => {
               {t('MyPageEdit.headerSubTitle')}
             </Label>
             <Input name="nickname" value={nickname} onChange={onChange} />
-            {errorMessage === '사용 가능한 닉네임 입니다!' ? (
+            {errorMessage === t('MyPageEdit.nicNameError.5') ? (
               <Text fontSize="12px" color="green">
                 {errorMessage}
               </Text>

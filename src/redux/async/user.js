@@ -203,7 +203,7 @@ export const editProfileDB = createAsyncThunk(
       // window.alert('회원정보가 수정되었습니다.');
       // history.push('/mypage');
       const modalParams = {
-        title: '회원정보가 수정되었습니다.',
+        title: params.msg,
       };
       thunkAPI.dispatch(setCommonModalOn(modalParams));
       history.push('/mypage');

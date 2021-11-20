@@ -83,7 +83,7 @@ const ReviewWrite = props => {
   const selectFile = () => {
     if (preview.length >= 3) {
       const params = {
-        title: '이미지는 최대 3개까지 등록 가능합니다.',
+        title: t('ReviewWrite.Modal.minPhoto'),
       };
       dispatch(setCommonModalOn(params));
       return;
@@ -102,7 +102,7 @@ const ReviewWrite = props => {
     // file 읽기 실패되었을때 실행
     reader.onerror = error => {
       const params = {
-        title: '이미지를 읽어들이는데 오류가 발생했습니다.',
+        title: t('ReviewWrite.Modal.errorPhoto'),
       };
       dispatch(setCommonModalOn(params));
       console.log('error = ', error);
@@ -130,7 +130,7 @@ const ReviewWrite = props => {
   const handleReview = () => {
     if (state.reviewDesc.length <= 14) {
       const params = {
-        title: '리뷰는 최소 15자 이상으로 적어주세요',
+        title: t('ReviewWrite.Modal.minReview'),
       };
       dispatch(setCommonModalOn(params));
       return;
@@ -150,6 +150,7 @@ const ReviewWrite = props => {
       postId: state.postId,
       reviewId,
       data: formData,
+      msg: t('ReviewWrite.Modal.msg'),
     };
 
     if (reviewTypeEdit) {
