@@ -1,5 +1,6 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-alert */
 /* eslint-disable consistent-return */
+/* eslint-disable no-undef */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';

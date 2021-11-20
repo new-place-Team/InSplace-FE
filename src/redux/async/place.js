@@ -1,11 +1,5 @@
-/* eslint-disable no-alert */
-/* eslint-disable array-callback-return */
-/* eslint-disable no-plusplus */
-/* eslint-disable no-undef */
-/* eslint-disable no-unreachable */
-/* eslint-disable import/no-cycle */
 /* eslint-disable consistent-return */
-/* eslint-disable prettier/prettier */
+/* eslint-disable import/no-cycle */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   getWeatherInfo,
