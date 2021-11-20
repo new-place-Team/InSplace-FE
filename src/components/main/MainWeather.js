@@ -19,8 +19,7 @@ const MainWeather = forwardRef((props, ref) => {
   let img768 = main;
   const { weatherInfo, imgLoading } = props;
 
-  // const weatherStatus = weatherInfo && weatherInfo.frontWeather;
-  const weatherStatus = 4;
+  const weatherStatus = weatherInfo && weatherInfo.frontWeather;
   if (weatherInfo) {
     if (weatherStatus === 2) {
       img768 = rain768;
@@ -147,7 +146,7 @@ const SunshineContainer = styled.div`
   width: 100%;
   height: 100%;
   overflow-x: hidden;
-  z-index: 100;
+  z-index: -1;
 `;
 /* Sunshine Interaction */
 const SunshineArea = styled.div`
