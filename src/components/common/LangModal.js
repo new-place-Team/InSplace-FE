@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { Grid, Text, Image, Button } from '../../elements';
+import { Grid, Text } from '../../elements';
 import { setModalOff } from '../../redux/modules/userSlice';
 
 const LangModal = () => {
@@ -42,7 +42,7 @@ const LangModal = () => {
             </Grid>
             <Grid flex>English</Grid>
           </Grid>
-          <Grid
+          {/* <Grid
             width="100%"
             isFlex
             padding="10px 20px"
@@ -62,7 +62,7 @@ const LangModal = () => {
               <Text color="#fff">와</Text>
             </Grid>
             <Grid flex>일본어</Grid>
-          </Grid>
+          </Grid> */}
           <Grid
             width="100%"
             isFlex

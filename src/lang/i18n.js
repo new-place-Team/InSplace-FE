@@ -6,10 +6,10 @@ import langEn from './lang.en.json';
 import langKo from './lang.ko.json';
 
 const resource = {
-  en: {
+  'en-US': {
     translation: langEn,
   },
-  ko: {
+  'ko-KR': {
     translation: langKo,
   },
 };
@@ -22,7 +22,10 @@ i18n
     resources: resource,
     // 초기 설정 언어
     lng: currLang,
-    fallbackLng: 'en',
+    fallbackLng: {
+      'en-US': ['en-US'],
+      default: ['ko-KR'],
+    },
     debug: true,
     defaultNS: 'translation',
     ns: 'translation',

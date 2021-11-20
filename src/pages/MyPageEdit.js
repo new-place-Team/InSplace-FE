@@ -171,7 +171,7 @@ const MyPageEdit = props => {
             </UploadWrap>
           </ProfileWrap>
           <Grid margin="0 0 32px 0">
-            <MypageLabel>{t('MyPageEdit.headerSubTitle')}</MypageLabel>
+            <MypageLabel>{t('MyPageEdit.nickname')}</MypageLabel>
             <Input name="nickname" value={nickname} onChange={onChange} />
             {errorMessage === t('MyPageEdit.nicNameError.5') ? (
               <Text fontSize="12px" color="green">

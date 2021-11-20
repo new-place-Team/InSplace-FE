@@ -17,7 +17,7 @@
       "genderType": ["여자", "남자", "혼성"]
     },
     "selectNumber": {
-      "selectTitle": "성별을 선택해 주세요 ",
+      "selectTitle": "인원을 선택해 주세요 ",
       "peopleCount": ["1명", "2명", "4명 미만", "4명 이상"]
     },
     "selectPlace": {
@@ -138,7 +138,7 @@
     "reviewTitle": "상세한 후기를 써주세요",
     "reviewPlaceholder": "최소 15자 이상 써주세요",
     "minText": "최소 15자",
-    "uploadPhoto": "📷 사진을 올려주세요 (선택)",
+    "uploadPhoto": "사진을 올려주세요 (선택)",
     "EditOrRegister": ["리뷰 수정하기", "리뷰 등록하기"],
     "Modal": {
       "minReview": "리뷰는 최소 15자 이상으로 적어주세요",
