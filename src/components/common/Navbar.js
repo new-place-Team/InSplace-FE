@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
 import { Grid } from '../../elements/index';
 import theme from '../../styles/theme';
-import WeatherInfo from './WeatherInfo';
+import WeatherDetail from './WeatherDetail';
 /* weather Icon */
 import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
 import { ReactComponent as CloudIcon } from '../../images/weather/cloud.svg';
@@ -24,7 +24,7 @@ import ConfirmModal from './ConfirmModal';
 
 const Navbar = () => {
   const pathName = history.location.pathname;
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const isLogin = useSelector(state => state.user.isLogin);
   const userInfo = useSelector(state => state.user.userInfo);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
@@ -87,7 +87,7 @@ const Navbar = () => {
         />
       )}
       {weatherModalShow && (
-        <WeatherInfo closeWeatherModal={closeWeatherModal} />
+        <WeatherDetail closeWeatherModal={closeWeatherModal} />
       )}
       <Nav>
         <Content>

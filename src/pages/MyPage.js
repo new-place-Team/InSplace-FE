@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { history } from '../redux/configureStore';
 import { getTokenYn } from '../shared/utils';

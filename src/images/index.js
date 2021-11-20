@@ -52,6 +52,18 @@ import selectResultCard from './skeleton/selectResultCard.png';
 import card from './skeleton/card.jpg';
 import main from './skeleton/vs.jpg';
 
+// map
+import activity from './map/ic_map_activity.svg';
+import activitySmall from './map/ic_map_activity_small.svg';
+import art from './map/ic_map_art.svg';
+import artSmall from './map/ic_map_art_small.svg';
+import cafe from './map/ic_map_cafe.svg';
+import cafeSmall from './map/ic_map_cafe_small.svg';
+import travel from './map/ic_map_travel.svg';
+import travelSmall from './map/ic_map_travel_small.svg';
+import restaurant from './map/ic_map_restaurant.svg';
+import restaurantSmall from './map/ic_map_restaurant_small.svg';
+
 export {
   bookmark,
   close,
@@ -100,4 +112,14 @@ export {
   report,
   modalClose,
   checked,
+  activity,
+  activitySmall,
+  art,
+  artSmall,
+  cafe,
+  cafeSmall,
+  travel,
+  travelSmall,
+  restaurant,
+  restaurantSmall,
 };

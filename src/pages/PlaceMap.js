@@ -60,11 +60,10 @@ const MapContainer = () => {
           <Grid padding="0 24px">
             <SelectedCategory />
           </Grid>
-          {/* 카카오 지도 */}
           <MapDiv>
             <Map
-              width="100vw"
-              height="80vh"
+              width="100%"
+              height="80%"
               allPlaces={placeList}
               latLonFocus={latLonFocus}
             />
@@ -78,7 +77,9 @@ const MapContainer = () => {
 };
 
 const MapDiv = styled.div`
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
+  height: 100vh;
+  width: 100%;
 `;
 
 export default MapContainer;

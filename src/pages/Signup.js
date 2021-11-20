@@ -16,7 +16,7 @@ import CommonModal from '../components/common/CommonModal';
 
 const Signup = () => {
   const dispatch = useDispatch();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const commomModal = useSelector(state => state.common.modalStatus);
   // input값을 하나의 state에서 관리한다.

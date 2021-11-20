@@ -1,6 +1,3 @@
-/* eslint-disable import/named */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -34,7 +31,8 @@ import ConfirmModal from '../components/common/ConfirmModal';
 
 const Detail = props => {
   const dispatch = useDispatch();
-  const { id } = props.match.params;
+  const { match } = props;
+  const { id } = match.params;
   const detailData = useSelector(state => state.place.detailInfo);
   const isLogin = useSelector(state => state.user.isLogin);
   const [confirmModal, setConfirmModal] = useState(false);

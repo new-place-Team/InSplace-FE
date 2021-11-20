@@ -7,22 +7,13 @@ import { history } from '../redux/configureStore';
 import WeatherBox from '../components/main/WeatherBox';
 import Header from '../components/common/Header';
 import ContentsTitle from '../components/common/ContentsTitle';
-import { Container, Grid, Text, Button } from '../elements';
+import { Container, Grid, Text } from '../elements';
 import { getMainListDB } from '../redux/async/place';
 import Navbar from '../components/common/Navbar';
-import LangModal from '../components/common/LangModal';
-import {
-  SunMain768 as sunBg,
-  RainMain768 as rainBg,
-  CloudMain768 as cloudBg,
-  SnowMain768 as snowBg,
-  // Sunshine,
-  // CloudImg,
-} from '../images/weather/index';
 import { ReactComponent as Marker } from '../images/ic-marker.svg';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import Swiper from '../components/common/SwiperLB';
-import { main } from '../images';
+import MainWeather from '../components/main/MainWeather';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -36,20 +27,6 @@ const Main = () => {
 
   const [imgLoading, setImgLoading] = useState(false);
   const imgRef = useRef(null);
-  let weatherBg = '';
-
-  if (weatherInfo) {
-    const weatherStatus = weatherInfo.frontWeather;
-    if (weatherStatus === 2) {
-      weatherBg = rainBg;
-    } else if (weatherStatus === 3) {
-      weatherBg = snowBg;
-    } else if (weatherStatus === 4) {
-      weatherBg = cloudBg;
-    } else {
-      weatherBg = sunBg;
-    }
-  }
 
   useEffect(() => {
     if (mainLists) return;
@@ -80,7 +57,11 @@ const Main = () => {
           <Header _onBg _content="InSplace" _search _language _color="#fff" />
           {/* Weather Section */}
           <>
-            <BackgroundImg src={imgLoading ? weatherBg : main} ref={imgRef} />
+            <MainWeather
+              weatherInfo={weatherInfo}
+              imgLoading={imgLoading}
+              ref={imgRef}
+            />
             <WeatherBox info={weatherInfo} />
             <Grid isFlex padding="96px 0  27px 21px">
               <Icon>
@@ -131,18 +112,6 @@ const Main = () => {
 const SkeletonGrid = styled.div`
   position: relative;
   height: 672px;
-  @media (max-width: 414px) {
-    height: 525px;
-  }
-`;
-
-const BackgroundImg = styled.img`
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 672px;
-  object-fit: cover;
-  z-index: -1;
   @media (max-width: 414px) {
     height: 525px;
   }

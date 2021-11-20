@@ -1,5 +1,4 @@
 /* eslint-disable no-alert */
-/* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +15,7 @@ import { getSearchConditionDB } from '../redux/async/place';
 const SelectedType = () => {
   const dispatch = useDispatch();
   const weatherStatus = useSelector(state => state.place.weatherStatus);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const [categoryInfo, setCategoryInfo] = React.useState({
     MemberCnt: '',

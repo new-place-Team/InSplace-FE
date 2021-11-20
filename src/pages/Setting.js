@@ -23,8 +23,11 @@ const Setting = () => {
     // window.location.href = '/';
   };
 
-  const goUnRegister = () => {
+  const onClick = () => {
     setConfirmModal(true);
+  };
+
+  const goUnRegister = () => {
     dispatch(unRegisterDB());
   };
 
@@ -37,6 +40,8 @@ const Setting = () => {
           title="회원 탈퇴 하시겠습니까?"
           content="탈퇴된 회원은 영구적으로 탈퇴됩니다."
           setConfirmModal={setConfirmModal}
+          Type="UnRegister"
+          confirmFun={goUnRegister}
         />
       )}
       <Header _back _content="설정" _language />
@@ -46,7 +51,7 @@ const Setting = () => {
             <Text> {t('Setting.logOut')}</Text>
           </MBTIDiv>
 
-          <MBTIDiv onClick={goUnRegister}>
+          <MBTIDiv onClick={onClick}>
             <Text>{t('Setting.withdrawal')}</Text>
           </MBTIDiv>
         </Grid>
