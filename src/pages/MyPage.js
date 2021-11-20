@@ -69,7 +69,7 @@ const MyPage = () => {
       )}
       {modalStatus && <CommonModal />}
       <Container padding="0" height="100%">
-        <Header _onBg _content="MyPage" _color="#fff" _settings />
+        <Header _onBg _content="MyPage" _settings _language _color="#fff" />
         <Bg src={sunBg} />
         <Grid isFlex justify="center" padding="59px 40px">
           <Image
@@ -138,11 +138,11 @@ const Bg = styled.div`
 `;
 
 const InfoGrid = styled.div`
-  width: 95%;
+  width: 95.6%;
   display: flex;
   flex-wrap: wrap;
   margin: 0 0 0 auto;
-  padding-bottom: 66px;
+  padding-bottom: 64px;
   cursor: pointer;
 `;
 
@@ -153,7 +153,6 @@ const Info = styled.div`
   padding: 24px;
   background-color: #fff;
   border: 1px solid #e6e9ec;
-
   @media (max-width: 500px) {
     min-height: 180px;
     height: auto;
