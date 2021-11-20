@@ -1,5 +1,3 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable import/no-unresolved */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -16,6 +14,7 @@ const loadedSlice = createSlice({
     },
   },
 });
+
 export const { getLoaded } = loadedSlice.actions;
 
 export default loadedSlice;

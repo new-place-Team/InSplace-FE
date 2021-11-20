@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 import styled from 'styled-components';
 import { history } from '../redux/configureStore';
 import { Container, Grid, Text, Image, Icons } from '../elements';
@@ -7,17 +9,18 @@ import { ReactComponent as SelectedHeart } from '../images/Icon/ic_heart-dark.sv
 import { ReactComponent as PinFilled } from '../images/Icon/ic_pin-filled.svg';
 import { getCategoryText } from '../shared/transferText';
 import { noLikePlace, noVisitedPlace } from '../images/index';
-
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
-
 import { getFavoritesDB, getVisitedDB } from '../redux/async/user';
+import Spinner from '../components/common/Spinner';
 
 const Pick = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const userPickPlaces = useSelector(state => state.user.userPickPlaces);
+  const isLoading = useSelector(state => state.loaded.is_loaded);
   const [isLikeSelected, setIsLikeSelected] = useState(true);
-  console.log('userPickPlaces', userPickPlaces);
+  // console.log('userPickPlaces', userPickPlaces);
   useEffect(() => {
     if (!userPickPlaces.likeList) {
       dispatch(getFavoritesDB());
@@ -35,7 +38,7 @@ const Pick = () => {
 
   return (
     <>
-      <Header _content="나만의 장소 Pick" _color="#fff" />
+      <Header _content={t('Pick.headerSubTitle')} _color="#fff" />
       <Container padding="66px 0 0 0">
         <PickPlace>
           <Grid
@@ -46,6 +49,7 @@ const Pick = () => {
               isLikeSelected ? '2px solid #000' : '1px solid #A4A9B1'
             }
             _onClick={() => toggleSelected(true)}
+            cursor
           >
             <Icons
               margin="0 8px 0 0"
@@ -57,7 +61,7 @@ const Pick = () => {
               fontSize="16px"
               color={isLikeSelected ? '#282828' : '#A3A6AA'}
             >
-              찜한곳
+              {t('Pick.pickPlace')}
             </Text>
           </Grid>
           <Grid
@@ -68,6 +72,7 @@ const Pick = () => {
               isLikeSelected ? '1px solid #A4A9B1' : '2px solid #000'
             }
             _onClick={() => toggleSelected(false)}
+            cursor
           >
             <Icons
               margin="0 8px 0 0"
@@ -80,13 +85,14 @@ const Pick = () => {
               fontSize="16px"
               color={isLikeSelected ? '#A3A6AA' : '#282828'}
             >
-              가본곳
+              {t('Pick.visitedPlace')}
             </Text>
           </Grid>
         </PickPlace>
         {isLikeSelected ? (
           /* 좋아요 리스트 */
           <>
+            {isLoading && <Spinner />}
             {userPickPlaces.likeList && userPickPlaces.likeList.length > 0 ? (
               <Grid width="100%" isFlex wrap padding="0 0 65px  0">
                 {userPickPlaces.likeList.map(item => {
@@ -115,6 +121,7 @@ const Pick = () => {
               </Grid>
             ) : (
               <>
+                {isLoading && <Spinner />}
                 <Grid
                   width="100%"
                   height="80%"
@@ -124,7 +131,7 @@ const Pick = () => {
                 >
                   <IsNoneArea>
                     <Image src={noLikePlace} />
-                    <Text margin="69px 0 0 0">찜한 곳이 없습니다.</Text>
+                    <Text margin="69px 0 0 0">{t('Pick.noPickPlace')}</Text>
                   </IsNoneArea>
                 </Grid>
               </>
@@ -172,7 +179,7 @@ const Pick = () => {
             ) : (
               <IsNoneArea>
                 <Image src={noVisitedPlace} />
-                <Text margin="69px 0 0 0">가본 곳이 없습니다.</Text>
+                <Text margin="69px 0 0 0">{t('Pick.noVisitedPlace')}</Text>
               </IsNoneArea>
             )}
           </Grid>

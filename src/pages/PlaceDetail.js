@@ -1,7 +1,9 @@
 /* eslint-disable import/named */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Container, Grid, Text, Image, Button, Icons } from '../elements';
@@ -25,13 +27,16 @@ import PlaceSwiper from '../components/place/PlaceSwiper';
 import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
 import ReviewList from './ReviewList';
 import { getCategoryText } from '../shared/transferText';
-import { isLoginChk } from '../shared/utils';
+// import { isLoginChk } from '../shared/utils';
+import ConfirmModal from '../components/common/ConfirmModal';
 
 const Detail = props => {
   const dispatch = useDispatch();
   const { id } = props.match.params;
   const detailData = useSelector(state => state.place.detailInfo);
   const isLogin = useSelector(state => state.user.isLogin);
+  const [confirmModal, setConfirmModal] = useState(false);
+  const { t } = useTranslation();
 
   const newAddr = detailData.addressShort
     ? detailData.addressShort.split(' ')
@@ -47,11 +52,13 @@ const Detail = props => {
   useEffect(() => {
     dispatch(getPlaceDetailDB(id));
     window.scrollTo(0, 0);
+    return () => {};
   }, []);
 
   // 리뷰 쓰기 페이지로 이동
   const goReviewPage = () => {
-    if (!isLoginChk(isLogin)) {
+    if (!isLogin) {
+      setConfirmModal(true);
       return;
     }
     history.push(`/review/write/${id}`);
@@ -60,6 +67,7 @@ const Detail = props => {
   const goBack = () => {
     history.goBack();
   };
+
   /* postInfo parameter */
   const getParams = () => {
     const params = {
@@ -73,7 +81,11 @@ const Detail = props => {
 
   /* 좋아요 추가 및 삭제 */
   const setFavorites = () => {
-    if (!isLoginChk(isLogin)) {
+    // if (!isLoginChk(isLogin)) {
+    //   return;
+    // }
+    if (!isLogin) {
+      setConfirmModal(true);
       return;
     }
     const defaultParams = getParams();
@@ -85,7 +97,11 @@ const Detail = props => {
   };
   /* 가본장소 추가 및 삭제 */
   const setVisited = () => {
-    if (!isLoginChk(isLogin)) {
+    // if (!isLoginChk(isLogin)) {
+    //   return;
+    // }
+    if (!isLogin) {
+      setConfirmModal(true);
       return;
     }
     const defaultParams = getParams();
@@ -98,6 +114,13 @@ const Detail = props => {
 
   return (
     <>
+      {confirmModal && (
+        <ConfirmModal
+          title="로그인을 해야 이용할 수 있는 서비스입니다. 로그인 하시겠습니까?"
+          setConfirmModal={setConfirmModal}
+          goToLogin
+        />
+      )}
       <Container padding="0">
         <Grid>
           <PlaceSwiper list={detailData.postImages} />
@@ -153,7 +176,7 @@ const Detail = props => {
                       <Pin />
                     )}
                   </Icons>
-                  가본곳
+                  {t('placeDetailPage.navigation.0')}
                 </Button>
               </Grid>
               <Grid>
@@ -167,7 +190,7 @@ const Detail = props => {
                       <NoSelectedHeader />
                     </Icons>
                   )}
-                  찜하기
+                  {t('placeDetailPage.navigation.1')}
                 </Button>
               </Grid>
               <Grid>
@@ -175,7 +198,7 @@ const Detail = props => {
                   <Icons>
                     <Write />
                   </Icons>
-                  리뷰쓰기
+                  {t('placeDetailPage.navigation.2')}
                 </Button>
               </Grid>
               <Grid>
@@ -183,37 +206,36 @@ const Detail = props => {
                   <Icons margin="0 0 4px 0">
                     <Share />
                   </Icons>
-                  공유하기
+                  {t('placeDetailPage.navigation.3')}
                 </Button>
               </Grid>
             </IconNavigation>
             {/* 가게의 정보 */}
             <Grid>
               <Text fontSize="18px" color="#282828" bold>
-                장소팁
+                {t('placeDetailPage.category.0')}
               </Text>
               <Text fontSize="14px" margin="16px 0 32px" lineHeight="16px">
                 {detailData.postDesc}
               </Text>
               <Text fontSize="18px" color="#282828" bold>
-                가게정보
+                {t('placeDetailPage.category.1')}
               </Text>
               <Grid margin="16px 0">
                 {/* 카카오 지도 */}
                 <Map width="100%" height="191px" allPlaces={placeMarker} />
               </Grid>
               <Text fontSize="14px" color="#3E4042">
-                <Span>주소</Span>
+                <Span>{t('placeDetailPage.category.2')}</Span>
                 {detailData.address}
               </Text>
               <Text fontSize="14px" color="#3E4042">
-                <Span>전화</Span>
+                <Span>{t('placeDetailPage.category.3')}</Span>
                 {detailData.contactNumber}
               </Text>
             </Grid>
           </InfoGrid>
-          {/* 리뷰 */}
-          <ReviewList postId={id} reviewsList={detailData.reviews} />
+          <ReviewList postId={id} />
         </Grid>
       </Container>
     </>

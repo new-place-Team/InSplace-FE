@@ -1,100 +1,103 @@
-/* eslint-disable no-alert */
 /* eslint-disable consistent-return */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { Container, Grid, Input, Label } from '../elements';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import Header from '../components/common/Header';
+import { Container, Grid, Input, Label, Text } from '../elements';
 import { history } from '../redux/configureStore';
 import { logInDB } from '../redux/async/user';
-import Header from '../components/common/Header';
 import { xcircle } from '../images/index';
 import { KAKAO_AUTH_URL } from '../shared/KakaoOAuth';
 import { ReactComponent as KakaoIcon } from '../images/kakaoLogin/join_kakao.svg';
+import CommonModal from '../components/common/CommonModal';
 
 const Login = () => {
   const dispatch = useDispatch();
-  /* email,password 하나의 state에서 관리 */
-  const [state, setState] = React.useState({
+  const { t, i18n } = useTranslation();
+  const commomModal = useSelector(state => state.common.modalStatus);
+  const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
   });
-  const [emailCloseBtn, setEmailCloseBtn] = React.useState(false);
-  const [pwCloseBtn, setpwCloseBtn] = React.useState(false);
-  /* Input 관리 */
+  const [emailError, setEmailError] = useState('');
+  const [passError, setPassError] = useState('');
+
   const onChange = e => {
-    setState({ ...state, [e.target.name]: e.target.value });
+    setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
   };
   /* 서버에 전달할 정보 */
   const userInfo = {
-    email: state.email,
-    password: state.password,
+    email: loginInfo.email,
+    password: loginInfo.password,
   };
   /* 로그인 제출 */
   const submitUserInfo = () => {
+    if (userInfo.email.length !== 0) {
+      setEmailError('');
+    }
     if (userInfo.email === '') {
-      window.alert('이메일을 입력해주세요!');
-      return;
+      return setEmailError(t('loginPage.loginerrMessage.0'));
+    }
+    if (userInfo.password.length !== 0) {
+      setPassError('');
     }
     if (userInfo.password === '') {
-      window.alert('비밀번호를 입력해주세요!');
-      return;
+      return setPassError(t('loginPage.loginerrMessage.1'));
     }
     dispatch(logInDB(userInfo));
   };
 
-  React.useEffect(() => {
-    if (state.email !== '') {
-      return setEmailCloseBtn(true);
-    }
-    if (state.email === '') {
-      return setEmailCloseBtn(false);
-    }
-    // 3번째 확인할 것
-    if (state.password !== '') {
-      return setpwCloseBtn(true);
-    }
-    if (state.password === '') {
-      return setpwCloseBtn(false);
-    }
-  }, [state]);
-
   return (
     <>
-      <Header _back _content="로그인" />
+      {commomModal && <CommonModal />}
+      <Header _back _content={t('loginPage.headerSubTitle')} />
       <Container padding="66px 0 0 0">
         <Grid padding="42px 20px 0 20px">
           <Wrap>
-            {/* 이메일 */}
-            <Label type="form">이메일</Label>
+            <Label type="form">{t('loginPage.loginEmail')}</Label>
             <Input
               inputType="form"
               type="text"
-              value={state.email}
+              value={loginInfo.email}
               name="email"
               _onChange={onChange}
-              placeholder="이메일 주소를 입력해주세요"
+              placeholder={t('loginPage.loginPlaceholder.0')}
             />
-            {emailCloseBtn ? (
+            {loginInfo.email !== '' && (
               <CloseButton
                 src={xcircle}
                 onClick={() => {
-                  setState({ email: '' });
+                  setLoginInfo({ ...loginInfo, email: '' });
                 }}
               />
-            ) : null}
+            )}
+            <Text fontSize="12px" color="#ff4949">
+              {emailError}
+            </Text>
           </Wrap>
-          {/* 비밀번호 */}
           <Wrap>
-            <Label type="form">비밀번호</Label>
+            <Label type="form">{t('loginPage.loginPassword')}</Label>
             <Input
               inputType="form"
               type="password"
-              value={state.password}
+              value={loginInfo.password}
               name="password"
               _onChange={onChange}
-              placeholder="비밀번호를 입력해주세요"
+              placeholder={t('loginPage.loginPlaceholder.1')}
             />
-            {pwCloseBtn ? <CloseButton src={xcircle} /> : null}
+
+            {loginInfo.password !== '' && (
+              <CloseButton
+                src={xcircle}
+                onClick={() => {
+                  setLoginInfo({ ...loginInfo, password: '' });
+                }}
+              />
+            )}
+            <Text fontSize="12px" color="#ff4949">
+              {passError}
+            </Text>
           </Wrap>
         </Grid>
         <BottomWrap>
@@ -109,10 +112,12 @@ const Login = () => {
             <IconArea>
               <KakaoIcon />
             </IconArea>
-            카카오 로그인
+            {t('loginPage.kakaoLogin')}
           </KakaoButton>
-          <Button onClick={submitUserInfo}>로그인</Button>
-          <Button onClick={() => history.push('/signUp')}>회원가입</Button>
+          <Button onClick={submitUserInfo}>{t('loginPage.login')}</Button>
+          <Button onClick={() => history.push('/signUp')}>
+            {t('loginPage.register')}
+          </Button>
         </BottomWrap>
       </Container>
     </>
@@ -155,15 +160,18 @@ const IconArea = styled.div`
   left: 16px;
   width: 24px;
   height: 24px;
+
   svg {
     width: 35px;
     height: 35px;
   }
+  cursor: pointer;
 `;
 const CloseButton = styled.img`
   position: absolute;
   right: 11px;
   bottom: 17px;
-  width: 16px;
+  width: 20px;
+  cursor: pointer;
 `;
 export default Login;

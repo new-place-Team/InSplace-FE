@@ -1,4 +1,5 @@
 /* eslint-disable default-case */
+
 /**
  * 타입별 날씨 텍스트 변경
  * @param type 1.맑음  2.비 3.눈
@@ -68,6 +69,31 @@ const getPeopleText = type => {
   return text;
 };
 
+const getGenderText = type => {
+  let text = '';
+  switch (type) {
+    case 1:
+      text = '남자';
+      break;
+    case 2:
+      text = '여자';
+      break;
+    default:
+      text = '혼성';
+  }
+  return text;
+};
+
+/* 카테고리 리스트 텍스트 변경 */
+const getCategoryArrText = (type, value) => {
+  if (type === 'gender') {
+    return getGenderText(value);
+  }
+  if (type === 'num') {
+    return getPeopleText(value);
+  }
+  return getCategoryText(value);
+};
 /**
  * 타입별 듀오 유형 텍스트 변경
  * @param type 1.여자끼리 2.남자끼리 3.혼성
@@ -178,4 +204,6 @@ export {
   getDuoText,
   get어제대비온도,
   getPeopleMbti,
+  getGenderText,
+  getCategoryArrText,
 };

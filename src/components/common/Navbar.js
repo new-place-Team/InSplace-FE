@@ -1,12 +1,12 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable no-alert */
-/* eslint-disable import/no-unresolved */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
 import { Grid } from '../../elements/index';
 import theme from '../../styles/theme';
+import WeatherInfo from './WeatherInfo';
 /* weather Icon */
 import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
 import { ReactComponent as CloudIcon } from '../../images/weather/cloud.svg';
@@ -18,21 +18,18 @@ import { ReactComponent as FilterIcon } from '../../images/nav/ic_nav_fliter.svg
 import { ReactComponent as HeartIcon } from '../../images/nav/ic_nav_heart.svg';
 import { ReactComponent as MypageIcon } from '../../images/nav/ic_nav_mypage.svg';
 import { profile1 } from '../../images/index';
-import { isLoginChk } from '../../shared/utils';
+// import { isLoginChk } from '../../shared/utils';
+import ConfirmModal from './ConfirmModal';
 
 const Navbar = () => {
   const pathName = history.location.pathname;
+  const { t, i18n } = useTranslation();
   const isLogin = useSelector(state => state.user.isLogin);
   const userInfo = useSelector(state => state.user.userInfo);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
+  const [weatherModalShow, setWeatherModalShow] = useState(false);
+  const [confirmModal, setConfirmModal] = useState(false);
 
-  /* 로그인 필요 확인 */
-  const pageMove = url => {
-    if (!isLoginChk(isLogin)) {
-      return;
-    }
-    history.push(url);
-  };
   let WeatherIcon = '';
   let weatherKey = '';
   if (weatherStatus) {
@@ -51,63 +48,102 @@ const Navbar = () => {
       weatherKey = 'sun';
     }
   }
+  const openWeatherModal = () => {
+    setWeatherModalShow(true);
+  };
+
+  const closeWeatherModal = () => {
+    setWeatherModalShow(false);
+  };
+
+  const pageMove = value => {
+    if (value === undefined && !isLogin) {
+      history.push(`/login`);
+    } else {
+      history.push(`${value}`);
+    }
+  };
+  /* 로그인 필요 확인 */
+  const loginCheck = url => {
+    if (!isLogin) {
+      setConfirmModal(true);
+      return;
+    }
+    pageMove(url);
+    // if (!isLoginChk(isLogin)) {
+    //   return;
+    // }
+    // history.push(url);
+  };
+
   return (
-    <Nav>
-      <Content>
-        <Wrap>
-          <Grid
-            bg={theme.weatherColor[weatherKey]}
-            justifyContent="center"
-            width="100%"
-          >
-            <Icon color="#fff">{WeatherIcon}</Icon>
-          </Grid>
-
-          <Icon
-            color={pathName === '/' ? '#000' : ''}
-            onClick={() => history.push('/')}
-          >
-            <HomeIcon />
-          </Icon>
-
-          <Icon
-            color={pathName === '/select-type' ? '#000' : ''}
-            onClick={() => history.push('/select-type')}
-          >
-            <FilterIcon />
-          </Icon>
-          <Icon
-            color={pathName === '/pickList' ? '#000' : ''}
-            onClick={() => pageMove('/pickList')}
-          >
-            <HeartIcon />
-          </Icon>
-          {isLogin === false ? (
-            <Icon
-              color={pathName === '/mypage' ? '#000' : ''}
-              onClick={() => pageMove('/mypage')}
+    <>
+      {confirmModal && (
+        <ConfirmModal
+          title={t('Navbar.login')}
+          setConfirmModal={setConfirmModal}
+          goToLogin
+        />
+      )}
+      {weatherModalShow && (
+        <WeatherInfo closeWeatherModal={closeWeatherModal} />
+      )}
+      <Nav>
+        <Content>
+          <Wrap>
+            <Grid
+              bg={theme.weatherColor[weatherKey]}
+              justifyContent="center"
+              width="100%"
+              _onClick={openWeatherModal}
             >
-              <MypageIcon />
+              <Icon color="#fff">{WeatherIcon}</Icon>
+            </Grid>
+
+            <Icon
+              color={pathName === '/' ? '#000' : ''}
+              onClick={() => history.push('/')}
+            >
+              <HomeIcon />
             </Icon>
-          ) : // 로그인 상태일때
-          userInfo.userImage === null ? (
-            <UserImage
-              width="24px"
-              height="24px"
-              src={profile1}
-              onClick={() => pageMove('/mypage')}
-            />
-          ) : (
-            <UserImage
-              width="24px"
-              height="24px"
-              src={userInfo.userImage}
-              onClick={() => pageMove('/mypage')}
-            />
-          )}
-        </Wrap>
-      </Content>
-    </Nav>
+
+            <Icon
+              color={pathName === '/select-type' ? '#000' : ''}
+              onClick={() => history.push('/select-type')}
+            >
+              <FilterIcon />
+            </Icon>
+            <Icon
+              color={pathName === '/pickList' ? '#000' : ''}
+              onClick={() => loginCheck('/pickList')}
+            >
+              <HeartIcon />
+            </Icon>
+            {isLogin === false ? (
+              <Icon
+                color={pathName === '/mypage' ? '#000' : ''}
+                onClick={() => loginCheck('/mypage')}
+              >
+                <MypageIcon />
+              </Icon>
+            ) : // 로그인 상태일때
+            userInfo.userImage === null ? (
+              <UserImage
+                width="24px"
+                src={profile1}
+                onClick={() => loginCheck('/mypage')}
+              />
+            ) : (
+              <UserImage
+                width="24px"
+                src={userInfo.userImage}
+                onClick={() => loginCheck('/mypage')}
+              />
+            )}
+          </Wrap>
+        </Content>
+      </Nav>
+    </>
   );
 };
 
@@ -149,8 +185,6 @@ const Icon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* width: 24px;
-  height: 24px; */
   cursor: pointer;
 
   svg {
@@ -163,6 +197,7 @@ const UserImage = styled.div`
   width: 24px;
   height: 24px;
   border-radius: 50%;
+  margin-bottom: 8px;
   background-image: url('${props => props.src}');
   background-size: cover;
   background-position: center;

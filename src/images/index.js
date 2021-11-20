@@ -1,22 +1,3 @@
-/* eslint-disable import/no-unresolved */
-// import chevronLeft from './chevron-left.png';
-// import detailHeart from './detail-heart.png';
-// import heart from './heart.png';
-import home from './home.png';
-// import like from './like.png';
-// import mapPin from './map-pin.png';
-// import map from './map.png';
-// import search from './search.png';
-// import share from './share.png';
-import sliders from './sliders.png';
-import user from './user.png';
-import vector from './Vector.png';
-import x from './x.png';
-
-// import whiteVector from './white-vector.png';
-// import close from './x.png';
-// import arrowRight from './arrow-right.png';
-// import inputClose from './inputClose.png';
 import bookmark from './ic-bookmark.svg';
 import close from './ic-close.svg';
 import heartFilled from './ic-heart-filled.svg';
@@ -28,10 +9,7 @@ import search from './ic-search.svg';
 import settings from './ic-settings.svg';
 import share from './ic-share.svg';
 import write from './ic-write.svg';
-import xcircle from './ic-xcircle.svg';
 import pin from './ic-pin.svg';
-import bad from './ic-bad.svg';
-import good from './ic-good.svg';
 import next from './ic-next.svg';
 import polygon from './Polygon.svg';
 import whiteClose from './close.svg';
@@ -39,14 +17,40 @@ import plus from './plus.svg';
 import polygonimg from './Polygon.png';
 import insplace from './Insplace.png';
 import mypageNext from './next.svg';
-import profile1 from './profile1.png';
-import profile2 from './profile2.png';
-import profile3 from './profile3.png';
-import profile4 from './profile4.png';
+import spinner from './spinner.gif';
+
+// Icon
+import more from './Icon/ic_more.svg';
+import bad from './Icon/ic_bad.svg';
+import good from './Icon/ic_good.svg';
+import xcircle from './Icon/ic_xcircle.svg';
+import xclose from './Icon/ic_header_close.svg';
+import report from './Icon/ic_report.svg';
+import modalClose from './Icon/ic_modal_close.svg';
+import checked from './Icon/ic_check.svg';
+
+// illustration
+import profile1 from './illustration/profile1.png';
+import profile2 from './illustration/profile2.png';
+import profile3 from './illustration/profile3.png';
+import manProfile1 from './illustration/man_profile1.png';
+import manProfile2 from './illustration/man_profile2.png';
+import manProfile3 from './illustration/man_profile3.png';
+import womanProfile1 from './illustration/woman_profile1.png';
+import womanProfile2 from './illustration/woman_profile2.png';
+import womanProfile3 from './illustration/woman_profile3.png';
 import noLikePlace from './illustration/no-like_place.png';
 import noVisitedPlace from './illustration/no-visited_place.png';
 import placeSearch from './illustration/search_img.png';
 import placeSearchResult from './illustration/search_result_img.png';
+
+// skeleton
+import header from './skeleton/header.png';
+import mainCard from './skeleton/mainCard.png';
+import resultCard from './skeleton/resultCard.png';
+import selectResultCard from './skeleton/selectResultCard.png';
+import card from './skeleton/card.jpg';
+import main from './skeleton/vs.jpg';
 
 export {
   bookmark,
@@ -61,10 +65,6 @@ export {
   share,
   write,
   xcircle,
-  home,
-  vector,
-  sliders,
-  user,
   pin,
   bad,
   good,
@@ -77,11 +77,27 @@ export {
   profile1,
   profile2,
   profile3,
-  profile4,
+  manProfile1,
+  manProfile2,
+  manProfile3,
+  womanProfile1,
+  womanProfile2,
+  womanProfile3,
   noLikePlace,
   noVisitedPlace,
-  x,
   placeSearch,
   placeSearchResult,
   polygonimg,
+  spinner,
+  more,
+  main,
+  header,
+  mainCard,
+  resultCard,
+  selectResultCard,
+  card,
+  xclose,
+  report,
+  modalClose,
+  checked,
 };

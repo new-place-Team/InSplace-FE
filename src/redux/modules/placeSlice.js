@@ -1,9 +1,7 @@
-/* eslint-disable no-alert */
 /* eslint-disable no-unused-expressions */
-/* eslint-disable no-undef */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import {
   getMainListDB,
   getSearchConditionDB,
@@ -15,8 +13,10 @@ import {
   setVisitedPostDB,
   getReviewEditDB,
   getSearchConditionListDB,
+  getWeatherDB,
 } from '../async/place';
-
+import { getCategoryArrText } from '../../shared/transferText';
+import loadedSlice from './loadedSlice';
 /* init */
 const initialState = {
   mainLists: null,
@@ -25,7 +25,8 @@ const initialState = {
   /* 위치 정보 */
   location: null,
   /* 선택 카테고리 */
-  selectedCategory: [],
+  categoryParams: null,
+  categoryList: null,
   conditionPlaces: null,
   detailInfo: {},
   currentCoordinate: {},
@@ -50,14 +51,24 @@ const placeSlice = createSlice({
       state.weatherList = payload.weatherPlace;
     },
     setSelectedCategory: (state, { payload }) => {
-      state.selectedCategory = payload;
+      const objList = payload.replace('?', '').split('&');
+      const categoryArr = ['gender', 'num', 'category'];
+      const newCategoryList = categoryArr.map(item => {
+        let typeValue = 0;
+        objList.forEach(v => {
+          const objArr = v.split('=');
+          if (objArr[0] === item) {
+            typeValue = Number(objArr[1]);
+          }
+        });
+        return getCategoryArrText(item, typeValue);
+      });
+      state.categoryList = newCategoryList;
+      state.categoryParams = payload;
     },
     setFocusCoord: (state, { payload }) => {
+      payload;
       state.focusCoord = payload;
-    },
-    createMap: (state, { payload }) => {
-      console.log(payload);
-      state.map = payload;
     },
     setPlaceListInit: state => {
       state.placeList = null;
@@ -91,6 +102,18 @@ const placeSlice = createSlice({
           ? (target.favoriteCnt += 1)
           : (target.favoriteCnt -= 1);
       }
+    },
+    resetReviewList: state => {
+      state.reviewList = null;
+    },
+    resetReviewLikeList: state => {
+      state.reviewLikesList = null;
+    },
+    resetReviewPagination: state => {
+      state.reviewList = null;
+      state.reviewLikesList = null;
+      state.reviewPagination = { page: 1, isNext: true };
+      state.reviewLikesPagination = { page: 1, isNext: true };
     },
     addReviewList: (state, { payload }) => {
       const newReviewList = state.reviewList;
@@ -129,7 +152,7 @@ const placeSlice = createSlice({
     reviewLikesList: (state, { payload }) => {
       const newReviewList = state.reviewList;
       const newLikeReviewList = state.reviewLikesList;
-      // 최신순 리뷰에 좋아요를 클릭했을 때
+      // 리뷰에 좋아요를 클릭했을 때
       if (!payload.reviewType) {
         if (newReviewList) {
           state.reviewList = newReviewList.map(item =>
@@ -149,7 +172,7 @@ const placeSlice = createSlice({
     reviewLikesCancelList: (state, { payload }) => {
       const newReviewList = state.reviewList;
       const newLikeReviewList = state.reviewLikesList;
-      // 최신순 리뷰에 좋아요 취소를 클릭했을 때
+      // 리뷰에 좋아요 취소를 클릭했을 때
       if (!payload.reviewType) {
         if (newReviewList) {
           state.reviewList = newReviewList.map(item =>
@@ -169,6 +192,10 @@ const placeSlice = createSlice({
   },
 
   extraReducers: {
+    /* 날씨 정보 처리 완료 */
+    [getWeatherDB.fulfilled]: (state, { payload }) => {
+      state.weatherStatus = payload;
+    },
     /* Fulfilled(이행) 처리 완료 */
     [getMainListDB.fulfilled]: (state, { payload }) => {
       state.mainLists = payload;
@@ -203,7 +230,7 @@ const placeSlice = createSlice({
     },
     // 리뷰 추천순 조회
     [getReviewLikesListDB.fulfilled]: (state, { payload }) => {
-      console.log(current(state.reviewList));
+      // console.log(current(state.reviewLikesList));
       if (state.reviewLikesList) {
         state.reviewLikesList = [...state.reviewLikesList, ...payload.reviews];
         state.reviewLikesPagination = {
@@ -286,7 +313,6 @@ export const {
   getCurrentCoordinate,
   setSelectedCategory,
   setFocusCoord,
-  createMap,
   setConditionPlaces,
   addReviewList,
   updateReviewList,
@@ -294,6 +320,10 @@ export const {
   reviewLikesList,
   reviewLikesCancelList,
   setPlaceListInit,
+  resetReviewList,
+  resetReviewLikeList,
+  resetReviewPagination,
 } = placeSlice.actions;
 
+export const { getLoaded } = loadedSlice.actions;
 export default placeSlice;
