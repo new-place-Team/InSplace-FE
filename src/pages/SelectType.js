@@ -16,7 +16,7 @@ const SelectedType = () => {
   const dispatch = useDispatch();
   const weatherStatus = useSelector(state => state.place.weatherStatus);
   const { t } = useTranslation();
-  console.log('render check');
+  console.log('render check', t);
   const [categoryInfo, setCategoryInfo] = React.useState({
     MemberCnt: '',
     gender: '',
@@ -45,6 +45,7 @@ const SelectedType = () => {
     }
     return text;
   };
+  let aa = 1;
   const [selectData, setSelectData] = React.useState([
     {
       title: t('selectTypePage.selectGender.selectTitle'),
@@ -122,6 +123,7 @@ const SelectedType = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    aa = 2;
   }, [selectData]);
 
   return (
