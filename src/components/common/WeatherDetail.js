@@ -20,7 +20,7 @@ const WeatherInfo = props => {
   const root = document.querySelector('#root');
   const location = useSelector(state => state.place.location);
   const weatherInfo = useSelector(state => state.place.weatherStatus);
-  let weatherStatus = weatherInfo && weatherInfo.frontWeather;
+  const weatherStatus = weatherInfo && weatherInfo.frontWeather;
   let weatherBg = '';
   useEffect(() => {
     root.setAttribute('style', 'overflow: hidden;');
@@ -28,7 +28,6 @@ const WeatherInfo = props => {
   }, []);
 
   if (weatherInfo) {
-    weatherStatus = 3;
     if (weatherStatus === 2) {
       weatherBg = RainFull768;
     } else if (weatherStatus === 3) {
@@ -145,18 +144,7 @@ const WeatherInfo = props => {
         ) : (
           ''
         )}
-        {weatherStatus === 4 ? (
-          <>
-            <CloudArea top="-10%" right="-20%">
-              <CloudImage src={CloudImg} />
-            </CloudArea>
-            <CloudArea top="20%" left="-20%">
-              <CloudImage src={CloudImg} />
-            </CloudArea>
-          </>
-        ) : (
-          ''
-        )}
+        {weatherStatus === 4 ? <CloudArea src={CloudImg} /> : ''}
       </Container>
     </Wrap>
   );
@@ -234,11 +222,11 @@ const SunshineArea = styled.div`
 
   @keyframes shine {
     0% {
-      opacity: 0.4;
+      opacity: 0.6;
       transform: scale(1);
     }
     50% {
-      opacity: 0.7;
+      opacity: 0.8;
       transform: scale(1.2);
     }
     100% {
@@ -341,24 +329,31 @@ const RainArea = styled.div`
 
 /* Cloud Interaction */
 const CloudArea = styled.div`
+  opacity: 0.5;
   position: absolute;
-  top: ${({ top }) => top || 0};
-  ${props => props.right && `right:${props.right}`};
-  ${props => props.left && `left:${props.left}`};
-  width: 100%;
-  height: 400px;
-`;
-const CloudImage = styled.img`
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  overflow: visible;
+  background: url('${props => props.src}') repeat-x;
+  background-size: cover;
+  animation: cloud 9000s linear infinite;
+
+  @keyframes cloud {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 9000% 0;
+    }
+  }
 `;
 
 const SnowArea = styled.div`
   background: url('https://designshack.net/tutorialexamples/letitsnow/snow.png');
   background-repeat: repeat;
   width: 100%;
-  height: ${({ height }) => height || '700px'};
+  height: ${({ height }) => height || '780px'};
   position: absolute;
   top: 0;
   left: 0;
