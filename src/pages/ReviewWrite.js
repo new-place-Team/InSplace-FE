@@ -178,7 +178,7 @@ const ReviewWrite = props => {
         setPreview(data.reviewImages);
       }
     } catch (err) {
-      console.log('err == ', err);
+      console.log('err == ', err.response);
     }
   };
 

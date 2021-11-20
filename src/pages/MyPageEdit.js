@@ -33,12 +33,10 @@ const MyPageEdit = props => {
   useEffect(() => {
     if (getTokenYn() === false) {
       const params = {
-        title: '로그인을 해주세요!',
+        title: t('MyPageEdit.Modal.goLogin'),
         goPage: '/login',
       };
       dispatch(setCommonModalOn(params));
-      // window.alert('로그인을 해주세요!');
-      // history.push('/login');
     }
   }, []);
   /* 이전 페이지에서 가지고 있던 유저 정보를 params로 넘겨줌 */
@@ -92,16 +90,16 @@ const MyPageEdit = props => {
     const nickCheck = { nickname: info.nickname };
     /* 닉네임값이 빈값 일때 */
     if (info.nickname === '') {
-      return setErrorMessage('닉네임을 입력해주세요!');
+      return setErrorMessage(t('MyPageEdit.nicNameError.0'));
     }
     if (info.nickname.length < 2) {
-      return setErrorMessage('닉네임은 두글자 이상으로 입력해주세요!');
+      return setErrorMessage(t('MyPageEdit.nicNameError.1'));
     }
     if (info.nickname.length > 12) {
-      return setErrorMessage('닉네임은 12자리 이하로 입력해주세요!');
+      return setErrorMessage(t('MyPageEdit.nicNameError.2'));
     }
     if (newParams.nickname === nickname) {
-      setErrorMessage('사용 가능한 닉네임 입니다!');
+      setErrorMessage(t('MyPageEdit.nicNameError.5'));
       return setNicknameDuplicate(false);
     }
     try {
@@ -110,9 +108,9 @@ const MyPageEdit = props => {
         const result = response.data.Msg;
         if (result === true) {
           setNicknameDuplicate(result);
-          return setErrorMessage('이미 존재하는 닉네임입니다.');
+          return setErrorMessage(t('MyPageEdit.nicNameError.4'));
         } else {
-          setErrorMessage('사용 가능한 닉네임 입니다!');
+          setErrorMessage(t('MyPageEdit.nicNameError.5'));
           setNicknameDuplicate(result);
         }
       }
@@ -125,10 +123,10 @@ const MyPageEdit = props => {
   /* 유저정보 수정 요청 */
   const onSubmitHandler = () => {
     if (nickname === '') {
-      return window.alert('닉네임을 입력해주세요!');
+      return window.alert(t('MyPageEdit.nicNameError.0'));
     }
     if (nicknameDuplicate === true) {
-      return window.alert('닉네임 중복 체크를 먼저 해주세요!');
+      return window.alert(t('MyPageEdit.nicNameError.3'));
     }
     const formData = new FormData();
     formData.append('nickname', nickname);

@@ -14,8 +14,10 @@ const Textarea = props => {
     color,
     border,
     value,
+    height,
+    size,
   } = props;
-  const styles = { margin, padding, color, border };
+  const styles = { margin, padding, color, border, height, size };
 
   return (
     <>
@@ -41,13 +43,21 @@ Textarea.defaultProps = {
 
 const DefaultTextarea = styled.textarea`
   width: 100%;
+  height: ${({ height }) => height};
   margin: ${({ margin }) => margin};
   padding: ${({ padding }) => padding};
+  font-size: ${({ size }) => size};
+  color: ${({ color }) => color};
   box-sizing: border-box;
   resize: none;
   border: ${({ border }) => border};
+  letter-spacing: -0.0008em;
   &:focus {
     outline: none;
+  }
+  &::placeholder {
+    color: #a3a6aa;
+    font-size: 14px;
   }
 `;
 

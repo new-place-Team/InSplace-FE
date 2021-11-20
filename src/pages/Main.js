@@ -109,7 +109,6 @@ const Main = () => {
             </SelectTypeBtn>
           </>
         </SkeletonGrid>
-
         {/* Place Section */}
         <Grid>
           {/* 날씨에 따른 공간 */}
@@ -140,6 +139,7 @@ const Main = () => {
     </>
   );
 };
+
 const SkeletonGrid = styled.div`
   position: relative;
   height: 672px;

@@ -52,6 +52,7 @@ const Detail = props => {
   useEffect(() => {
     dispatch(getPlaceDetailDB(id));
     window.scrollTo(0, 0);
+    return () => {};
   }, []);
 
   // 리뷰 쓰기 페이지로 이동
@@ -234,7 +235,7 @@ const Detail = props => {
               </Text>
             </Grid>
           </InfoGrid>
-          <ReviewList postId={id} reviewsList={detailData.reviews} />
+          <ReviewList postId={id} />
         </Grid>
       </Container>
     </>

@@ -53,7 +53,7 @@ const MyPage = () => {
 
   const showModal = () => {
     const params = {
-      title: '서비스 준비중입니다.',
+      title: t('MyPage.Modal.service'),
     };
     dispatch(setCommonModalOn(params));
   };
@@ -62,7 +62,7 @@ const MyPage = () => {
     <>
       {loginModal && (
         <ConfirmModal
-          title="로그인이 필요한 서비스입니다."
+          title={t('MyPage.Modal.goLogin')}
           setModal={setLoginModal}
           isOk
           pageMove={pageMove}
