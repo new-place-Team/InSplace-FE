@@ -61,11 +61,11 @@ const ListCard = forwardRef((props, ref) => {
   if (type === 'main') {
     return (
       <>
-        <SkeletonBg width="100%" height="320px" ref={imgRef}>
+        <SkeletonBg width="237px" height="320px" ref={imgRef}>
           {isLoading && (
             <Grid _onClick={gotoDetail} width="237px" cursor>
               <CardImageWrap height="320px">
-                <CardImage src={info.postImage} />
+                <CardImage width="237px" src={info.postImage} />
               </CardImageWrap>
               <Tag>
                 <Text color="#fff" fontSize="14px">
@@ -105,15 +105,15 @@ const ListCard = forwardRef((props, ref) => {
   if (type === 'selectResult') {
     return (
       <>
-        <SkeletonBg width="100%" height="320px" ref={imgRef}>
+        <SkeletonBg width="242px" height="320px" ref={imgRef}>
           {isLoading && (
             <Grid
               _onClick={() => history.push(`/place/detail/${info.postId}`)}
               cursor
               width="100%"
             >
-              <CardImageWrap height="320px">
-                <CardImage src={info.postImage} />
+              <CardImageWrap width="242px" height="320px">
+                <CardImage width="242px" src={info.postImage} />
               </CardImageWrap>
               <IconArea onClick={setFavorites}>
                 {info && info.favoriteState ? (
@@ -232,8 +232,9 @@ ListCard.defaultProps = {
 const SkeletonBg = styled.div`
   position: relative;
   overflow: hidden;
+  width: ${({ width }) => width || '100%'};
+  height: ${({ height }) => height || '100%'};
   padding-bottom: ${props => (props.height / props.width) * 100};
-  /* padding-bottom: (358/240) * 100; */
   background-color: #f0f0f0;
 `;
 
@@ -264,7 +265,7 @@ const CardImageWrap = styled.div`
   z-index: 10;
 `;
 const CardImage = styled.img`
-  width: 100%;
+  width: ${({ width }) => width || '100%'};
   height: ${({ height }) => height || '100%'};
   object-fit: cover;
   ${props => props.margin && `margin:${props.margin}`};

@@ -2,7 +2,6 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
-import styled from 'styled-components';
 import ListCard from '../place/ListCard';
 
 const SwiperLB = props => {
@@ -15,28 +14,28 @@ const SwiperLB = props => {
       // mobile
       320: {
         slidesPerView: 1,
-        spaceBetween: type === 'selectResult' ? -20 : -45,
+        spaceBetween: type === 'selectResult' ? -45 : -45,
       },
       360: {
         slidesPerView: 1,
-        spaceBetween: type === 'selectResult' ? -60 : -85,
+        spaceBetween: type === 'selectResult' ? -85 : -85,
       },
       375: {
         slidesPerView: 1,
-        spaceBetween: type === 'selectResult' ? -75 : -100,
+        spaceBetween: type === 'selectResult' ? -100 : -100,
       },
       410: {
         slidesPerView: 1,
-        spaceBetween: type === 'selectResult' ? -110 : -135,
+        spaceBetween: type === 'selectResult' ? -135 : -135,
       },
       500: {
         slidesPerView: 2,
-        spaceBetween: type === 'selectResult' ? 16 : -109,
+        spaceBetween: type === 'selectResult' ? -9 : -9,
       },
       768: {
         slidesPerView: 3,
         lazyLoading: true,
-        spaceBetween: type === 'selectResult' ? 41 : 16,
+        spaceBetween: type === 'selectResult' ? 16 : 16,
       },
     },
   };
@@ -60,28 +59,16 @@ const SwiperLB = props => {
   }
 
   return (
-    <Test>
-      <Swiper {...setting} className="swiper_css">
-        {list &&
-          list.map(info => {
-            return (
-              <SwiperSlide key={info.postId}>
-                <ListCard src={info.postImages} type="main" info={info} />
-              </SwiperSlide>
-            );
-          })}
-      </Swiper>
-    </Test>
+    <Swiper {...setting}>
+      {list &&
+        list.map(info => {
+          return (
+            <SwiperSlide key={info.postId}>
+              <ListCard src={info.postImages} type="main" info={info} />
+            </SwiperSlide>
+          );
+        })}
+    </Swiper>
   );
 };
-
-const Test = styled.div`
-  border: 2px solid red;
-  .swiper_css {
-    border: 2px solid green;
-    .swiper-slide {
-      border: 2px solid black;
-    }
-  }
-`;
 export default SwiperLB;
