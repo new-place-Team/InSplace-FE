@@ -8,11 +8,8 @@ import MapCard from './MapCard';
 SwiperCore.use([Navigation, Pagination, History]);
 
 const SwiperMap = props => {
-  // SwiperCore.use([Pagination]);
   const { list, _onChageFocus } = props;
-
   const setting = {
-    // slidesPerView: 'auto',
     slidesPerView: 3,
     spaceBetween: 30,
     loop: true,
@@ -37,15 +34,12 @@ const SwiperMap = props => {
       <Swiper
         className="mapSwiper"
         /* 스와이프 했을떄 실행할 함수 */
-
         onSlideChange={e => {
           const coord = {
             lat: list[e.realIndex].postLocationY,
             lon: list[e.realIndex].postLocationX,
           };
-          // console.log('coord', coord);
           _onChageFocus(coord);
-
           // dispatch(setFocusCoord(coord));
         }}
         {...setting}

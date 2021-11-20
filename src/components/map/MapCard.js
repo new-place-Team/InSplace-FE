@@ -68,7 +68,7 @@ const Mapchild = styled.div`
   height: 172px;
   padding: 20px;
   background-color: #fff;
-  overflow: hidden;
+  /* overflow: hidden; */
 `;
 const MapInfoText = styled.p`
   padding-top: 10px;

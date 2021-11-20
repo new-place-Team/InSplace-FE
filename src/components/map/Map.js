@@ -1,11 +1,18 @@
 /* eslint-disable */
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import ArtImg from '../../images/map/ic_map_art.jpg';
-import ActivityImg from '../../images/map/ic_map_activity.svg';
-import CafeImg from '../../images/map/ic_map_cafe.jpg';
-import TravelImg from '../../images/map/ic_map_travel.jpg';
-import RestaurantImg from '../../images/map/ic_map_restaurant.jpg';
+import {
+  activity,
+  activitySmall,
+  art,
+  artSmall,
+  cafe,
+  cafeSmall,
+  travel,
+  travelSmall,
+  restaurant,
+  restaurantSmall,
+} from '../../images';
 
 const Map = props => {
   const mapDiv = useRef(null);
@@ -39,17 +46,23 @@ const Map = props => {
     /* Marker */
     allPlaces.forEach(el => {
       // console.log(el, el.category);
-      let imageSrc = ActivityImg;
+      const { lat, lon } = latLon;
+      const markerFocus = el.postLocationX === lon && el.postLocationY === lat;
+
+      let imageSrc = markerFocus ? activity : activitySmall;
       if (el.category === '여행') {
-        imageSrc = TravelImg;
+        imageSrc = markerFocus ? travel : travelSmall;
       } else if (el.category === '맛집') {
-        imageSrc = RestaurantImg;
+        imageSrc = markerFocus ? restaurant : restaurantSmall;
       } else if (el.category === '카페') {
-        imageSrc = CafeImg;
+        imageSrc = markerFocus ? cafe : cafeSmall;
       } else if (el.category === '예술') {
-        imageSrc = ArtImg;
+        imageSrc = markerFocus ? art : artSmall;
       }
-      const imageSize = new kakao.maps.Size(24, 24);
+      const imageSize = markerFocus
+        ? new kakao.maps.Size(48, 54)
+        : new kakao.maps.Size(36, 36);
+      // const imageSize = new kakao.maps.Size(48, 54);
       let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
       const marker = new kakao.maps.Marker({
@@ -58,6 +71,7 @@ const Map = props => {
         title: el.title,
         image: markerImage,
       });
+
       /* 2-1. 마커를 클릭했을때 각 장소의 정보를 출력 */
       kakao.maps.event.addListener(marker, 'click', function () {
         console.log(el);
