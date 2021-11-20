@@ -27,7 +27,7 @@ export const addUserDB = createAsyncThunk(
         title: '회원가입에 성공하셨습니다',
         goPage: '/login',
       };
-      thunkAPI.dispatch(setCommonModalOn(modalParams));
+      // thunkAPI.dispatch(setCommonModalOn(modalParams));
     } catch (err) {
       console.log(err.response);
       const modalParams = {
@@ -103,12 +103,11 @@ export const unRegisterDB = createAsyncThunk(
     // eslint-disable-next-line prefer-destructuring
     const userId = thunkAPI.getState().user.userInfo.userId;
     try {
-      const response = await unRegister(userId);
+      // const response = await unRegister(userId);
       // eslint-disable-next-line no-undef
       localStorage.removeItem('USER_TOKEN');
-
-      console.log(response);
-      history.replace('/login');
+      console.log('회원탈퇴 ==');
+      // history.replace('/login');
     } catch (err) {
       console.log(err.response);
       const modalParams = {
