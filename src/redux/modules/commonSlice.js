@@ -9,6 +9,7 @@ const initialState = {
   moreModalStatus: false,
   moreInfo: null,
   reportModalStatus: false,
+  currentLanguage: null,
 };
 
 const commonSlice = createSlice({
@@ -41,6 +42,10 @@ const commonSlice = createSlice({
       state.reportModalStatus = true;
       state.modalInfo = payload;
     },
+    setLanguage: (state, { payload }) => {
+      window.localStorage.setItem('LANGUAGE', payload);
+      state.currentLanguage = payload;
+    },
   },
 });
 
@@ -51,6 +56,7 @@ export const {
   setMoreModalOn,
   setReportModalOff,
   setReportModalOn,
+  setLanguage,
 } = commonSlice.actions;
 
 export default commonSlice;

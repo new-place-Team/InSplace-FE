@@ -4,7 +4,7 @@
   "mainPage": {
     "recommend": "Recommend Place",
     "weatherPlace": "Weather Place",
-    "popularPlace": "👍 Most Recommended",
+    "popularPlace": "Most Recommended",
     "adminPlace": "Admin's Pick"
   },
   "selectTypePage": {
@@ -19,13 +19,7 @@
     },
     "selectPlace": {
       "selectTitle": "Choose place you Wanted",
-      "placeType": [
-        "Tour 📷",
-        "Tasty room 🥓",
-        "Cafe ☕️",
-        "Arts 🖼",
-        "Activity 🚴🏻‍♀️"
-      ]
+      "placeType": ["Tour", "Tasty room", "Cafe", "Arts", "Activity"]
     },
     "returnText": ["One", "Two", "Less than Four", "More than Four"],
     "resultSentence": ["", "Place", "Want(s) to go"],
@@ -132,7 +126,7 @@
   "ReviewWrite": {
     "headerSubTitle": ["Review Edit", "Review Write"],
     "selectWeather": {
-      "selectTitle": "How's the Weather? 🌈",
+      "selectTitle": "How's the Weather?",
       "weatherType": ["Sunny", "Rain", "Snow", "Cloud", "Dont Know"]
     },
     "selectWeek": {
@@ -146,13 +140,13 @@
     "reviewTitle": "Please Write your Story",
     "reviewPlaceholder": "Please write at least 15 letters",
     "minText": "At least 15 letters",
-    "uploadPhoto": "📷 Please Upload Photo (Optional)",
+    "uploadPhoto": "Please Upload Photo (Optional)",
     "EditOrRegister": ["Edit Review", "Upload Review"],
     "Modal": {
       "minReview": "Please write at least 15 letters for the review.",
       "minPhoto": "You can register up to 3 images.",
       "errorPhoto": "There was an error reading the image.",
-      "msg": "Review Uploaded 😻"
+      "msg": "Review Uploaded"
     }
   },
   "Pick": {
@@ -164,10 +158,10 @@
   },
   "SearchPlace": {
     "placeholder": "Wants to Search Place?",
-    "text": "Please Type Place 😙!"
+    "text": "Please Type Place!"
   },
   "MbtiModal": {
-    "mbtiTitle": "Please Select MBTI 😀",
+    "mbtiTitle": "Please Select MBTI",
     "noSelection": "no Selection"
   },
   "Setting": {
@@ -181,7 +175,7 @@
     "Version": "Version",
     "Donation": "Donation",
     "Modal": {
-      "service": "I will be Back 🤖",
+      "service": "I will be Back",
       "goLogin": "Could you Login?"
     }
   },
@@ -219,13 +213,13 @@
       "This Nickname is available"
     ],
     "Modal": {
-      "service": "I will be Back 🤖",
+      "service": "I will be Back",
       "goLogin": "Could you Login?",
-      "complete": "Edit Complete 👍"
+      "complete": "Edit Complete"
     }
   },
   "Navbar": {
-    "login": "You have to log in to use this service. You want to Login? 🙆🏼"
+    "login": "You have to log in to use this service. You want to Login?"
   },
   "CommonModal": {
     "agree": "ok",

@@ -9,9 +9,6 @@ import { setModalOff } from '../../redux/modules/userSlice';
 const LangModal = () => {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
-  const modaloff = () => {
-    dispatch(setModalOff());
-  };
   const korean = () => {
     i18n.changeLanguage('ko-KR');
     dispatch(setModalOff());
@@ -26,7 +23,13 @@ const LangModal = () => {
       <Overlay>
         {/* <Grid> */}
         <ModalContent>
-          <Grid width="100%" isFlex padding="10px 20px" _onClick={american}>
+          <Grid
+            width="100%"
+            isFlex
+            padding="10px 20px"
+            _onClick={american}
+            cursor
+          >
             <Grid
               margin="0 10px 0 0"
               bg="black"
@@ -46,6 +49,7 @@ const LangModal = () => {
             _onClick={() => {
               window.alert('서비스 준비중입니다.');
             }}
+            cursor
           >
             <Grid
               margin="0 10px 0 0"
@@ -59,7 +63,13 @@ const LangModal = () => {
             </Grid>
             <Grid flex>일본어</Grid>
           </Grid>
-          <Grid width="100%" isFlex padding="10px 20px" _onClick={korean}>
+          <Grid
+            width="100%"
+            isFlex
+            padding="10px 20px"
+            _onClick={korean}
+            cursor
+          >
             <Grid
               margin="0 10px 0 0"
               bg="black"
