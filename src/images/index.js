@@ -18,6 +18,7 @@ import polygonimg from './Polygon.png';
 import insplace from './Insplace.png';
 import mypageNext from './next.svg';
 import spinner from './spinner.gif';
+import whiteRight from './ic_header_right.svg';
 
 // Icon
 import more from './Icon/ic_more.svg';
@@ -122,4 +123,5 @@ export {
   travelSmall,
   restaurant,
   restaurantSmall,
+  whiteRight,
 };

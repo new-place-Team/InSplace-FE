@@ -171,9 +171,7 @@ const MyPageEdit = props => {
             </UploadWrap>
           </ProfileWrap>
           <Grid margin="0 0 32px 0">
-            <Label fontSize="16px" color="#A3A6AA">
-              {t('MyPageEdit.headerSubTitle')}
-            </Label>
+            <MypageLabel>{t('MyPageEdit.headerSubTitle')}</MypageLabel>
             <Input name="nickname" value={nickname} onChange={onChange} />
             {errorMessage === t('MyPageEdit.nicNameError.5') ? (
               <Text fontSize="12px" color="green">
@@ -210,9 +208,7 @@ const MyPageEdit = props => {
             </Div>
           </Grid>
           <Grid margin="0 0 32px 0">
-            <Label fontSize="16px" color="#A3A6AA">
-              {t('MyPageEdit.email')}
-            </Label>
+            <MypageLabel>{t('MyPageEdit.email')}</MypageLabel>
             <Input
               name="email"
               value={email}
@@ -222,9 +218,7 @@ const MyPageEdit = props => {
             />
           </Grid>
           <Grid margin="0 0 32px 0">
-            <Label fontSize="16px" color="#A3A6AA">
-              MBTI
-            </Label>
+            <MypageLabel>MBTI</MypageLabel>
             <MBTIDiv onClick={openModal}>
               <Text>{mbtiInfo.mbtiId ? mbtiInfo.type : mbti}</Text>
               <Icon src={polygonimg} />
@@ -232,8 +226,8 @@ const MyPageEdit = props => {
           </Grid>
           <Grid margin="0 0 32px 0">
             {/* 선택안함 : 2, 여성 : 0, 남성 : 1 */}
-            <Label type="form">{t('MyPageEdit.myPagegender')}</Label>
-            <Grid isFlex>
+            <MypageLabel>{t('MyPageEdit.myPagegender')}</MypageLabel>
+            <Grid isFlex margin="15px 0 0 0">
               <GenderButton
                 onClick={() => {
                   selectGender(null);
@@ -299,6 +293,12 @@ const Div = styled.div`
 const UploadWrap = styled.div`
   margin: -40px -120px 0 0;
   z-index: 50;
+`;
+const MypageLabel = styled.label`
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.0041em;
+  color: #a3a6aa;
 `;
 const UploadLabel = styled.label`
   display: flex;
