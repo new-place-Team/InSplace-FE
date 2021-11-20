@@ -2,6 +2,7 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
+import styled from 'styled-components';
 import ListCard from '../place/ListCard';
 
 const SwiperLB = props => {
@@ -30,7 +31,7 @@ const SwiperLB = props => {
       },
       500: {
         slidesPerView: 2,
-        spaceBetween: type === 'selectResult' ? 16 : -9,
+        spaceBetween: type === 'selectResult' ? 16 : -109,
       },
       768: {
         slidesPerView: 3,
@@ -59,16 +60,28 @@ const SwiperLB = props => {
   }
 
   return (
-    <Swiper {...setting}>
-      {list &&
-        list.map(info => {
-          return (
-            <SwiperSlide key={info.postId}>
-              <ListCard src={info.postImages} type="main" info={info} />
-            </SwiperSlide>
-          );
-        })}
-    </Swiper>
+    <Test>
+      <Swiper {...setting} className="swiper_css">
+        {list &&
+          list.map(info => {
+            return (
+              <SwiperSlide key={info.postId}>
+                <ListCard src={info.postImages} type="main" info={info} />
+              </SwiperSlide>
+            );
+          })}
+      </Swiper>
+    </Test>
   );
 };
+
+const Test = styled.div`
+  border: 2px solid red;
+  .swiper_css {
+    border: 2px solid green;
+    .swiper-slide {
+      border: 2px solid black;
+    }
+  }
+`;
 export default SwiperLB;
