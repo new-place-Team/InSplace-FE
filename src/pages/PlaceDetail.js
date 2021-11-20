@@ -22,6 +22,8 @@ import { ReactComponent as Pin } from '../images/Icon/ic_pin.svg';
 
 import PlaceSwiper from '../components/place/PlaceSwiper';
 import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
+import { ReactComponent as Language } from '../images/nav/ic_nav_language.svg';
+
 import ReviewList from './ReviewList';
 import { getCategoryText } from '../shared/transferText';
 // import { isLoginChk } from '../shared/utils';
@@ -125,6 +127,7 @@ const Detail = props => {
           <PlaceHeader>
             <IconBox onClick={goBack}>
               <LeftIcon />
+              <Language />
             </IconBox>
           </PlaceHeader>
 
@@ -250,7 +253,9 @@ const PlaceHeader = styled.div`
   z-index: 100;
 `;
 const IconBox = styled.div`
-  display: inline-block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: 100%;
   padding: 0px 24px;
   cursor: pointer;

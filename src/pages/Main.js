@@ -7,7 +7,7 @@ import { history } from '../redux/configureStore';
 import WeatherBox from '../components/main/WeatherBox';
 import Header from '../components/common/Header';
 import ContentsTitle from '../components/common/ContentsTitle';
-import { Container, Grid, Text, Button } from '../elements';
+import { Container, Grid, Text } from '../elements';
 import { getMainListDB } from '../redux/async/place';
 import Navbar from '../components/common/Navbar';
 import { ReactComponent as Right } from '../images/ic-next.svg';
@@ -21,13 +21,7 @@ const Main = () => {
   const pickList = mainLists && mainLists.pickPlace;
   const weatherList = mainLists && mainLists.weatherPlace;
   const weatherInfo = mainLists && mainLists.weather;
-  const { t, i18n } = useTranslation();
-  const korean = () => {
-    i18n.changeLanguage('ko-KR');
-  };
-  const american = () => {
-    i18n.changeLanguage('en-US');
-  };
+  const { t } = useTranslation();
 
   const [imgLoading, setImgLoading] = useState(false);
   const imgRef = useRef(null);
@@ -58,7 +52,7 @@ const Main = () => {
     <>
       <Container padding="0">
         <SkeletonGrid>
-          <Header _onBg _content="InSplace" _search _color="#fff" />
+          <Header _onBg _content="InSplace" _search _language _color="#fff" />
           {/* Weather Section */}
           <>
             <MainWeather
@@ -84,13 +78,6 @@ const Main = () => {
         <Grid>
           {/* 날씨에 따른 공간 */}
           <Grid padding="0 0 48px 24px">
-            {/* 임시 한국어 외국어 버튼 */}
-            <Button type="type" _onClick={korean}>
-              한국어
-            </Button>
-            <Button type="type" _onClick={american}>
-              English
-            </Button>
             <ContentsTitle title={t('mainPage.weatherPlace')} />
             <Swiper list={weatherList} />
           </Grid>

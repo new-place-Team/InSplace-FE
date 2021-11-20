@@ -17,6 +17,7 @@ import { ReactComponent as HomeIcon } from '../../images/nav/ic_nav_home.svg';
 import { ReactComponent as FilterIcon } from '../../images/nav/ic_nav_fliter.svg';
 import { ReactComponent as HeartIcon } from '../../images/nav/ic_nav_heart.svg';
 import { ReactComponent as MypageIcon } from '../../images/nav/ic_nav_mypage.svg';
+
 import { profile1 } from '../../images/index';
 // import { isLoginChk } from '../../shared/utils';
 import ConfirmModal from './ConfirmModal';

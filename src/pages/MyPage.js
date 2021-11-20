@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { history } from '../redux/configureStore';
 import { getTokenYn } from '../shared/utils';
@@ -70,7 +69,7 @@ const MyPage = () => {
       )}
       {modalStatus && <CommonModal />}
       <Container padding="0" height="100%">
-        <Header _onBg _content="MyPage" _color="#fff" _settings />
+        <Header _onBg _content="MyPage" _settings _language _color="#fff" />
         <Bg src={sunBg} />
         <Grid isFlex justify="center" padding="59px 40px">
           <Image

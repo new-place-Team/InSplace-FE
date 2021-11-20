@@ -54,7 +54,7 @@ const MapContainer = () => {
 
   return (
     <>
-      <Header _back _content="상세보기" />
+      <Header _back _content="상세보기" _language />
       <Container padding="66px 0 0 0">
         <Grid>
           <Grid padding="0 24px">

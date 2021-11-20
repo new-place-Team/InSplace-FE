@@ -35,20 +35,20 @@ const WeatherBox = props => {
               </IconArea>
             </Grid>
             <Grid isFlex margin="8px 0 0 0">
-              <Icons width="24px" height="24px">
+              <Icons width="16px" height="16px">
                 <Marker />
               </Icons>
-              <Text fontSize="16px" color="#fff" bold margin="0 0 0 8px">
+              <Text fontSize="14px" color="#fff" bold margin="0 0 0 8px">
                 {/* 현재위치 주소 */}
                 {location && location.address}
               </Text>
             </Grid>
             {/* 미세먼지 */}
-            <Grid isFlex>
+            <Grid isFlex margin="7px 0 0 0">
               <Icons width="16px" height="16px" margin="0 8px 0 0">
                 <Particlulates />
               </Icons>
-              <Text fontSize="16px" color="#fff" bold>
+              <Text fontSize="14px" color="#fff" bold>
                 좋음
               </Text>
               <Icons width="24px" height="24px" margin="0 0 0 4px">

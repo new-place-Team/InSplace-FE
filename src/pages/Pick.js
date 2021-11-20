@@ -38,7 +38,7 @@ const Pick = () => {
 
   return (
     <>
-      <Header _content={t('Pick.headerSubTitle')} _color="#fff" />
+      <Header _content={t('Pick.headerSubTitle')} _language _color="#fff" />
       <Container padding="66px 0 0 0">
         <PickPlace>
           <Grid
