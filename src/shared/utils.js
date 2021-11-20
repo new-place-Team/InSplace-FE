@@ -47,7 +47,3 @@ export const isLoginChk = isLogin => {
   }
   return true;
 };
-
-export const currentLang = () => {
-  return window.navigator.language;
-};
