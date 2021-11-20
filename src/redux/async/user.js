@@ -176,7 +176,7 @@ export const getFavoritesDB = createAsyncThunk(
 /* 유저 가본곳 리스트 조회 */
 export const getVisitedDB = createAsyncThunk(
   'user/getVisited',
-  async thunkAPI => {
+  async (_params, thunkAPI) => {
     try {
       thunkAPI.dispatch(getLoaded(true));
       const response = await getVisited();

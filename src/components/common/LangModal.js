@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Grid, Text } from '../../elements';
 import { setModalOff } from '../../redux/modules/userSlice';
+import { ReactComponent as CloseBtn } from '../../images/Icon/ic_close.svg';
 
 const LangModal = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,10 @@ const LangModal = () => {
   };
   const american = () => {
     i18n.changeLanguage('en-US');
+    dispatch(setModalOff());
+  };
+
+  const onClose = () => {
     dispatch(setModalOff());
   };
 
@@ -82,6 +87,9 @@ const LangModal = () => {
             </Grid>
             <Grid flex>한국어</Grid>
           </Grid>
+          <Icon onClick={() => onClose()}>
+            <CloseBtn />
+          </Icon>
         </ModalContent>
         {/* </Grid> */}
       </Overlay>
@@ -107,6 +115,18 @@ const ModalContent = styled.div`
   transform: translate(-50%, -50%);
   padding: 14px;
   font-size: 20px;
+`;
+
+const Icon = styled.div`
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 24px;
+  height: 24px;
+  svg {
+    fill: #000;
+  }
+  cursor: pointer;
 `;
 
 export default LangModal;
