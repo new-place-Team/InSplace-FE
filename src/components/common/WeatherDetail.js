@@ -128,7 +128,13 @@ const WeatherInfo = props => {
             </Grid>
           </SubInfo>
         </WeatherModal>
-        {weatherStatus === 1 ? <SunshineArea src={Sunshine} /> : ''}
+        {weatherInfo && weatherStatus === 1 ? (
+          <SunshineContainer>
+            <SunshineArea src={Sunshine} />
+          </SunshineContainer>
+        ) : (
+          ''
+        )}
         {weatherStatus === 2 ? <RainArea>{getRain()}</RainArea> : ''}
         {weatherStatus === 3 ? (
           <>
@@ -209,16 +215,32 @@ const CityText = styled.div`
 `;
 
 /* Sunshine Interaction */
+const SunshineContainer = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  z-index: 1;
+`;
+
 const SunshineArea = styled.div`
   position: absolute;
-  top: -121px;
-  right: -113px;
-  width: 700px;
-  height: 700px;
+  top: -10%;
+  right: -10%;
+  width: 70%;
+  height: 70%;
   background-image: url('${props => props.src}');
   background-size: cover;
   background-position: center;
   animation: shine 5s infinite linear alternate;
+
+  @media (max-width: 414px) {
+    top: -25%;
+    right: -3%;
+    width: 100%;
+    height: 100%;
+  }
 
   @keyframes shine {
     0% {
