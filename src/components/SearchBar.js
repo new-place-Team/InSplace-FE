@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Text } from '../elements';
 
-const SearchBar = props => {
+const SearchBar = () => {
   return (
     <Grid justify="space-between" padding="18px 0">
       <Grid isFlex>

@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-undef */
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
