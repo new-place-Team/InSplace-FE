@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/common/Header';
 import { Container, Text, Grid } from '../elements';

@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Container, Grid, Image } from '../elements';
 import Swiper from '../components/common/SwiperLB';

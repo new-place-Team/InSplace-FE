@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination, Navigation, History } from 'swiper';
 import styled from 'styled-components';
@@ -9,6 +9,7 @@ SwiperCore.use([Navigation, Pagination, History]);
 
 const SwiperMap = props => {
   const { list, _onChageFocus } = props;
+
   const setting = {
     slidesPerView: 3,
     spaceBetween: 30,
@@ -24,10 +25,6 @@ const SwiperMap = props => {
     //   },
     // },
   };
-
-  useEffect(() => {
-    console.log('새로고침');
-  }, []);
 
   return (
     <Wrap>

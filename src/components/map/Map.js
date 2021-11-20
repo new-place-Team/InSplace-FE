@@ -72,22 +72,22 @@ const Map = props => {
         image: markerImage,
       });
 
+      /* 스와이프 시 지도 좌표로 이동 */
+      if (latLon) {
+        const { lat, lon } = latLon;
+        function panTo(lat, lon) {
+          const moveLatLon = new kakao.maps.LatLng(lat, lon);
+          // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+          map.panTo(moveLatLon);
+        }
+        panTo(lat, lon);
+      }
+
       /* 2-1. 마커를 클릭했을때 각 장소의 정보를 출력 */
       kakao.maps.event.addListener(marker, 'click', function () {
         console.log(el);
       });
     });
-
-    /* 스와이프 시 지도 좌표로 이동 */
-    if (latLon) {
-      const { lat, lon } = latLon;
-      function panTo(lat, lon) {
-        const moveLatLon = new kakao.maps.LatLng(lat, lon);
-        // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-        map.panTo(moveLatLon);
-      }
-      panTo(lat, lon);
-    }
   };
 
   return (

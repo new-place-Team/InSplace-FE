@@ -1,10 +1,5 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-else-return */
-/* eslint-disable no-alert */
-/* eslint-disable no-unneeded-ternary */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/named */
 /* eslint-disable no-undef */
+/* eslint-disable consistent-return */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
@@ -40,7 +35,8 @@ const MyPageEdit = props => {
     }
   }, []);
   /* 이전 페이지에서 가지고 있던 유저 정보를 params로 넘겨줌 */
-  const newParams = props.history.location.state.userInfo;
+  const { history } = props;
+  const newParams = history.location.state.userInfo;
   const [maleFemale, setMaleFemale] = React.useState(newParams.maleYN);
   const [preview, setPreview] = React.useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -109,10 +105,9 @@ const MyPageEdit = props => {
         if (result === true) {
           setNicknameDuplicate(result);
           return setErrorMessage(t('MyPageEdit.nicNameError.4'));
-        } else {
-          setErrorMessage(t('MyPageEdit.nicNameError.5'));
-          setNicknameDuplicate(result);
         }
+        setErrorMessage(t('MyPageEdit.nicNameError.5'));
+        setNicknameDuplicate(result);
       }
     } catch (err) {
       console.log('error ::::::', err);
