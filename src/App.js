@@ -53,6 +53,7 @@ function App() {
     if (!weatherStatus) {
       dispatch(getWeatherDB());
     }
+    console.log('현재 언어 OS', window.navigator.language);
   }, []);
 
   return (

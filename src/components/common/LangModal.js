@@ -9,9 +9,6 @@ import { setModalOff } from '../../redux/modules/userSlice';
 const LangModal = () => {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
-  const modaloff = () => {
-    dispatch(setModalOff());
-  };
   const korean = () => {
     i18n.changeLanguage('ko-KR');
     dispatch(setModalOff());
