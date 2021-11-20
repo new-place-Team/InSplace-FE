@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
-import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { history } from '../redux/configureStore';
 import WeatherBox from '../components/main/WeatherBox';
 import Header from '../components/common/Header';
@@ -10,7 +10,6 @@ import ContentsTitle from '../components/common/ContentsTitle';
 import { Container, Grid, Text, Button } from '../elements';
 import { getMainListDB } from '../redux/async/place';
 import Navbar from '../components/common/Navbar';
-import { ReactComponent as Marker } from '../images/ic-marker.svg';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import Swiper from '../components/common/SwiperLB';
 import MainWeather from '../components/main/MainWeather';
@@ -18,7 +17,6 @@ import MainWeather from '../components/main/MainWeather';
 const Main = () => {
   const dispatch = useDispatch();
   const mainLists = useSelector(state => state.place.mainLists);
-  const location = useSelector(state => state.place.location);
   const likeList = mainLists && mainLists.likePlace;
   const pickList = mainLists && mainLists.pickPlace;
   const weatherList = mainLists && mainLists.weatherPlace;
@@ -69,15 +67,6 @@ const Main = () => {
               ref={imgRef}
             />
             <WeatherBox info={weatherInfo} />
-            <Grid isFlex padding="96px 0  27px 21px">
-              <Icon>
-                <Marker />
-              </Icon>
-              <Text fontSize="14px" color="#fff" bold>
-                {/* 현재위치 주소 */}
-                {location && location.address}
-              </Text>
-            </Grid>
             {/* 장소 추천받기 */}
             <SelectTypeBtn onClick={() => history.push('/select-type')}>
               <Grid height="22px" margin="19px 0 0 18px">
@@ -127,14 +116,6 @@ const SkeletonGrid = styled.div`
   height: 672px;
   @media (max-width: 414px) {
     height: 525px;
-  }
-`;
-
-const Icon = styled.div`
-  margin-right: 6px;
-  svg {
-    font-size: 16px;
-    color: #fff;
   }
 `;
 
