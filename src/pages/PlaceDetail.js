@@ -2,6 +2,8 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Container, Grid, Text, Image, Button, Icons } from '../elements';
@@ -34,6 +36,7 @@ const Detail = props => {
   const detailData = useSelector(state => state.place.detailInfo);
   const isLogin = useSelector(state => state.user.isLogin);
   const [confirmModal, setConfirmModal] = useState(false);
+  const { t } = useTranslation();
 
   const newAddr = detailData.addressShort
     ? detailData.addressShort.split(' ')
@@ -173,7 +176,7 @@ const Detail = props => {
                       <Pin />
                     )}
                   </Icons>
-                  가본곳
+                  {t('placeDetailPage.navigation.0')}
                 </Button>
               </Grid>
               <Grid>
@@ -187,7 +190,7 @@ const Detail = props => {
                       <NoSelectedHeader />
                     </Icons>
                   )}
-                  찜하기
+                  {t('placeDetailPage.navigation.1')}
                 </Button>
               </Grid>
               <Grid>
@@ -195,7 +198,7 @@ const Detail = props => {
                   <Icons>
                     <Write />
                   </Icons>
-                  리뷰쓰기
+                  {t('placeDetailPage.navigation.2')}
                 </Button>
               </Grid>
               <Grid>
@@ -203,31 +206,31 @@ const Detail = props => {
                   <Icons margin="0 0 4px 0">
                     <Share />
                   </Icons>
-                  공유하기
+                  {t('placeDetailPage.navigation.3')}
                 </Button>
               </Grid>
             </IconNavigation>
             {/* 가게의 정보 */}
             <Grid>
               <Text fontSize="18px" color="#282828" bold>
-                장소팁
+                {t('placeDetailPage.category.0')}
               </Text>
               <Text fontSize="14px" margin="16px 0 32px" lineHeight="16px">
                 {detailData.postDesc}
               </Text>
               <Text fontSize="18px" color="#282828" bold>
-                가게정보
+                {t('placeDetailPage.category.1')}
               </Text>
               <Grid margin="16px 0">
                 {/* 카카오 지도 */}
                 <Map width="100%" height="191px" allPlaces={placeMarker} />
               </Grid>
               <Text fontSize="14px" color="#3E4042">
-                <Span>주소</Span>
+                <Span>{t('placeDetailPage.category.2')}</Span>
                 {detailData.address}
               </Text>
               <Text fontSize="14px" color="#3E4042">
-                <Span>전화</Span>
+                <Span>{t('placeDetailPage.category.3')}</Span>
                 {detailData.contactNumber}
               </Text>
             </Grid>

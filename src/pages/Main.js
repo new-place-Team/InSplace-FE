@@ -1,12 +1,13 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { history } from '../redux/configureStore';
 import WeatherBox from '../components/main/WeatherBox';
 import Header from '../components/common/Header';
 import ContentsTitle from '../components/common/ContentsTitle';
-import { Container, Grid, Text } from '../elements';
+import { Container, Grid, Text, Button } from '../elements';
 import { getMainListDB } from '../redux/async/place';
 import Navbar from '../components/common/Navbar';
 import {
@@ -30,6 +31,14 @@ const Main = () => {
   const pickList = mainLists && mainLists.pickPlace;
   const weatherList = mainLists && mainLists.weatherPlace;
   const weatherInfo = mainLists && mainLists.weather;
+  const { t, i18n } = useTranslation();
+  const korean = () => {
+    i18n.changeLanguage('ko-KR');
+  };
+  const american = () => {
+    i18n.changeLanguage('en-US');
+  };
+
   const [imgLoading, setImgLoading] = useState(false);
   const imgRef = useRef(null);
   let weatherBg = '';
@@ -91,7 +100,7 @@ const Main = () => {
             <SelectTypeBtn onClick={() => history.push('/select-type')}>
               <Grid height="22px" margin="19px 0 0 18px">
                 <Text fontSize="16px" color="#fff" bold>
-                  장소 추천 받기
+                  {t('mainPage.recommend')}
                 </Text>
               </Grid>
               <NextButton>
@@ -104,17 +113,24 @@ const Main = () => {
         <Grid>
           {/* 날씨에 따른 공간 */}
           <Grid padding="0 0 48px 24px">
-            <ContentsTitle title="날씨에 따른 공간" />
+            {/* 임시 한국어 외국어 버튼 */}
+            <Button type="type" _onClick={korean}>
+              한국어
+            </Button>
+            <Button type="type" _onClick={american}>
+              English
+            </Button>
+            <ContentsTitle title={t('mainPage.weatherPlace')} />
             <Swiper list={weatherList} />
           </Grid>
           {/* 좋아요 순 추천 공간 */}
           <Grid padding="0 0 48px 24px">
-            <ContentsTitle title="좋아요를 많이 받은" />
+            <ContentsTitle title={t('mainPage.popularPlace')} />
             <Swiper list={likeList} />
           </Grid>
           {/* 관리자 추천 공간 */}
           <Grid padding="0 0 112px 24px">
-            <ContentsTitle title="MD's PICK" />
+            <ContentsTitle title={t('mainPage.adminPlace')} />
             <Swiper list={pickList} />
           </Grid>
         </Grid>

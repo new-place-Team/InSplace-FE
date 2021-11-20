@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import Header from '../components/common/Header';
 import { Container, Grid, Input, Label, Text } from '../elements';
 import { history } from '../redux/configureStore';
@@ -13,7 +14,7 @@ import CommonModal from '../components/common/CommonModal';
 
 const Login = () => {
   const dispatch = useDispatch();
-
+  const { t, i18n } = useTranslation();
   const commomModal = useSelector(state => state.common.modalStatus);
   const [loginInfo, setLoginInfo] = useState({
     email: '',
@@ -36,13 +37,13 @@ const Login = () => {
       setEmailError('');
     }
     if (userInfo.email === '') {
-      return setEmailError('이메일을 입력해주세요!');
+      return setEmailError(t('loginPage.loginerrMessage.0'));
     }
     if (userInfo.password.length !== 0) {
       setPassError('');
     }
     if (userInfo.password === '') {
-      return setPassError('비밀번호를 입력해주세요!');
+      return setPassError(t('loginPage.loginerrMessage.1'));
     }
     dispatch(logInDB(userInfo));
   };
@@ -50,18 +51,18 @@ const Login = () => {
   return (
     <>
       {commomModal && <CommonModal />}
-      <Header _back _content="로그인" />
+      <Header _back _content={t('loginPage.headerSubTitle')} />
       <Container padding="66px 0 0 0">
         <Grid padding="42px 20px 0 20px">
           <Wrap>
-            <Label type="form">이메일</Label>
+            <Label type="form">{t('loginPage.loginEmail')}</Label>
             <Input
               inputType="form"
               type="text"
               value={loginInfo.email}
               name="email"
               _onChange={onChange}
-              placeholder="이메일 주소를 입력해주세요"
+              placeholder={t('loginPage.loginPlaceholder.0')}
             />
             {loginInfo.email !== '' && (
               <CloseButton
@@ -76,14 +77,14 @@ const Login = () => {
             </Text>
           </Wrap>
           <Wrap>
-            <Label type="form">비밀번호</Label>
+            <Label type="form">{t('loginPage.loginPassword')}</Label>
             <Input
               inputType="form"
               type="password"
               value={loginInfo.password}
               name="password"
               _onChange={onChange}
-              placeholder="비밀번호를 입력해주세요"
+              placeholder={t('loginPage.loginPlaceholder.1')}
             />
 
             {loginInfo.password !== '' && (
@@ -111,10 +112,12 @@ const Login = () => {
             <IconArea>
               <KakaoIcon />
             </IconArea>
-            카카오 로그인
+            {t('loginPage.kakaoLogin')}
           </KakaoButton>
-          <Button onClick={submitUserInfo}>로그인</Button>
-          <Button onClick={() => history.push('/signUp')}>회원가입</Button>
+          <Button onClick={submitUserInfo}>{t('loginPage.login')}</Button>
+          <Button onClick={() => history.push('/signUp')}>
+            {t('loginPage.register')}
+          </Button>
         </BottomWrap>
       </Container>
     </>

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { history } from '../redux/configureStore';
 import { getTokenYn } from '../shared/utils';
@@ -17,6 +19,8 @@ const MyPage = () => {
   const userInfo = useSelector(state => state.user.userInfo);
   const [loginModal, setLoginModal] = useState(false);
   const modalStatus = useSelector(state => state.common.modalStatus);
+  const { t } = useTranslation();
+
   /* 유저 이미지가 있으면 그 이미지 없으면 기본 이미지 */
   const setNomalImage = profile => {
     if (userInfo.userImage !== null) {
@@ -49,7 +53,7 @@ const MyPage = () => {
 
   const showModal = () => {
     const params = {
-      title: '서비스 준비중입니다.',
+      title: t('MyPage.Modal.service'),
     };
     dispatch(setCommonModalOn(params));
   };
@@ -58,7 +62,7 @@ const MyPage = () => {
     <>
       {loginModal && (
         <ConfirmModal
-          title="로그인이 필요한 서비스입니다."
+          title={t('MyPage.Modal.goLogin')}
           setModal={setLoginModal}
           isOk
           pageMove={pageMove}
@@ -97,25 +101,25 @@ const MyPage = () => {
         {/* 인포 그리드 */}
         <InfoGrid>
           <Info onClick={showModal}>
-            <Text>공지사항</Text>
+            <Text>{t('MyPage.UpdateIssue')}</Text>
             <BottomBox>
               <Image src={mypageNext} />
             </BottomBox>
           </Info>
           <Info onClick={showModal}>
-            <Text>의견보내기</Text>
+            <Text>{t('MyPage.Opinion')}</Text>
             <BottomBox>
               <Image src={mypageNext} />
             </BottomBox>
           </Info>
           <Info>
-            <Text>버전정보</Text>
+            <Text>{t('MyPage.Version')}</Text>
             <BottomBox>
               <TextBox>V1.0.2</TextBox>
             </BottomBox>
           </Info>
           <Info onClick={showModal}>
-            <Text>후원</Text>
+            <Text>{t('MyPage.Donation')}</Text>
             <BottomBox />
           </Info>
         </InfoGrid>

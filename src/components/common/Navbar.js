@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
 import { Grid } from '../../elements/index';
@@ -22,6 +23,7 @@ import ConfirmModal from './ConfirmModal';
 
 const Navbar = () => {
   const pathName = history.location.pathname;
+  const { t, i18n } = useTranslation();
   const isLogin = useSelector(state => state.user.isLogin);
   const userInfo = useSelector(state => state.user.userInfo);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
@@ -78,7 +80,7 @@ const Navbar = () => {
     <>
       {confirmModal && (
         <ConfirmModal
-          title="로그인을 해야 이용할 수 있는 서비스입니다. 로그인 하시겠습니까?"
+          title={t('Navbar.login')}
           setConfirmModal={setConfirmModal}
           goToLogin
         />

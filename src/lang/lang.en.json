@@ -1,0 +1,234 @@
+{
+  "test": "English Test",
+
+  "mainPage": {
+    "recommend": "Recommend Place",
+    "weatherPlace": "Weather Place",
+    "popularPlace": "👍 Most Recommended",
+    "adminPlace": "Admin's Pick"
+  },
+  "selectTypePage": {
+    "headerSubTitle": "Select type",
+    "selectGender": {
+      "selectTitle": "Choose your Gender",
+      "genderType": ["Woman", "Man", "Couples"]
+    },
+    "selectNumber": {
+      "selectTitle": "Choose Member Counts",
+      "peopleCount": ["One", "Two", "Less than Four", "More than Four"]
+    },
+    "selectPlace": {
+      "selectTitle": "Choose place you Wanted",
+      "placeType": [
+        "Tour 📷",
+        "Tasty room 🥓",
+        "Cafe ☕️",
+        "Arts 🖼",
+        "Activity 🚴🏻‍♀️"
+      ]
+    },
+    "returnText": ["One", "Two", "Less than Four", "More than Four"],
+    "resultSentence": ["", "Place", "Want(s) to go"],
+    "alert": "Please Select all Types"
+  },
+  "loginPage": {
+    "headerSubTitle": "Login",
+    "loginEmail": "Email",
+    "loginPassword": "Password",
+    "loginPlaceholder": [
+      "Please Fill your Email Address",
+      "Please Fill your Password"
+    ],
+    "loginerrMessage": ["Type your Email!", "Type your Password!"],
+    "kakaoLogin": "KaKao Login",
+    "login": "Login",
+    "register": "Sign up"
+  },
+  "signUpPage": {
+    "headerSubTitle": "Sign up",
+    "signUpEmail": "Email",
+    "signUpPassword": "Password",
+    "passwordConfirm": "Password Confirm",
+    "nickName": "Nickname",
+    "duplicateBtn": "Check",
+    "gender": "Gender",
+    "genderType": ["No Select", "Female", "Male"],
+    "mbti": "MBTI",
+    "noMbtiSelect": "no Selection",
+    "register": "Sign up",
+    "placeholder": [
+      "Please Fill your Email Address",
+      "Please Fill your Password",
+      "Please Fill your Password Confirm",
+      "Please Fill your NickName"
+    ],
+    "idErrorMessage": [
+      "Please fill your Email!",
+      "Please fill in Email Format"
+    ],
+    "passErrorMessage": [
+      "Please fill your Password!",
+      "Please fill a password of at least 8 digits  "
+    ],
+    "passconfirmMessage": [
+      "Please fill Password Confirmation",
+      "Please Check your Password"
+    ],
+    "nicNameError": [
+      "Please fill your Nickname",
+      "Please fill a Nickname with two or more characters!",
+      "Please fill your Nickname with 12 digits or less.",
+      "Please check for duplicate nicknames first",
+      "This Nickname is already used",
+      "This Nickname is available"
+    ]
+  },
+  "SelectedContents": {
+    "memberCount1": ["Two", "Less than Four", "More than Four"],
+    "memberCount2": ["One", "Two", "Less than Four", "More than Four"]
+  },
+  "selectTypeResultPage": {
+    "headerSubTitle": "Search Result",
+    "outSideResult": [
+      "No result of OuterPlace",
+      "☀️ Outside with a Cool Breeze"
+    ],
+    "inSideResult": [
+      "There is no result of Innerplace",
+      "☕️ Relaxing Time Indoors"
+    ]
+  },
+  "placeList": {
+    "headerSubTitle": "Search Result",
+    "category": ["InnerPlace", "OuterPlace"]
+  },
+  "placeMapPage": {
+    "headerSubTitle": "상세보기"
+  },
+  "placeDetailPage": {
+    "navigation": ["Visited", "Pick", "Review", "Share"],
+    "category": ["Desc", "Information", "Address", "Phone"]
+  },
+  "ReviewListPage": {
+    "reviewTitle": "Review",
+    "reviewFilter": ["Lastest", "Recommended"]
+  },
+  "ReviewCard": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "weather": "Weather",
+    "days": "Days",
+    "week": ["Weeks", "Weekend"],
+    "revisited": "Wants revisit",
+    "help": "Helps",
+    "helpPeople": " helped",
+    "reviewModal": [
+      "Wants to Delete your Reivew",
+      "Reviews that have been deleted will be deleted permanently."
+    ],
+    "reportButton": "Button",
+    "report": "Report"
+  },
+  "ReviewWrite": {
+    "headerSubTitle": ["Review Edit", "Review Write"],
+    "selectWeather": {
+      "selectTitle": "How's the Weather? 🌈",
+      "weatherType": ["Sunny", "Rain", "Snow", "Cloud", "Dont Know"]
+    },
+    "selectWeek": {
+      "selectTitle": "When did you go?",
+      "weekType": ["Weeks", "Weekend"]
+    },
+    "selectreVisited": {
+      "selectTitle": "Are you Willing To Revisit?",
+      "yesOrNo": ["Yes", "No"]
+    },
+    "reviewTitle": "Please Write your Story",
+    "reviewPlaceholder": "Please write at least 15 letters",
+    "minText": "At least 15 letters",
+    "uploadPhoto": "📷 Please Upload Photo (Optional)",
+    "EditOrRegister": ["Edit Review", "Upload Review"],
+    "Modal": {
+      "minReview": "Please write at least 15 letters for the review.",
+      "minPhoto": "You can register up to 3 images.",
+      "errorPhoto": "There was an error reading the image.",
+      "msg": "Review Uploaded 😻"
+    }
+  },
+  "Pick": {
+    "headerSubTitle": "My Pick Place",
+    "pickPlace": "Pick Place",
+    "visitedPlace": "Visited",
+    "noPickPlace": "No Pick Place.",
+    "noVisitedPlace": "No Visited Place"
+  },
+  "SearchPlace": {
+    "placeholder": "Wants to Search Place?",
+    "text": "Please Type Place 😙!"
+  },
+  "MbtiModal": {
+    "mbtiTitle": "Please Select MBTI 😀",
+    "noSelection": "no Selection"
+  },
+  "Setting": {
+    "headerSubTitle": "Setting",
+    "logOut": "Logout",
+    "withdrawal": "Withdrawal"
+  },
+  "MyPage": {
+    "UpdateIssue": "Update Issue",
+    "Opinion": "Send your hope",
+    "Version": "Version",
+    "Donation": "Donation",
+    "Modal": {
+      "service": "I will be Back 🤖",
+      "goLogin": "Could you Login?"
+    }
+  },
+  "MyPageEdit": {
+    "headerSubTitle": "Edit Profile",
+    "nickname": "Nickname",
+    "duplicate": "Check",
+    "email": "Email",
+    "myPagegender": "Gender",
+    "genderType": ["No Select", "Female", "Male"],
+    "mypageEdit": "Edit Profile",
+    "noMbtiSelect": "MBTI 선택안함",
+    "register": "가입하기",
+    "placeholder": [
+      "이메일을 입력해주세요",
+      "비밀번호를 입력해주세요",
+      "비밀번호 확인을 입력해주세요",
+      "닉네임을 입력해주세요"
+    ],
+    "idErrorMessage": ["이메일을 입력해주세요", "이메일 형식이 맞지않습니다."],
+    "passErrorMessage": [
+      "비밀번호를 입력해주세요",
+      "비밀번호는 8자리 이상으로 입력해주세요"
+    ],
+    "passconfirmMessage": [
+      "비밀번호 확인을 입력해주세요",
+      "비밀번호가 일치하지 않습니다."
+    ],
+    "nicNameError": [
+      "Please fill your Nickname",
+      "Please fill a Nickname with two or more characters!",
+      "Please fill your Nickname with 12 digits or less.",
+      "Please check for duplicate nicknames first",
+      "This Nickname is already used",
+      "This Nickname is available"
+    ],
+    "Modal": {
+      "service": "I will be Back 🤖",
+      "goLogin": "Could you Login?",
+      "complete": "Edit Complete 👍"
+    }
+  },
+  "Navbar": {
+    "login": "You have to log in to use this service. You want to Login? 🙆🏼"
+  },
+  "CommonModal": {
+    "agree": "ok",
+    "disagree": "cancel"
+  }
+}

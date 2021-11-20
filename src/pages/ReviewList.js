@@ -1,5 +1,8 @@
+/* eslint-disable import/no-named-as-default */
 /* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Grid, Text } from '../elements';
@@ -15,6 +18,7 @@ import { setMoreModalOff } from '../redux/modules/commonSlice';
 const ReviewList = props => {
   const { postId } = props;
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const userInfo = useSelector(state => state.user.userInfo);
   const isLoading = useSelector(state => state.loaded.is_loaded);
   // 리뷰 정보
@@ -157,7 +161,7 @@ const ReviewList = props => {
           <Grid justify="space-between">
             <Grid>
               <Text fontSize="18px" color="#282828" bold>
-                리뷰 (
+                {t('ReviewListPage.reviewTitle')} (
                 {active.newList && reviewList
                   ? reviewList.length
                   : active.likeList && reviewLikeList && reviewLikeList.length}
@@ -171,7 +175,7 @@ const ReviewList = props => {
                 onClick={onClick}
               >
                 {active.newList && <Dotted />}
-                최신순
+                {t('ReviewListPage.reviewFilter.0')}
               </ReviewButton>
               <ReviewButton
                 className={active.likeList && 'active'}
@@ -179,7 +183,7 @@ const ReviewList = props => {
                 onClick={onClick}
               >
                 {active.likeList && <Dotted />}
-                추천순
+                {t('ReviewListPage.reviewFilter.1')}
               </ReviewButton>
             </Grid>
           </Grid>

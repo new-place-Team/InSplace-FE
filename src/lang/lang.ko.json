@@ -1,0 +1,229 @@
+{
+  "test": "한국어 테스트",
+
+  "mainPage": {
+    "recommend": "장소 추천 받기",
+    "weatherPlace": "날씨에 따른 공간",
+    "popularPlace": "👍 좋아요를 많이 받은",
+    "adminPlace": "운영자 픽!"
+  },
+  "weatherBox": {
+    "degreeStatus": ["어제보다", "높아요", "낮아요", "어제와 온도가 같아요"]
+  },
+  "selectTypePage": {
+    "headerSubTitle": "유형선택",
+    "selectGender": {
+      "selectTitle": "성별을 선택해 주세요 ",
+      "genderType": ["여자", "남자", "혼성"]
+    },
+    "selectNumber": {
+      "selectTitle": "성별을 선택해 주세요 ",
+      "peopleCount": ["1명", "2명", "4명 미만", "4명 이상"]
+    },
+    "selectPlace": {
+      "selectTitle": "장소를 선택해주세요",
+      "placeType": ["여행", "맛집", "카페", "예술", "액티비티"]
+    },
+    "returnText": ["한명", "두명", "네명 미만", "네명 이상"],
+    "resultSentence": ["이", "장소 을(를)", "가고 싶어요"],
+    "alert": "유형을 모두 선택해주세요"
+  },
+  "loginPage": {
+    "headerSubTitle": "로그인",
+    "loginEmail": "이메일",
+    "loginPassword": "비밀번호",
+    "loginPlaceholder": [
+      "이메일 주소를 입력해 주세요",
+      "비밀번호를 입력해주세요"
+    ],
+    "loginerrMessage": ["이메일을 입력해주세요!", "비밀번호를 입력해주세요!"],
+    "kakaoLogin": "카카오 로그인하기",
+    "login": "로그인하기",
+    "register": "회원가입"
+  },
+  "signUpPage": {
+    "headerSubTitle": "회원가입",
+    "signUpEmail": "이메일",
+    "signUpPassword": "비밀번호",
+    "passwordConfirm": "비밀번호 확인",
+    "nickName": "닉네임",
+    "duplicateBtn": "중복확인",
+    "gender": "성별",
+    "genderType": ["선택안함", "여성", "남성"],
+    "mbti": "MBTI",
+    "noMbtiSelect": "MBTI 선택안함",
+    "register": "가입하기",
+    "placeholder": [
+      "이메일을 입력해주세요",
+      "비밀번호를 입력해주세요",
+      "비밀번호 확인을 입력해주세요",
+      "닉네임을 입력해주세요"
+    ],
+    "idErrorMessage": ["이메일을 입력해주세요", "이메일 형식이 맞지않습니다."],
+    "passErrorMessage": [
+      "비밀번호를 입력해주세요",
+      "비밀번호는 8자리 이상으로 입력해주세요"
+    ],
+    "passconfirmMessage": [
+      "비밀번호 확인을 입력해주세요",
+      "비밀번호가 일치하지 않습니다."
+    ],
+    "nicNameError": [
+      "닉네임을 입력해주세요",
+      "닉네임을 두글자 이상으로 입력해주세요!",
+      "닉네임은 12자리 이하로 입력해수제요",
+      "닉네임 중복 체크를 먼저 해주세요!",
+      "이미 사용중인 닉네임 입니다.",
+      "사용 가능한 닉네임 입니다."
+    ]
+  },
+  "SelectedContents": {
+    "memberCount1": ["2명", "4명 미만", "4명 이상"],
+    "memberCount2": ["1명", "2명", "4명 미만", "4명 이상"]
+  },
+
+  "selectTypeResultPage": {
+    "headerSubTitle": "검색결과",
+    "outSideResult": [
+      "실외검색 결과가 없습니다.",
+      "실외에서 시원한 바람과 함께"
+    ],
+    "inSideResult": ["실내검색 결과가 없습니다..", "실내에서 여유로운 시간을"]
+  },
+  "placeList": {
+    "headerSubTitle": "검색결과",
+    "category": ["실내", "실외"]
+  },
+  "placeMapPage": {
+    "headerSubTitle": "상세보기"
+  },
+  "placeDetailPage": {
+    "navigation": ["가본곳", "찜하기", "리뷰쓰기", "공유하기"],
+    "category": ["장소팁", "가게정보", "주소", "전화"]
+  },
+  "ReviewListPage": {
+    "reviewTitle": "리뷰",
+    "reviewFilter": ["최신순", "추천순"]
+  },
+  "ReviewCard": {
+    "edit": "수정",
+    "delete": "삭제",
+    "weather": "날씨",
+    "days": "날짜",
+    "week": ["평일", "주말"],
+    "revisited": "재방문의사",
+    "help": "도움이돼요",
+    "helpPeople": "명에게 도움이 되었습니다.",
+    "reviewModal": [
+      "리뷰를 삭제하시겠어요?",
+      "한번 삭제된 리뷰는 영구적으로 삭제됩니다."
+    ],
+    "reportButton": "버튼",
+    "report": "신고하기"
+  },
+  "ReviewWrite": {
+    "headerSubTitle": ["리뷰수정", "리뷰쓰기"],
+    "selectWeather": {
+      "selectTitle": "날씨는 어땠나요?,",
+      "weatherType": ["맑음", "비", "눈", "흐림", "기억안남"]
+    },
+    "selectWeek": {
+      "selectTitle": "언제 가셨나요?",
+      "weekType": ["평일", "주말"]
+    },
+    "selectreVisited": {
+      "selectTitle": "재방문 의사가 있으신가요?",
+      "yesOrNo": ["있음", "없음"]
+    },
+    "reviewTitle": "상세한 후기를 써주세요",
+    "reviewPlaceholder": "최소 15자 이상 써주세요",
+    "minText": "최소 15자",
+    "uploadPhoto": "📷 사진을 올려주세요 (선택)",
+    "EditOrRegister": ["리뷰 수정하기", "리뷰 등록하기"],
+    "Modal": {
+      "minReview": "리뷰는 최소 15자 이상으로 적어주세요",
+      "minPhoto": "이미지는 최대 3개까지 등록 가능합니다.",
+      "errorPhoto": "이미지를 읽어들이는데 오류가 발생했습니다.",
+      "msg": "리뷰가 등록되었습니다."
+    }
+  },
+  "Pick": {
+    "headerSubTitle": "나만의 장소 Pick",
+    "pickPlace": "찜한곳",
+    "visitedPlace": "가본곳",
+    "noPickPlace": "찜한 곳이 없습니다.",
+    "noVisitedPlace": "가본 곳이 없습니다."
+  },
+  "SearchPlace": {
+    "placeholder": "어떤 장소가 궁금하세요?",
+    "text": "궁금하신 장소를 입력해주세요."
+  },
+  "MbtiModal": {
+    "mbtiTitle": "MBTI를 선택해주세요",
+    "noSelection": "MBTI 선택안함"
+  },
+  "Setting": {
+    "headerSubTitle": "설정",
+    "logOut": "로그아웃",
+    "withdrawal": "회원탈퇴"
+  },
+  "MyPage": {
+    "UpdateIssue": "공지사항",
+    "Opinion": "의견보내기",
+    "Version": "버전정보",
+    "Donation": "후원",
+    "Modal": {
+      "service": "서비스 준비중입니다.",
+      "goLogin": "로그인이 필요한 서비스입니다."
+    }
+  },
+  "MyPageEdit": {
+    "headerSubTitle": "프로필 수정",
+    "nickname": "닉네임",
+    "duplicate": "중복확인",
+    "email": "이메일",
+    "myPagegender": "성별",
+    "genderType": ["선택안함", "여성", "남성"],
+    "mypageEdit": "수정하기",
+    "noMbtiSelect": "MBTI 선택안함",
+    "register": "가입하기",
+    "placeholder": [
+      "이메일을 입력해주세요",
+      "비밀번호를 입력해주세요",
+      "비밀번호 확인을 입력해주세요",
+      "닉네임을 입력해주세요"
+    ],
+    "idErrorMessage": ["이메일을 입력해주세요", "이메일 형식이 맞지않습니다."],
+    "passErrorMessage": [
+      "비밀번호를 입력해주세요",
+      "비밀번호는 8자리 이상으로 입력해주세요"
+    ],
+    "passconfirmMessage": [
+      "비밀번호 확인을 입력해주세요",
+      "비밀번호가 일치하지 않습니다."
+    ],
+    "nicNameError": [
+      "닉네임을 입력해주세요",
+      "닉네임을 두글자 이상으로 입력해주세요!",
+      "닉네임은 12자리 이하로 입력해수제요",
+      "닉네임 중복 체크를 먼저 해주세요!",
+      "이미 사용중인 닉네임 입니다.",
+      "사용 가능한 닉네임 입니다."
+    ],
+    "Modal": {
+      "service": "서비스 준비중입니다.",
+      "goLogin": "로그인이 필요한 서비스입니다.",
+      "complete": "회원정보가 수정되었습니다."
+    }
+  },
+  "Navbar": {
+    "login": "로그인을 해야 이용할 수 있는 서비스입니다. 로그인 하시겠습니까?"
+  },
+  "CommonModal": {
+    "agree": "확인",
+    "disagree": "취소",
+    "edit": "수정",
+    "delete": "삭제",
+    "singo": "신고하기"
+  }
+}

@@ -1,4 +1,5 @@
 /* eslint-disable default-case */
+
 /**
  * 타입별 날씨 텍스트 변경
  * @param type 1.맑음  2.비 3.눈

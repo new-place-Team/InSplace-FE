@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setCommonModalOff,
@@ -14,6 +15,8 @@ import { reviewReportDB } from '../../redux/async/place';
 
 const CommonModal = ({ type, showConfirmModal }) => {
   const dispatch = useDispatch();
+  const { t, i18n } = useTranslation();
+
   const modalInfo = useSelector(state => state.common.modalInfo);
   const goPage = useSelector(state => state.common.goPage);
   const moreInfo = useSelector(state => state.common.moreInfo);
@@ -156,17 +159,17 @@ const CommonModal = ({ type, showConfirmModal }) => {
                     padding="15px"
                     onClick={reportClick}
                   >
-                    신고하기
+                    {t('CommonModal.singo')}
                   </ModalButton>
                 </Grid>
               </>
             ) : (
               <>
                 <MoreGrid onClick={goToReviewEditPage}>
-                  <Text>수정</Text>
+                  <Text>{t('CommonModal.edit')}</Text>
                 </MoreGrid>
                 <MoreGrid onClick={reviewDelete}>
-                  <Text>삭제</Text>
+                  <Text>{t('CommonModal.delete')}</Text>
                 </MoreGrid>
               </>
             )}
@@ -185,7 +188,7 @@ const CommonModal = ({ type, showConfirmModal }) => {
           {modalInfo && <Content>{modalInfo.content}</Content>}
           <Grid justify="space-between" margin="40px 0 0 0">
             <ModalButton className="fullButton close" onClick={CloseModal}>
-              확인
+              {t('CommonModal.agree')}
             </ModalButton>
           </Grid>
         </ModalContent>

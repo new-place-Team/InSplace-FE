@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 import { Grid, Text, Image } from '../../elements';
 import { getMbti, setModalOff } from '../../redux/modules/userSlice';
 import { xclose, checked } from '../../images/index';
@@ -8,6 +10,7 @@ import { getPeopleMbti } from '../../shared/transferText';
 
 const Modal = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const userInfo = useSelector(state => state.user.userInfo);
   const reduxMbti = useSelector(state => state.user.userMbti.mbtiId);
   const userMbti = userInfo.mbti;
@@ -33,7 +36,7 @@ const Modal = () => {
         <Grid>
           <ModalContent>
             <Text bold margin="32px 0px">
-              MBTI를 선택해주세요!
+              {t('MbtiModal.mbtiTitle')}
             </Text>
 
             <MBTIDiv
@@ -42,7 +45,7 @@ const Modal = () => {
                 selectMbti(info);
               }}
             >
-              <Text>MBTI 선택안함</Text>
+              <Text>{t('MbtiModal.noSelection')}</Text>
               {currentMbtiId === 17 ? <Icon src={checked} /> : null}
             </MBTIDiv>
 
@@ -194,7 +197,7 @@ const Modal = () => {
               {currentMbtiId === 16 ? <Icon src={checked} /> : null}
             </MBTIDiv>
             <AbsolBtn onClick={modaloff}>
-              <Image width="30%" src={xclose} />
+              <Image width="100%" src={xclose} />
             </AbsolBtn>
           </ModalContent>
         </Grid>
@@ -245,9 +248,9 @@ const MBTIDiv = styled.div`
 
 const AbsolBtn = styled.button`
   position: absolute;
-  top: 46px;
+  /* top: 46px;
   right: -70px;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
 `;
 
 const Icon = styled.img`
