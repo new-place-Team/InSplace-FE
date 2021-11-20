@@ -10,6 +10,7 @@ import {
   logInCheck,
   unRegister,
   logInKakao,
+  addUser,
   getFavories,
   getVisited,
   editProfile,
@@ -23,6 +24,7 @@ export const addUserDB = createAsyncThunk(
   // eslint-disable-next-line consistent-return
   async (data, thunkAPI) => {
     try {
+      const response = await addUser(data);
       const modalParams = {
         title: '회원가입에 성공하셨습니다',
         goPage: '/login',

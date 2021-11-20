@@ -39,7 +39,7 @@ const Setting = () => {
           setConfirmModal={setConfirmModal}
         />
       )}
-      <Header _back _content="설정" />
+      <Header _back _content="설정" _language />
       <Container padding="66px 0 0 0">
         <Grid padding="0 20px">
           <MBTIDiv onClick={goLogoOut}>

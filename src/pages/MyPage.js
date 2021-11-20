@@ -70,7 +70,7 @@ const MyPage = () => {
       )}
       {modalStatus && <CommonModal />}
       <Container padding="0" height="100%">
-        <Header _onBg _content="MyPage" _color="#fff" _settings />
+        <Header _onBg _content="MyPage" _settings _language _color="#fff" />
         <Bg src={sunBg} />
         <Grid isFlex justify="center" padding="59px 40px">
           <Image

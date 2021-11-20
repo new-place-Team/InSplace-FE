@@ -130,6 +130,7 @@ const SelectedType = () => {
         _content={t('selectTypePage.headerSubTitle')}
         _back
         _type="search"
+        _language
       />
       <Container padding="66px 0 0 0">
         <ChangeContainer>
