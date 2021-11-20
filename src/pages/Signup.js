@@ -358,7 +358,6 @@ const Signup = () => {
             {t('signUpPage.register')}
           </Button>
         </BottomWrap>
-
         {modalStatus === true && <Modal />}
       </Container>
     </>

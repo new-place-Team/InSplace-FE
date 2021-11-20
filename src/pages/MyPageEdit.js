@@ -145,7 +145,7 @@ const MyPageEdit = props => {
   return (
     <>
       {commomModal && <CommonModal />}
-      <Header _back _content={t('MyPageEdit.headerSubTitle')} />
+      <Header _back _content={t('MyPageEdit.headerSubTitle')} _language />
       <Container padding="20px 0 0 0">
         <Grid padding="42px 20px 0 20px">
           <ProfileWrap>
