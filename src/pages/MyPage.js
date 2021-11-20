@@ -6,8 +6,8 @@ import { history } from '../redux/configureStore';
 import { getTokenYn } from '../shared/utils';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
-import { right, mypageNext, profile1 } from '../images/index';
-import { Button, Container, Grid, Image, Text } from '../elements';
+import { whiteRight, mypageNext, profile1 } from '../images/index';
+import { Button, Container, Grid, Image } from '../elements';
 import sunBg from '../images/weather/sun_full_768.jpg';
 import ConfirmModal from '../components/common/ConfirmModal';
 import CommonModal from '../components/common/CommonModal';
@@ -71,54 +71,48 @@ const MyPage = () => {
       <Container padding="0" height="100%">
         <Header _onBg _content="MyPage" _settings _language _color="#fff" />
         <Bg src={sunBg} />
-        <Grid isFlex justify="center" padding="59px 40px">
+        <MyPageInfoGrid isFlex justify="center" padding="59px 40px">
           <Image
             type="circle"
             width="169px"
             height="169px"
             src={userInfo.userImage ? userInfo.userImage : profile1}
           />
-          <Grid flex margin="0 0 0 36px">
-            <Grid isFlex>
-              <Text fontSize="22px" bold color="#282828" margin="0 20px 0 0">
-                {userInfo.nickname}
-              </Text>
+          <UserInfoGrid>
+            <Grid isFlex margin="0 0 17px 0">
+              <Nicname>{userInfo.nickname}</Nicname>
               <Button _onClick={gotoDetailPage}>
-                <Image width="24px" height="24px" src={right} />
+                <Image width="24px" height="24px" src={whiteRight} />
               </Button>
             </Grid>
             <Grid isFlex>
-              <Text fontSize="13px" color="#3E4042" margin="0 11px 0 0" bold>
-                {userInfo.mbti}
-              </Text>
-              <Text fontSize="13px" color="#3E4042">
-                {userInfo.email}
-              </Text>
+              <Mbti>{userInfo.mbti}</Mbti>
+              <Email>{userInfo.email}</Email>
             </Grid>
-          </Grid>
-        </Grid>
+          </UserInfoGrid>
+        </MyPageInfoGrid>
         {/* 인포 그리드 */}
         <InfoGrid>
           <Info onClick={showModal}>
-            <Text>{t('MyPage.UpdateIssue')}</Text>
+            <Title>{t('MyPage.UpdateIssue')}</Title>
             <BottomBox>
               <Image src={mypageNext} />
             </BottomBox>
           </Info>
           <Info onClick={showModal}>
-            <Text>{t('MyPage.Opinion')}</Text>
+            <Title>{t('MyPage.Opinion')}</Title>
             <BottomBox>
               <Image src={mypageNext} />
             </BottomBox>
           </Info>
           <Info>
-            <Text>{t('MyPage.Version')}</Text>
+            <Title>{t('MyPage.Version')}</Title>
             <BottomBox>
               <TextBox>V1.0.2</TextBox>
             </BottomBox>
           </Info>
           <Info onClick={showModal}>
-            <Text>{t('MyPage.Donation')}</Text>
+            <Title>{t('MyPage.Donation')}</Title>
             <BottomBox />
           </Info>
         </InfoGrid>
@@ -136,9 +130,28 @@ const Bg = styled.div`
   background-size: cover;
   z-index: -1;
 `;
+const MyPageInfoGrid = styled.div`
+  width: 95%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 68px 0 52px 40px;
+  @media (max-width: 414px) {
+    margin: 32px 0 67px 24px;
+  }
+`;
+const UserInfoGrid = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-left: 46px;
+  @media (max-width: 414px) {
+    margin-left: 24px;
+  }
+`;
 
 const InfoGrid = styled.div`
-  width: 95.6%;
+  width: 95.4%;
   display: flex;
   flex-wrap: wrap;
   margin: 0 0 0 auto;
@@ -149,13 +162,13 @@ const InfoGrid = styled.div`
 const Info = styled.div`
   position: relative;
   width: 50%;
-  height: 265px;
-  padding: 24px;
+  height: 436px;
+  padding: 48px 50px;
   background-color: #fff;
   border: 1px solid #e6e9ec;
-  @media (max-width: 500px) {
-    min-height: 180px;
-    height: auto;
+  @media (max-width: 414px) {
+    height: 176px;
+    padding: 24px;
   }
 `;
 
@@ -168,7 +181,7 @@ const BottomBox = styled.div`
   img {
     width: 66px;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 414px) {
     img {
       width: 32px;
     }
@@ -182,6 +195,47 @@ const TextBox = styled.p`
   align-items: flex-end;
   font-size: 22px;
   font-weight: bold;
+  @media (max-width: 414px) {
+    font-size: 16px;
+  }
+`;
+
+const Nicname = styled.h3`
+  margin-right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  @media (max-width: 414px) {
+    font-size: 22px;
+  }
+`;
+const Mbti = styled.p`
+  margin-right: 11px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.0024em;
+  color: #fff;
+  @media (max-width: 414px) {
+    font-size: 13px;
+  }
+`;
+const Email = styled.p`
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: -0.0041em;
+  color: #fff;
+  @media (max-width: 414px) {
+    font-size: 13px;
+  }
+`;
+const Title = styled.h5`
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.0036em;
+  color: #3e4042;
+  @media (max-width: 414px) {
+    font-size: 16px;
+  }
 `;
 
 export default MyPage;
