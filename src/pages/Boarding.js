@@ -1,10 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
-import { Container, Grid, Text, Image } from '../elements';
-import mainImage from '../images/mainImage.jpg';
-import logo from '../images/logo.png';
-import insplaceText from '../images/insplacetext.png';
+import { Container, Image } from '../elements';
+// import mainImage from '../images/mainImage.jpg';
+// import logo from '../images/logo.png';
+// import insplaceText from '../images/insplacetext.png';
 import splashImage from '../images/splashImage.jpg';
 
 const Boarding = () => {

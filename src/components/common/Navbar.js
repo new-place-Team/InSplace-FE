@@ -23,7 +23,7 @@ import ConfirmModal from './ConfirmModal';
 
 const Navbar = () => {
   const pathName = history.location.pathname;
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const isLogin = useSelector(state => state.user.isLogin);
   const userInfo = useSelector(state => state.user.userInfo);
   const weatherStatus = useSelector(state => state.place.weatherStatus);

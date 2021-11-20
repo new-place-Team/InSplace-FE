@@ -19,7 +19,8 @@ const MainWeather = forwardRef((props, ref) => {
   let img768 = main;
   const { weatherInfo, imgLoading } = props;
 
-  const weatherStatus = weatherInfo && weatherInfo.frontWeather;
+  // const weatherStatus = weatherInfo && weatherInfo.frontWeather;
+  const weatherStatus = 4;
   if (weatherInfo) {
     if (weatherStatus === 2) {
       img768 = rain768;

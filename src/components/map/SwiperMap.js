@@ -8,42 +8,34 @@ import MapCard from './MapCard';
 SwiperCore.use([Navigation, Pagination, History]);
 
 const SwiperMap = props => {
-  // SwiperCore.use([Pagination]);
   const { list, _onChageFocus } = props;
+
   const setting = {
-    slidesPerView: 1,
-    spaceBetween: -23,
+    slidesPerView: 3,
+    spaceBetween: 30,
     loop: true,
-    breakpoints: {
-      // mobile
-      500: {
-        slidesPerView: 12,
-        spaceBetween: 16,
-      },
-      768: {
-        slidesPerView: 1,
-        spaceBetween: 50,
-      },
-    },
+    // breakpoints: {
+    //   320: {
+    //     slidesPerView: 1,
+    //     spaceBetween: 16,
+    //   },
+    //   500: {
+    //     slidesPerView: 3,
+    //     spaceBetween: 50,
+    //   },
+    // },
   };
 
   return (
     <Wrap>
       <Swiper
-        pagination={{
-          clickable: true,
-        }}
-        navigation={{
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        }}
+        className="mapSwiper"
         /* 스와이프 했을떄 실행할 함수 */
         onSlideChange={e => {
           const coord = {
             lat: list[e.realIndex].postLocationY,
             lon: list[e.realIndex].postLocationX,
           };
-          // console.log('coord', coord);
           _onChageFocus(coord);
           // dispatch(setFocusCoord(coord));
         }}
@@ -70,5 +62,26 @@ const Wrap = styled.div`
   left: 50%;
   transform: translateX(-50%);
   z-index: 99;
+  .mapSwiper {
+    .swiper-slide {
+    }
+    h3 {
+      height: 23px;
+      overflow: hidden;
+    }
+    p {
+      height: 34px;
+      overflow: hidden;
+    }
+    .swiper-slide-active {
+      width: 55% !important;
+      h3,
+      p {
+        overflow: visible;
+        height: auto;
+      }
+    }
+  }
 `;
+
 export default SwiperMap;

@@ -14,7 +14,7 @@ import CommonModal from '../components/common/CommonModal';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const commomModal = useSelector(state => state.common.modalStatus);
   const [loginInfo, setLoginInfo] = useState({
     email: '',

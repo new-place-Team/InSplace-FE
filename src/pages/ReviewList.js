@@ -1,4 +1,3 @@
-/* eslint-disable import/no-named-as-default */
 /* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
