@@ -104,12 +104,19 @@ const MyPage = () => {
             <Info onClick={showModal}>
               <Title>{t('MyPage.UpdateIssue')}</Title>
               <BottomBox>
+                {/* <Icons
+                  src={mypageNext}
+                  width="66px"
+                  height="62px"
+                  color="#000"
+                /> */}
                 <Image src={mypageNext} />
               </BottomBox>
             </Info>
             <Info onClick={feedbackModal}>
               <Title>{t('MyPage.Opinion')}</Title>
               <BottomBox>
+                {/* <Icons src={mypageNext} width="66px" height="62px" /> */}
                 <Image src={mypageNext} />
               </BottomBox>
             </Info>

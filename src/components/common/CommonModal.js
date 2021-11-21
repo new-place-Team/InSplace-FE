@@ -106,6 +106,10 @@ const CommonModal = ({ type, showConfirmModal }) => {
 
   const [feedbackText, setFeedbackText] = useState('');
   const feedbackSubmit = () => {
+    // 에러메세지 만들기
+    if (feedbackText === '') {
+      console.log('빈값');
+    }
     dispatch(setFeedbackModalOff());
     const params = {
       title: `소중한 의견 감사합니다!`,
