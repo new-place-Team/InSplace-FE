@@ -11,13 +11,17 @@ import { Button, Container, Grid, Image } from '../elements';
 import sunBg from '../images/weather/sun_full_768.jpg';
 import ConfirmModal from '../components/common/ConfirmModal';
 import CommonModal from '../components/common/CommonModal';
-import { setCommonModalOn } from '../redux/modules/commonSlice';
+import {
+  setCommonModalOn,
+  setFeedbackModalOn,
+} from '../redux/modules/commonSlice';
 
 const MyPage = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector(state => state.user.userInfo);
   const [loginModal, setLoginModal] = useState(false);
   const modalStatus = useSelector(state => state.common.modalStatus);
+  const feedbackStatus = useSelector(state => state.common.feedbackStatus);
   const { t } = useTranslation();
 
   /* 유저 이미지가 있으면 그 이미지 없으면 기본 이미지 */
@@ -57,6 +61,10 @@ const MyPage = () => {
     dispatch(setCommonModalOn(params));
   };
 
+  const feedbackModal = () => {
+    dispatch(setFeedbackModalOn());
+  };
+
   return (
     <>
       {loginModal && (
@@ -68,6 +76,7 @@ const MyPage = () => {
         />
       )}
       {modalStatus && <CommonModal />}
+      {feedbackStatus && <CommonModal type="feedback" />}
       <Container padding="0" height="100%">
         <Header _onBg _content="MyPage" _settings _color="#fff" />
         <Bg src={sunBg}>
@@ -98,7 +107,7 @@ const MyPage = () => {
                 <Image src={mypageNext} />
               </BottomBox>
             </Info>
-            <Info onClick={showModal}>
+            <Info onClick={feedbackModal}>
               <Title>{t('MyPage.Opinion')}</Title>
               <BottomBox>
                 <Image src={mypageNext} />
@@ -107,12 +116,17 @@ const MyPage = () => {
             <Info>
               <Title>{t('MyPage.Version')}</Title>
               <BottomBox>
-                <TextBox>V1.0.2</TextBox>
+                <TextBox>V1.0.0</TextBox>
               </BottomBox>
             </Info>
-            <Info onClick={showModal}>
+            <Info>
               <Title>{t('MyPage.Donation')}</Title>
-              <BottomBox />
+              <BottomBox>
+                <TextBox>
+                  <Bank>카카오뱅크</Bank>
+                  <BankNumber>7979-39-23429</BankNumber>
+                </TextBox>
+              </BottomBox>
             </Info>
           </InfoGrid>
         </Bg>
@@ -161,6 +175,9 @@ const InfoGrid = styled.div`
   margin: 0 0 0 auto;
   padding-bottom: 64px;
   cursor: pointer;
+  @media (max-width: 415px) {
+    height: 65.5%;
+  }
 `;
 
 const Info = styled.div`
@@ -171,38 +188,6 @@ const Info = styled.div`
   border: 1px solid #e6e9ec;
   @media (max-width: 415px) {
     padding: 24px;
-  }
-`;
-
-const BottomBox = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  height: 100%;
-  padding-bottom: 16px;
-  @media (max-width: 415px) {
-    padding: 80px 0 0;
-  }
-  img {
-    width: 66px;
-    @media (max-width: 415px) {
-      width: 32px;
-    }
-  }
-`;
-const TextBox = styled.p`
-  width: 100%;
-  height: 66px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  font-size: 22px;
-  font-weight: bold;
-  @media (max-width: 415px) {
-    font-size: 16px;
-  }
-  @media (max-width: 415px) {
-    height: 36px;
   }
 `;
 
@@ -243,5 +228,46 @@ const Title = styled.h5`
     font-size: 16px;
   }
 `;
+const BottomBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: 10px;
 
+  @media (max-width: 415px) {
+    padding: 80px 0 10px;
+  }
+  img {
+    @media (max-width: 415px) {
+      width: 32px;
+    }
+  }
+`;
+const TextBox = styled.p`
+  width: 100%;
+  height: 66px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-direction: column;
+  padding-bottom: 10px;
+  font-size: 22px;
+  font-weight: bold;
+
+  @media (max-width: 415px) {
+    font-size: 16px;
+  }
+  @media (max-width: 415px) {
+    height: 36px;
+    padding-bottom: 20px;
+  }
+`;
+
+const Bank = styled.p`
+  margin-bottom: 5px;
+  color: #a3a6aa;
+`;
+const BankNumber = styled.p``;
 export default MyPage;

@@ -65,9 +65,9 @@ const MapContainer = () => {
           <SelectedCategory />
         </Grid>
         <MapDiv>
-          <MapCategoryWrap padding="0 24px">
+          {/* <MapCategoryWrap padding="0 24px">
             <SelectedCategory />
-          </MapCategoryWrap>
+          </MapCategoryWrap> */}
           <Map
             width="100%"
             height="100vh"
@@ -77,9 +77,9 @@ const MapContainer = () => {
           />
 
           {/* SwiperList Card */}
-          <SwiperWrap>
-            <SwiperMap list={placeList} _onChageFocus={onChageFocus} />
-          </SwiperWrap>
+          {/* <SwiperWrap> */}
+          <SwiperMap list={placeList} _onChageFocus={onChageFocus} />
+          {/* </SwiperWrap> */}
         </MapDiv>
       </Container>
     </>
@@ -91,12 +91,12 @@ const MapDiv = styled.div`
   width: 100%;
   height: 100vh;
 `;
-const MapCategoryWrap = styled.div`
-  border: 2px solid blue;
-`;
-const SwiperWrap = styled.div`
-  position: relative;
-  width: 100%;
-`;
+// const MapCategoryWrap = styled.div`
+//   border: 2px solid blue;
+// `;
+// const SwiperWrap = styled.div`
+//   position: relative;
+//   width: 100%;
+// `;
 
 export default MapContainer;

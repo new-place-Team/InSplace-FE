@@ -5,8 +5,17 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const Label = props => {
-  const { type, flex, margin, padding, fontSize, color, children, bold } =
-    props;
+  const {
+    type,
+    flex,
+    margin,
+    padding,
+    fontSize,
+    color,
+    children,
+    required,
+    bold,
+  } = props;
   const styles = {
     flex,
     margin,
@@ -14,6 +23,7 @@ const Label = props => {
     fontSize,
     color,
     bold,
+    required,
   };
   if (type === 'form') {
     return <LabelForm {...styles}>{children}</LabelForm>;
@@ -28,6 +38,7 @@ Label.defaultProps = {
   fontSize: `${theme.fontSize.normal}`,
   color: `${theme.color.mainColor}`,
   bold: `${theme.fontWeight.regular}`,
+  required: false,
 };
 
 const LabelWrap = styled.label`
@@ -47,5 +58,11 @@ const LabelForm = styled.label`
   font-size: 13px;
   font-weight: bold;
   color: #b5b5b5;
+  &::after {
+    display: inline-block;
+    ${props =>
+      props.required &&
+      `display: inline-block;content: '*';margin-left:2px;color: #ed5e5e;`};
+  }
 `;
 export default Label;

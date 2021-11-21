@@ -52,7 +52,7 @@ const Detail = props => {
   useEffect(() => {
     dispatch(getPlaceDetailDB(id));
     window.scrollTo(0, 0);
-    window.Kakao.init(process.env.REACT_APP_KAKAO_KEY);
+    // window.Kakao.init(process.env.REACT_APP_KAKAO_KEY);
   }, []);
 
   // 리뷰 쓰기 페이지로 이동

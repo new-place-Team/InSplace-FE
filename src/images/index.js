@@ -16,7 +16,7 @@ import whiteClose from './close.svg';
 import plus from './plus.svg';
 import polygonimg from './Polygon.png';
 import insplace from './Insplace.png';
-import mypageNext from './next.svg';
+
 import spinner from './spinner.gif';
 import whiteRight from './ic_header_right.svg';
 
@@ -30,6 +30,7 @@ import xclose from './Icon/ic_header_close.svg';
 import report from './Icon/ic_report.svg';
 import modalClose from './Icon/ic_modal_close.svg';
 import checked from './Icon/ic_check.svg';
+import mypageNext from './Icon/ic-next.svg';
 
 // illustration
 import profile1 from './illustration/profile1.png';
