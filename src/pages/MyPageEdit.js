@@ -14,7 +14,7 @@ import { nicknameCheck } from '../shared/api/userApi';
 
 import Modal from '../components/common/Modal';
 import Header from '../components/common/Header';
-import { Button, Container, Grid, Image, Label, Text } from '../elements';
+import { Button, Container, Grid, Image, Text } from '../elements';
 import { plus, polygonimg } from '../images/index';
 import CommonModal from '../components/common/CommonModal';
 import { setCommonModalOn } from '../redux/modules/commonSlice';

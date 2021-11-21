@@ -67,13 +67,7 @@ const PlaceList = props => {
 
   return (
     <>
-      <Header
-        _back
-        _content={t('placeList.headerSubTitle')}
-        _map
-        _search
-        _language
-      />
+      <Header _back _content={t('placeList.headerSubTitle')} _map _search />
       <Container>
         <SelectedCategory />
         {placeList && placeList.length <= 0 ? (

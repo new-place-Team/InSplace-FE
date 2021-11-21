@@ -16,7 +16,6 @@ const SelectedType = () => {
   const dispatch = useDispatch();
   const weatherStatus = useSelector(state => state.place.weatherStatus);
   const { t } = useTranslation();
-  console.log('render check', t);
   const [categoryInfo, setCategoryInfo] = React.useState({
     MemberCnt: '',
     gender: '',
@@ -45,7 +44,6 @@ const SelectedType = () => {
     }
     return text;
   };
-  let aa = 1;
   const [selectData, setSelectData] = React.useState([
     {
       title: t('selectTypePage.selectGender.selectTitle'),
@@ -105,7 +103,6 @@ const SelectedType = () => {
       bg: '#bbc0cf',
     },
   ]);
-  console.log('selectData', selectData);
   const goSearch = () => {
     if (
       categoryInfo.gender === '' ||
@@ -123,7 +120,6 @@ const SelectedType = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    aa = 2;
   }, [selectData]);
 
   return (
@@ -132,7 +128,6 @@ const SelectedType = () => {
         _content={t('selectTypePage.headerSubTitle')}
         _back
         _type="search"
-        _language
       />
       <Container padding="66px 0 0 0">
         <ChangeContainer>

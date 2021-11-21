@@ -79,7 +79,7 @@
   },
   "SelectedContents": {
     "memberCount1": ["2명", "4명 미만", "4명 이상"],
-    "memberCount2": ["1명", "2명", "4명 미만", "4명 이상"]
+    "memberCount2": ["한명", "두명", "네명 미만", "네명 이상"]
   },
 
   "selectTypeResultPage": {

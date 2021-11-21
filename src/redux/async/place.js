@@ -190,6 +190,7 @@ export const setVisitedPostDB = createAsyncThunk(
   async (params, thunkAPI) => {
     try {
       let response;
+      console.log('params', params);
       if (params.visitedStatus) {
         response = await deleteVisitedPost(params);
         thunkAPI.dispatch(deleteUserVisitedPost(params));
