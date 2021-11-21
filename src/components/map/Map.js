@@ -16,7 +16,7 @@ import {
 
 const Map = props => {
   const mapDiv = useRef(null);
-  const { width, height, allPlaces, latLonFocus } = props;
+  const { width, height, allPlaces, latLonFocus, _onChnageFocusId } = props;
 
   useEffect(() => {
     /* 페이지가 로드 시 지도 생성 */
