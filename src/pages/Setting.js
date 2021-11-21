@@ -9,7 +9,7 @@ import { logOut } from '../redux/modules/userSlice';
 import { unRegisterDB } from '../redux/async/user';
 import ConfirmModal from '../components/common/ConfirmModal';
 import CommonModal from '../components/common/CommonModal';
-import { history } from '../redux/configureStore';
+import { setCommonModalOn } from '../redux/modules/commonSlice';
 
 const Setting = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,11 @@ const Setting = () => {
 
   const goLogoOut = () => {
     dispatch(logOut());
-    history.push('/');
+    const modalParams = {
+      title: `로그아웃되었습니다.`,
+      goPage: '/',
+    };
+    dispatch(setCommonModalOn(modalParams));
     // window.location.href = '/';
   };
 
@@ -29,6 +33,8 @@ const Setting = () => {
 
   const goUnRegister = () => {
     dispatch(unRegisterDB());
+    setConfirmModal(false);
+    window.location.href = '/';
   };
 
   return (
@@ -40,8 +46,8 @@ const Setting = () => {
           title="회원 탈퇴 하시겠습니까?"
           content="탈퇴된 회원은 영구적으로 탈퇴됩니다."
           setConfirmModal={setConfirmModal}
-          Type="UnRegister"
           confirmFun={goUnRegister}
+          confirmText={t('CommonModal.agree')}
         />
       )}
       <Header _back _content={t('Setting.headerSubTitle')} _language />
@@ -50,7 +56,6 @@ const Setting = () => {
           <MBTIDiv onClick={goLogoOut}>
             <Text> {t('Setting.logOut')}</Text>
           </MBTIDiv>
-
           <MBTIDiv onClick={onClick}>
             <Text>{t('Setting.withdrawal')}</Text>
           </MBTIDiv>

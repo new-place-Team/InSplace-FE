@@ -158,7 +158,8 @@ const ReviewList = props => {
           content="한번 삭제된 리뷰는 영구적으로 삭제됩니다."
           showModal={showConfirmModal}
           setConfirmModal={setConfirmModal}
-          onDelete={onDeleteReview}
+          confirmFun={onDeleteReview}
+          confirmText={t('CommonModal.delete')}
         />
       )}
 

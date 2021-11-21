@@ -6,7 +6,7 @@ import { Grid } from '../../elements';
 import { history } from '../../redux/configureStore';
 
 const ConfirmModal = props => {
-  const { title, content, isOk, Type, goToLogin } = props;
+  const { title, content, isOk, Type, goToLogin, confirmText } = props;
   const { t } = useTranslation();
 
   const CloseConfirmModal = e => {
@@ -31,12 +31,12 @@ const ConfirmModal = props => {
     }
   };
 
-  const onDelete = () => {
-    props.onDelete();
-  };
-
   const goToLoginPage = () => {
     history.push('/login');
+  };
+
+  const confirmFun = () => {
+    props.confirmFun();
   };
 
   return (
@@ -59,8 +59,8 @@ const ConfirmModal = props => {
                   {t('CommonModal.disagree')}
                 </ModalButton>
                 {!Type && !goToLogin ? (
-                  <ModalButton className="black" onClick={onDelete}>
-                    {t('CommonModal.delete')}
+                  <ModalButton className="black" onClick={confirmFun}>
+                    {confirmText}
                   </ModalButton>
                 ) : (
                   <ModalButton
