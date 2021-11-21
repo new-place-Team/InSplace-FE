@@ -190,7 +190,7 @@ const RainArea = styled.div`
   height: 100%;
   width: 100%;
   overflow: hidden;
-
+  z-index: -1;
   .drop {
     position: absolute;
     bottom: 100%;
@@ -287,6 +287,7 @@ const SnowArea = styled.div`
   ${props => props.backgroundSize && `background-size:${props.backgroundSize}`};
   ${props => props.filter && `filter:blur(${props.filter})`};
   opacity: 0.5;
+  z-index: -1;
 
   @keyframes snowOne {
     0% {
