@@ -9,7 +9,7 @@ import { ReactComponent as CloseBtn } from '../../images/Icon/ic_close.svg';
 
 const LangModal = () => {
   const dispatch = useDispatch();
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const korean = () => {
     i18n.changeLanguage('ko-KR');
     dispatch(setModalOff());
@@ -33,7 +33,7 @@ const LangModal = () => {
             isFlex
             padding="10px 20px"
             _onClick={american}
-            cursor
+            cursor="true"
           >
             <Grid
               margin="0 10px 0 0"
@@ -73,7 +73,7 @@ const LangModal = () => {
             isFlex
             padding="10px 20px"
             _onClick={korean}
-            cursor
+            cursor="true"
           >
             <Grid
               margin="0 10px 0 0"

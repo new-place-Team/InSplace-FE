@@ -94,8 +94,10 @@ const Header = props => {
               </Grid>
             )}
             {_settings && (
-              <Grid margin="0 13px 0 0">
-                <Icon src={settings} onClick={gotoSettingPage} />
+              <Grid>
+                <IconArea>
+                  <Icon src={settings} onClick={gotoSettingPage} />
+                </IconArea>
               </Grid>
             )}
             {_language && (
@@ -159,7 +161,7 @@ const Header = props => {
             )}
             {_settings && (
               <Grid>
-                <IconArea margin="0 13px 0 0">
+                <IconArea>
                   <Icon src={settings} onClick={gotoSettingPage} />
                 </IconArea>
               </Grid>

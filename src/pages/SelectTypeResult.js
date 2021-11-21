@@ -45,7 +45,6 @@ const SearchTypeList = () => {
         _content={t('selectTypeResultPage.headerSubTitle')}
         _map
         _search
-        _language
         _color="#000"
       />
       <Container height="auto">

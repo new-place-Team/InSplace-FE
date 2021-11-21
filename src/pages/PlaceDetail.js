@@ -22,11 +22,9 @@ import { ReactComponent as Pin } from '../images/Icon/ic_pin.svg';
 
 import PlaceSwiper from '../components/place/PlaceSwiper';
 import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
-import { ReactComponent as Language } from '../images/nav/ic_nav_language.svg';
 
 import ReviewList from './ReviewList';
 import { getCategoryText } from '../shared/transferText';
-// import { isLoginChk } from '../shared/utils';
 import ConfirmModal from '../components/common/ConfirmModal';
 
 const Detail = props => {
@@ -81,9 +79,6 @@ const Detail = props => {
 
   /* 좋아요 추가 및 삭제 */
   const setFavorites = () => {
-    // if (!isLoginChk(isLogin)) {
-    //   return;
-    // }
     if (!isLogin) {
       setConfirmModal(true);
       return;
@@ -97,9 +92,6 @@ const Detail = props => {
   };
   /* 가본장소 추가 및 삭제 */
   const setVisited = () => {
-    // if (!isLoginChk(isLogin)) {
-    //   return;
-    // }
     if (!isLogin) {
       setConfirmModal(true);
       return;
@@ -125,9 +117,8 @@ const Detail = props => {
         <Grid>
           <PlaceSwiper list={detailData.postImages} />
           <PlaceHeader>
-            <IconBox onClick={goBack}>
-              <LeftIcon />
-              <Language />
+            <IconBox>
+              <LeftIcon onClick={goBack} />
             </IconBox>
           </PlaceHeader>
 
@@ -151,8 +142,8 @@ const Detail = props => {
                 </Text>
               </Grid>
             </Grid>
-            {/* 유저가 선택한 카테고리 */}
-            <Grid margin="24px 0 0 0">
+            {/* 유저가 선택한 카테고리 2021-11-21 주석 */}
+            {/* <Grid margin="24px 0 0 0">
               <Button type="tag" bg="#558ED0" color="#fff">
                 날씨
               </Button>
@@ -165,7 +156,7 @@ const Detail = props => {
               <Button type="tag" bg="#484C51" color="#fff">
                 카페
               </Button>
-            </Grid>
+            </Grid> */}
             {/* Icon Navigation */}
             <IconNavigation>
               <Grid>

@@ -85,11 +85,11 @@
     "headerSubTitle": "Search Result",
     "outSideResult": [
       "No result of OuterPlace",
-      "☀️ Outside with a Cool Breeze"
+      "Outside with a Cool Breeze"
     ],
     "inSideResult": [
       "There is no result of Innerplace",
-      "☕️ Relaxing Time Indoors"
+      "Relaxing Time Indoors"
     ]
   },
   "placeList": {
@@ -222,7 +222,7 @@
     "login": "You have to log in to use this service. You want to Login?"
   },
   "CommonModal": {
-    "agree": "ok",
-    "disagree": "cancel"
+    "agree": "OK",
+    "disagree": "CANCEL"
   }
 }

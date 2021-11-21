@@ -1,11 +1,13 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { Grid } from '../../elements';
 import { history } from '../../redux/configureStore';
 
 const ConfirmModal = props => {
   const { title, content, isOk, Type, goToLogin } = props;
+  const { t } = useTranslation();
 
   const CloseConfirmModal = e => {
     const name = e.target.className;
@@ -49,16 +51,16 @@ const ConfirmModal = props => {
           <Grid justify="space-between" margin="40px 0 0 0">
             {isOk ? (
               <ModalButton className="fullButton close" onClick={CloseModal}>
-                확인
+                {t('CommonModal.agree')}
               </ModalButton>
             ) : (
               <>
                 <ModalButton className="close" onClick={CloseConfirmModal}>
-                  취소
+                  {t('CommonModal.disagree')}
                 </ModalButton>
                 {!Type && !goToLogin ? (
                   <ModalButton className="black" onClick={onDelete}>
-                    삭제
+                    {t('CommonModal.delete')}
                   </ModalButton>
                 ) : (
                   <ModalButton
@@ -67,7 +69,7 @@ const ConfirmModal = props => {
                       !goToLogin ? CloseConfirmModal(e) : goToLoginPage()
                     }
                   >
-                    확인
+                    {t('CommonModal.agree')}
                   </ModalButton>
                 )}
               </>
