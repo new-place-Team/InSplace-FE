@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -28,6 +29,7 @@ import { getCategoryText } from '../shared/transferText';
 import ConfirmModal from '../components/common/ConfirmModal';
 
 const Detail = props => {
+  console.log('history', history);
   const dispatch = useDispatch();
   const { match } = props;
   const { id } = match.params;
@@ -50,7 +52,7 @@ const Detail = props => {
   useEffect(() => {
     dispatch(getPlaceDetailDB(id));
     window.scrollTo(0, 0);
-    return () => {};
+    window.Kakao.init(process.env.REACT_APP_KAKAO_KEY);
   }, []);
 
   // 리뷰 쓰기 페이지로 이동
@@ -102,6 +104,31 @@ const Detail = props => {
       visitedStatus: detailData.visitedStatus,
     };
     dispatch(setVisitedPostDB(params));
+  };
+
+  /* 카카오 공유하기 */
+  const shareKakao = () => {
+    // eslint-disable-next-line no-undef
+    Kakao.Link.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '공유 테스트!',
+        description: '내용!',
+        imageUrl: detailData.postImages[0],
+        link: {
+          mobileWebUrl: '모바일 url!',
+          androidExecParams: 'test',
+        },
+      },
+      buttons: [
+        {
+          title: '웹으로 이동',
+          link: {
+            mobileWebUrl: '공유할 url!',
+          },
+        },
+      ],
+    });
   };
 
   return (

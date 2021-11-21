@@ -47,7 +47,7 @@ const Pick = () => {
               isLikeSelected ? '2px solid #000' : '1px solid #A4A9B1'
             }
             _onClick={() => toggleSelected(true)}
-            cursor
+            cursor="true"
           >
             <Icons
               margin="0 8px 0 0"
@@ -70,7 +70,7 @@ const Pick = () => {
               isLikeSelected ? '1px solid #A4A9B1' : '2px solid #000'
             }
             _onClick={() => toggleSelected(false)}
-            cursor
+            cursor="true"
           >
             <Icons
               margin="0 8px 0 0"
