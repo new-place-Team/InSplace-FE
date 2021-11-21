@@ -63,7 +63,7 @@ const ListCard = forwardRef((props, ref) => {
       <>
         <SkeletonBg width="237px" height="320px" ref={imgRef}>
           {isLoading && (
-            <Grid _onClick={gotoDetail} width="237px" cursor>
+            <Grid _onClick={gotoDetail} width="237px" cursor="true">
               <CardImageWrap height="320px">
                 <CardImage width="237px" src={info.postImage} />
               </CardImageWrap>

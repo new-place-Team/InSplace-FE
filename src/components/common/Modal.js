@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { Grid, Text, Image } from '../../elements';
+import { Grid, Text } from '../../elements';
 import { getMbti, setModalOff } from '../../redux/modules/userSlice';
 import { xclose, checked } from '../../images/index';
 import { getPeopleMbti } from '../../shared/transferText';
