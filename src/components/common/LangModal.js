@@ -1,20 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { Grid, Text, Image, Button } from '../../elements';
+import { Grid, Text } from '../../elements';
 import { setModalOff } from '../../redux/modules/userSlice';
+import { ReactComponent as CloseBtn } from '../../images/Icon/ic_close.svg';
 
 const LangModal = () => {
   const dispatch = useDispatch();
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const korean = () => {
     i18n.changeLanguage('ko-KR');
     dispatch(setModalOff());
   };
   const american = () => {
     i18n.changeLanguage('en-US');
+    dispatch(setModalOff());
+  };
+
+  const onClose = () => {
     dispatch(setModalOff());
   };
 
@@ -28,7 +33,7 @@ const LangModal = () => {
             isFlex
             padding="10px 20px"
             _onClick={american}
-            cursor
+            cursor="true"
           >
             <Grid
               margin="0 10px 0 0"
@@ -42,7 +47,7 @@ const LangModal = () => {
             </Grid>
             <Grid flex>English</Grid>
           </Grid>
-          <Grid
+          {/* <Grid
             width="100%"
             isFlex
             padding="10px 20px"
@@ -62,13 +67,13 @@ const LangModal = () => {
               <Text color="#fff">와</Text>
             </Grid>
             <Grid flex>일본어</Grid>
-          </Grid>
+          </Grid> */}
           <Grid
             width="100%"
             isFlex
             padding="10px 20px"
             _onClick={korean}
-            cursor
+            cursor="true"
           >
             <Grid
               margin="0 10px 0 0"
@@ -82,6 +87,9 @@ const LangModal = () => {
             </Grid>
             <Grid flex>한국어</Grid>
           </Grid>
+          <Icon onClick={() => onClose()}>
+            <CloseBtn />
+          </Icon>
         </ModalContent>
         {/* </Grid> */}
       </Overlay>
@@ -107,6 +115,18 @@ const ModalContent = styled.div`
   transform: translate(-50%, -50%);
   padding: 14px;
   font-size: 20px;
+`;
+
+const Icon = styled.div`
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 24px;
+  height: 24px;
+  svg {
+    fill: #000;
+  }
+  cursor: pointer;
 `;
 
 export default LangModal;

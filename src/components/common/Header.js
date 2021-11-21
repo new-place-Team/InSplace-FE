@@ -40,11 +40,9 @@ const Header = props => {
   const gotoSettingPage = () => {
     history.push('/setting');
   };
-
-  const openModal = () => {
+  const openLangModal = () => {
     dispatch(setModalOn());
   };
-
   const goBack = () => {
     history.goBack();
   };
@@ -96,12 +94,14 @@ const Header = props => {
               </Grid>
             )}
             {_settings && (
-              <Grid margin="0 13px 0 0">
-                <Icon src={settings} onClick={gotoSettingPage} />
+              <Grid>
+                <IconArea>
+                  <Icon src={settings} onClick={gotoSettingPage} />
+                </IconArea>
               </Grid>
             )}
             {_language && (
-              <Grid _onClick={openModal}>
+              <Grid _onClick={openLangModal}>
                 <IconArea color={_color}>
                   <Language />
                 </IconArea>
@@ -161,19 +161,20 @@ const Header = props => {
             )}
             {_settings && (
               <Grid>
-                <IconArea margin="0 13px 0 0">
+                <IconArea>
                   <Icon src={settings} onClick={gotoSettingPage} />
                 </IconArea>
               </Grid>
             )}
             {_language && (
-              <Grid _onClick={openModal}>
+              <Grid _onClick={openLangModal}>
                 <IconArea color={_color}>
                   <Language />
                 </IconArea>
               </Grid>
             )}
           </Grid>
+          {modalStatus === true && <LangModal />}
         </Content>
       </ContentArea>
     </HeaderBar>

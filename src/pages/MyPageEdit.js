@@ -14,7 +14,7 @@ import { nicknameCheck } from '../shared/api/userApi';
 
 import Modal from '../components/common/Modal';
 import Header from '../components/common/Header';
-import { Button, Container, Grid, Image, Label, Text } from '../elements';
+import { Button, Container, Grid, Image, Text } from '../elements';
 import { plus, polygonimg } from '../images/index';
 import CommonModal from '../components/common/CommonModal';
 import { setCommonModalOn } from '../redux/modules/commonSlice';
@@ -171,7 +171,7 @@ const MyPageEdit = props => {
             </UploadWrap>
           </ProfileWrap>
           <Grid margin="0 0 32px 0">
-            <MypageLabel>{t('MyPageEdit.headerSubTitle')}</MypageLabel>
+            <MypageLabel>{t('MyPageEdit.nickname')}</MypageLabel>
             <Input name="nickname" value={nickname} onChange={onChange} />
             {errorMessage === t('MyPageEdit.nicNameError.5') ? (
               <Text fontSize="12px" color="green">

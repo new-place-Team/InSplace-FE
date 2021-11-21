@@ -16,16 +16,11 @@ const SelectedType = () => {
   const dispatch = useDispatch();
   const weatherStatus = useSelector(state => state.place.weatherStatus);
   const { t } = useTranslation();
-
   const [categoryInfo, setCategoryInfo] = React.useState({
     MemberCnt: '',
     gender: '',
     category: '',
   });
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const showCategory =
     categoryInfo.MemberCnt === '' &&
@@ -108,7 +103,6 @@ const SelectedType = () => {
       bg: '#bbc0cf',
     },
   ]);
-
   const goSearch = () => {
     if (
       categoryInfo.gender === '' ||
@@ -123,13 +117,17 @@ const SelectedType = () => {
     dispatch(getSearchConditionDB(params));
     history.push(`/select-type/result${params}`);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [selectData]);
+
   return (
     <>
       <Header
         _content={t('selectTypePage.headerSubTitle')}
         _back
         _type="search"
-        _language
       />
       <Container padding="66px 0 0 0">
         <ChangeContainer>

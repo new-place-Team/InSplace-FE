@@ -1,9 +1,6 @@
-/* eslint-disable no-unreachable */
 /* eslint-disable import/no-cycle */
-/* eslint-disable no-alert */
 /* eslint-disable consistent-return */
 import { createAsyncThunk } from '@reduxjs/toolkit';
-// eslint-disable-next-line import/no-cycle
 import { history } from '../configureStore';
 import {
   logIn,
@@ -21,15 +18,16 @@ import { setCommonModalOn } from '../modules/commonSlice';
 // 회원등록
 export const addUserDB = createAsyncThunk(
   'user/addUser',
-  // eslint-disable-next-line consistent-return
   async (data, thunkAPI) => {
     try {
       const response = await addUser(data);
-      const modalParams = {
-        title: '회원가입에 성공하셨습니다',
-        goPage: '/login',
-      };
-      // thunkAPI.dispatch(setCommonModalOn(modalParams));
+      if (response) {
+        const modalParams = {
+          title: '회원가입에 성공하셨습니다',
+          goPage: '/login',
+        };
+        thunkAPI.dispatch(setCommonModalOn(modalParams));
+      }
     } catch (err) {
       console.log(err.response);
       const modalParams = {
@@ -105,11 +103,13 @@ export const unRegisterDB = createAsyncThunk(
     // eslint-disable-next-line prefer-destructuring
     const userId = thunkAPI.getState().user.userInfo.userId;
     try {
-      // const response = await unRegister(userId);
-      // eslint-disable-next-line no-undef
-      localStorage.removeItem('USER_TOKEN');
+      const response = await unRegister(userId);
+      if (response) {
+        // eslint-disable-next-line no-undef
+        localStorage.removeItem('USER_TOKEN');
+        history.replace('/login');
+      }
       console.log('회원탈퇴 ==');
-      // history.replace('/login');
     } catch (err) {
       console.log(err.response);
       const modalParams = {
@@ -176,7 +176,7 @@ export const getFavoritesDB = createAsyncThunk(
 /* 유저 가본곳 리스트 조회 */
 export const getVisitedDB = createAsyncThunk(
   'user/getVisited',
-  async thunkAPI => {
+  async (_params, thunkAPI) => {
     try {
       thunkAPI.dispatch(getLoaded(true));
       const response = await getVisited();

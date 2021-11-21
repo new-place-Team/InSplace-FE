@@ -5,6 +5,10 @@ import { ReactComponent as Close } from '../../images/Icon/ic_close.svg';
 import { ReactComponent as Marker } from '../../images/ic-marker.svg';
 import { ReactComponent as Particlulates } from '../../images/Icon/ic_weather_particulates.svg';
 import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good.svg';
+import { ReactComponent as WeatherSoso } from '../../images/Icon/ic_weather_soso.svg';
+import { ReactComponent as WeatherBad } from '../../images/Icon/ic_weather_bad.svg';
+import { ReactComponent as WeatherSoBad } from '../../images/Icon/ic_weather_sobad.svg';
+import { ReactComponent as WeatherDanger } from '../../images/Icon/ic_weather_dangerous.svg';
 import {
   SunFull768,
   RainFull768,
@@ -21,13 +25,11 @@ const WeatherInfo = props => {
   const location = useSelector(state => state.place.location);
   const weatherInfo = useSelector(state => state.place.weatherStatus);
   const weatherStatus = weatherInfo && weatherInfo.frontWeather;
-  let weatherBg = '';
-  useEffect(() => {
-    root.setAttribute('style', 'overflow: hidden;');
-    return () => root.removeAttribute('style');
-  }, []);
-
+  let weatherBg = SunFull768;
+  let PmStatus = '';
+  let PmText = '';
   if (weatherInfo) {
+    /* 날씨에 따른 배경 이미지 */
     if (weatherStatus === 2) {
       weatherBg = RainFull768;
     } else if (weatherStatus === 3) {
@@ -37,7 +39,29 @@ const WeatherInfo = props => {
     } else {
       weatherBg = SunFull768;
     }
+    /* 미세먼지 아이콘 변경 */
+    if (weatherInfo.pm10 === 2) {
+      PmStatus = WeatherSoso;
+      PmText = '보통';
+    } else if (weatherInfo.pm10 === 3) {
+      PmStatus = WeatherBad;
+      PmText = '나쁨';
+    } else if (weatherInfo.pm10 === 4) {
+      PmStatus = WeatherSoBad;
+      PmText = '매우나쁨';
+    } else if (weatherInfo.pm10 === 5) {
+      PmStatus = WeatherDanger;
+      PmText = '위험';
+    } else {
+      PmStatus = WeatherGood;
+      PmText = '좋음';
+    }
   }
+  useEffect(() => {
+    console.log('타니');
+    root.setAttribute('style', 'overflow: hidden;');
+    return () => root.removeAttribute('style');
+  }, []);
 
   /* 비 호출 */
   const getRain = () => {
@@ -109,10 +133,10 @@ const WeatherInfo = props => {
                 <Particlulates />
               </Icons>
               <Text fontSize="28px" color="#fff" bold>
-                좋음
+                {PmText}
               </Text>
               <Icons width="32px" height="32px" margin="0 0 0 8px">
-                <WeatherGood />
+                <PmStatus />
               </Icons>
             </Grid>
             {/* 초 미세먼지 */}

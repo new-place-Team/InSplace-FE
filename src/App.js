@@ -41,6 +41,7 @@ function App() {
   const location = useSelector(state => state.place.location);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
   const currentLang = useSelector(state => state.common.currentLanguage);
+  // 클라이언트 브라우저의 언어 설정
   const osLang = window.navigator.language;
   useEffect(() => {
     // 현재위치를 받아보자

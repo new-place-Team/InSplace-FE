@@ -199,7 +199,6 @@ const ReviewWrite = props => {
             ? t('ReviewWrite.headerSubTitle.0')
             : t('ReviewWrite.headerSubTitle.1')
         }
-        _language
       />
       <Container>
         <ReviewPostInfo postId={id} />

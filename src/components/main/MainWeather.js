@@ -325,6 +325,7 @@ const CloudArea = styled.div`
   background: url('${props => props.src}') repeat-x;
   background-size: cover;
   animation: cloud 9000s linear infinite;
+  z-index: -1;
 
   @keyframes cloud {
     from {

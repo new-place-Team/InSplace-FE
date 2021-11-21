@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-
 import styled from 'styled-components';
 import { history } from '../redux/configureStore';
 import { Container, Grid, Text, Image, Icons } from '../elements';
@@ -20,7 +19,6 @@ const Pick = () => {
   const userPickPlaces = useSelector(state => state.user.userPickPlaces);
   const isLoading = useSelector(state => state.loaded.is_loaded);
   const [isLikeSelected, setIsLikeSelected] = useState(true);
-  // console.log('userPickPlaces', userPickPlaces);
   useEffect(() => {
     if (!userPickPlaces.likeList) {
       dispatch(getFavoritesDB());
@@ -38,7 +36,7 @@ const Pick = () => {
 
   return (
     <>
-      <Header _content={t('Pick.headerSubTitle')} _language />
+      <Header _content={t('Pick.headerSubTitle')} />
       <Container padding="66px 0 0 0">
         <PickPlace>
           <Grid
