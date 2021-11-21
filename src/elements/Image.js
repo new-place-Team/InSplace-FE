@@ -73,7 +73,6 @@ const DefaultImage = styled.img`
   ${props => props.margin && `margin:${props.margin}`};
   src: ${props => props.src};
   ${props => (props.color ? `color:${props.color}` : '')};
-  loading="lazy";
 `;
 
 // background Image
