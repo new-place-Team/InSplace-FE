@@ -33,11 +33,15 @@ const MapContainer = () => {
     placeList = useSelector(state => state.place.placeList);
   }
   const [latLonFocus, setLatLonFocus] = useState(null);
+  const [focusId, setFocusId] = useState(null);
   const onChageFocus = latLon => {
     setLatLonFocus({
       lat: latLon.lat,
       lon: latLon.lon,
     });
+  };
+  const onChnageFocusId = focusId => {
+    setFocusId(focusId);
   };
 
   useEffect(() => {
@@ -56,29 +60,37 @@ const MapContainer = () => {
     <>
       <Header _back _content="상세보기" _language />
       <Container padding="66px 0 0 0">
-        <Grid>
-          <Grid padding="0 24px">
-            <SelectedCategory />
-          </Grid>
-          <MapDiv>
-            <Map
-              width="100%"
-              height="80%"
-              allPlaces={placeList}
-              latLonFocus={latLonFocus}
-            />
-          </MapDiv>
-          {/* SwiperList Card */}
-          <SwiperMap list={placeList} _onChageFocus={onChageFocus} />
+        <button type="button">버튼 클릭!!</button>
+        <Grid padding="0 24px">
+          <SelectedCategory />
         </Grid>
+        <MapDiv>
+          <Map
+            width="100%"
+            height="100vh"
+            allPlaces={placeList}
+            latLonFocus={latLonFocus}
+            _onChnageFocusId={onChnageFocusId}
+          />
+
+          {/* SwiperList Card */}
+          <SwiperWrap>
+            <SwiperMap list={placeList} _onChageFocus={onChageFocus} />
+          </SwiperWrap>
+        </MapDiv>
       </Container>
     </>
   );
 };
 
 const MapDiv = styled.div`
-  /* overflow-x: hidden; */
+  position: relative;
+  width: 100%;
   height: 100vh;
+`;
+
+const SwiperWrap = styled.div`
+  position: relative;
   width: 100%;
 `;
 

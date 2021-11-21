@@ -6,7 +6,7 @@ import { Grid } from '../../elements';
 import { history } from '../../redux/configureStore';
 
 const ConfirmModal = props => {
-  const { title, content, isOk, Type, goToLogin } = props;
+  const { title, content, isOk, Type, goToLogin, confirmText } = props;
   const { t } = useTranslation();
 
   const CloseConfirmModal = e => {
@@ -31,12 +31,12 @@ const ConfirmModal = props => {
     }
   };
 
-  const onDelete = () => {
-    props.onDelete();
-  };
-
   const goToLoginPage = () => {
     history.push('/login');
+  };
+
+  const confirmFun = () => {
+    props.confirmFun();
   };
 
   return (
@@ -59,8 +59,8 @@ const ConfirmModal = props => {
                   {t('CommonModal.disagree')}
                 </ModalButton>
                 {!Type && !goToLogin ? (
-                  <ModalButton className="black" onClick={onDelete}>
-                    {t('CommonModal.delete')}
+                  <ModalButton className="black" onClick={confirmFun}>
+                    {confirmText}
                   </ModalButton>
                 ) : (
                   <ModalButton
@@ -99,6 +99,9 @@ const ModalContent = styled.div`
   border-radius: 4px;
   overflow-y: auto;
   background-color: #fff;
+  @media (max-width: 415px) {
+    width: 80%;
+  }
 `;
 
 const Title = styled.h3`
@@ -106,6 +109,9 @@ const Title = styled.h3`
   font-size: 20px;
   font-weight: 700;
   letter-spacing: 0.0038em;
+  @media (max-width: 415px) {
+    font-size: 16px;
+  }
 `;
 const Content = styled.p`
   display: flex;
@@ -114,6 +120,9 @@ const Content = styled.p`
   line-height: 22px;
   letter-spacing: -0.0041em;
   color: #7a7d81;
+  @media (max-width: 415px) {
+    font-size: 14px;
+  }
 `;
 const ModalButton = styled.button`
   width: 49%;
@@ -122,6 +131,9 @@ const ModalButton = styled.button`
   color: #232529;
   border: 1px solid #232529;
   cursor: pointer;
+  @media (max-width: 415px) {
+    font-size: 12px;
+  }
   &.fullButton {
     width: 100%;
     color: #fff;

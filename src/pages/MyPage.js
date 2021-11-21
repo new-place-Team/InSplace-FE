@@ -70,52 +70,52 @@ const MyPage = () => {
       {modalStatus && <CommonModal />}
       <Container padding="0" height="100%">
         <Header _onBg _content="MyPage" _settings _color="#fff" />
-        <Bg src={sunBg} />
-        <MyPageInfoGrid isFlex justify="center" padding="59px 40px">
-          <Image
-            type="circle"
-            width="169px"
-            height="169px"
-            src={userInfo.userImage ? userInfo.userImage : profile1}
-          />
-          <UserInfoGrid>
-            <Grid isFlex margin="0 0 17px 0">
-              <Nicname>{userInfo.nickname}</Nicname>
-              <Button _onClick={gotoDetailPage}>
-                <Image width="24px" height="24px" src={whiteRight} />
-              </Button>
-            </Grid>
-            <Grid isFlex>
-              <Mbti>{userInfo.mbti}</Mbti>
-              <Email>{userInfo.email}</Email>
-            </Grid>
-          </UserInfoGrid>
-        </MyPageInfoGrid>
-        {/* 인포 그리드 */}
-        <InfoGrid>
-          <Info onClick={showModal}>
-            <Title>{t('MyPage.UpdateIssue')}</Title>
-            <BottomBox>
-              <Image src={mypageNext} />
-            </BottomBox>
-          </Info>
-          <Info onClick={showModal}>
-            <Title>{t('MyPage.Opinion')}</Title>
-            <BottomBox>
-              <Image src={mypageNext} />
-            </BottomBox>
-          </Info>
-          <Info>
-            <Title>{t('MyPage.Version')}</Title>
-            <BottomBox>
-              <TextBox>V1.0.2</TextBox>
-            </BottomBox>
-          </Info>
-          <Info onClick={showModal}>
-            <Title>{t('MyPage.Donation')}</Title>
-            <BottomBox />
-          </Info>
-        </InfoGrid>
+        <Bg src={sunBg}>
+          <MyPageInfoGrid>
+            <Image
+              type="circle"
+              width="169px"
+              height="169px"
+              src={userInfo.userImage ? userInfo.userImage : profile1}
+            />
+            <UserInfoGrid>
+              <Grid isFlex margin="0 0 17px 0" border="2px solid ornage">
+                <Nicname>{userInfo.nickname}</Nicname>
+                <Button _onClick={gotoDetailPage}>
+                  <Image width="24px" height="24px" src={whiteRight} />
+                </Button>
+              </Grid>
+              <Grid isFlex>
+                <Mbti>{userInfo.mbti}</Mbti>
+                <Email>{userInfo.email}</Email>
+              </Grid>
+            </UserInfoGrid>
+          </MyPageInfoGrid>
+          <InfoGrid>
+            <Info onClick={showModal}>
+              <Title>{t('MyPage.UpdateIssue')}</Title>
+              <BottomBox>
+                <Image src={mypageNext} />
+              </BottomBox>
+            </Info>
+            <Info onClick={showModal}>
+              <Title>{t('MyPage.Opinion')}</Title>
+              <BottomBox>
+                <Image src={mypageNext} />
+              </BottomBox>
+            </Info>
+            <Info>
+              <Title>{t('MyPage.Version')}</Title>
+              <BottomBox>
+                <TextBox>V1.0.2</TextBox>
+              </BottomBox>
+            </Info>
+            <Info onClick={showModal}>
+              <Title>{t('MyPage.Donation')}</Title>
+              <BottomBox />
+            </Info>
+          </InfoGrid>
+        </Bg>
       </Container>
       <Navbar />
     </>
@@ -123,35 +123,39 @@ const MyPage = () => {
 };
 const Bg = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   position: absolute;
   top: 0;
   background-image: url('${props => props.src}');
   background-size: cover;
+  background-position: center;
   z-index: -1;
+  overflow-x: hidden;
 `;
 const MyPageInfoGrid = styled.div`
-  width: 95%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin: 68px 0 52px 40px;
-  @media (max-width: 414px) {
-    margin: 32px 0 67px 24px;
-  }
+  width: 95.4%;
+  height: 25%;
+  margin: 10% 0 52px auto;
 `;
 const UserInfoGrid = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  margin-left: 46px;
+  padding: 0px 10px 0px 46px;
   @media (max-width: 414px) {
-    margin-left: 24px;
+    padding: 0px 10px 0px 24px;
   }
 `;
 
 const InfoGrid = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: 0;
   width: 95.4%;
+  height: 60%;
   display: flex;
   flex-wrap: wrap;
   margin: 0 0 0 auto;
@@ -162,12 +166,10 @@ const InfoGrid = styled.div`
 const Info = styled.div`
   position: relative;
   width: 50%;
-  height: 436px;
-  padding: 48px 50px;
+  padding: 48px 40px;
   background-color: #fff;
   border: 1px solid #e6e9ec;
-  @media (max-width: 414px) {
-    height: 176px;
+  @media (max-width: 415px) {
     padding: 24px;
   }
 `;
@@ -178,11 +180,12 @@ const BottomBox = styled.div`
   align-items: flex-end;
   height: 100%;
   padding-bottom: 16px;
+  @media (max-width: 415px) {
+    padding: 80px 0 0;
+  }
   img {
     width: 66px;
-  }
-  @media (max-width: 414px) {
-    img {
+    @media (max-width: 415px) {
       width: 32px;
     }
   }
@@ -195,8 +198,11 @@ const TextBox = styled.p`
   align-items: flex-end;
   font-size: 22px;
   font-weight: bold;
-  @media (max-width: 414px) {
+  @media (max-width: 415px) {
     font-size: 16px;
+  }
+  @media (max-width: 415px) {
+    height: 36px;
   }
 `;
 
@@ -205,7 +211,7 @@ const Nicname = styled.h3`
   font-size: 28px;
   font-weight: bold;
   color: #fff;
-  @media (max-width: 414px) {
+  @media (max-width: 415px) {
     font-size: 22px;
   }
 `;
@@ -215,7 +221,7 @@ const Mbti = styled.p`
   font-weight: 700;
   letter-spacing: -0.0024em;
   color: #fff;
-  @media (max-width: 414px) {
+  @media (max-width: 415px) {
     font-size: 13px;
   }
 `;
@@ -224,7 +230,7 @@ const Email = styled.p`
   font-weight: 300;
   letter-spacing: -0.0041em;
   color: #fff;
-  @media (max-width: 414px) {
+  @media (max-width: 415px) {
     font-size: 13px;
   }
 `;
@@ -233,7 +239,7 @@ const Title = styled.h5`
   font-weight: 700;
   letter-spacing: 0.0036em;
   color: #3e4042;
-  @media (max-width: 414px) {
+  @media (max-width: 415px) {
     font-size: 16px;
   }
 `;

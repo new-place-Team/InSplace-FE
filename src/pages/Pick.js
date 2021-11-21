@@ -47,7 +47,7 @@ const Pick = () => {
               isLikeSelected ? '2px solid #000' : '1px solid #A4A9B1'
             }
             _onClick={() => toggleSelected(true)}
-            cursor
+            cursor="true"
           >
             <Icons
               margin="0 8px 0 0"
@@ -70,7 +70,7 @@ const Pick = () => {
               isLikeSelected ? '1px solid #A4A9B1' : '2px solid #000'
             }
             _onClick={() => toggleSelected(false)}
-            cursor
+            cursor="true"
           >
             <Icons
               margin="0 8px 0 0"
@@ -129,7 +129,7 @@ const Pick = () => {
                 >
                   <IsNoneArea>
                     <Image src={noLikePlace} />
-                    <Text margin="69px 0 0 0">{t('Pick.noPickPlace')}</Text>
+                    <Text margin="24px 0 0 0">{t('Pick.noPickPlace')}</Text>
                   </IsNoneArea>
                 </Grid>
               </>
@@ -177,7 +177,7 @@ const Pick = () => {
             ) : (
               <IsNoneArea>
                 <Image src={noVisitedPlace} />
-                <Text margin="69px 0 0 0">{t('Pick.noVisitedPlace')}</Text>
+                <Text margin="24px 0 0 0">{t('Pick.noVisitedPlace')}</Text>
               </IsNoneArea>
             )}
           </Grid>

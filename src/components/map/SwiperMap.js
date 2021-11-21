@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React from 'react';
+import React, { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination, Navigation, History } from 'swiper';
 import styled from 'styled-components';
@@ -9,11 +9,14 @@ SwiperCore.use([Navigation, Pagination, History]);
 
 const SwiperMap = props => {
   const { list, _onChageFocus } = props;
-
+  const focusRef = useRef(null);
   const setting = {
     slidesPerView: 3,
     spaceBetween: 30,
     loop: true,
+    pagination: {
+      clickable: true,
+    },
     // breakpoints: {
     //   320: {
     //     slidesPerView: 1,
@@ -25,6 +28,7 @@ const SwiperMap = props => {
     //   },
     // },
   };
+  // const findIdx = list.findIdx(v => v.postId === focusId);
 
   return (
     <Wrap>
@@ -37,9 +41,11 @@ const SwiperMap = props => {
             lon: list[e.realIndex].postLocationX,
           };
           _onChageFocus(coord);
-          // dispatch(setFocusCoord(coord));
+          // console.log('ref', focusRef.current.swiper);
+          // console.log('ref', focusRef.current.swiper.pagination.bullets[0]);
         }}
         {...setting}
+        ref={focusRef}
       >
         {list &&
           list.map(el => {
@@ -61,7 +67,8 @@ const Wrap = styled.div`
   bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 99;
+  z-index: 9;
+
   .mapSwiper {
     .swiper-slide {
     }
