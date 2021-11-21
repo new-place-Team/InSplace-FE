@@ -135,7 +135,7 @@ const MyPageInfoGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin: 68px 0 52px 40px;
+  margin: 68px 0 52px auto;
   @media (max-width: 414px) {
     margin: 32px 0 67px 24px;
   }
@@ -166,7 +166,7 @@ const Info = styled.div`
   padding: 48px 50px;
   background-color: #fff;
   border: 1px solid #e6e9ec;
-  @media (max-width: 414px) {
+  @media (max-width: 415px) {
     height: 176px;
     padding: 24px;
   }
@@ -181,7 +181,7 @@ const BottomBox = styled.div`
   img {
     width: 66px;
   }
-  @media (max-width: 414px) {
+  @media (max-width: 415px) {
     img {
       width: 32px;
     }
@@ -195,7 +195,7 @@ const TextBox = styled.p`
   align-items: flex-end;
   font-size: 22px;
   font-weight: bold;
-  @media (max-width: 414px) {
+  @media (max-width: 415px) {
     font-size: 16px;
   }
 `;
@@ -205,7 +205,7 @@ const Nicname = styled.h3`
   font-size: 28px;
   font-weight: bold;
   color: #fff;
-  @media (max-width: 414px) {
+  @media (max-width: 415px) {
     font-size: 22px;
   }
 `;
@@ -215,7 +215,7 @@ const Mbti = styled.p`
   font-weight: 700;
   letter-spacing: -0.0024em;
   color: #fff;
-  @media (max-width: 414px) {
+  @media (max-width: 415px) {
     font-size: 13px;
   }
 `;
@@ -224,7 +224,7 @@ const Email = styled.p`
   font-weight: 300;
   letter-spacing: -0.0041em;
   color: #fff;
-  @media (max-width: 414px) {
+  @media (max-width: 415px) {
     font-size: 13px;
   }
 `;
@@ -233,7 +233,7 @@ const Title = styled.h5`
   font-weight: 700;
   letter-spacing: 0.0036em;
   color: #3e4042;
-  @media (max-width: 414px) {
+  @media (max-width: 415px) {
     font-size: 16px;
   }
 `;
