@@ -1,5 +1,5 @@
 import bookmark from './ic-bookmark.svg';
-import close from './ic-close.svg';
+
 import heartFilled from './ic-heart-filled.svg';
 import heartLine from './ic-heart-line.svg';
 import map from './ic-map.svg';
@@ -21,6 +21,7 @@ import spinner from './spinner.gif';
 import whiteRight from './ic_header_right.svg';
 
 // Icon
+import close from './Icon/ic-close.svg';
 import more from './Icon/ic_more.svg';
 import bad from './Icon/ic_bad.svg';
 import good from './Icon/ic_good.svg';

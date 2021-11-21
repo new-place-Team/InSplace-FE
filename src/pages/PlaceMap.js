@@ -56,10 +56,10 @@ const MapContainer = () => {
     <>
       <Header _back _content="상세보기" _language />
       <Container padding="66px 0 0 0">
-        <Grid padding="0 24px">
-          <SelectedCategory />
-        </Grid>
         <MapDiv>
+          <MapCategoryWrap padding="0 24px">
+            <SelectedCategory />
+          </MapCategoryWrap>
           <Map
             width="100%"
             height="100vh"
@@ -82,7 +82,9 @@ const MapDiv = styled.div`
   width: 100%;
   height: 100vh;
 `;
-
+const MapCategoryWrap = styled.div`
+  border: 2px solid blue;
+`;
 const SwiperWrap = styled.div`
   position: relative;
   width: 100%;

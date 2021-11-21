@@ -100,23 +100,27 @@ const LangModal = () => {
 };
 
 const Overlay = styled.div`
-  background-color: rgba(0, 0, 0, 0.55);
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   position: fixed;
-  z-index: 999;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.48);
+  z-index: 10;
 `;
 
 const ModalContent = styled.div`
   position: absolute;
-  top: 50%;
+  border: 2px solid yellow;
+  /* top: 50%;
   left: 50%;
   background-color: #fff;
   transform: translate(-50%, -50%);
   padding: 14px;
-  font-size: 20px;
+  font-size: 20px; */
 `;
 
 const Icon = styled.div`
