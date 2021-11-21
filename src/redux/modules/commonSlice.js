@@ -9,6 +9,7 @@ const initialState = {
   moreModalStatus: false,
   moreInfo: null,
   reportModalStatus: false,
+  feedbackStatus: false,
   currentLanguage: null,
 };
 
@@ -42,6 +43,12 @@ const commonSlice = createSlice({
       state.reportModalStatus = true;
       state.modalInfo = payload;
     },
+    setFeedbackModalOff: state => {
+      state.feedbackStatus = false;
+    },
+    setFeedbackModalOn: state => {
+      state.feedbackStatus = true;
+    },
     setLanguage: (state, { payload }) => {
       window.localStorage.setItem('LANGUAGE', payload);
       state.currentLanguage = payload;
@@ -56,6 +63,8 @@ export const {
   setMoreModalOn,
   setReportModalOff,
   setReportModalOn,
+  setFeedbackModalOff,
+  setFeedbackModalOn,
   setLanguage,
 } = commonSlice.actions;
 

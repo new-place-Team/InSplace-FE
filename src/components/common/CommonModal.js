@@ -4,12 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setCommonModalOff,
+  setCommonModalOn,
+  setFeedbackModalOff,
   setMoreModalOff,
   setReportModalOff,
 } from '../../redux/modules/commonSlice';
 import { Grid, Image, Text, Textarea } from '../../elements';
 import { history } from '../../redux/configureStore';
-import { modalClose, checked } from '../../images';
+import { modalClose, checked, close } from '../../images';
 import { reviewReportText } from '../../shared/commonData';
 import { reviewReportDB } from '../../redux/async/place';
 
@@ -38,6 +40,8 @@ const CommonModal = ({ type, showConfirmModal }) => {
     }
     if (type === 'report') {
       dispatch(setReportModalOff());
+    } else if (type === 'feedback') {
+      dispatch(setFeedbackModalOff());
     } else {
       dispatch(setCommonModalOff());
     }
@@ -99,6 +103,48 @@ const CommonModal = ({ type, showConfirmModal }) => {
     }
     return dispatch(reviewReportDB(params));
   };
+
+  const [feedbackText, setFeedbackText] = useState('');
+  const feedbackSubmit = () => {
+    // 에러메세지 만들기
+    if (feedbackText === '') {
+      console.log('빈값');
+    }
+    dispatch(setFeedbackModalOff());
+    const params = {
+      title: `소중한 의견 감사합니다!`,
+    };
+    dispatch(setCommonModalOn(params));
+  };
+
+  // -> /feedbacks
+
+  if (type === 'feedback') {
+    return (
+      <ModalContainer className="close" onClick={CloseModal}>
+        <ModalContent>
+          <Grid justify="space-between">
+            <Title>의견보내기</Title>
+            <CloseButton className="close" src={close} />
+          </Grid>
+          <Content>개선사항을 보내주세요</Content>
+          <FeedbackTextarea
+            rows={10}
+            placeholder="자유롭게 의견을 보내주세요"
+            onChange={e => setFeedbackText(e.target.value)}
+          />
+          <ModalButton
+            className="fullButton"
+            margin="32px 0 0 0"
+            padding="15px"
+            onClick={feedbackSubmit}
+          >
+            의견보내기
+          </ModalButton>
+        </ModalContent>
+      </ModalContainer>
+    );
+  }
 
   // 더보기 버튼과 신고하기 버튼 타입일때
   if (type === 'more' || report) {
@@ -305,5 +351,18 @@ const CloseButton = styled.button`
   background-image: url('${props => props.src}');
   background-position: top right;
   background-repeat: no-repeat;
+`;
+
+const FeedbackTextarea = styled.textarea`
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  box-sizing: border-box;
+  resize: none;
+  border: 1px solid #eee;
+  letter-spacing: -0.0008em;
+  &:focus {
+    outline: none;
+  }
 `;
 export default CommonModal;

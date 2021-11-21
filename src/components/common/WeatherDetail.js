@@ -218,6 +218,7 @@ const CloseBtn = styled.div`
   background-color: #000;
   border-radius: 50%;
   z-index: 5;
+  cursor: pointer;
   .svg {
     fill: #fff;
     width: 24px;

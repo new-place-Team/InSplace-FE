@@ -21,6 +21,7 @@ export const addUserDB = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await addUser(data);
+      console.log('Response ==== ', response);
       if (response) {
         const modalParams = {
           title: '회원가입에 성공하셨습니다',
