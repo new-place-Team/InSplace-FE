@@ -105,11 +105,13 @@ export const unRegisterDB = createAsyncThunk(
     try {
       const response = await unRegister(userId);
       if (response) {
+        const modalParams = {
+          title: '탈퇴되었습니다.',
+        };
+        thunkAPI.dispatch(setCommonModalOn(modalParams));
         // eslint-disable-next-line no-undef
         localStorage.removeItem('USER_TOKEN');
-        history.replace('/login');
       }
-      console.log('회원탈퇴 ==');
     } catch (err) {
       console.log(err.response);
       const modalParams = {

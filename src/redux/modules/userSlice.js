@@ -41,7 +41,6 @@ const userSlice = createSlice({
       localStorage.removeItem('USER_TOKEN');
       state.userInfo = {};
       state.isLogin = false;
-
       // window.alert('로그아웃 되었습니다!');
     },
     /* 유저 좋아요 포스트 추가 */
