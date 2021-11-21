@@ -76,13 +76,13 @@ const MapContainer = () => {
           />
 
           {/* SwiperList Card */}
-          <SwiperWrap>
-            <SwiperMap
-              list={placeList}
-              _onChageFocus={onChageFocus}
-              focusId={focusId}
-            />
-          </SwiperWrap>
+          {/* <SwiperWrap> */}
+          <SwiperMap
+            list={placeList}
+            _onChageFocus={onChageFocus}
+            focusId={focusId}
+          />
+          {/* </SwiperWrap> */}
         </MapDiv>
       </Container>
     </>

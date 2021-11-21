@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { Grid, Text, Image } from '../../elements';
+import { Text, Image } from '../../elements';
 import { setModalOff } from '../../redux/modules/userSlice';
 import { checked } from '../../images';
 // import { ReactComponent as CloseBtn } from '../../images/Icon/ic_close.svg';
@@ -11,10 +11,7 @@ import { checked } from '../../images';
 const LangModal = () => {
   const dispatch = useDispatch();
   const { i18n } = useTranslation();
-  const [langStatus, setLangStatus] = useState({
-    american: false,
-    korean: false,
-  });
+
   const korean = e => {
     e.stopPropagation();
     i18n.changeLanguage('ko-KR');
@@ -72,7 +69,7 @@ const LangModal = () => {
                 <Text color="#fff">아</Text>
               </LangIcon>
               <LangText>한국어</LangText>
-              {langStatus.korean && <Image src={checked} />}
+              {/* <Image src={checked} /> */}
             </LangButton>
             {/* 시안에 닫기 버튼이 없어서 주석함
             <Icon>
