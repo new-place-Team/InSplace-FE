@@ -107,29 +107,29 @@ const Detail = props => {
   };
 
   /* 카카오 공유하기 */
-  const shareKakao = () => {
-    // eslint-disable-next-line no-undef
-    Kakao.Link.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: '공유 테스트!',
-        description: '내용!',
-        imageUrl: detailData.postImages[0],
-        link: {
-          mobileWebUrl: '모바일 url!',
-          androidExecParams: 'test',
-        },
-      },
-      buttons: [
-        {
-          title: '웹으로 이동',
-          link: {
-            mobileWebUrl: '공유할 url!',
-          },
-        },
-      ],
-    });
-  };
+  // const shareKakao = () => {
+  //   // eslint-disable-next-line no-undef
+  //   Kakao.Link.sendDefault({
+  //     objectType: 'feed',
+  //     content: {
+  //       title: '공유 테스트!',
+  //       description: '내용!',
+  //       imageUrl: detailData.postImages[0],
+  //       link: {
+  //         mobileWebUrl: '모바일 url!',
+  //         androidExecParams: 'test',
+  //       },
+  //     },
+  //     buttons: [
+  //       {
+  //         title: '웹으로 이동',
+  //         link: {
+  //           mobileWebUrl: '공유할 url!',
+  //         },
+  //       },
+  //     ],
+  //   });
+  // };
 
   return (
     <>
