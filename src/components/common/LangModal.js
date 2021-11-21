@@ -11,10 +11,12 @@ const LangModal = () => {
   const { t, i18n } = useTranslation();
   const korean = () => {
     i18n.changeLanguage('ko-KR');
+    console.log('modal kr');
     dispatch(setModalOff());
   };
   const american = () => {
     i18n.changeLanguage('en-US');
+    console.log('modal us');
     dispatch(setModalOff());
   };
 

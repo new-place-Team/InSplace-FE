@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +9,10 @@ import { Grid, Text } from '../elements';
 import ReviewCard from '../components/place/ReviewCard';
 import { getReviewLikesListDB, getReviewListDB } from '../redux/async/place';
 import Spinner from '../components/common/Spinner';
-import { deleteReviewList, resetReviewList } from '../redux/modules/placeSlice';
+import {
+  deleteReviewList,
+  resetReviewPagination,
+} from '../redux/modules/placeSlice';
 import CommonModal from '../components/common/CommonModal';
 import ConfirmModal from '../components/common/ConfirmModal';
 import { deleteReview } from '../shared/api/placeApi';
@@ -64,11 +68,11 @@ const ReviewList = props => {
       dispatch(getReviewListDB(qureryString));
     }
     return () => {
-      dispatch(resetReviewList());
+      dispatch(resetReviewPagination());
     };
   }, []);
 
-  // 리뷰 최신순 무한 스크롤
+  // 리뷰 최신순 무한 스크롤 (추후 커스텀훅으로 변경할예정)
   useEffect(() => {
     const options = { threshold: 0.5 };
     const moreFun = ([entires], observer) => {
@@ -91,7 +95,7 @@ const ReviewList = props => {
     return () => observer && observer.disconnect();
   }, [target]);
 
-  // 리뷰 추천순 무한 스크롤
+  // 리뷰 추천순 무한 스크롤 (추후 커스텀훅으로 변경할 예정)
   useEffect(() => {
     const options = { threshold: 0.5 };
     const moreFun = ([entires], observer) => {
@@ -134,6 +138,9 @@ const ReviewList = props => {
     }
   };
 
+  /* {!reviewList ||
+          (reviewList.length === 0 && <p>아직 등록된 리뷰가 없습니다</p>)} */
+
   return (
     <>
       {isLoading && <Spinner />}
@@ -161,10 +168,7 @@ const ReviewList = props => {
             <Grid>
               <Text fontSize="18px" color="#282828" bold>
                 {t('ReviewListPage.reviewTitle')} (
-                {active.newList && reviewList
-                  ? reviewList.length
-                  : active.likeList && reviewLikeList && reviewLikeList.length}
-                )
+                {reviewList && reviewList.length})
               </Text>
             </Grid>
             <Grid isFlex>
@@ -187,6 +191,9 @@ const ReviewList = props => {
             </Grid>
           </Grid>
         </ReviewTitle>
+        {reviewList && reviewList.length === 0 && (
+          <NoReviews>아직 등록된 리뷰가 없습니다.</NoReviews>
+        )}
         {active.newList === true &&
           reviewList &&
           reviewList.map((item, idx) => {
@@ -257,5 +264,12 @@ const ReviewButton = styled.button`
     font-weight: 600;
   }
 `;
-
+const NoReviews = styled.p`
+  width: 100%;
+  margin: 80px auto;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: -0.0024e;
+  color: #a3a6aa;
+`;
 export default React.memo(ReviewList);

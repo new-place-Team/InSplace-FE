@@ -293,6 +293,9 @@ const Div = styled.div`
 const UploadWrap = styled.div`
   margin: -40px -120px 0 0;
   z-index: 50;
+  @media (max-width: 415px) {
+    margin: -40px -100px 0 0;
+  }
 `;
 const MypageLabel = styled.label`
   font-size: 16px;
@@ -308,6 +311,7 @@ const UploadLabel = styled.label`
   height: 34px;
   border-radius: 50%;
   background-color: #a4a9b1;
+
   &:hover {
     cursor: pointer;
   }
