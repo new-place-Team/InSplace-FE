@@ -129,7 +129,7 @@ const Pick = () => {
                 >
                   <IsNoneArea>
                     <Image src={noLikePlace} />
-                    <Text margin="69px 0 0 0">{t('Pick.noPickPlace')}</Text>
+                    <Text margin="24px 0 0 0">{t('Pick.noPickPlace')}</Text>
                   </IsNoneArea>
                 </Grid>
               </>
@@ -177,7 +177,7 @@ const Pick = () => {
             ) : (
               <IsNoneArea>
                 <Image src={noVisitedPlace} />
-                <Text margin="69px 0 0 0">{t('Pick.noVisitedPlace')}</Text>
+                <Text margin="24px 0 0 0">{t('Pick.noVisitedPlace')}</Text>
               </IsNoneArea>
             )}
           </Grid>
