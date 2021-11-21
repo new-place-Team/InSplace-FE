@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination, Navigation, History } from 'swiper';
 import styled from 'styled-components';
@@ -7,8 +7,8 @@ import MapCard from './MapCard';
 
 SwiperCore.use([Navigation, Pagination, History]);
 
-const SwiperMap = props => {
-  const { list, _onChageFocus } = props;
+const SwiperMap = React.memo(props => {
+  const { list, _onChageFocus, focusId } = props;
   const focusRef = useRef(null);
   const setting = {
     slidesPerView: 3,
@@ -17,18 +17,17 @@ const SwiperMap = props => {
     pagination: {
       clickable: true,
     },
-    // breakpoints: {
-    //   320: {
-    //     slidesPerView: 1,
-    //     spaceBetween: 16,
-    //   },
-    //   500: {
-    //     slidesPerView: 3,
-    //     spaceBetween: 50,
-    //   },
-    // },
   };
-  // const findIdx = list.findIdx(v => v.postId === focusId);
+  useEffect(() => {
+    if (list) {
+      const findIdx = list.findIndex(v => v.postId === focusId);
+      const postFocus = focusRef.current.swiper.pagination.bullets[findIdx];
+      console.log('ref', postFocus);
+      if (postFocus) {
+        postFocus.click();
+      }
+    }
+  }, [focusId]);
 
   return (
     <Wrap>
@@ -41,8 +40,6 @@ const SwiperMap = props => {
             lon: list[e.realIndex].postLocationX,
           };
           _onChageFocus(coord);
-          // console.log('ref', focusRef.current.swiper);
-          // console.log('ref', focusRef.current.swiper.pagination.bullets[0]);
         }}
         {...setting}
         ref={focusRef}
@@ -58,7 +55,7 @@ const SwiperMap = props => {
       </Swiper>
     </Wrap>
   );
-};
+});
 
 const Wrap = styled.div`
   width: 100%;

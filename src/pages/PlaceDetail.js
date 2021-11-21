@@ -52,7 +52,7 @@ const Detail = props => {
   useEffect(() => {
     dispatch(getPlaceDetailDB(id));
     window.scrollTo(0, 0);
-    window.Kakao.init(process.env.REACT_APP_KAKAO_KEY);
+    // window.Kakao.init(process.env.REACT_APP_KAKAO_KEY);
   }, []);
 
   // 리뷰 쓰기 페이지로 이동
@@ -107,29 +107,29 @@ const Detail = props => {
   };
 
   /* 카카오 공유하기 */
-  const shareKakao = () => {
-    // eslint-disable-next-line no-undef
-    Kakao.Link.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: '공유 테스트!',
-        description: '내용!',
-        imageUrl: detailData.postImages[0],
-        link: {
-          mobileWebUrl: '모바일 url!',
-          androidExecParams: 'test',
-        },
-      },
-      buttons: [
-        {
-          title: '웹으로 이동',
-          link: {
-            mobileWebUrl: '공유할 url!',
-          },
-        },
-      ],
-    });
-  };
+  // const shareKakao = () => {
+  //   // eslint-disable-next-line no-undef
+  //   Kakao.Link.sendDefault({
+  //     objectType: 'feed',
+  //     content: {
+  //       title: '공유 테스트!',
+  //       description: '내용!',
+  //       imageUrl: detailData.postImages[0],
+  //       link: {
+  //         mobileWebUrl: '모바일 url!',
+  //         androidExecParams: 'test',
+  //       },
+  //     },
+  //     buttons: [
+  //       {
+  //         title: '웹으로 이동',
+  //         link: {
+  //           mobileWebUrl: '공유할 url!',
+  //         },
+  //       },
+  //     ],
+  //   });
+  // };
 
   return (
     <>
