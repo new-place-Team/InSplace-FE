@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Container, Grid, Text, Image, Button, Icons } from '../elements';
