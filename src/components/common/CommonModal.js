@@ -119,7 +119,6 @@ const CommonModal = ({ type, showConfirmModal }) => {
       );
       return;
     }
-    console.log('feedbackInfo ??? ', feedbackInfo);
     dispatch(userFeedbacksDB(feedbackInfo));
     dispatch(setFeedbackModalOff());
   };
