@@ -11,6 +11,7 @@ import {
   getFavories,
   getVisited,
   editProfile,
+  userFeedbacks,
 } from '../../shared/api/userApi';
 import { getLoaded } from '../modules/loadedSlice';
 import { setCommonModalOn } from '../modules/commonSlice';
@@ -209,6 +210,29 @@ export const editProfileDB = createAsyncThunk(
       };
       thunkAPI.dispatch(setCommonModalOn(modalParams));
       history.push('/mypage');
+      return response.data;
+    } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
+      return thunkAPI.rejectWithValue('<<', err);
+    }
+  },
+);
+
+/* 유저 피드백 */
+export const userFeedbacksDB = createAsyncThunk(
+  'user/feedbacks',
+  async (params, thunkAPI) => {
+    try {
+      const response = await userFeedbacks(params);
+      console.log('params == ', params);
+      const modalParams = {
+        title: `소중한 의견 감사합니다!`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return response.data;
     } catch (err) {
       console.log(err.response);

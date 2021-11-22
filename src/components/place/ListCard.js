@@ -27,7 +27,7 @@ const ListCard = forwardRef((props, ref) => {
       });
     };
     const observer = new IntersectionObserver(callback, {
-      threshold: 0.5,
+      threshold: 0.17,
     });
     if (imgRef.current) {
       observer.observe(imgRef.current);
