@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import axios from 'axios';
 
 /* Axios 인스턴스 설정 */
