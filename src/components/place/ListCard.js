@@ -127,7 +127,7 @@ const ListCard = forwardRef((props, ref) => {
         </SkeletonBg>
         <Grid margin="11px 0 0 0">
           <Text fontSize="13px" color="#949494">
-            {info.category}
+            {info && getCategoryText(info.category)}
           </Text>
         </Grid>
         <Text fontSize="16px" color="#272727" bold>
