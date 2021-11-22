@@ -33,7 +33,12 @@ if (env === 'development') {
 
 const store = configureStore({
   reducer,
-  middleware: [...middlewares, ...getDefaultMiddleware()],
+  middleware: [
+    ...middlewares,
+    ...getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+  ],
   devTools: env !== 'production',
 });
 

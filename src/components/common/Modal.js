@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Text, Image } from '../../elements';
+import { useTranslation } from 'react-i18next';
+
+import { Grid, Text } from '../../elements';
 import { getMbti, setModalOff } from '../../redux/modules/userSlice';
-import { xclose } from '../../images/index';
-import checked from '../../images/Icon/ic_check.svg';
+import { close, checked } from '../../images/index';
 import { getPeopleMbti } from '../../shared/transferText';
 
 const Modal = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const userInfo = useSelector(state => state.user.userInfo);
   const reduxMbti = useSelector(state => state.user.userMbti.mbtiId);
   const userMbti = userInfo.mbti;
@@ -24,26 +26,35 @@ const Modal = () => {
     dispatch(getMbti(mbtiInfo));
     dispatch(setModalOff());
   };
-  const modaloff = () => {
+  const modaloff = e => {
+    e.stopPropagation();
+    const name = e.target.className;
+    if (name.indexOf('close') === -1) {
+      return;
+    }
     dispatch(setModalOff());
   };
 
   return (
     <>
-      <Overlay>
+      <Overlay className="close" onClick={modaloff}>
         <Grid>
           <ModalContent>
-            <Text bold margin="32px 0px">
-              MBTI를 선택해주세요!
-            </Text>
-
+            <TitleWrap>
+              <Text bold margin="32px 0px">
+                {t('MbtiModal.mbtiTitle')}
+              </Text>
+              <AbsolBtn className="close" onClick={modaloff} src={close}>
+                {/* <Image className="close" width="100%" src={xclose} /> */}
+              </AbsolBtn>
+            </TitleWrap>
             <MBTIDiv
               onClick={() => {
                 const info = { mbtiId: 17, type: 'MBTI 선택안함' };
                 selectMbti(info);
               }}
             >
-              <Text>MBTI 선택안함</Text>
+              <Text>{t('MbtiModal.noSelection')}</Text>
               {currentMbtiId === 17 ? <Icon src={checked} /> : null}
             </MBTIDiv>
 
@@ -194,9 +205,6 @@ const Modal = () => {
               <Text>ENTJ</Text>
               {currentMbtiId === 16 ? <Icon src={checked} /> : null}
             </MBTIDiv>
-            <AbsolBtn onClick={modaloff}>
-              <Image width="30%" src={xclose} />
-            </AbsolBtn>
           </ModalContent>
         </Grid>
       </Overlay>
@@ -225,30 +233,34 @@ const ModalContent = styled.div`
   padding: 0 24px;
   transition: bottom 0.3s ease-out;
   z-index: 999;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  border-radius: 10px;
+  overflow-y: auto;
+  border-radius: 10px 10px 0 0;
   @media (min-width: 1024px) {
     width: 768px;
   }
 `;
-
+const TitleWrap = styled.div`
+  position: relative;
+`;
+const AbsolBtn = styled.button`
+  position: absolute;
+  top: -5px;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  background-image: url('${props => props.src}');
+  background-repeat: no-repeat;
+`;
 const MBTIDiv = styled.div`
   width: 100%;
-  height: 5rem;
+  padding: 22px 0;
+  /* height: 5rem; */
   font-size: 16px;
   border-bottom: 1px solid #c4c4c4;
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;
-
-const AbsolBtn = styled.button`
-  position: absolute;
-  top: 46px;
-  right: -70px;
-  transform: translate(-50%, -50%);
 `;
 
 const Icon = styled.img`

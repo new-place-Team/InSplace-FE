@@ -1,26 +1,29 @@
-/* eslint-disable default-case */
+import { t } from 'i18next';
+
 /**
  * 타입별 날씨 텍스트 변경
  * @param type 1.맑음  2.비 3.눈
  * @returns
  */
+
 const getWeatherText = type => {
   let text = '';
   switch (type) {
     case 1:
-      text = '맑음';
+      text = t('ReviewWrite.selectWeather.weatherType.0'); // 맑음
       break;
     case 2:
-      text = '비';
+      text = t('ReviewWrite.selectWeather.weatherType.1'); // 비
       break;
     default:
-      text = '눈';
+      text = t('ReviewWrite.selectWeather.weatherType.2'); // 눈
   }
   return text;
 };
 
 /**
- * 타입별 카테고리 텍스트 변경
+ * 타
+ * 별 카테고리 텍스트 변경
  * @param type 1.여행 2.맛집 3.카페 4.예술 5.엑티비티
  * @returns
  */
@@ -28,19 +31,19 @@ const getCategoryText = type => {
   let text = '';
   switch (type) {
     case 1:
-      text = '여행';
+      text = t('selectTypePage.selectPlace.placeType.0');
       break;
     case 2:
-      text = '맛집';
+      text = t('selectTypePage.selectPlace.placeType.1');
       break;
     case 3:
-      text = '카페';
+      text = t('selectTypePage.selectPlace.placeType.2');
       break;
     case 4:
-      text = '예술';
+      text = t('selectTypePage.selectPlace.placeType.3');
       break;
     default:
-      text = '액티비티';
+      text = t('selectTypePage.selectPlace.placeType.4');
   }
   return text;
 };
@@ -54,31 +57,36 @@ const getPeopleText = type => {
   let text = '';
   switch (type) {
     case 1:
-      text = '한명';
+      text = t('SelectedContents.memberCount2.0');
       break;
     case 2:
-      text = '두명';
+      text = t('SelectedContents.memberCount2.1');
       break;
     case 3:
-      text = '네명 미만';
+      text = t('SelectedContents.memberCount2.2');
       break;
     default:
-      text = '네명 이상';
+      text = t('SelectedContents.memberCount2.3');
   }
   return text;
 };
 
+/**
+ * 타입별 성별 텍스트 변경
+ * @param type 1.남성 2.여성 3.혼성
+ * @returns
+ */
 const getGenderText = type => {
   let text = '';
   switch (type) {
     case 1:
-      text = '남자';
+      text = t('selectTypePage.selectGender.genderType.1');
       break;
     case 2:
-      text = '여자';
+      text = t('selectTypePage.selectGender.genderType.0');
       break;
     default:
-      text = '혼성';
+      text = t('selectTypePage.selectGender.genderType.2');
   }
   return text;
 };
@@ -93,9 +101,10 @@ const getCategoryArrText = (type, value) => {
   }
   return getCategoryText(value);
 };
+
 /**
- * 타입별 듀오 유형 텍스트 변경
- * @param type 1.여자끼리 2.남자끼리 3.혼성
+ * 받은 MBTI 타입숫자 변경
+ * @param type
  * @returns
  */
 const getPeopleMbti = type => {
@@ -149,9 +158,8 @@ const getPeopleMbti = type => {
     case 'ENTJ':
       number = 16;
       break;
-    case '선택안함':
+    default:
       number = 17;
-      break;
   }
   return number;
 };
@@ -173,34 +181,10 @@ const get어제대비온도 = dgree => {
   return text;
 };
 
-/**
- * 받은 MBTI 타입숫자 변경
- * @param type 1.여자끼리 2.남자끼리 3.혼성
- * @returns
- */
-const getDuoText = type => {
-  let text = '';
-  switch (type) {
-    case 1:
-      text = '한명';
-      break;
-    case 2:
-      text = '두명';
-      break;
-    case 3:
-      text = '네명 미만';
-      break;
-    default:
-      text = '네명 이상';
-  }
-  return text;
-};
-
 export {
   getWeatherText,
   getCategoryText,
   getPeopleText,
-  getDuoText,
   get어제대비온도,
   getPeopleMbti,
   getGenderText,

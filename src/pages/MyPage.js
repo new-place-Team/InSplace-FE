@@ -1,22 +1,30 @@
+/* eslint-disable import/no-unresolved */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { history } from '../redux/configureStore';
 import { getTokenYn } from '../shared/utils';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
-import { right, mypageNext, profile1 } from '../images/index';
-import { Button, Container, Grid, Image, Text } from '../elements';
+import { whiteRight, mypageNext, profile1 } from '../images/index';
+import { Button, Container, Grid, Image, Icons } from '../elements';
 import sunBg from '../images/weather/sun_full_768.jpg';
 import ConfirmModal from '../components/common/ConfirmModal';
 import CommonModal from '../components/common/CommonModal';
-import { setCommonModalOn } from '../redux/modules/commonSlice';
+import {
+  setCommonModalOn,
+  setFeedbackModalOn,
+} from '../redux/modules/commonSlice';
 
 const MyPage = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector(state => state.user.userInfo);
   const [loginModal, setLoginModal] = useState(false);
   const modalStatus = useSelector(state => state.common.modalStatus);
+  const feedbackStatus = useSelector(state => state.common.feedbackStatus);
+  const { t } = useTranslation();
+
   /* 유저 이미지가 있으면 그 이미지 없으면 기본 이미지 */
   const setNomalImage = profile => {
     if (userInfo.userImage !== null) {
@@ -49,76 +57,87 @@ const MyPage = () => {
 
   const showModal = () => {
     const params = {
-      title: '서비스 준비중입니다.',
+      title: t('MyPage.Modal.service'),
     };
     dispatch(setCommonModalOn(params));
+  };
+
+  const feedbackModal = () => {
+    dispatch(setFeedbackModalOn());
   };
 
   return (
     <>
       {loginModal && (
         <ConfirmModal
-          title="로그인이 필요한 서비스입니다."
+          title={t('MyPage.Modal.goLogin')}
           setModal={setLoginModal}
           isOk
           pageMove={pageMove}
         />
       )}
       {modalStatus && <CommonModal />}
+      {feedbackStatus && <CommonModal type="feedback" />}
       <Container padding="0" height="100%">
-        <Header _onBg _content="MyPage" _color="#fff" _settings />
-        <Bg src={sunBg} />
-        <Grid isFlex justify="center" padding="59px 40px">
-          <Image
-            type="circle"
-            width="169px"
-            height="169px"
-            src={userInfo.userImage ? userInfo.userImage : profile1}
-          />
-          <Grid flex margin="0 0 0 36px">
-            <Grid isFlex>
-              <Text fontSize="22px" bold color="#282828" margin="0 20px 0 0">
-                {userInfo.nickname}
-              </Text>
-              <Button _onClick={gotoDetailPage}>
-                <Image width="24px" height="24px" src={right} />
-              </Button>
-            </Grid>
-            <Grid isFlex>
-              <Text fontSize="13px" color="#3E4042" margin="0 11px 0 0" bold>
-                {userInfo.mbti}
-              </Text>
-              <Text fontSize="13px" color="#3E4042">
-                {userInfo.email}
-              </Text>
-            </Grid>
-          </Grid>
-        </Grid>
-        {/* 인포 그리드 */}
-        <InfoGrid>
-          <Info onClick={showModal}>
-            <Text>공지사항</Text>
-            <BottomBox>
-              <Image src={mypageNext} />
-            </BottomBox>
-          </Info>
-          <Info onClick={showModal}>
-            <Text>의견보내기</Text>
-            <BottomBox>
-              <Image src={mypageNext} />
-            </BottomBox>
-          </Info>
-          <Info>
-            <Text>버전정보</Text>
-            <BottomBox>
-              <TextBox>V1.0.2</TextBox>
-            </BottomBox>
-          </Info>
-          <Info onClick={showModal}>
-            <Text>후원</Text>
-            <BottomBox />
-          </Info>
-        </InfoGrid>
+        <Header _onBg _content="MyPage" _settings _color="#fff" />
+        <Bg src={sunBg}>
+          <MyPageInfoGrid>
+            <Image
+              type="circle"
+              width="169px"
+              height="169px"
+              src={userInfo.userImage ? userInfo.userImage : profile1}
+            />
+            <UserInfoGrid>
+              <Grid isFlex margin="0 0 17px 0" border="2px solid ornage">
+                <Nicname>{userInfo.nickname}</Nicname>
+                <Button _onClick={gotoDetailPage}>
+                  <Image width="24px" height="24px" src={whiteRight} />
+                </Button>
+              </Grid>
+              <Grid isFlex>
+                <Mbti>{userInfo.mbti}</Mbti>
+                <Email>{userInfo.email}</Email>
+              </Grid>
+            </UserInfoGrid>
+          </MyPageInfoGrid>
+          <InfoGrid>
+            <Info onClick={showModal}>
+              <Title>{t('MyPage.UpdateIssue')}</Title>
+              <BottomBox>
+                {/* <Icons
+                  src={mypageNext}
+                  width="66px"
+                  height="62px"
+                  color="#000"
+                /> */}
+                <Image src={mypageNext} />
+              </BottomBox>
+            </Info>
+            <Info onClick={feedbackModal}>
+              <Title>{t('MyPage.Opinion')}</Title>
+              <BottomBox>
+                <Icons src={mypageNext} width="66px" height="62px" />
+                <Image src={mypageNext} />
+              </BottomBox>
+            </Info>
+            <Info>
+              <Title>{t('MyPage.Version')}</Title>
+              <BottomBox>
+                <TextBox>V1.0.0</TextBox>
+              </BottomBox>
+            </Info>
+            <Info>
+              <Title>{t('MyPage.Donation')}</Title>
+              <BottomBox>
+                <TextBox>
+                  <Bank>카카오뱅크</Bank>
+                  <BankNumber>7979-39-23429</BankNumber>
+                </TextBox>
+              </BottomBox>
+            </Info>
+          </InfoGrid>
+        </Bg>
       </Container>
       <Navbar />
     </>
@@ -126,48 +145,110 @@ const MyPage = () => {
 };
 const Bg = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   position: absolute;
   top: 0;
   background-image: url('${props => props.src}');
   background-size: cover;
+  background-position: center;
   z-index: -1;
+  overflow-x: hidden;
+`;
+const MyPageInfoGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 95.4%;
+  height: 25%;
+  margin: 10% 0 52px auto;
+`;
+const UserInfoGrid = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 0px 10px 0px 46px;
+  @media (max-width: 414px) {
+    padding: 0px 10px 0px 24px;
+  }
 `;
 
 const InfoGrid = styled.div`
-  width: 95%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 95.4%;
+  height: 60%;
   display: flex;
   flex-wrap: wrap;
   margin: 0 0 0 auto;
-  padding-bottom: 66px;
+  padding-bottom: 64px;
   cursor: pointer;
+  @media (max-width: 415px) {
+    height: 65.5%;
+  }
 `;
 
 const Info = styled.div`
   position: relative;
   width: 50%;
-  height: 265px;
-  padding: 24px;
+  padding: 48px 40px;
   background-color: #fff;
   border: 1px solid #e6e9ec;
-
-  @media (max-width: 500px) {
-    min-height: 180px;
-    height: auto;
+  @media (max-width: 415px) {
+    padding: 24px;
   }
 `;
 
+const Nicname = styled.h3`
+  margin-right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  @media (max-width: 415px) {
+    font-size: 22px;
+  }
+`;
+const Mbti = styled.p`
+  margin-right: 11px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.0024em;
+  color: #fff;
+  @media (max-width: 415px) {
+    font-size: 13px;
+  }
+`;
+const Email = styled.p`
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: -0.0041em;
+  color: #fff;
+  @media (max-width: 415px) {
+    font-size: 13px;
+  }
+`;
+const Title = styled.h5`
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.0036em;
+  color: #3e4042;
+  @media (max-width: 415px) {
+    font-size: 16px;
+  }
+`;
 const BottomBox = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
+  flex-direction: column;
   height: 100%;
-  padding-bottom: 16px;
-  img {
-    width: 66px;
+  padding-bottom: 10px;
+
+  @media (max-width: 415px) {
+    padding: 80px 0 10px;
   }
-  @media (max-width: 500px) {
-    img {
+  img {
+    @media (max-width: 415px) {
       width: 32px;
     }
   }
@@ -178,8 +259,23 @@ const TextBox = styled.p`
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
+  flex-direction: column;
+  padding-bottom: 10px;
   font-size: 22px;
   font-weight: bold;
+
+  @media (max-width: 415px) {
+    font-size: 16px;
+  }
+  @media (max-width: 415px) {
+    height: 36px;
+    padding-bottom: 20px;
+  }
 `;
 
+const Bank = styled.p`
+  margin-bottom: 5px;
+  color: #a3a6aa;
+`;
+const BankNumber = styled.p``;
 export default MyPage;

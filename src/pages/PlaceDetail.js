@@ -1,7 +1,6 @@
-/* eslint-disable import/named */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
+/* eslint-disable no-undef */
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Container, Grid, Text, Image, Button, Icons } from '../elements';
@@ -23,17 +22,19 @@ import { ReactComponent as Pin } from '../images/Icon/ic_pin.svg';
 
 import PlaceSwiper from '../components/place/PlaceSwiper';
 import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
+
 import ReviewList from './ReviewList';
 import { getCategoryText } from '../shared/transferText';
-// import { isLoginChk } from '../shared/utils';
 import ConfirmModal from '../components/common/ConfirmModal';
 
 const Detail = props => {
   const dispatch = useDispatch();
-  const { id } = props.match.params;
+  const { match } = props;
+  const { id } = match.params;
   const detailData = useSelector(state => state.place.detailInfo);
   const isLogin = useSelector(state => state.user.isLogin);
   const [confirmModal, setConfirmModal] = useState(false);
+  const { t } = useTranslation();
 
   const newAddr = detailData.addressShort
     ? detailData.addressShort.split(' ')
@@ -49,6 +50,9 @@ const Detail = props => {
   useEffect(() => {
     dispatch(getPlaceDetailDB(id));
     window.scrollTo(0, 0);
+    if (!Kakao.isInitialized()) {
+      window.Kakao.init(process.env.REACT_APP_KAKAO_MAP_KEY);
+    }
   }, []);
 
   // 리뷰 쓰기 페이지로 이동
@@ -77,9 +81,6 @@ const Detail = props => {
 
   /* 좋아요 추가 및 삭제 */
   const setFavorites = () => {
-    // if (!isLoginChk(isLogin)) {
-    //   return;
-    // }
     if (!isLogin) {
       setConfirmModal(true);
       return;
@@ -93,9 +94,6 @@ const Detail = props => {
   };
   /* 가본장소 추가 및 삭제 */
   const setVisited = () => {
-    // if (!isLoginChk(isLogin)) {
-    //   return;
-    // }
     if (!isLogin) {
       setConfirmModal(true);
       return;
@@ -106,6 +104,34 @@ const Detail = props => {
       visitedStatus: detailData.visitedStatus,
     };
     dispatch(setVisitedPostDB(params));
+  };
+
+  /* 카카오 공유하기 */
+  const shareKakao = () => {
+    // eslint-disable-next-line no-undef
+    Kakao.Link.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: detailData.title,
+        description: detailData.postDesc,
+        imageUrl: detailData.postImages[0],
+        link: {
+          mobileWebUrl: `https://insplace.co.kr${history.location.pathname}`,
+          webUrl: `https://insplace.co.kr${history.location.pathname}`,
+        },
+      },
+      buttons: [
+        {
+          title: '자세히 보기',
+          link: {
+            mobileWebUrl: `https://insplace.co.kr${history.location.pathname}`,
+            webUrl: `https://insplace.co.kr${history.location.pathname}`,
+          },
+        },
+      ],
+      // 카카오톡 미설치 시 카카오톡 설치 경로이동
+      installTalk: true,
+    });
   };
 
   return (
@@ -121,8 +147,8 @@ const Detail = props => {
         <Grid>
           <PlaceSwiper list={detailData.postImages} />
           <PlaceHeader>
-            <IconBox onClick={goBack}>
-              <LeftIcon />
+            <IconBox>
+              <LeftIcon onClick={goBack} />
             </IconBox>
           </PlaceHeader>
 
@@ -146,8 +172,8 @@ const Detail = props => {
                 </Text>
               </Grid>
             </Grid>
-            {/* 유저가 선택한 카테고리 */}
-            <Grid margin="24px 0 0 0">
+            {/* 유저가 선택한 카테고리 2021-11-21 주석 */}
+            {/* <Grid margin="24px 0 0 0">
               <Button type="tag" bg="#558ED0" color="#fff">
                 날씨
               </Button>
@@ -160,7 +186,7 @@ const Detail = props => {
               <Button type="tag" bg="#484C51" color="#fff">
                 카페
               </Button>
-            </Grid>
+            </Grid> */}
             {/* Icon Navigation */}
             <IconNavigation>
               <Grid>
@@ -172,7 +198,7 @@ const Detail = props => {
                       <Pin />
                     )}
                   </Icons>
-                  가본곳
+                  {t('placeDetailPage.navigation.0')}
                 </Button>
               </Grid>
               <Grid>
@@ -186,7 +212,7 @@ const Detail = props => {
                       <NoSelectedHeader />
                     </Icons>
                   )}
-                  찜하기
+                  {t('placeDetailPage.navigation.1')}
                 </Button>
               </Grid>
               <Grid>
@@ -194,44 +220,49 @@ const Detail = props => {
                   <Icons>
                     <Write />
                   </Icons>
-                  리뷰쓰기
+                  {t('placeDetailPage.navigation.2')}
                 </Button>
               </Grid>
               <Grid>
-                <Button size="12px" color="#A3A6AA">
+                <Button size="12px" color="#A3A6AA" _onClick={shareKakao}>
                   <Icons margin="0 0 4px 0">
                     <Share />
                   </Icons>
-                  공유하기
+                  {t('placeDetailPage.navigation.3')}
                 </Button>
               </Grid>
             </IconNavigation>
             {/* 가게의 정보 */}
             <Grid>
               <Text fontSize="18px" color="#282828" bold>
-                장소팁
+                {t('placeDetailPage.category.0')}
               </Text>
               <Text fontSize="14px" margin="16px 0 32px" lineHeight="16px">
                 {detailData.postDesc}
               </Text>
               <Text fontSize="18px" color="#282828" bold>
-                가게정보
+                {t('placeDetailPage.category.1')}
               </Text>
               <Grid margin="16px 0">
                 {/* 카카오 지도 */}
-                <Map width="100%" height="191px" allPlaces={placeMarker} />
+                <Map
+                  width="100%"
+                  height="191px"
+                  allPlaces={placeMarker}
+                  type="detail"
+                />
               </Grid>
               <Text fontSize="14px" color="#3E4042">
-                <Span>주소</Span>
+                <Span>{t('placeDetailPage.category.2')}</Span>
                 {detailData.address}
               </Text>
               <Text fontSize="14px" color="#3E4042">
-                <Span>전화</Span>
+                <Span>{t('placeDetailPage.category.3')}</Span>
                 {detailData.contactNumber}
               </Text>
             </Grid>
           </InfoGrid>
-          <ReviewList postId={id} reviewsList={detailData.reviews} />
+          <ReviewList postId={id} />
         </Grid>
       </Container>
     </>
@@ -248,7 +279,9 @@ const PlaceHeader = styled.div`
   z-index: 100;
 `;
 const IconBox = styled.div`
-  display: inline-block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: 100%;
   padding: 0px 24px;
   cursor: pointer;

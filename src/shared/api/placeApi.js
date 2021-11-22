@@ -57,6 +57,13 @@ const reviewLike = params =>
 const reviewLikeCancel = params =>
   api.delete(`/posts/${params.postId}/reviews/${params.reviewId}/likes`);
 
+// 리뷰 신고하기
+const reviewReport = params =>
+  api.post(
+    `/posts/${params.postId}/reviews/${params.reviewId}/reports`,
+    params,
+  );
+
 export {
   getWeatherInfo,
   getMainList,
@@ -76,4 +83,5 @@ export {
   deleteReview,
   reviewLike,
   reviewLikeCancel,
+  reviewReport,
 };

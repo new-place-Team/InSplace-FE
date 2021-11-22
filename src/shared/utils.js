@@ -1,11 +1,6 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-alert */
-/* eslint-disable no-unneeded-ternary */
 /* eslint-disable import/no-cycle */
-/* eslint-disable func-names */
-/* eslint-disable no-inner-declarations */
-/* eslint-disable no-shadow */
-/* eslint-disable no-unused-vars */
-/* eslint-disable prefer-promise-reject-errors */
 import { history } from '../redux/configureStore';
 /* 개발모드에서 logger */
 export const logger = msg => {
@@ -17,8 +12,7 @@ export const logger = msg => {
 
 /* localStorage에서 토큰 가져오기 */
 export const getToken = () => {
-  return new Promise((resolve, reject) => {
-    // eslint-disable-next-line no-undef
+  return new Promise(resolve => {
     const token = localStorage.getItem('USER_TOKEN');
     if (token) {
       resolve(`Bearer ${token}`);
@@ -28,10 +22,27 @@ export const getToken = () => {
   });
 };
 
+/* localStorage에서 language 가져오기 */
+export const getLanguage = () => {
+  return new Promise(resolve => {
+    const lang = localStorage.getItem('i18nextLng');
+    const langArr = lang.split('-');
+    let language = langArr[0];
+    if (language !== 'ko') {
+      language = 'en';
+    }
+    if (language) {
+      resolve(language);
+    } else {
+      resolve(null);
+    }
+  });
+};
+
 /* localStorage 토큰유무 확인 */
 export const getTokenYn = () => {
   // eslint-disable-next-line no-undef
-  return localStorage.getItem('USER_TOKEN') ? true : false;
+  return !!localStorage.getItem('USER_TOKEN');
 };
 
 /* 현재위치 위도경도 가져오기 */

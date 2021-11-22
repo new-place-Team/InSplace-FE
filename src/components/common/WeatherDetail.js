@@ -1,10 +1,16 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 import styled from 'styled-components';
 import { ReactComponent as Close } from '../../images/Icon/ic_close.svg';
 import { ReactComponent as Marker } from '../../images/ic-marker.svg';
 import { ReactComponent as Particlulates } from '../../images/Icon/ic_weather_particulates.svg';
 import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good.svg';
+import { ReactComponent as WeatherSoso } from '../../images/Icon/ic_weather_soso.svg';
+import { ReactComponent as WeatherBad } from '../../images/Icon/ic_weather_bad.svg';
+import { ReactComponent as WeatherSoBad } from '../../images/Icon/ic_weather_sobad.svg';
+import { ReactComponent as WeatherDanger } from '../../images/Icon/ic_weather_dangerous.svg';
 import {
   SunFull768,
   RainFull768,
@@ -18,17 +24,15 @@ import { Grid, Text, Icons } from '../../elements';
 const WeatherInfo = props => {
   const { closeWeatherModal } = props;
   const root = document.querySelector('#root');
+  const { t } = useTranslation();
   const location = useSelector(state => state.place.location);
   const weatherInfo = useSelector(state => state.place.weatherStatus);
-  let weatherStatus = weatherInfo && weatherInfo.frontWeather;
-  let weatherBg = '';
-  useEffect(() => {
-    root.setAttribute('style', 'overflow: hidden;');
-    return () => root.removeAttribute('style');
-  }, []);
-
+  const weatherStatus = weatherInfo && weatherInfo.frontWeather;
+  let weatherBg = SunFull768;
+  let PmStatus = '';
+  let PmText = '';
   if (weatherInfo) {
-    weatherStatus = 4;
+    /* 날씨에 따른 배경 이미지 */
     if (weatherStatus === 2) {
       weatherBg = RainFull768;
     } else if (weatherStatus === 3) {
@@ -38,7 +42,29 @@ const WeatherInfo = props => {
     } else {
       weatherBg = SunFull768;
     }
+    /* 미세먼지 아이콘 변경 */
+    if (weatherInfo.pm10 === 2) {
+      PmStatus = WeatherSoso;
+      PmText = t('WeatherDetail.weatherCondition.miseNormal');
+    } else if (weatherInfo.pm10 === 3) {
+      PmStatus = WeatherBad;
+      PmText = t('WeatherDetail.weatherCondition.miseBad');
+    } else if (weatherInfo.pm10 === 4) {
+      PmStatus = WeatherSoBad;
+      PmText = t('WeatherDetail.weatherCondition.miseSoBad');
+    } else if (weatherInfo.pm10 === 5) {
+      PmStatus = WeatherDanger;
+      PmText = t('WeatherDetail.weatherCondition.miseDanger');
+    } else {
+      PmStatus = WeatherGood;
+      PmText = t('WeatherDetail.weatherCondition.miseGood');
+    }
   }
+
+  useEffect(() => {
+    root.setAttribute('style', 'overflow: hidden;');
+    return () => root.removeAttribute('style');
+  }, []);
 
   /* 비 호출 */
   const getRain = () => {
@@ -110,26 +136,32 @@ const WeatherInfo = props => {
                 <Particlulates />
               </Icons>
               <Text fontSize="28px" color="#fff" bold>
-                좋음
+                {PmText}
               </Text>
               <Icons width="32px" height="32px" margin="0 0 0 8px">
-                <WeatherGood />
+                <PmStatus />
               </Icons>
             </Grid>
             {/* 초 미세먼지 */}
             <Grid isFlex justify="space-between" padding="0 8%">
               <Text color="#fff" margin="0 0 8px 0">
-                초미세먼지
+                {t('WeatherDetail.particulateMatter')}
               </Text>
               <Text color="#fff">{weatherInfo.pm25}</Text>
             </Grid>
             <Grid isFlex justify="space-between" padding="0 8%">
-              <Text color="#fff">습도</Text>
+              <Text color="#fff">{t('WeatherDetail.humidity')}</Text>
               <Text color="#fff">{weatherInfo.humidity}</Text>
             </Grid>
           </SubInfo>
         </WeatherModal>
-        {weatherStatus === 1 ? <SunshineArea src={Sunshine} /> : ''}
+        {weatherInfo && weatherStatus === 1 ? (
+          <SunshineContainer>
+            <SunshineArea src={Sunshine} />
+          </SunshineContainer>
+        ) : (
+          ''
+        )}
         {weatherStatus === 2 ? <RainArea>{getRain()}</RainArea> : ''}
         {weatherStatus === 3 ? (
           <>
@@ -145,18 +177,7 @@ const WeatherInfo = props => {
         ) : (
           ''
         )}
-        {weatherStatus === 4 ? (
-          <>
-            <CloudArea top="-10%" right="-20%">
-              <CloudImage src={CloudImg} />
-            </CloudArea>
-            <CloudArea top="20%" left="-20%">
-              <CloudImage src={CloudImg} />
-            </CloudArea>
-          </>
-        ) : (
-          ''
-        )}
+        {weatherStatus === 4 ? <CloudArea src={CloudImg} /> : ''}
       </Container>
     </Wrap>
   );
@@ -200,6 +221,7 @@ const CloseBtn = styled.div`
   background-color: #000;
   border-radius: 50%;
   z-index: 5;
+  cursor: pointer;
   .svg {
     fill: #fff;
     width: 24px;
@@ -221,24 +243,40 @@ const CityText = styled.div`
 `;
 
 /* Sunshine Interaction */
+const SunshineContainer = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  z-index: 1;
+`;
+
 const SunshineArea = styled.div`
   position: absolute;
-  top: -185px;
-  right: -175px;
-  width: 700px;
-  height: 700px;
+  top: -10%;
+  right: -10%;
+  width: 70%;
+  height: 70%;
   background-image: url('${props => props.src}');
   background-size: cover;
   background-position: center;
   animation: shine 5s infinite linear alternate;
 
+  @media (max-width: 414px) {
+    top: -25%;
+    right: -3%;
+    width: 100%;
+    height: 100%;
+  }
+
   @keyframes shine {
     0% {
-      opacity: 0.4;
+      opacity: 0.6;
       transform: scale(1);
     }
     50% {
-      opacity: 0.7;
+      opacity: 0.8;
       transform: scale(1.2);
     }
     100% {
@@ -341,24 +379,31 @@ const RainArea = styled.div`
 
 /* Cloud Interaction */
 const CloudArea = styled.div`
+  opacity: 0.5;
   position: absolute;
-  top: ${({ top }) => top || 0};
-  ${props => props.right && `right:${props.right}`};
-  ${props => props.left && `left:${props.left}`};
-  width: 100%;
-  height: 400px;
-`;
-const CloudImage = styled.img`
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  overflow: visible;
+  background: url('${props => props.src}') repeat-x;
+  background-size: cover;
+  animation: cloud 9000s linear infinite;
+
+  @keyframes cloud {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 9000% 0;
+    }
+  }
 `;
 
 const SnowArea = styled.div`
   background: url('https://designshack.net/tutorialexamples/letitsnow/snow.png');
   background-repeat: repeat;
   width: 100%;
-  height: ${({ height }) => height || '700px'};
+  height: ${({ height }) => height || '780px'};
   position: absolute;
   top: 0;
   left: 0;

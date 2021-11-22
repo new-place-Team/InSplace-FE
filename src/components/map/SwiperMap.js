@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination, Navigation, History } from 'swiper';
 import styled from 'styled-components';
@@ -7,47 +7,41 @@ import MapCard from './MapCard';
 
 SwiperCore.use([Navigation, Pagination, History]);
 
-const SwiperMap = props => {
-  // SwiperCore.use([Pagination]);
-  const { list, _onChageFocus } = props;
+const SwiperMap = React.memo(props => {
+  const { list, _onChageFocus, focusId } = props;
+  const focusRef = useRef(null);
   const setting = {
-    slidesPerView: 1,
-    spaceBetween: -23,
+    slidesPerView: 3,
+    spaceBetween: 30,
     loop: true,
-    breakpoints: {
-      // mobile
-      500: {
-        slidesPerView: 12,
-        spaceBetween: 16,
-      },
-      768: {
-        slidesPerView: 1,
-        spaceBetween: 50,
-      },
+    pagination: {
+      clickable: true,
     },
   };
+  useEffect(() => {
+    if (list) {
+      const findIdx = list.findIndex(v => v.postId === focusId);
+      const postFocus = focusRef.current.swiper.pagination.bullets[findIdx];
+      if (postFocus) {
+        postFocus.click();
+      }
+    }
+  }, [focusId]);
 
   return (
     <Wrap>
       <Swiper
-        pagination={{
-          clickable: true,
-        }}
-        navigation={{
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        }}
+        className="mapSwiper"
         /* 스와이프 했을떄 실행할 함수 */
         onSlideChange={e => {
           const coord = {
             lat: list[e.realIndex].postLocationY,
             lon: list[e.realIndex].postLocationX,
           };
-          // console.log('coord', coord);
           _onChageFocus(coord);
-          // dispatch(setFocusCoord(coord));
         }}
         {...setting}
+        ref={focusRef}
       >
         {list &&
           list.map(el => {
@@ -60,7 +54,7 @@ const SwiperMap = props => {
       </Swiper>
     </Wrap>
   );
-};
+});
 
 const Wrap = styled.div`
   width: 100%;
@@ -69,6 +63,28 @@ const Wrap = styled.div`
   bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 99;
+  z-index: 9;
+
+  .mapSwiper {
+    .swiper-slide {
+    }
+    h3 {
+      height: 23px;
+      overflow: hidden;
+    }
+    p {
+      height: 34px;
+      overflow: hidden;
+    }
+    .swiper-slide-active {
+      width: 55% !important;
+      h3,
+      p {
+        overflow: visible;
+        height: auto;
+      }
+    }
+  }
 `;
+
 export default SwiperMap;

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
-import { getToken } from '../utils';
+import { getToken, getLanguage } from '../utils';
 
 /* Axios 인스턴스 설정 */
 const api = axios.create({
@@ -15,6 +15,7 @@ api.interceptors.request.use(async config => {
   config.headers.Accept = '*/*';
   /* getToken이 로컬 스토리지에 없다면 null 값을 반환 */
   config.headers.authorization = await getToken();
+  config.headers.language = await getLanguage();
   return config;
 });
 

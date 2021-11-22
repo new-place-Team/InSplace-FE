@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Text, Image } from '../elements';
 import Header from '../components/common/Header';
@@ -17,15 +18,16 @@ const PlaceList = props => {
   const searchType = match.params.params;
   const placeList = useSelector(state => state.place.placeList);
   const pagination = useSelector(state => state.place.placePagination);
+  const { t } = useTranslation();
 
   /* target 을 지켜보다 target이 정해진 threshold 비율만큼 지정 행동 */
   const [target, setTarget] = useState(null);
 
   let title = '';
   if (url.indexOf('inside=1') !== -1) {
-    title = '실내';
+    title = t('placeList.category.0');
   } else if (url.indexOf('inside=0') !== -1) {
-    title = '실외';
+    title = t('placeList.category.1');
   } else if (url.indexOf('result') !== -1) {
     const findText = url.split('?result=').reverse()[0];
     title = decodeURIComponent(findText);
@@ -65,7 +67,7 @@ const PlaceList = props => {
 
   return (
     <>
-      <Header _back _content="검색결과" _map _search />
+      <Header _back _content={t('placeList.headerSubTitle')} _map _search />
       <Container>
         <SelectedCategory />
         {placeList && placeList.length <= 0 ? (

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/common/Header';
 import { Container, Text, Grid } from '../elements';
@@ -8,22 +9,32 @@ import { logOut } from '../redux/modules/userSlice';
 import { unRegisterDB } from '../redux/async/user';
 import ConfirmModal from '../components/common/ConfirmModal';
 import CommonModal from '../components/common/CommonModal';
-import { history } from '../redux/configureStore';
+import { setCommonModalOn } from '../redux/modules/commonSlice';
 
 const Setting = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const commomModal = useSelector(state => state.common.modalStatus);
   const [confirmModal, setConfirmModal] = useState(false);
 
   const goLogoOut = () => {
     dispatch(logOut());
-    history.push('/');
+    const modalParams = {
+      title: `로그아웃되었습니다.`,
+      goPage: '/',
+    };
+    dispatch(setCommonModalOn(modalParams));
     // window.location.href = '/';
   };
 
-  const goUnRegister = () => {
+  const onClick = () => {
     setConfirmModal(true);
+  };
+
+  const goUnRegister = () => {
     dispatch(unRegisterDB());
+    setConfirmModal(false);
+    window.location.href = '/';
   };
 
   return (
@@ -35,17 +46,18 @@ const Setting = () => {
           title="회원 탈퇴 하시겠습니까?"
           content="탈퇴된 회원은 영구적으로 탈퇴됩니다."
           setConfirmModal={setConfirmModal}
+          confirmFun={goUnRegister}
+          confirmText={t('CommonModal.agree')}
         />
       )}
-      <Header _back _content="설정" />
+      <Header _back _content={t('Setting.headerSubTitle')} _language />
       <Container padding="66px 0 0 0">
         <Grid padding="0 20px">
           <MBTIDiv onClick={goLogoOut}>
-            <Text>로그아웃</Text>
+            <Text> {t('Setting.logOut')}</Text>
           </MBTIDiv>
-
-          <MBTIDiv onClick={goUnRegister}>
-            <Text>회원탈퇴</Text>
+          <MBTIDiv onClick={onClick}>
+            <Text>{t('Setting.withdrawal')}</Text>
           </MBTIDiv>
         </Grid>
       </Container>

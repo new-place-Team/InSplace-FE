@@ -1,11 +1,12 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
 import { Grid } from '../../elements/index';
 import theme from '../../styles/theme';
-import WeatherInfo from './WeatherInfo';
+import WeatherDetail from './WeatherDetail';
 /* weather Icon */
 import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
 import { ReactComponent as CloudIcon } from '../../images/weather/cloud.svg';
@@ -16,12 +17,14 @@ import { ReactComponent as HomeIcon } from '../../images/nav/ic_nav_home.svg';
 import { ReactComponent as FilterIcon } from '../../images/nav/ic_nav_fliter.svg';
 import { ReactComponent as HeartIcon } from '../../images/nav/ic_nav_heart.svg';
 import { ReactComponent as MypageIcon } from '../../images/nav/ic_nav_mypage.svg';
+
 import { profile1 } from '../../images/index';
 // import { isLoginChk } from '../../shared/utils';
 import ConfirmModal from './ConfirmModal';
 
 const Navbar = () => {
   const pathName = history.location.pathname;
+  const { t } = useTranslation();
   const isLogin = useSelector(state => state.user.isLogin);
   const userInfo = useSelector(state => state.user.userInfo);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
@@ -78,13 +81,13 @@ const Navbar = () => {
     <>
       {confirmModal && (
         <ConfirmModal
-          title="로그인을 해야 이용할 수 있는 서비스입니다. 로그인 하시겠습니까?"
+          title={t('Navbar.login')}
           setConfirmModal={setConfirmModal}
           goToLogin
         />
       )}
       {weatherModalShow && (
-        <WeatherInfo closeWeatherModal={closeWeatherModal} />
+        <WeatherDetail closeWeatherModal={closeWeatherModal} />
       )}
       <Nav>
         <Content>
@@ -154,7 +157,7 @@ const Nav = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 0px -2px 3px rgb(196 196 196 /25%);
-  z-index: 3;
+  z-index: 99;
 `;
 
 const Content = styled.div`

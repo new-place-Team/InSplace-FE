@@ -1,12 +1,9 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-else-return */
 /* eslint-disable no-alert */
-/* eslint-disable no-unneeded-ternary */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/named */
+/* eslint-disable consistent-return */
 /* eslint-disable no-undef */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalOn } from '../redux/modules/userSlice';
 import { getPeopleMbti } from '../shared/transferText';
@@ -17,13 +14,14 @@ import { nicknameCheck } from '../shared/api/userApi';
 
 import Modal from '../components/common/Modal';
 import Header from '../components/common/Header';
-import { Button, Container, Grid, Image, Label, Text } from '../elements';
+import { Button, Container, Grid, Image, Text } from '../elements';
 import { plus, polygonimg } from '../images/index';
 import CommonModal from '../components/common/CommonModal';
 import { setCommonModalOn } from '../redux/modules/commonSlice';
 
 const MyPageEdit = props => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const modalStatus = useSelector(state => state.user.modalStatus);
   const mbtiInfo = useSelector(state => state.user.userMbti);
   const commomModal = useSelector(state => state.common.modalStatus);
@@ -31,16 +29,15 @@ const MyPageEdit = props => {
   useEffect(() => {
     if (getTokenYn() === false) {
       const params = {
-        title: '로그인을 해주세요!',
+        title: t('MyPageEdit.Modal.goLogin'),
         goPage: '/login',
       };
       dispatch(setCommonModalOn(params));
-      // window.alert('로그인을 해주세요!');
-      // history.push('/login');
     }
   }, []);
   /* 이전 페이지에서 가지고 있던 유저 정보를 params로 넘겨줌 */
-  const newParams = props.history.location.state.userInfo;
+  const { history } = props;
+  const newParams = history.location.state.userInfo;
   const [maleFemale, setMaleFemale] = React.useState(newParams.maleYN);
   const [preview, setPreview] = React.useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -90,16 +87,16 @@ const MyPageEdit = props => {
     const nickCheck = { nickname: info.nickname };
     /* 닉네임값이 빈값 일때 */
     if (info.nickname === '') {
-      return setErrorMessage('닉네임을 입력해주세요!');
+      return setErrorMessage(t('MyPageEdit.nicNameError.0'));
     }
     if (info.nickname.length < 2) {
-      return setErrorMessage('닉네임은 두글자 이상으로 입력해주세요!');
+      return setErrorMessage(t('MyPageEdit.nicNameError.1'));
     }
     if (info.nickname.length > 12) {
-      return setErrorMessage('닉네임은 12자리 이하로 입력해주세요!');
+      return setErrorMessage(t('MyPageEdit.nicNameError.2'));
     }
     if (newParams.nickname === nickname) {
-      setErrorMessage('사용 가능한 닉네임 입니다!');
+      setErrorMessage(t('MyPageEdit.nicNameError.5'));
       return setNicknameDuplicate(false);
     }
     try {
@@ -108,11 +105,10 @@ const MyPageEdit = props => {
         const result = response.data.Msg;
         if (result === true) {
           setNicknameDuplicate(result);
-          return setErrorMessage('이미 존재하는 닉네임입니다.');
-        } else {
-          setErrorMessage('사용 가능한 닉네임 입니다!');
-          setNicknameDuplicate(result);
+          return setErrorMessage(t('MyPageEdit.nicNameError.4'));
         }
+        setErrorMessage(t('MyPageEdit.nicNameError.5'));
+        setNicknameDuplicate(result);
       }
     } catch (err) {
       console.log('error ::::::', err);
@@ -123,10 +119,12 @@ const MyPageEdit = props => {
   /* 유저정보 수정 요청 */
   const onSubmitHandler = () => {
     if (nickname === '') {
-      return window.alert('닉네임을 입력해주세요!');
+      // alert창이 아니라 문구로 나와야함
+      return window.alert(t('MyPageEdit.nicNameError.0'));
     }
     if (nicknameDuplicate === true) {
-      return window.alert('닉네임 중복 체크를 먼저 해주세요!');
+      // alert창이 아니라 문구로 나와야함
+      return window.alert(t('MyPageEdit.nicNameError.3'));
     }
     const formData = new FormData();
     formData.append('nickname', nickname);
@@ -141,6 +139,7 @@ const MyPageEdit = props => {
     const params = {
       id: userId,
       data: formData,
+      msg: t('MyPageEdit.Modal.complete'),
     };
     dispatch(editProfileDB(params));
   };
@@ -148,7 +147,7 @@ const MyPageEdit = props => {
   return (
     <>
       {commomModal && <CommonModal />}
-      <Header _back _content="프로필 수정" />
+      <Header _back _content={t('MyPageEdit.headerSubTitle')} _language />
       <Container padding="20px 0 0 0">
         <Grid padding="42px 20px 0 20px">
           <ProfileWrap>
@@ -174,11 +173,9 @@ const MyPageEdit = props => {
             </UploadWrap>
           </ProfileWrap>
           <Grid margin="0 0 32px 0">
-            <Label fontSize="16px" color="#A3A6AA">
-              닉네임
-            </Label>
+            <MypageLabel>{t('MyPageEdit.nickname')}</MypageLabel>
             <Input name="nickname" value={nickname} onChange={onChange} />
-            {errorMessage === '사용 가능한 닉네임 입니다!' ? (
+            {errorMessage === t('MyPageEdit.nicNameError.5') ? (
               <Text fontSize="12px" color="green">
                 {errorMessage}
               </Text>
@@ -197,7 +194,7 @@ const MyPageEdit = props => {
                   border="1px solid #C4C4C4"
                   _onClick={userCheck}
                 >
-                  중복확인
+                  {t('MyPageEdit.duplicate')}
                 </Button>
               ) : (
                 <Button
@@ -207,15 +204,13 @@ const MyPageEdit = props => {
                   border="1px solid #C4C4C4"
                   _onClick={userCheck}
                 >
-                  중복확인
+                  {t('MyPageEdit.duplicate')}
                 </Button>
               )}
             </Div>
           </Grid>
           <Grid margin="0 0 32px 0">
-            <Label fontSize="16px" color="#A3A6AA">
-              이메일
-            </Label>
+            <MypageLabel>{t('MyPageEdit.email')}</MypageLabel>
             <Input
               name="email"
               value={email}
@@ -225,9 +220,7 @@ const MyPageEdit = props => {
             />
           </Grid>
           <Grid margin="0 0 32px 0">
-            <Label fontSize="16px" color="#A3A6AA">
-              MBTI
-            </Label>
+            <MypageLabel>MBTI</MypageLabel>
             <MBTIDiv onClick={openModal}>
               <Text>{mbtiInfo.mbtiId ? mbtiInfo.type : mbti}</Text>
               <Icon src={polygonimg} />
@@ -235,8 +228,8 @@ const MyPageEdit = props => {
           </Grid>
           <Grid margin="0 0 32px 0">
             {/* 선택안함 : 2, 여성 : 0, 남성 : 1 */}
-            <Label type="form">성별</Label>
-            <Grid isFlex>
+            <MypageLabel>{t('MyPageEdit.myPagegender')}</MypageLabel>
+            <Grid isFlex margin="15px 0 0 0">
               <GenderButton
                 onClick={() => {
                   selectGender(null);
@@ -247,7 +240,7 @@ const MyPageEdit = props => {
                   maleFemale === null ? '1px solid #000' : '1px solid #C4C4C4'
                 }
               >
-                선택안함
+                {t('MyPageEdit.genderType.0')}
               </GenderButton>
               <GenderButton
                 onClick={() => {
@@ -259,7 +252,7 @@ const MyPageEdit = props => {
                   maleFemale === 0 ? '1px solid #000' : '1px solid #C4C4C4'
                 }
               >
-                여성
+                {t('MyPageEdit.genderType.1')}
               </GenderButton>
               <GenderButton
                 onClick={() => {
@@ -271,14 +264,14 @@ const MyPageEdit = props => {
                   maleFemale === 1 ? '1px solid #000' : '1px solid #C4C4C4'
                 }
               >
-                남성
+                {t('MyPageEdit.genderType.2')}
               </GenderButton>
             </Grid>
           </Grid>
         </Grid>
         <BottomWrap>
           <Button type="fullSizeBlack" _onClick={onSubmitHandler}>
-            수정하기
+            {t('MyPageEdit.mypageEdit')}
           </Button>
         </BottomWrap>
         {modalStatus === true ? <Modal /> : null}
@@ -302,6 +295,15 @@ const Div = styled.div`
 const UploadWrap = styled.div`
   margin: -40px -120px 0 0;
   z-index: 50;
+  @media (max-width: 415px) {
+    margin: -40px -100px 0 0;
+  }
+`;
+const MypageLabel = styled.label`
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.0041em;
+  color: #a3a6aa;
 `;
 const UploadLabel = styled.label`
   display: flex;
@@ -311,6 +313,7 @@ const UploadLabel = styled.label`
   height: 34px;
   border-radius: 50%;
   background-color: #a4a9b1;
+
   &:hover {
     cursor: pointer;
   }

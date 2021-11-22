@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { history } from '../redux/configureStore';
 import WeatherBox from '../components/main/WeatherBox';
 import Header from '../components/common/Header';
@@ -9,43 +10,21 @@ import ContentsTitle from '../components/common/ContentsTitle';
 import { Container, Grid, Text } from '../elements';
 import { getMainListDB } from '../redux/async/place';
 import Navbar from '../components/common/Navbar';
-import {
-  SunMain768 as sunBg,
-  RainMain768 as rainBg,
-  CloudMain768 as cloudBg,
-  SnowMain768 as snowBg,
-  // Sunshine,
-  // CloudImg,
-} from '../images/weather/index';
-import { ReactComponent as Marker } from '../images/ic-marker.svg';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import Swiper from '../components/common/SwiperLB';
-import { main } from '../images';
+import MainWeather from '../components/main/MainWeather';
 
 const Main = () => {
   const dispatch = useDispatch();
   const mainLists = useSelector(state => state.place.mainLists);
-  const location = useSelector(state => state.place.location);
   const likeList = mainLists && mainLists.likePlace;
   const pickList = mainLists && mainLists.pickPlace;
   const weatherList = mainLists && mainLists.weatherPlace;
   const weatherInfo = mainLists && mainLists.weather;
+  const { t } = useTranslation();
+
   const [imgLoading, setImgLoading] = useState(false);
   const imgRef = useRef(null);
-  let weatherBg = '';
-
-  if (weatherInfo) {
-    const weatherStatus = weatherInfo.frontWeather;
-    if (weatherStatus === 2) {
-      weatherBg = rainBg;
-    } else if (weatherStatus === 3) {
-      weatherBg = snowBg;
-    } else if (weatherStatus === 4) {
-      weatherBg = cloudBg;
-    } else {
-      weatherBg = sunBg;
-    }
-  }
 
   useEffect(() => {
     if (mainLists) return;
@@ -73,25 +52,20 @@ const Main = () => {
     <>
       <Container padding="0">
         <SkeletonGrid>
-          <Header _onBg _content="InSplace" _search _color="#fff" />
+          <Header _onBg _content="InSplace" _search _language _color="#fff" />
           {/* Weather Section */}
           <>
-            <BackgroundImg src={imgLoading ? weatherBg : main} ref={imgRef} />
+            <MainWeather
+              weatherInfo={weatherInfo}
+              imgLoading={imgLoading}
+              ref={imgRef}
+            />
             <WeatherBox info={weatherInfo} />
-            <Grid isFlex padding="96px 0  27px 21px">
-              <Icon>
-                <Marker />
-              </Icon>
-              <Text fontSize="14px" color="#fff" bold>
-                {/* 현재위치 주소 */}
-                {location && location.address}
-              </Text>
-            </Grid>
             {/* 장소 추천받기 */}
             <SelectTypeBtn onClick={() => history.push('/select-type')}>
               <Grid height="22px" margin="19px 0 0 18px">
                 <Text fontSize="16px" color="#fff" bold>
-                  장소 추천 받기
+                  {t('mainPage.recommend')}
                 </Text>
               </Grid>
               <NextButton>
@@ -100,22 +74,21 @@ const Main = () => {
             </SelectTypeBtn>
           </>
         </SkeletonGrid>
-
         {/* Place Section */}
         <Grid>
           {/* 날씨에 따른 공간 */}
           <Grid padding="0 0 48px 24px">
-            <ContentsTitle title="날씨에 따른 공간" />
+            <ContentsTitle title={t('mainPage.weatherPlace')} />
             <Swiper list={weatherList} />
           </Grid>
           {/* 좋아요 순 추천 공간 */}
           <Grid padding="0 0 48px 24px">
-            <ContentsTitle title="좋아요를 많이 받은" />
+            <ContentsTitle title={t('mainPage.popularPlace')} />
             <Swiper list={likeList} />
           </Grid>
           {/* 관리자 추천 공간 */}
           <Grid padding="0 0 112px 24px">
-            <ContentsTitle title="MD's PICK" />
+            <ContentsTitle title={t('mainPage.adminPlace')} />
             <Swiper list={pickList} />
           </Grid>
         </Grid>
@@ -124,31 +97,12 @@ const Main = () => {
     </>
   );
 };
+
 const SkeletonGrid = styled.div`
   position: relative;
   height: 672px;
   @media (max-width: 414px) {
     height: 525px;
-  }
-`;
-
-const BackgroundImg = styled.img`
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 672px;
-  object-fit: cover;
-  z-index: -1;
-  @media (max-width: 414px) {
-    height: 525px;
-  }
-`;
-
-const Icon = styled.div`
-  margin-right: 6px;
-  svg {
-    font-size: 16px;
-    color: #fff;
   }
 `;
 

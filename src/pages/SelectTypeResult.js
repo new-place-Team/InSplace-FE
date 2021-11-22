@@ -1,5 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Container, Grid, Image } from '../elements';
 import Swiper from '../components/common/SwiperLB';
@@ -20,6 +21,7 @@ const SearchTypeList = () => {
   const categoryParams = useSelector(state => state.place.categoryParams);
   const inSideList = conditionPlaces && conditionPlaces.insidePlaces;
   const outSideList = conditionPlaces && conditionPlaces.outSidePlaces;
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!conditionPlaces) {
@@ -40,7 +42,7 @@ const SearchTypeList = () => {
       <Header
         _type="search"
         _back
-        _content="검색 결과"
+        _content={t('selectTypeResultPage.headerSubTitle')}
         _map
         _search
         _color="#000"
@@ -52,8 +54,8 @@ const SearchTypeList = () => {
           <ContentsTitle
             title={
               inSideList && inSideList.length === 0
-                ? '실내검색 결과가 없습니다.'
-                : '실내'
+                ? t('selectTypeResultPage.inSideResult.0')
+                : t('selectTypeResultPage.inSideResult.1')
             }
           />
           {inSideList && inSideList.length !== 0 && (
@@ -78,8 +80,8 @@ const SearchTypeList = () => {
             <ContentsTitle
               title={
                 outSideList && outSideList.length === 0
-                  ? '실외검색 결과가 없습니다.'
-                  : '실외에서 시원한 바람과 함께'
+                  ? t('selectTypeResultPage.outSideResult.0')
+                  : t('selectTypeResultPage.outSideResult.1')
               }
             />
             {outSideList && outSideList.length !== 0 && (

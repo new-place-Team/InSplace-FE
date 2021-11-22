@@ -9,31 +9,33 @@ const SwiperLB = props => {
   const setting = {
     slidesPerView: 3,
     spaceBetween: 16,
+    lazyLoading: true,
     breakpoints: {
       // mobile
       320: {
         slidesPerView: 1,
-        spaceBetween: type === 'selectResult' ? -20 : -45,
+        spaceBetween: type === 'selectResult' ? -45 : -45,
       },
       360: {
         slidesPerView: 1,
-        spaceBetween: type === 'selectResult' ? -60 : -85,
+        spaceBetween: type === 'selectResult' ? -85 : -85,
       },
       375: {
         slidesPerView: 1,
-        spaceBetween: type === 'selectResult' ? -75 : -100,
+        spaceBetween: type === 'selectResult' ? -100 : -100,
       },
       410: {
         slidesPerView: 1,
-        spaceBetween: type === 'selectResult' ? -110 : -135,
+        spaceBetween: type === 'selectResult' ? -135 : -135,
       },
       500: {
         slidesPerView: 2,
-        spaceBetween: type === 'selectResult' ? 16 : -9,
+        spaceBetween: type === 'selectResult' ? -9 : -9,
       },
       768: {
         slidesPerView: 3,
-        // spaceBetween: type === 'selectResult' ? 41 : 16,
+        lazyLoading: true,
+        spaceBetween: type === 'selectResult' ? 16 : 16,
       },
     },
   };

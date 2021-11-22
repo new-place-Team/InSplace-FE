@@ -1,14 +1,19 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { history } from '../../redux/configureStore';
+import LangModal from './LangModal';
+import { setModalOn } from '../../redux/modules/userSlice';
 import { Grid, Text } from '../../elements/index';
 import { map, close, heartFilled, share, settings } from '../../images/index';
 import { ReactComponent as LeftIcon } from '../../images/ic-left.svg';
 import { ReactComponent as Search } from '../../images/Icon/ic_header_search.svg';
+import { ReactComponent as Language } from '../../images/nav/ic_nav_language.svg';
 
 const Header = props => {
+  const dispatch = useDispatch();
+  const modalStatus = useSelector(state => state.user.modalStatus);
   const {
     _onBg,
     _back,
@@ -20,6 +25,7 @@ const Header = props => {
     _share,
     _color,
     _settings,
+    _language,
   } = props;
 
   const gotoMapPage = () => {
@@ -34,7 +40,9 @@ const Header = props => {
   const gotoSettingPage = () => {
     history.push('/setting');
   };
-
+  const openLangModal = () => {
+    dispatch(setModalOn());
+  };
   const goBack = () => {
     history.goBack();
   };
@@ -64,7 +72,7 @@ const Header = props => {
               </Grid>
             )}
             {_search && (
-              <Grid _onClick={gotoSearchPage}>
+              <Grid margin="0 13px 0 0" _onClick={gotoSearchPage}>
                 <IconArea color={_color}>
                   <Search />
                 </IconArea>
@@ -87,10 +95,20 @@ const Header = props => {
             )}
             {_settings && (
               <Grid>
-                <Icon src={settings} onClick={gotoSettingPage} />
+                <IconArea>
+                  <Icon src={settings} onClick={gotoSettingPage} />
+                </IconArea>
+              </Grid>
+            )}
+            {_language && (
+              <Grid _onClick={openLangModal}>
+                <IconArea color={_color}>
+                  <Language />
+                </IconArea>
               </Grid>
             )}
           </Grid>
+          {modalStatus === true && <LangModal />}
         </Content>
       </ContentArea>
     );
@@ -120,7 +138,7 @@ const Header = props => {
               </Grid>
             )}
             {_search && (
-              <Grid _onClick={gotoSearchPage}>
+              <Grid margin="0 13px 0 0" _onClick={gotoSearchPage}>
                 <IconArea>
                   <Search />
                 </IconArea>
@@ -148,7 +166,15 @@ const Header = props => {
                 </IconArea>
               </Grid>
             )}
+            {_language && (
+              <Grid _onClick={openLangModal}>
+                <IconArea color={_color}>
+                  <Language />
+                </IconArea>
+              </Grid>
+            )}
           </Grid>
+          {modalStatus === true && <LangModal />}
         </Content>
       </ContentArea>
     </HeaderBar>

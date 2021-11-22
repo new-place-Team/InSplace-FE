@@ -33,11 +33,15 @@ const MapContainer = () => {
     placeList = useSelector(state => state.place.placeList);
   }
   const [latLonFocus, setLatLonFocus] = useState(null);
+  const [focusId, setFocusId] = useState(null);
   const onChageFocus = latLon => {
     setLatLonFocus({
       lat: latLon.lat,
       lon: latLon.lon,
     });
+  };
+  const onChnageFocusId = focusId => {
+    setFocusId(focusId);
   };
 
   useEffect(() => {
@@ -54,31 +58,48 @@ const MapContainer = () => {
 
   return (
     <>
-      <Header _back _content="상세보기" />
+      <Header _back _content="상세보기" _language />
       <Container padding="66px 0 0 0">
-        <Grid>
-          <Grid padding="0 24px">
-            <SelectedCategory />
-          </Grid>
-          {/* 카카오 지도 */}
-          <MapDiv>
-            <Map
-              width="100vw"
-              height="80vh"
-              allPlaces={placeList}
-              latLonFocus={latLonFocus}
-            />
-          </MapDiv>
-          {/* SwiperList Card */}
-          <SwiperMap list={placeList} _onChageFocus={onChageFocus} />
+        <Grid padding="0 24px">
+          <SelectedCategory />
         </Grid>
+        <MapDiv>
+          {/* <MapCategoryWrap padding="0 24px">
+            <SelectedCategory />
+          </MapCategoryWrap> */}
+          <Map
+            width="100%"
+            height="100vh"
+            allPlaces={placeList}
+            latLonFocus={latLonFocus}
+            _onChnageFocusId={onChnageFocusId}
+          />
+
+          {/* SwiperList Card */}
+          {/* <SwiperWrap> */}
+          <SwiperMap
+            list={placeList}
+            _onChageFocus={onChageFocus}
+            focusId={focusId}
+          />
+          {/* </SwiperWrap> */}
+        </MapDiv>
       </Container>
     </>
   );
 };
 
 const MapDiv = styled.div`
-  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  height: 100vh;
 `;
+// const MapCategoryWrap = styled.div`
+//   border: 2px solid blue;
+// `;
+// const SwiperWrap = styled.div`
+//   position: relative;
+//   width: 100%;
+// `;
 
 export default MapContainer;

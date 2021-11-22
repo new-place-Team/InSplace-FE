@@ -1,6 +1,7 @@
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalOn } from '../redux/modules/userSlice';
 import { Container, Grid, Input, Label, Button, Text } from '../elements';
@@ -15,6 +16,8 @@ import CommonModal from '../components/common/CommonModal';
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   const commomModal = useSelector(state => state.common.modalStatus);
   // input값을 하나의 state에서 관리한다.
   const [userInfo, setUserInfo] = useState({
@@ -66,15 +69,15 @@ const Signup = () => {
     /* 닉네임값이 빈값 일때 */
     if (userInfo.nickname === '') {
       setButtonStatus(false);
-      return setNicknameError('닉네임을 입력해 주세요!');
+      return setNicknameError(t('signUpPage.nicNameError.0'));
     }
     if (userInfo.nickname.length < 2) {
       setButtonStatus(false);
-      return setNicknameError('닉네임을 두글자 이상으로 입력해주세요!');
+      return setNicknameError(t('signUpPage.nicNameError.1'));
     }
     if (userInfo.nickname.length > 12) {
       setButtonStatus(false);
-      return setNicknameError('닉네임은 12자리 이하로 입력해주세요!');
+      return setNicknameError(t('signUpPage.nicNameError.2'));
     }
     try {
       const response = await nicknameCheck(nickCheck);
@@ -82,14 +85,14 @@ const Signup = () => {
         const result = response.data.Msg;
         if (result === true) {
           setNicknameDuplicate(result);
-          setNicknameError('이미 존재하는 닉네임 입니다.');
+          setNicknameError(t('signUpPage.nicNameError.4'));
         } else {
-          setNicknameError('사용 가능한 닉네임 입니다.');
+          setNicknameError(t('signUpPage.nicNameError.5'));
           setNicknameDuplicate(result);
         }
       }
     } catch (err) {
-      console.log('error ::::::', err);
+      console.log('error ::::::', err.response);
     }
     return setButtonStatus(false);
   };
@@ -109,55 +112,54 @@ const Signup = () => {
       setEmailError('');
     }
     if (userInfo.email === '') {
-      setEmailError('이메일을 입력해주세요!');
+      setEmailError(t('signUpPage.idErrorMessage.0'));
       return;
     }
     if (!emailCheck(userInfoDB.email)) {
-      setEmailError('이메일 형식이 맞지않습니다.');
+      setEmailError(t('signUpPage.idErrorMessage.1'));
       return;
     }
     if (userInfo.password.length !== 0) {
       setPassError('');
     }
     if (userInfo.password === '') {
-      setPassError('비밀번호를 입력해주세요!');
+      setPassError(t('signUpPage.passErrorMessage.0'));
       return;
     }
     if (userInfo.password.length < 8) {
-      setPassError('비밀번호는 8자리 이상으로 입력해주세요!');
+      setPassError(t('signUpPage.passErrorMessage.1'));
       return;
     }
     if (userInfo.passwordCheck.length !== 0) {
       setPassError('');
     }
     if (userInfo.passwordCheck === '') {
-      setPassconfrimError('비밀번호 확인을 입력해주세요!');
+      setPassconfrimError(t('signUpPage.passconfirmMessage.0'));
       return;
     }
     if (userInfo.password === userInfo.passwordCheck) {
       setPassconfrimError('');
     }
     if (userInfo.password !== userInfo.passwordCheck) {
-      setPassconfrimError('비밀번호가 일치하지 않습니다');
+      setPassconfrimError(t('signUpPage.passconfirmMessage.1'));
       return;
     }
     if (userInfo.nickname === '') {
-      setNicknameError('닉네임을 입력해주세요!');
+      setNicknameError(t('signUpPage.nicNameError.0'));
       return;
     }
     if (userInfo.nickname.length > 12) {
-      setNicknameError('닉네임은 12자리 이하로 입력해주세요!');
+      setNicknameError(t('signUpPage.nicNameError.1'));
       return;
     }
     if (nicknameDuplicate) {
-      setNicknameError('닉네임 중복 체크를 먼저 해주세요!');
+      setNicknameError(t('signUpPage.nicNameError.3'));
       return;
     }
 
     if (userInfoDB.mbtiId === undefined) {
       userInfoDB.mbtiId = 17;
     }
-
     // if (userInfoDB.maleYN === undefined) {
     //   window.alert('성별을 선택해 주세요!');
     //   return;
@@ -173,21 +175,24 @@ const Signup = () => {
   return (
     <>
       {commomModal && <CommonModal />}
-      <Header _back _content="회원가입" />
+      <Header _back _content={t('signUpPage.headerSubTitle')} />
       <Container padding="66px 0 0 0">
         <Grid padding="42px 20px 0 20px">
           <Wrap>
-            <Label type="form">이메일</Label>
+            <Label type="form" required>
+              {t('signUpPage.signUpEmail')}
+            </Label>
             <Div>
               <Input
                 inputType="form"
                 type="text"
                 value={userInfo.email}
+                Label
                 name="email"
                 _onChange={onChange}
-                placeholder="이메일 주소를 입력해주세요"
+                _onSubmit={submitUserInfo}
+                placeholder={t('signUpPage.placeholder.0')}
               />
-
               {userInfo.email !== '' && (
                 <CloseButton
                   src={xcircle}
@@ -203,14 +208,17 @@ const Signup = () => {
           </Wrap>
 
           <Wrap>
-            <Label type="form">비밀번호</Label>
+            <Label type="form" required>
+              {t('signUpPage.signUpPassword')}
+            </Label>
             <Input
               inputType="form"
               type="password"
               value={userInfo.password}
               name="password"
               _onChange={onChange}
-              placeholder="비밀번호를 입력해주세요"
+              _onSubmit={submitUserInfo}
+              placeholder={t('signUpPage.placeholder.1')}
             />
             {userInfo.password !== '' && (
               <CloseButton
@@ -225,14 +233,17 @@ const Signup = () => {
             </Text>
           </Wrap>
           <Wrap>
-            <Label type="form">비밀번호 확인</Label>
+            <Label type="form" required>
+              {t('signUpPage.passwordConfirm')}
+            </Label>
             <Input
               inputType="form"
               type="password"
               value={userInfo.passwordCheck}
               name="passwordCheck"
               _onChange={onChange}
-              placeholder="비밀번호를 한번 더 입력해주세요"
+              _onSubmit={submitUserInfo}
+              placeholder={t('signUpPage.placeholder.2')}
             />
             {userInfo.passwordCheck !== '' && (
               <CloseButton
@@ -247,14 +258,17 @@ const Signup = () => {
             </Text>
           </Wrap>
           <Wrap>
-            <Label type="form">닉네임</Label>
+            <Label type="form" required>
+              {t('signUpPage.nickName')}
+            </Label>
             <Input
               inputType="form"
               type="text"
               value={userInfo.nickname}
               name="nickname"
               _onChange={onChange}
-              placeholder="닉네임을 입력해주세요"
+              _onSubmit={submitUserInfo}
+              placeholder={t('signUpPage.placeholder.3')}
             />
             {/* {userInfo.nickname !== '' && (
               <CloseButton
@@ -273,7 +287,7 @@ const Signup = () => {
                   border="1px solid #C4C4C4"
                   _onClick={userCheck}
                 >
-                  중복확인
+                  {t('signUpPage.duplicateBtn')}
                 </Button>
               ) : (
                 <Button
@@ -283,11 +297,11 @@ const Signup = () => {
                   border="1px solid #C4C4C4"
                   _onClick={userCheck}
                 >
-                  중복확인
+                  {t('signUpPage.duplicateBtn')}
                 </Button>
               )}
             </AbsolDiv>
-            {nicknameError === '사용 가능한 닉네임 입니다.' ? (
+            {nicknameError === t('signUpPage.nicNameError.5') ? (
               <Text color="green" fontSize="12px">
                 {nicknameError}
               </Text>
@@ -297,10 +311,9 @@ const Signup = () => {
               </Text>
             )}
           </Wrap>
-
           <Wrap>
             {/* 선택안함 : 2, 여성 : 0, 남성 : 1 */}
-            <Label type="form">성별</Label>
+            <Label type="form">{t('signUpPage.gender')}</Label>
             <Grid isFlex>
               <GenderButton
                 onClick={() => {
@@ -312,7 +325,7 @@ const Signup = () => {
                   maleFemale === null ? '1px solid #000' : '1px solid #C4C4C4'
                 }
               >
-                선택안함
+                {t('signUpPage.genderType.0')}
               </GenderButton>
               <GenderButton
                 onClick={() => {
@@ -324,7 +337,7 @@ const Signup = () => {
                   maleFemale === 0 ? '1px solid #000' : '1px solid #C4C4C4'
                 }
               >
-                여성
+                {t('signUpPage.genderType.1')}
               </GenderButton>
               <GenderButton
                 onClick={() => {
@@ -336,14 +349,16 @@ const Signup = () => {
                   maleFemale === 1 ? '1px solid #000' : '1px solid #C4C4C4'
                 }
               >
-                남성
+                {t('signUpPage.genderType.2')}
               </GenderButton>
             </Grid>
           </Wrap>
           <Wrap>
-            <Label type="form">MBTI </Label>
+            <Label type="form">{t('signUpPage.mbti')}</Label>
             <MBTIDiv onClick={openModal}>
-              <Text>{mbtiInfo.type ? mbtiInfo.type : 'MBTI 선택안함'}</Text>
+              <Text>
+                {mbtiInfo.type ? mbtiInfo.type : t('signUpPage.noMbtiSelect')}
+              </Text>
               <Icon src={polygonimg} />
             </MBTIDiv>
           </Wrap>
@@ -351,10 +366,9 @@ const Signup = () => {
 
         <BottomWrap>
           <Button type="fullSizeBlack" _onClick={submitUserInfo}>
-            회원가입
+            {t('signUpPage.register')}
           </Button>
         </BottomWrap>
-
         {modalStatus === true && <Modal />}
       </Container>
     </>
@@ -421,4 +435,5 @@ const CloseButton = styled.img`
   width: 20px;
   cursor: pointer;
 `;
+
 export default Signup;

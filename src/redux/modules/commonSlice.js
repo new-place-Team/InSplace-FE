@@ -4,10 +4,13 @@ import { createSlice } from '@reduxjs/toolkit';
 // inititalState
 const initialState = {
   modalStatus: false,
-  title: null,
-  content: null,
+  modalInfo: null,
   goPage: null,
-  dispatchFun: null,
+  moreModalStatus: false,
+  moreInfo: null,
+  reportModalStatus: false,
+  feedbackStatus: false,
+  currentLanguage: null,
 };
 
 const commonSlice = createSlice({
@@ -16,21 +19,53 @@ const commonSlice = createSlice({
   reducers: {
     setCommonModalOff: state => {
       state.modalStatus = false;
-      state.title = null;
-      state.content = null;
+      state.modalInfo = null;
       state.goPage = null;
-      state.dispatchFun = null;
     },
     setCommonModalOn: (state, { payload }) => {
       state.modalStatus = true;
-      state.title = payload.title;
-      state.content = payload.content;
+      state.modalInfo = payload;
       state.goPage = payload.goPage;
-      state.dispatchFun = payload.dispatchFun;
+    },
+    setMoreModalOff: state => {
+      state.moreModalStatus = false;
+      state.moreInfo = null;
+    },
+    setMoreModalOn: (state, { payload }) => {
+      state.moreModalStatus = true;
+      state.moreInfo = payload;
+    },
+    setReportModalOff: state => {
+      state.reportModalStatus = false;
+      state.modalInfo = null;
+    },
+    setReportModalOn: (state, { payload }) => {
+      state.reportModalStatus = true;
+      state.modalInfo = payload;
+    },
+    setFeedbackModalOff: state => {
+      state.feedbackStatus = false;
+    },
+    setFeedbackModalOn: state => {
+      state.feedbackStatus = true;
+    },
+    setLanguage: (state, { payload }) => {
+      window.localStorage.setItem('LANGUAGE', payload);
+      state.currentLanguage = payload;
     },
   },
 });
 
-export const { setCommonModalOff, setCommonModalOn } = commonSlice.actions;
+export const {
+  setCommonModalOff,
+  setCommonModalOn,
+  setMoreModalOff,
+  setMoreModalOn,
+  setReportModalOff,
+  setReportModalOn,
+  setFeedbackModalOff,
+  setFeedbackModalOn,
+  setLanguage,
+} = commonSlice.actions;
 
 export default commonSlice;

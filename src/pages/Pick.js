@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { history } from '../redux/configureStore';
 import { Container, Grid, Text, Image, Icons } from '../elements';
@@ -14,10 +15,10 @@ import Spinner from '../components/common/Spinner';
 
 const Pick = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const userPickPlaces = useSelector(state => state.user.userPickPlaces);
   const isLoading = useSelector(state => state.loaded.is_loaded);
   const [isLikeSelected, setIsLikeSelected] = useState(true);
-  // console.log('userPickPlaces', userPickPlaces);
   useEffect(() => {
     if (!userPickPlaces.likeList) {
       dispatch(getFavoritesDB());
@@ -35,7 +36,7 @@ const Pick = () => {
 
   return (
     <>
-      <Header _content="나만의 장소 Pick" _color="#fff" />
+      <Header _content={t('Pick.headerSubTitle')} />
       <Container padding="66px 0 0 0">
         <PickPlace>
           <Grid
@@ -46,7 +47,7 @@ const Pick = () => {
               isLikeSelected ? '2px solid #000' : '1px solid #A4A9B1'
             }
             _onClick={() => toggleSelected(true)}
-            cursor
+            cursor="true"
           >
             <Icons
               margin="0 8px 0 0"
@@ -58,7 +59,7 @@ const Pick = () => {
               fontSize="16px"
               color={isLikeSelected ? '#282828' : '#A3A6AA'}
             >
-              찜한곳
+              {t('Pick.pickPlace')}
             </Text>
           </Grid>
           <Grid
@@ -69,7 +70,7 @@ const Pick = () => {
               isLikeSelected ? '1px solid #A4A9B1' : '2px solid #000'
             }
             _onClick={() => toggleSelected(false)}
-            cursor
+            cursor="true"
           >
             <Icons
               margin="0 8px 0 0"
@@ -82,7 +83,7 @@ const Pick = () => {
               fontSize="16px"
               color={isLikeSelected ? '#A3A6AA' : '#282828'}
             >
-              가본곳
+              {t('Pick.visitedPlace')}
             </Text>
           </Grid>
         </PickPlace>
@@ -128,7 +129,7 @@ const Pick = () => {
                 >
                   <IsNoneArea>
                     <Image src={noLikePlace} />
-                    <Text margin="69px 0 0 0">찜한 곳이 없습니다.</Text>
+                    <Text margin="24px 0 0 0">{t('Pick.noPickPlace')}</Text>
                   </IsNoneArea>
                 </Grid>
               </>
@@ -176,7 +177,7 @@ const Pick = () => {
             ) : (
               <IsNoneArea>
                 <Image src={noVisitedPlace} />
-                <Text margin="69px 0 0 0">가본 곳이 없습니다.</Text>
+                <Text margin="24px 0 0 0">{t('Pick.noVisitedPlace')}</Text>
               </IsNoneArea>
             )}
           </Grid>

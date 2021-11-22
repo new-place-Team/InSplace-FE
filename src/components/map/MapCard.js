@@ -32,21 +32,24 @@ const MapCard = props => {
   return (
     <MapCardCotainer ref={content}>
       <Mapchild>
-        {/* 이미지 */}
-        <Grid width="96px" height="96px" margin="0 20px 0 0">
-          <Image width="100%" height="100%" src={el.postImage} />
+        <Grid width="101px" height="121px" margin="0 20px 0 0">
+          <Image width="100%" height="121px" src={el.postImage} />
         </Grid>
-        {/* information */}
-        <Grid width="180px">
+        <Grid flex>
           <Grid>
-            <Text fontSize="12px" margin="0 0 2px 0">
+            <Text fontSize="13px" margin="0 0 2px 0">
               {el.category}
             </Text>
-            <Text fontSize="13px" bold margin="0 0 40px 0">
+            <MapTitle
+              className="mapTitle"
+              fontSize="16px"
+              bold
+              margin="0 0 40px 0"
+            >
               {el.title}
-            </Text>
+            </MapTitle>
           </Grid>
-          <Text fontSize="12px">{el.addressShort} </Text>
+          <MapInfoText fontSize="13px">{el.addressShort}</MapInfoText>
         </Grid>
       </Mapchild>
       <IconArea onClick={setFavorites}>
@@ -57,27 +60,31 @@ const MapCard = props => {
 };
 
 const MapCardCotainer = styled.div`
-  width: 90%;
-  background-color: transparent;
-  margin: 0 auto;
-  position: relative;
+  max-height: 172px;
 `;
-
 const Mapchild = styled.div`
-  padding: 20px;
-  background-color: #fff;
   display: flex;
   justify-content: space-between;
+  height: 172px;
+  padding: 20px;
+  background-color: #fff;
+  /* overflow: hidden; */
 `;
-
+const MapInfoText = styled.p`
+  padding-top: 10px;
+`;
 const IconArea = styled.div`
   position: absolute;
-  right: -2px;
-  top: 6px;
-  width: 24px;
-  height: 24px;
+  right: 0;
+  top: 12px;
+  width: 28px;
+  height: 28px;
   margin: 0 8px 8px 0;
   cursor: pointer;
 `;
-
+const MapTitle = styled.h3`
+  margin: 0 0 40px 0;
+  font-size: 16px;
+  font-weight: 700;
+`;
 export default MapCard;
