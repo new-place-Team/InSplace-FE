@@ -12,7 +12,7 @@ const SwiperMap = React.memo(props => {
   const focusRef = useRef(null);
   let perViewCnt = 3;
   let loopYn = true;
-  if (list.length < 3) {
+  if (list && list.length < 3) {
     perViewCnt = list.lenght === 2 ? 2 : 1;
     loopYn = false;
   }
