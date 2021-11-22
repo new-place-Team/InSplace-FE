@@ -7,7 +7,7 @@ import { history } from '../redux/configureStore';
 import { getTokenYn } from '../shared/utils';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
-import { whiteRight, mypageNext, profile1 } from '../images/index';
+import { whiteRight, mypageNext } from '../images/index';
 import { Button, Container, Grid, Image } from '../elements';
 import sunBg from '../images/weather/sun_full_768.jpg';
 import ConfirmModal from '../components/common/ConfirmModal';
@@ -25,16 +25,6 @@ const MyPage = () => {
   const feedbackStatus = useSelector(state => state.common.feedbackStatus);
   const { t } = useTranslation();
 
-  /* 유저 이미지가 있으면 그 이미지 없으면 기본 이미지 */
-  const setNomalImage = profile => {
-    if (userInfo.userImage !== null) {
-      return userInfo.userImage;
-    }
-    return profile;
-  };
-  const realUserInfo = { ...userInfo, userImage: setNomalImage(profile1) };
-  /* 만약 이 페이지에서 토큰없을시 로그인 페이지 이동 */
-
   const pageMove = () => {
     history.push('/login');
   };
@@ -50,7 +40,7 @@ const MyPage = () => {
     } else {
       history.push({
         pathname: `/mypage/${userInfo.userId}`,
-        state: { userInfo: realUserInfo },
+        state: { userInfo },
       });
     }
   };
@@ -87,7 +77,7 @@ const MyPage = () => {
                 type="circle"
                 width="100%"
                 height="100%"
-                src={userInfo.userImage ? userInfo.userImage : profile1}
+                src={userInfo.userImage}
               />
             </MyPageFrofile>
             <UserInfoGrid>
@@ -98,7 +88,7 @@ const MyPage = () => {
                 </Button>
               </Grid>
               <Grid isFlex>
-                <Mbti>{userInfo.mbti}</Mbti>
+                {userInfo.mbti === '모름' ? null : <Mbti>{userInfo.mbti}</Mbti>}
                 <Email>{userInfo.email}</Email>
               </Grid>
             </UserInfoGrid>
