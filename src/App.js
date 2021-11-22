@@ -9,7 +9,6 @@ import { ThemeProvider } from 'styled-components';
 import { history } from './redux/configureStore';
 import { getTokenYn } from './shared/utils';
 import { logInCheckDB } from './redux/async/user';
-import { setLanguage } from './redux/modules/commonSlice';
 // import { getCurrentCoordinate } from './redux/modules/placeSlice';
 // eslint-disable-next-line import/named
 import { getCurrentCoordinateWEB, getWeatherDB } from './redux/async/place';
@@ -40,9 +39,6 @@ function App() {
   const dispatch = useDispatch();
   const location = useSelector(state => state.place.location);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
-  const currentLang = useSelector(state => state.common.currentLanguage);
-  // 클라이언트 브라우저의 언어 설정
-  const osLang = window.navigator.language;
   useEffect(() => {
     // 현재위치를 받아보자
     if (!location) {
@@ -55,10 +51,6 @@ function App() {
     // 날씨 정보를 따로 받아와서 리덕스에 저장.
     if (!weatherStatus) {
       dispatch(getWeatherDB());
-    }
-    // 현재 OS 언어 리덕스에 저장.
-    if (!currentLang) {
-      dispatch(setLanguage(osLang));
     }
   }, []);
 

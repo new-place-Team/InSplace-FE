@@ -49,10 +49,6 @@ const commonSlice = createSlice({
     setFeedbackModalOn: state => {
       state.feedbackStatus = true;
     },
-    setLanguage: (state, { payload }) => {
-      window.localStorage.setItem('LANGUAGE', payload);
-      state.currentLanguage = payload;
-    },
   },
 });
 
