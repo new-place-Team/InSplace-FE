@@ -62,6 +62,7 @@ const Login = () => {
               value={loginInfo.email}
               name="email"
               _onChange={onChange}
+              _onSubmit={submitUserInfo}
               placeholder={t('loginPage.loginPlaceholder.0')}
             />
             {loginInfo.email !== '' && (
@@ -84,6 +85,7 @@ const Login = () => {
               value={loginInfo.password}
               name="password"
               _onChange={onChange}
+              _onSubmit={submitUserInfo}
               placeholder={t('loginPage.loginPlaceholder.1')}
             />
 

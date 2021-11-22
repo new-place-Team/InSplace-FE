@@ -225,5 +225,16 @@
     "edit": "수정",
     "delete": "삭제",
     "singo": "신고하기"
+  },
+  "WeatherDetail": {
+    "weatherCondition": {
+      "miseGood": "좋음",
+      "miseBad": "나쁨",
+      "miseSoBad": "매우 나쁨",
+      "miseDanger": "위험",
+      "miseNormal": "보통"
+    },
+    "humidity": "습도",
+    "particulateMatter": "초미세먼지"
   }
 }

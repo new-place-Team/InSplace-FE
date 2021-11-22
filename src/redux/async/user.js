@@ -29,7 +29,6 @@ export const addUserDB = createAsyncThunk(
         thunkAPI.dispatch(setCommonModalOn(modalParams));
       }
     } catch (err) {
-      console.log(err.response);
       const modalParams = {
         title: `${err.response.data.errMsg}`,
       };

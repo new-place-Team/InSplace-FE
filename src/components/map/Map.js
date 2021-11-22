@@ -18,7 +18,8 @@ const Map = React.memo(props => {
   const mapDiv = useRef(null);
   const [isMap, setIsMap] = useState(null);
   const [isMarker, setIsMarker] = useState(null);
-  const { width, height, allPlaces, latLonFocus, _onChnageFocusId } = props;
+  const { width, height, allPlaces, latLonFocus, _onChnageFocusId, type } =
+    props;
 
   useEffect(() => {
     /* 페이지가 로드 시 지도 생성 */
@@ -81,11 +82,12 @@ const Map = React.memo(props => {
         title: el.title,
         image: markerImage,
       });
-      /* 2-1. 마커를 클릭했을때 각 장소의 정보를 출력 */
-      kakao.maps.event.addListener(marker, 'click', function () {
-        _onChnageFocusId(el.postId);
-        console.log(el);
-      });
+      if (type !== 'detail') {
+        /* 2-1. 마커를 클릭했을때 각 장소의 정보를 출력 */
+        kakao.maps.event.addListener(marker, 'click', function () {
+          _onChnageFocusId(el.postId);
+        });
+      }
       /* 스와이프 시 지도 좌표로 이동 */
       if (latLon) {
         const { lat, lon } = latLon;
@@ -96,6 +98,7 @@ const Map = React.memo(props => {
         }
         panTo(lat, lon);
       }
+
       return marker;
     });
     setIsMarker(markers);

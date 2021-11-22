@@ -11,11 +11,15 @@ import { ReactComponent as Right } from '../images/ic-next.svg';
 import { history } from '../redux/configureStore';
 // import { getPeopleText } from '../shared/transferText';
 import { getSearchConditionDB } from '../redux/async/place';
+import CommonModal from '../components/common/CommonModal';
+import { setCommonModalOn } from '../redux/modules/commonSlice';
 
 const SelectedType = () => {
   const dispatch = useDispatch();
   const weatherStatus = useSelector(state => state.place.weatherStatus);
+  const commomModal = useSelector(state => state.common.modalStatus);
   const { t } = useTranslation();
+
   const [categoryInfo, setCategoryInfo] = React.useState({
     MemberCnt: '',
     gender: '',
@@ -109,7 +113,11 @@ const SelectedType = () => {
       categoryInfo.MemberCnt === '' ||
       categoryInfo.category === ''
     ) {
-      window.alert(t('selectTypePage.alert'));
+      const modalParams = {
+        title: t('selectTypePage.alert'),
+      };
+      dispatch(setCommonModalOn(modalParams));
+      // window.alert(t('selectTypePage.alert'));
       return;
     }
 
@@ -124,6 +132,7 @@ const SelectedType = () => {
 
   return (
     <>
+      {commomModal && <CommonModal />}
       <Header
         _content={t('selectTypePage.headerSubTitle')}
         _back

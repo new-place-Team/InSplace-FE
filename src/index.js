@@ -5,13 +5,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
-// import { I18nextProvider } from 'react-i18next';
 import store from './redux/configureStore';
 import App from './App';
 import './lang/i18n';
 
 ReactDOM.render(
-  // <I18nextProvider i18n={i18n(window.navigator.language)}>
   <Provider store={store}>
     <App />
   </Provider>,

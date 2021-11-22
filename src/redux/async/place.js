@@ -138,7 +138,7 @@ export const getPlaceDetailDB = createAsyncThunk(
 // 현재 위치 받아오기
 export const getCurrentCoordinateWEB = createAsyncThunk(
   'place/currentCoordinate',
-  async () => {
+  async (_params, thunkAPI) => {
     try {
       /* 위도 경도 받기 */
       const res = await getPosition().then(position => position);
@@ -154,6 +154,11 @@ export const getCurrentCoordinateWEB = createAsyncThunk(
       }
     } catch (err) {
       console.log(err.response);
+      const modalParams = {
+        title: `${err.response}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
+      return thunkAPI.rejectWithValue(err);
     }
   },
 );
@@ -190,7 +195,6 @@ export const setVisitedPostDB = createAsyncThunk(
   async (params, thunkAPI) => {
     try {
       let response;
-      console.log('params', params);
       if (params.visitedStatus) {
         response = await deleteVisitedPost(params);
         thunkAPI.dispatch(deleteUserVisitedPost(params));

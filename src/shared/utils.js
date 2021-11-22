@@ -28,7 +28,6 @@ export const getLanguage = () => {
     const lang = localStorage.getItem('i18nextLng');
     const langArr = lang.split('-');
     let language = langArr[0];
-    console.log(langArr, language);
     if (language !== 'ko') {
       language = 'en';
     }
