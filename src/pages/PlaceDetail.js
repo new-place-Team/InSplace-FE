@@ -144,14 +144,13 @@ const Detail = props => {
         />
       )}
       <Container padding="0">
-        <Grid>
+        <Grid bg="#F5F5F5">
           <PlaceSwiper list={detailData.postImages} />
           <PlaceHeader>
             <IconBox>
               <LeftIcon onClick={goBack} />
             </IconBox>
           </PlaceHeader>
-
           <InfoGrid>
             <Text fontSize="13px" color="#A3A6AA">
               {getCategoryText(detailData.categoryId)}
@@ -160,7 +159,7 @@ const Detail = props => {
               {detailData.title}
             </Text>
             <Grid isFlex margin="8px 0 0 0">
-              <Text color="#3E4042">
+              <Text color="#3E4042" fontSize="14px">
                 {newAddr && newAddr[0]}
                 {newAddr && <GrayDotted />}
                 {newAddr && newAddr[1]}

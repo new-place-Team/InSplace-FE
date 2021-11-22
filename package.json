@@ -11,6 +11,7 @@
     "connected-react-router": "6.8.0",
     "cra-bundle-analyzer": "^0.1.0",
     "global": "^4.4.0",
+    "heic2any": "^0.0.3",
     "history": "4.10.1",
     "i18next": "^21.5.2",
     "i18next-browser-languagedetector": "^6.1.2",
