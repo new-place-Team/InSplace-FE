@@ -64,3 +64,32 @@ export const isLoginChk = isLogin => {
   }
   return true;
 };
+
+// 휴대폰 번호에 자동 하이픈 입력
+export const autoHypenPhone = str => {
+  const newStr = str.replace(/[^0-9]/g, '');
+  let tmp = '';
+  if (newStr.length < 4) {
+    return newStr;
+  }
+  if (newStr.length < 7) {
+    tmp += newStr.substr(0, 3);
+    tmp += '-';
+    tmp += newStr.substr(3);
+    return tmp;
+  }
+  if (newStr.length < 11) {
+    tmp += str.substr(0, 3);
+    tmp += '-';
+    tmp += newStr.substr(3, 3);
+    tmp += '-';
+    tmp += newStr.substr(6);
+    return tmp;
+  }
+  tmp += newStr.substr(0, 3);
+  tmp += '-';
+  tmp += newStr.substr(3, 4);
+  tmp += '-';
+  tmp += newStr.substr(7);
+  return tmp;
+};
