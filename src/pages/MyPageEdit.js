@@ -22,8 +22,7 @@ import { setCommonModalOn } from '../redux/modules/commonSlice';
 const MyPageEdit = props => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const modaloff = useSelector(state => state.user.modalStatus);
-  const [modalStatus, setModalStatus] = useState(false);
+  const modalStatus = useSelector(state => state.user.modalStatus);
   const mbtiInfo = useSelector(state => state.user.userMbti);
   const commomModal = useSelector(state => state.common.modalStatus);
   /* 만약 이 페이지에서 토큰없을시 로그인 페이지 이동 */
@@ -71,8 +70,7 @@ const MyPageEdit = props => {
   };
   /* 모달 열기 */
   const openModal = () => {
-    // dispatch(setModalOn());
-    setModalStatus(true);
+    dispatch(setModalOn());
   };
   /* 이메일, 닉네임 변경 */
   const onChange = e => {
@@ -149,7 +147,7 @@ const MyPageEdit = props => {
   return (
     <>
       {commomModal && <CommonModal />}
-      <Header _back _content={t('MyPageEdit.headerSubTitle')} _language />
+      <Header _back _content={t('MyPageEdit.headerSubTitle')} />
       <Container padding="20px 0 0 0">
         <Grid padding="42px 20px 0 20px">
           <ProfileWrap>

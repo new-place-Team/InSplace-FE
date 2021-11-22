@@ -18,7 +18,6 @@ import { ReactComponent as FilterIcon } from '../../images/nav/ic_nav_fliter.svg
 import { ReactComponent as HeartIcon } from '../../images/nav/ic_nav_heart.svg';
 import { ReactComponent as MypageIcon } from '../../images/nav/ic_nav_mypage.svg';
 
-import { profile1 } from '../../images/index';
 // import { isLoginChk } from '../../shared/utils';
 import ConfirmModal from './ConfirmModal';
 
@@ -120,6 +119,7 @@ const Navbar = () => {
             >
               <HeartIcon />
             </Icon>
+            {/* 로그인 안 상태일때 */}
             {isLogin === false ? (
               <Icon
                 color={pathName === '/mypage' ? '#000' : ''}
@@ -127,13 +127,6 @@ const Navbar = () => {
               >
                 <MypageIcon />
               </Icon>
-            ) : // 로그인 상태일때
-            userInfo.userImage === null ? (
-              <UserImage
-                width="24px"
-                src={profile1}
-                onClick={() => loginCheck('/mypage')}
-              />
             ) : (
               <UserImage
                 width="24px"
