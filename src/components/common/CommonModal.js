@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setCommonModalOff,
-  setCommonModalOn,
   setFeedbackModalOff,
   setMoreModalOff,
   setReportModalOff,
@@ -14,6 +13,7 @@ import { history } from '../../redux/configureStore';
 import { modalClose, checked, close } from '../../images';
 import { reviewReportText } from '../../shared/commonData';
 import { reviewReportDB } from '../../redux/async/place';
+import { userFeedbacksDB } from '../../redux/async/user';
 
 const CommonModal = ({ type, showConfirmModal }) => {
   const dispatch = useDispatch();
@@ -104,17 +104,23 @@ const CommonModal = ({ type, showConfirmModal }) => {
     return dispatch(reviewReportDB(params));
   };
 
-  const [feedbackText, setFeedbackText] = useState('');
+  const [feedbackInfo, setFeedbackInfo] = useState({
+    phoneNumber: '',
+    description: '',
+  });
+
+  const onChange = e => {
+    setFeedbackInfo({ ...feedbackInfo, [e.target.name]: e.target.value });
+  };
   const feedbackSubmit = () => {
-    // 에러메세지 만들기
-    if (feedbackText === '') {
-      console.log('빈값');
+    if (feedbackInfo.phoneNumber === '' || feedbackInfo.description === '') {
+      setErrorMessage(
+        '정보를 모두 입력해주세요. 추첨을 통해 기프티콘을 보내드립니다',
+      );
+      return;
     }
+    dispatch(userFeedbacksDB(feedbackInfo));
     dispatch(setFeedbackModalOff());
-    const params = {
-      title: `소중한 의견 감사합니다!`,
-    };
-    dispatch(setCommonModalOn(params));
   };
 
   // -> /feedbacks
@@ -128,11 +134,30 @@ const CommonModal = ({ type, showConfirmModal }) => {
             <CloseButton className="close" src={close} />
           </Grid>
           <Content>개선사항을 보내주세요</Content>
+          <FeedbackWrap>
+            <FeedbackLabel>휴대폰번호</FeedbackLabel>
+            <Span>
+              추첨을 통해 커피 기프티콘을 보내드려요. <br />
+              연락처를 적어주세요
+            </Span>
+            <FeedbackInput
+              name="phoneNumber"
+              placeholder="010-1234-1234"
+              onChange={onChange}
+            />
+          </FeedbackWrap>
           <FeedbackTextarea
             rows={10}
+            name="description"
             placeholder="자유롭게 의견을 보내주세요"
-            onChange={e => setFeedbackText(e.target.value)}
-          />
+            value={feedbackInfo.description}
+            onChange={onChange}
+          >
+            {feedbackInfo.description}
+          </FeedbackTextarea>
+          <Text fontSize="12px" color="#ff4949">
+            {errorMessage}
+          </Text>
           <ModalButton
             className="fullButton"
             margin="32px 0 0 0"
@@ -353,9 +378,44 @@ const CloseButton = styled.button`
   background-repeat: no-repeat;
 `;
 
+// 피드백
+const FeedbackWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+`;
+const FeedbackLabel = styled.label`
+  font-size: 16px;
+  color: #7a7d81;
+  letter-spacing: 0.0038em;
+  @media (max-width: 415px) {
+    font-size: 14px;
+  }
+`;
+const Span = styled.p`
+  margin: 3px 0 8px;
+  font-size: 13px;
+  color: #ed5e5e;
+`;
+const FeedbackInput = styled.input`
+  padding: 10px;
+  font-size: 14px;
+  color: #7a7d81;
+  letter-spacing: 0.0038em;
+  border: 1px solid #eee;
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: #c2c6cb;
+  }
+  @media (max-width: 415px) {
+    font-size: 14px;
+  }
+`;
 const FeedbackTextarea = styled.textarea`
   width: 100%;
-  margin-top: 15px;
+  margin-top: 5px;
   padding: 10px;
   box-sizing: border-box;
   resize: none;
@@ -363,6 +423,9 @@ const FeedbackTextarea = styled.textarea`
   letter-spacing: -0.0008em;
   &:focus {
     outline: none;
+  }
+  &::placeholder {
+    color: #c2c6cb;
   }
 `;
 export default CommonModal;

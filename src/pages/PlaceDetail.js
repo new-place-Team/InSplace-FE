@@ -36,16 +36,16 @@ const Detail = props => {
   const [confirmModal, setConfirmModal] = useState(false);
   const { t } = useTranslation();
 
-  const newAddr = detailData.addressShort
-    ? detailData.addressShort.split(' ')
-    : false;
+  const newAddr = detailData ? detailData.addressShort.split(' ') : false;
 
-  const placeMarker = [
-    {
-      postLocationY: detailData.postLocationY,
-      postLocationX: detailData.postLocationX,
-    },
-  ];
+  const placeMarker = detailData
+    ? [
+        {
+          postLocationY: detailData.postLocationY,
+          postLocationX: detailData.postLocationX,
+        },
+      ]
+    : null;
 
   useEffect(() => {
     dispatch(getPlaceDetailDB(id));
@@ -65,6 +65,9 @@ const Detail = props => {
   };
 
   const goBack = () => {
+    if (history.length <= 1) {
+      history.goBack('/main');
+    }
     history.goBack();
   };
 
@@ -145,7 +148,7 @@ const Detail = props => {
       )}
       <Container padding="0">
         <Grid>
-          <PlaceSwiper list={detailData.postImages} />
+          <PlaceSwiper list={detailData && detailData.postImages} />
           <PlaceHeader>
             <IconBox>
               <LeftIcon onClick={goBack} />
@@ -154,10 +157,10 @@ const Detail = props => {
 
           <InfoGrid>
             <Text fontSize="13px" color="#A3A6AA">
-              {getCategoryText(detailData.categoryId)}
+              {getCategoryText(detailData && detailData.categoryId)}
             </Text>
             <Text fontSize="22px" bold color="#282828" lineHeight="30px">
-              {detailData.title}
+              {detailData && detailData.title}
             </Text>
             <Grid isFlex margin="8px 0 0 0">
               <Text color="#3E4042">
@@ -168,7 +171,7 @@ const Detail = props => {
               <Grid isFlex margin="0 0 0 20px">
                 <Image src={heartFilled} width="15px" height="16px" />
                 <Text margin="0 0 0 3px" fontSize="12px" color="#3E4042">
-                  {detailData.favoriteCnt}
+                  {detailData && detailData.favoriteCnt}
                 </Text>
               </Grid>
             </Grid>
@@ -192,7 +195,7 @@ const Detail = props => {
               <Grid>
                 <Button size="12px" color="#A3A6AA" _onClick={setVisited}>
                   <Icons margin="0 0 4px 0" color="#282828">
-                    {detailData && detailData.visitedStatus ? (
+                    {detailData && detailData && detailData.visitedStatus ? (
                       <PinFilled />
                     ) : (
                       <Pin />
@@ -238,7 +241,7 @@ const Detail = props => {
                 {t('placeDetailPage.category.0')}
               </Text>
               <Text fontSize="14px" margin="16px 0 32px" lineHeight="16px">
-                {detailData.postDesc}
+                {detailData && detailData.postDesc}
               </Text>
               <Text fontSize="18px" color="#282828" bold>
                 {t('placeDetailPage.category.1')}
@@ -254,11 +257,11 @@ const Detail = props => {
               </Grid>
               <Text fontSize="14px" color="#3E4042">
                 <Span>{t('placeDetailPage.category.2')}</Span>
-                {detailData.address}
+                {detailData && detailData.address}
               </Text>
               <Text fontSize="14px" color="#3E4042">
                 <Span>{t('placeDetailPage.category.3')}</Span>
-                {detailData.contactNumber}
+                {detailData && detailData.contactNumber}
               </Text>
             </Grid>
           </InfoGrid>

@@ -25,7 +25,6 @@ const Main = () => {
 
   const [imgLoading, setImgLoading] = useState(false);
   const imgRef = useRef(null);
-
   useEffect(() => {
     if (mainLists) return;
     dispatch(getMainListDB());
@@ -40,7 +39,7 @@ const Main = () => {
       });
     };
     const observer = new IntersectionObserver(callback, {
-      threshold: 0.5,
+      threshold: 0.17,
     });
     if (imgRef.current) {
       observer.observe(imgRef.current);
@@ -51,15 +50,11 @@ const Main = () => {
   return (
     <>
       <Container padding="0">
-        <SkeletonGrid>
+        <SkeletonGrid ref={imgRef}>
           <Header _onBg _content="InSplace" _search _language _color="#fff" />
           {/* Weather Section */}
           <>
-            <MainWeather
-              weatherInfo={weatherInfo}
-              imgLoading={imgLoading}
-              ref={imgRef}
-            />
+            <MainWeather weatherInfo={weatherInfo} imgLoading={imgLoading} />
             <WeatherBox info={weatherInfo} />
             {/* 장소 추천받기 */}
             <SelectTypeBtn onClick={() => history.push('/select-type')}>

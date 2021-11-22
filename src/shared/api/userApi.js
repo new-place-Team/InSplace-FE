@@ -21,7 +21,8 @@ const getVisited = () => api.get('/visitedPosts');
 const editProfile = params => api.put(`/users/${params.id}/info`, params.data);
 /* 유저 닉네임 중복체크 */
 const nicknameCheck = nickname => api.post('/users/check/nickname', nickname);
-
+// 피드백
+const userFeedbacks = params => api.post(`/feedbacks`, params);
 export {
   addUser,
   logIn,
@@ -32,4 +33,5 @@ export {
   getVisited,
   editProfile,
   nicknameCheck,
+  userFeedbacks,
 };
