@@ -7,7 +7,7 @@ import { history } from '../redux/configureStore';
 import { getTokenYn } from '../shared/utils';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
-import { whiteRight, mypageNext, profile1 } from '../images/index';
+import { whiteRight, mypageNext } from '../images/index';
 import { Button, Container, Grid, Image } from '../elements';
 import sunBg from '../images/weather/sun_full_768.jpg';
 import ConfirmModal from '../components/common/ConfirmModal';
@@ -25,16 +25,6 @@ const MyPage = () => {
   const feedbackStatus = useSelector(state => state.common.feedbackStatus);
   const { t } = useTranslation();
 
-  /* 유저 이미지가 있으면 그 이미지 없으면 기본 이미지 */
-  const setNomalImage = profile => {
-    if (userInfo.userImage !== null) {
-      return userInfo.userImage;
-    }
-    return profile;
-  };
-  const realUserInfo = { ...userInfo, userImage: setNomalImage(profile1) };
-  /* 만약 이 페이지에서 토큰없을시 로그인 페이지 이동 */
-
   const pageMove = () => {
     history.push('/login');
   };
@@ -50,7 +40,7 @@ const MyPage = () => {
     } else {
       history.push({
         pathname: `/mypage/${userInfo.userId}`,
-        state: { userInfo: realUserInfo },
+        state: { userInfo },
       });
     }
   };
@@ -87,7 +77,7 @@ const MyPage = () => {
                 type="circle"
                 width="100%"
                 height="100%"
-                src={userInfo.userImage ? userInfo.userImage : profile1}
+                src={userInfo.userImage}
               />
             </MyPageFrofile>
             <UserInfoGrid>
@@ -98,7 +88,7 @@ const MyPage = () => {
                 </Button>
               </Grid>
               <Grid isFlex>
-                <Mbti>{userInfo.mbti}</Mbti>
+                {userInfo.mbti === '모름' ? null : <Mbti>{userInfo.mbti}</Mbti>}
                 <Email>{userInfo.email}</Email>
               </Grid>
             </UserInfoGrid>
@@ -160,15 +150,19 @@ const MyPageInfoGrid = styled.div`
   flex-wrap: wrap;
   align-items: center;
   width: 95.4%;
-  height: 25%;
-  margin: 100px 0 52px auto;
+  height: auto;
+  margin: 80px 0 52px auto;
+
+  @media (max-width: 415px) {
+    margin: 50px 0 30px auto;
+  }
 `;
 const UserInfoGrid = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
   padding: 0px 10px 0px 46px;
-  @media (max-width: 414px) {
+  @media (max-width: 415px) {
     padding: 0px 10px 0px 24px;
   }
 `;
@@ -183,7 +177,7 @@ const InfoGrid = styled.div`
   right: 0;
   bottom: 0;
   width: 95.4%;
-  height: calc(100% / 25%) * 100;
+  height: calc(100% / 30%) * 100;
   display: flex;
   flex-wrap: wrap;
   margin: 0 0 0 auto;
@@ -193,7 +187,6 @@ const InfoGrid = styled.div`
 const InfoNav = styled.div`
   width: 100%;
   height: 65px;
-  background-color: #000;
 `;
 const Info = styled.div`
   position: relative;
@@ -204,6 +197,9 @@ const Info = styled.div`
   border: 1px solid #e6e9ec;
   @media (max-width: 415px) {
     padding: 24px 24px 10px;
+  }
+  @media (max-width: 375px) {
+    padding: 54px 24px 10px;
   }
 `;
 

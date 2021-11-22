@@ -14,6 +14,7 @@ import { modalClose, checked, close } from '../../images';
 import { reviewReportText } from '../../shared/commonData';
 import { reviewReportDB } from '../../redux/async/place';
 import { userFeedbacksDB } from '../../redux/async/user';
+import { autoHypenPhone } from '../../shared/utils';
 
 const CommonModal = ({ type, showConfirmModal }) => {
   const dispatch = useDispatch();
@@ -112,6 +113,7 @@ const CommonModal = ({ type, showConfirmModal }) => {
   const onChange = e => {
     setFeedbackInfo({ ...feedbackInfo, [e.target.name]: e.target.value });
   };
+
   const feedbackSubmit = () => {
     if (feedbackInfo.phoneNumber === '' || feedbackInfo.description === '') {
       setErrorMessage(
@@ -119,12 +121,16 @@ const CommonModal = ({ type, showConfirmModal }) => {
       );
       return;
     }
-    console.log('feedbackInfo ??? ', feedbackInfo);
-    dispatch(userFeedbacksDB(feedbackInfo));
-    dispatch(setFeedbackModalOff());
+    const newNumber = autoHypenPhone(feedbackInfo.phoneNumber);
+    const params = {
+      phoneNumber: newNumber,
+      description: feedbackInfo.description,
+    };
+    if (params.phoneNumber !== '' && params.description !== '') {
+      dispatch(userFeedbacksDB(params));
+      dispatch(setFeedbackModalOff());
+    }
   };
-
-  // -> /feedbacks
 
   if (type === 'feedback') {
     return (

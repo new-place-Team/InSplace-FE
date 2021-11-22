@@ -13,7 +13,6 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  // </I18nextProvider>
   document.getElementById('root'),
 );
 

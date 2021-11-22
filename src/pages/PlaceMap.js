@@ -12,9 +12,11 @@ import {
   getSearchConditionListDB,
 } from '../redux/async/place';
 import { history } from '../redux/configureStore';
+import { useTranslation } from 'react-i18next';
 
 const MapContainer = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   /* 현재 URI Path 조회 */
   const { pathname } = history.location;
   /* Map에 보여줄 ListType */
@@ -58,7 +60,7 @@ const MapContainer = () => {
 
   return (
     <>
-      <Header _back _content="상세보기" _language />
+      <Header _back _content={t('placeMapPage.headerSubTitle')} />
       <Container padding="66px 0 0 0">
         <Grid padding="0 24px">
           <SelectedCategory />

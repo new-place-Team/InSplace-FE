@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Header from '../components/common/Header';
-import { Container, Grid, Input, Label, Text } from '../elements';
+import { Container, Grid, Input, Label, Text, Button } from '../elements';
 import { history } from '../redux/configureStore';
 import { logInDB } from '../redux/async/user';
 import { xcircle } from '../images/index';
@@ -103,6 +103,7 @@ const Login = () => {
           </Wrap>
         </Grid>
         <BottomWrap>
+          <TButton onClick={submitUserInfo}>{t('loginPage.login')}</TButton>
           {/* 카카오 로그인 버튼 */}
           <KakaoButton
             bg="#fce55a"
@@ -116,10 +117,14 @@ const Login = () => {
             </IconArea>
             {t('loginPage.kakaoLogin')}
           </KakaoButton>
-          <Button onClick={submitUserInfo}>{t('loginPage.login')}</Button>
-          <Button onClick={() => history.push('/signUp')}>
-            {t('loginPage.register')}
-          </Button>
+          <Grid isFlex margin="24px 0 0 0" justify="center">
+            <Text fontSize="13px" color="#A3A6AA" margin="0 12px 0 0">
+              아직 회원이 아니신가요?
+            </Text>
+            <Button color="#A3A6AA" _onClick={() => history.push('/signUp')}>
+              {t('loginPage.register')}
+            </Button>
+          </Grid>
         </BottomWrap>
       </Container>
     </>
@@ -133,7 +138,7 @@ const BottomWrap = styled.div`
   padding: 40px 20px;
   width: 100%;
 `;
-const Button = styled.button`
+const TButton = styled.button`
   width: 100%;
   padding: 15px;
   font-size: 16px;

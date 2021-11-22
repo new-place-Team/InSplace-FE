@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/common/Header';
 import { Container, Text, Grid } from '../elements';
-
 import { logOut } from '../redux/modules/userSlice';
 import { unRegisterDB } from '../redux/async/user';
 import ConfirmModal from '../components/common/ConfirmModal';

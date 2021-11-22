@@ -2,11 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-
 import { Text } from '../../elements';
 import { setModalOff } from '../../redux/modules/userSlice';
-// import { checked } from '../../images';
-// import { ReactComponent as CloseBtn } from '../../images/Icon/ic_close.svg';
+import { getMainListDB } from '../../redux/async/place';
 
 const LangModal = () => {
   const dispatch = useDispatch();
@@ -15,11 +13,13 @@ const LangModal = () => {
   const korean = e => {
     e.stopPropagation();
     i18n.changeLanguage('ko-KR');
+    dispatch(getMainListDB('init'));
     dispatch(setModalOff());
   };
   const american = e => {
     e.stopPropagation();
     i18n.changeLanguage('en-US');
+    dispatch(getMainListDB('init'));
     dispatch(setModalOff());
   };
 
@@ -37,44 +37,20 @@ const LangModal = () => {
       <Overlay className="close" onClick={onClose}>
         <ModalContainer>
           <ModalContent>
+            {/* 영어 */}
             <LangButton className="americanButton" onClick={american}>
               <LangIcon>
                 <Text color="#fff">A</Text>
               </LangIcon>
               <LangText>English</LangText>
             </LangButton>
-            {/* <Grid
-            width="100%"
-            isFlex
-            padding="10px 20px"
-            _onClick={() => {
-              window.alert('서비스 준비중입니다.');
-            }}
-            cursor
-          >
-            <Grid
-              margin="0 10px 0 0"
-              bg="black"
-              width="28px"
-              height="28px"
-              isFlex
-              justify="center"
-            >
-              <Text color="#fff">와</Text>
-            </Grid>
-            <Grid flex>일본어</Grid>
-          </Grid> */}
+            {/* 한국어 */}
             <LangButton className="langButton" onClick={korean}>
               <LangIcon>
                 <Text color="#fff">아</Text>
               </LangIcon>
               <LangText>한국어</LangText>
-              {/* <Image src={checked} /> */}
             </LangButton>
-            {/* 시안에 닫기 버튼이 없어서 주석함
-            <Icon>
-              <CloseBtn />
-            </Icon> */}
           </ModalContent>
         </ModalContainer>
       </Overlay>
@@ -140,18 +116,7 @@ const LangIcon = styled.div`
 const LangText = styled.p`
   font-size: 17px;
   font-weight: 700;
+  color: #282828;
 `;
-
-// const Icon = styled.div`
-//   position: absolute;
-//   top: 3px;
-//   right: 3px;
-//   width: 24px;
-//   height: 24px;
-//   svg {
-//     fill: #000;
-//   }
-//   cursor: pointer;
-// `;
 
 export default LangModal;

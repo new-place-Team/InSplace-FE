@@ -28,7 +28,7 @@ const initialState = {
   categoryParams: null,
   categoryList: null,
   conditionPlaces: null,
-  detailInfo: {},
+  detailInfo: null,
   currentCoordinate: {},
   placeList: null,
   placePagination: { page: 1, isNext: true },
@@ -189,6 +189,9 @@ const placeSlice = createSlice({
         );
       }
     },
+    initState: state => {
+      state.mainLists = null;
+    },
   },
 
   extraReducers: {
@@ -323,6 +326,7 @@ export const {
   resetReviewList,
   resetReviewLikeList,
   resetReviewPagination,
+  initState,
 } = placeSlice.actions;
 
 export const { getLoaded } = loadedSlice.actions;
