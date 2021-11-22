@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { Text, Image } from '../../elements';
+import { Text } from '../../elements';
 import { setModalOff } from '../../redux/modules/userSlice';
-import { checked } from '../../images';
+// import { checked } from '../../images';
 // import { ReactComponent as CloseBtn } from '../../images/Icon/ic_close.svg';
 
 const LangModal = () => {
