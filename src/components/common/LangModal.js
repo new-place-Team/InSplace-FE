@@ -140,6 +140,7 @@ const LangIcon = styled.div`
 const LangText = styled.p`
   font-size: 17px;
   font-weight: 700;
+  color: #282828;
 `;
 
 // const Icon = styled.div`
