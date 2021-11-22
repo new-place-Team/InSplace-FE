@@ -7,7 +7,7 @@ import { getTokenYn } from '../shared/utils';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { whiteRight, mypageNext, profile1 } from '../images/index';
-import { Button, Container, Grid, Image } from '../elements';
+import { Button, Container, Grid, Image, Icons } from '../elements';
 import sunBg from '../images/weather/sun_full_768.jpg';
 import ConfirmModal from '../components/common/ConfirmModal';
 import CommonModal from '../components/common/CommonModal';
@@ -116,7 +116,7 @@ const MyPage = () => {
             <Info onClick={feedbackModal}>
               <Title>{t('MyPage.Opinion')}</Title>
               <BottomBox>
-                {/* <Icons src={mypageNext} width="66px" height="62px" /> */}
+                <Icons src={mypageNext} width="66px" height="62px" />
                 <Image src={mypageNext} />
               </BottomBox>
             </Info>
