@@ -1,154 +1,240 @@
 /* eslint-disable no-alert */
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable jsx-a11y/alt-text */
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/common/Header';
+import Navbar from '../components/common/Navbar';
 import SelectedContents from '../components/place/SelectedContents';
-import { Grid, Text } from '../elements/index';
-import { arrowRight } from '../images/index';
+import { Container, Grid, Text } from '../elements/index';
+import { ReactComponent as Right } from '../images/ic-next.svg';
 import { history } from '../redux/configureStore';
+// import { getPeopleText } from '../shared/transferText';
 import { getSearchConditionDB } from '../redux/async/place';
+import CommonModal from '../components/common/CommonModal';
+import { setCommonModalOn } from '../redux/modules/commonSlice';
 
 const SelectedType = () => {
   const dispatch = useDispatch();
+  const weatherStatus = useSelector(state => state.place.weatherStatus);
+  const commomModal = useSelector(state => state.common.modalStatus);
+  const { t } = useTranslation();
 
-  const [state, setState] = React.useState({
+  const [categoryInfo, setCategoryInfo] = React.useState({
     MemberCnt: '',
     gender: '',
     category: '',
   });
 
-  const data = [
+  const showCategory =
+    categoryInfo.MemberCnt === '' &&
+    categoryInfo.gender === '' &&
+    categoryInfo.category === '';
+
+  const getPeopleText = type => {
+    let text = '';
+    switch (type) {
+      case 1:
+        text = t('selectTypePage.returnText.0');
+        break;
+      case 2:
+        text = t('selectTypePage.returnText.1');
+        break;
+      case 3:
+        text = t('selectTypePage.returnText.2');
+        break;
+      default:
+        text = t('selectTypePage.returnText.3');
+    }
+    return text;
+  };
+  const [selectData, setSelectData] = React.useState([
     {
-      title: '나와 함께할 사람들은',
+      title: t('selectTypePage.selectGender.selectTitle'),
       list: [
-        { selected: '한명', value: 1 },
-        { selected: '두명', value: 2 },
-        { selected: '네명 미만', value: 3 },
-        { selected: '네명 이상', value: 4 },
-      ],
-      type: 'MemberCnt',
-      grid: 2,
-    },
-    {
-      title: '원하시는 유형을 선택해 주세요',
-      list: [
-        { selected: '여자끼리', value: 2 },
-        { selected: '남자끼리', value: 1 },
-        { selected: '혼성', value: 3 },
+        {
+          selecteText: t('selectTypePage.selectGender.genderType.0'),
+          value: 2,
+        },
+        {
+          selecteText: t('selectTypePage.selectGender.genderType.1'),
+          value: 1,
+        },
+        {
+          selecteText: t('selectTypePage.selectGender.genderType.2'),
+          value: 3,
+        },
       ],
       type: 'gender',
       grid: 0,
+      bg: '#f4f4f4',
     },
     {
-      title: '장소를 선택해주세요',
+      title: t('selectTypePage.selectNumber.selectTitle'),
       list: [
-        { selected: '여행', value: 1 },
-        { selected: '맛집', value: 2 },
-        { selected: '카페', value: 3 },
-        { selected: '예술', value: 4 },
-        { selected: '액티비티', value: 5 },
+        {
+          selecteText: t('selectTypePage.selectNumber.peopleCount.0'),
+          value: 1,
+        },
+        {
+          selecteText: t('selectTypePage.selectNumber.peopleCount.1'),
+          value: 2,
+        },
+        {
+          selecteText: t('selectTypePage.selectNumber.peopleCount.2'),
+          value: 3,
+        },
+        {
+          selecteText: t('selectTypePage.selectNumber.peopleCount.3'),
+          value: 4,
+        },
+      ],
+      type: 'MemberCnt',
+      grid: 2,
+      bg: '#e8ecf2',
+    },
+    {
+      title: t('selectTypePage.selectPlace.selectTitle'),
+      list: [
+        { selecteText: t('selectTypePage.selectPlace.placeType.0'), value: 1 },
+        { selecteText: t('selectTypePage.selectPlace.placeType.1'), value: 2 },
+        { selecteText: t('selectTypePage.selectPlace.placeType.2'), value: 3 },
+        { selecteText: t('selectTypePage.selectPlace.placeType.3'), value: 4 },
+        { selecteText: t('selectTypePage.selectPlace.placeType.4'), value: 5 },
       ],
       type: 'category',
       grid: 3,
+      bg: '#bbc0cf',
     },
-  ];
-
-  const onClick = () => {
+  ]);
+  const goSearch = () => {
     if (
-      state.gender === '' ||
-      state.MemberCnt === '' ||
-      state.category === ''
+      categoryInfo.gender === '' ||
+      categoryInfo.MemberCnt === '' ||
+      categoryInfo.category === ''
     ) {
-      window.alert('모두 입력해주세요');
+      const modalParams = {
+        title: t('selectTypePage.alert'),
+      };
+      dispatch(setCommonModalOn(modalParams));
+      // window.alert(t('selectTypePage.alert'));
       return;
     }
-    const params = {
-      weather: 1,
-      category: state.category.value,
-      num: state.MemberCnt.value,
-      gender: state.gender.value,
-    };
+
+    const params = `?weather=${weatherStatus.status}&category=${categoryInfo.category.value}&num=${categoryInfo.MemberCnt.value}&gender=${categoryInfo.gender.value}`;
     dispatch(getSearchConditionDB(params));
-    history.push('/searchtypelist');
+    history.push(`/select-type/result${params}`);
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [selectData]);
+
   return (
-    <SelectedWrap>
-      <Wrap>
-        <div style={{ padding: '10px' }}>
-          <Header _content="유형선택" _back _type="search" />
-        </div>
-        <ChangeText>
-          {state.MemberCnt !== '' && (
-            <Grid>
-              <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                {state.MemberCnt.selected},
-              </Text>
-            </Grid>
-          )}
-          {state.gender !== '' && (
-            <Grid isFlex margin="0 10px">
-              <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                {state.gender.selected}
-              </Text>
-            </Grid>
-          )}
-          {state.category !== '' && (
-            <>
+    <>
+      {commomModal && <CommonModal />}
+      <Header
+        _content={t('selectTypePage.headerSubTitle')}
+        _back
+        _type="search"
+      />
+      <Container padding="66px 0 0 0">
+        <ChangeContainer>
+          <ChangeText className={!showCategory && 'hide'}>
+            {categoryInfo.gender !== '' && (
               <Grid isFlex>
                 <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                  {state.category.selected}
-                </Text>
-                <Text bold fontSize="20px" color="#C0C0C0">
-                  &nbsp;장소 을(를)
+                  {categoryInfo.gender.selecteText}
                 </Text>
               </Grid>
-              <LineBreak>
-                <Text bold fontSize="20px">
-                  가고 싶어요
+            )}
+            {categoryInfo.MemberCnt !== '' && (
+              <Grid isFlex margin="0 10px">
+                <Text bold fontSize="20px" border="2px solid #C0C0C0">
+                  {getPeopleText(categoryInfo.MemberCnt.value)}
                 </Text>
-              </LineBreak>
-            </>
-          )}
-        </ChangeText>
-        {data.map(item => {
-          return (
-            <SelectedContents
-              key={`key-${item.title}`}
-              {...item}
-              setState={setState}
-              state={state}
-            />
-          );
-        })}
-        <NextButton onClick={onClick}>
-          <Img src={arrowRight} />
-        </NextButton>
-      </Wrap>
-    </SelectedWrap>
+                <Text bold fontSize="20px" color="#C0C0C0">
+                  &nbsp;{t('selectTypePage.resultSentence.0')}
+                </Text>
+              </Grid>
+            )}
+            {categoryInfo.category !== '' && (
+              <>
+                <Grid isFlex>
+                  <Text bold fontSize="20px" border="2px solid #C0C0C0">
+                    {categoryInfo.category.selecteText}
+                  </Text>
+                  <Text bold fontSize="20px" color="#C0C0C0">
+                    &nbsp;{t('selectTypePage.resultSentence.1')}
+                  </Text>
+                </Grid>
+                <LineBreak>
+                  <Text bold fontSize="20px">
+                    {t('selectTypePage.resultSentence.2')}
+                  </Text>
+                </LineBreak>
+              </>
+            )}
+          </ChangeText>
+        </ChangeContainer>
+        <SelectContainer className={showCategory && 'hide'}>
+          {selectData.map(item => {
+            return (
+              <SelectedContents
+                key={`key-${item.title}`}
+                {...item}
+                state={categoryInfo}
+                setState={setCategoryInfo}
+                selectData={selectData}
+                setSelectData={setSelectData}
+              />
+            );
+          })}
+        </SelectContainer>
+        <Grid _onClick={goSearch}>
+          <NextButton>
+            <Right />
+          </NextButton>
+        </Grid>
+        <Grid height="64px" padding="64px" />
+      </Container>
+      <Navbar />
+    </>
   );
 };
 
-const SelectedWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const ChangeContainer = styled.div`
+  position: fixed;
+  background-color: #fff;
+  width: 100%;
+  z-index: 3;
 `;
-const Wrap = styled.div`
-  position: relative;
-  width: 375px;
-  height: 100vh;
-  overflow: hidden;
-`;
+
 const ChangeText = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  /* height: 105px; */
-  padding: 17px 16px;
+  width: 768px;
+  &.hide {
+    padding: 40px 34px;
+  }
+
+  @media (max-width: 500px) {
+    width: 100%;
+    &.hide {
+      padding: 30px 24px;
+    }
+  }
+`;
+const SelectContainer = styled.div`
+  width: 100%;
+  padding-top: 150px;
+  @media (max-width: 500px) {
+    padding-top: 130px;
+  }
+  &.hide {
+    padding-top: 0;
+  }
 `;
 const LineBreak = styled.div`
   width: 100%;
@@ -156,11 +242,18 @@ const LineBreak = styled.div`
 `;
 
 const NextButton = styled.button`
+  width: 80px;
+  height: 80px;
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: -37px;
   background-color: #000;
   border: 1px solid black;
+  svg {
+    width: 36px;
+    height: 36px;
+    fill: #fff;
+  }
 `;
-const Img = styled.img``;
+
 export default SelectedType;

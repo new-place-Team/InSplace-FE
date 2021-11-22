@@ -1,41 +1,123 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { Grid, Text } from '../../elements';
 
 const SelectedContents = props => {
-  const { title, state, type, list, setState } = props;
-  // const buttonRef = React.useRef();
-
+  const {
+    selectType,
+    title,
+    state,
+    type,
+    list,
+    setState,
+    selectData,
+    setSelectData,
+    bg,
+  } = props;
+  const { t } = useTranslation();
+  /* 버튼 선택 */
   const selectedBtn = (text, type, value) => {
-    if (type === 'MemberCnt') {
-      setState({ ...state, MemberCnt: { selected: text, value } });
-    } else if (type === 'gender') {
-      setState({ ...state, gender: { selected: text, value } });
+    if (type === 'gender') {
+      setState({ ...state, gender: { selecteText: text, value } });
+      const dataList = [...selectData];
+      const MemberCntIdx = dataList.findIndex(v => v.type === 'MemberCnt');
+      if (value === 3) {
+        dataList[MemberCntIdx].list = [
+          { selecteText: t('SelectedContents.memberCount1.0'), value: 2 },
+          { selecteText: t('SelectedContents.memberCount1.1'), value: 3 },
+          { selecteText: t('SelectedContents.memberCount1.2'), value: 4 },
+        ];
+        setSelectData(dataList);
+      } else {
+        dataList[MemberCntIdx].list = [
+          { selecteText: t('SelectedContents.memberCount2.0'), value: 1 },
+          { selecteText: t('SelectedContents.memberCount2.1'), value: 2 },
+          { selecteText: t('SelectedContents.memberCount2.2'), value: 3 },
+          { selecteText: t('SelectedContents.memberCount2.3'), value: 4 },
+        ];
+        setSelectData(dataList);
+      }
+    } else if (type === 'MemberCnt') {
+      setState({ ...state, MemberCnt: { selecteText: text, value } });
     } else {
-      setState({ ...state, category: { selected: text, value } });
+      setState({ ...state, category: { selecteText: text, value } });
     }
   };
 
+  // 리뷰 등록 페이지의 첫번째 버튼은 활성화가 되어야함.
+  const [active, setActive] = useState({
+    revisitYN: true,
+    weekdayYN: true,
+    weather: true,
+  });
+  const selectedReviewBtn = (text, type, value) => {
+    if (type === 'revisitYN') {
+      setActive({ ...active, revisitYN: false });
+      setState({ ...state, revisitYN: value });
+    } else if (type === 'weekdayYN') {
+      setActive({ ...active, weekdayYN: false });
+      setState({ ...state, weekdayYN: value });
+    } else if (type === 'weather') {
+      setActive({ ...active, weather: false });
+      setState({ ...state, weather: value });
+    }
+    // console.log('selectedReviewBtn state === ', state);
+  };
+
+  if (selectType === 'review') {
+    return (
+      <ReviewContent>
+        <Text type="Title16">{title}</Text>
+        <SelectedGrid>
+          {list.map(item => {
+            return (
+              <React.Fragment key={`selected-${item.selecteText}`}>
+                <ReviewButton
+                  type="type"
+                  width="auto"
+                  value={item.selecteText}
+                  keys={item.value}
+                  isSelected={state[type].value === item.value}
+                  className={item.value === state[type] && 'activeButton'}
+                  onClick={() =>
+                    selectedReviewBtn(item.selecteText, type, item.value)
+                  }
+                >
+                  {item.selecteText}
+                </ReviewButton>
+              </React.Fragment>
+            );
+          })}
+        </SelectedGrid>
+      </ReviewContent>
+    );
+  }
+
   return (
-    <SelectedContent>
+    <SelectedContent bgColor={bg}>
       <Text fontSize="20px" bold>
         {title}
       </Text>
       <SelectedGrid>
         {list.map((item, idx) => {
           return (
-            <React.Fragment key={`selected-${item.selected}`}>
+            <React.Fragment key={`selected-${item.selecteText}`}>
               <Grid margin="10px 10px 0 0">
                 <SelectedButton
                   type="type"
                   width="auto"
-                  value={item.selected}
+                  value={item.selecteText}
                   keys={item.value}
-                  onClick={() => selectedBtn(item.selected, type, item.value)}
+                  isSelected={state[type].value === item.value}
+                  isLast={list.length === idx}
+                  onClick={() =>
+                    selectedBtn(item.selecteText, type, item.value)
+                  }
                 >
-                  {item.selected}
+                  {item.selecteText}
                 </SelectedButton>
               </Grid>
             </React.Fragment>
@@ -54,18 +136,9 @@ SelectedContents.defaultProps = {
 const SelectedContent = styled.div`
   width: 100%;
   padding: 45px 24px;
-  background-color: #e4e4e4;
-  &:nth-child(2n) {
-    background-color: #f0f0f0;
-  }
+  background-color: ${({ bgColor }) => bgColor};
 `;
 const SelectedGrid = styled.div`
-  /* display: grid;
-  grid-template-columns: ${props =>
-    props.gridNum ? `repeat(${props.gridNum}, '300px'})` : `repeat(3, 1fr)`};
-  button {
-    border: 1px solid #fff;
-  } */
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -74,18 +147,32 @@ const SelectedGrid = styled.div`
 `;
 
 const SelectedButton = styled.button`
-  width: ${props => (props.width ? props.width : 'auto')};
+  width: ${({ width }) => width || 'auto'};
   margin: ${props => props.margin};
   padding: 12px 20px;
   font-size: 16px;
   font-weight: 700;
-  color: ${props => (props.color ? props.color : '#646464')};
-  background-color: ${props => (props.bg ? props.bg : `#fff`)};
-  border: 1px solid #646464;
-  &:focus {
+  color: ${({ isSelected }) => (isSelected ? '#fff' : `#979797`)};
+  background-color: ${({ isSelected }) => (isSelected ? '#232529' : `#fff`)};
+  border: ${({ isSelected }) =>
+    isSelected ? '1px solid #232529' : `1px solid #646464`};
+`;
+const ReviewContent = styled.div`
+  width: 100%;
+  padding-top: 40px;
+`;
+const ReviewButton = styled.button`
+  margin: 0 12px 12px 0;
+  padding: 12px 20px;
+  border: 1px solid #7a7d81;
+  color: ${({ isSelected }) => (isSelected ? '#fff' : `#282828`)};
+  background-color: ${({ isSelected }) => (isSelected ? '#232529' : `#fff`)};
+  &.activeButton {
     color: #fff;
-    background-color: #838383;
-    border: 1px solid #838383;
+    background-color: #232529;
+  }
+  &:last-child {
+    margin-right: 0;
   }
 `;
 export default SelectedContents;

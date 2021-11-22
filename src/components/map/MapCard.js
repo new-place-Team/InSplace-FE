@@ -1,57 +1,90 @@
-/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Grid, Image, Text } from '../../elements';
+import { getCategoryText } from '../../shared/transferText';
+import { setFavoritesPostDB } from '../../redux/async/place';
+import { isLoginChk } from '../../shared/utils';
+import { ReactComponent as NoSelectedHeader } from '../../images/Icon/ic_heart.svg';
+import { ReactComponent as SelectedHeader } from '../../images/Icon/ic_heart-filled.svg';
 
 const MapCard = props => {
   const { el } = props;
+  const dispatch = useDispatch();
+  const content = useRef(null);
+  const isLogin = useSelector(state => state.user.isLogin);
+
+  const setFavorites = e => {
+    e.stopPropagation();
+    if (!isLoginChk(isLogin)) {
+      return;
+    }
+    const params = {
+      postId: el.postId,
+      category: el.category,
+      postImage: el.postImage,
+      title: el.title,
+      favoriteState: el.favoriteState,
+    };
+    dispatch(setFavoritesPostDB(params));
+  };
   return (
-    <MapCardCotainer>
-      <Grid padding="10px " bg="#fff" justify="space-between">
-        {/* 이미지 */}
-        <Grid width="96px" height="96px" margin="0 20px 0 0">
-          <Image width="100%" height="100%" src={el.src} />
+    <MapCardCotainer ref={content}>
+      <Mapchild>
+        <Grid width="101px" height="121px" margin="0 20px 0 0">
+          <Image width="100%" height="121px" src={el.postImage} />
         </Grid>
-        {/* information */}
-        <Grid width="180px">
+        <Grid flex>
           <Grid>
-            <Text fontSize="12px" margin="0 0 2px 0">
-              카페
+            <Text fontSize="13px" margin="0 0 2px 0">
+              {el && getCategoryText(el.category)}
             </Text>
-            <Text fontSize="13px" bold margin="0 0 40px 0">
+            <MapTitle
+              className="mapTitle"
+              fontSize="16px"
+              bold
+              margin="0 0 40px 0"
+            >
               {el.title}
-            </Text>
+            </MapTitle>
           </Grid>
-          <Text fontSize="12px">서울 특별시 강남구 역삼동 </Text>
+          <MapInfoText fontSize="13px">{el.addressShort}</MapInfoText>
         </Grid>
-      </Grid>
-      <AbsoluteBox top="15px" right="4px">
-        <Grid isFlex>
-          <Text fontSize="12px" color="red" margin="0 2px 0 0">
-            ♥︎
-          </Text>
-          <Text fontSize="12px">1</Text>
-        </Grid>
-      </AbsoluteBox>
+      </Mapchild>
+      <IconArea onClick={setFavorites}>
+        {el && el.favoriteState ? <SelectedHeader /> : <NoSelectedHeader />}
+      </IconArea>
     </MapCardCotainer>
   );
 };
 
-const AbsoluteBox = styled.div`
-  position: absolute;
-  top: ${props => props.top};
-  bottom: ${props => props.bottom};
-  left: ${props => props.left};
-  right: ${props => props.right};
-  transform: translate(-50%, -50%);
-`;
-
 const MapCardCotainer = styled.div`
-  width: 90%;
-  background-color: transparent;
-  margin: 0 auto;
-  position: relative;
+  max-height: 172px;
 `;
-
+const Mapchild = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: 172px;
+  padding: 20px;
+  background-color: #fff;
+  /* overflow: hidden; */
+`;
+const MapInfoText = styled.p`
+  padding-top: 10px;
+`;
+const IconArea = styled.div`
+  position: absolute;
+  right: 0;
+  top: 12px;
+  width: 28px;
+  height: 28px;
+  margin: 0 8px 8px 0;
+  cursor: pointer;
+`;
+const MapTitle = styled.h3`
+  margin: 0 0 40px 0;
+  font-size: 16px;
+  font-weight: 700;
+`;
 export default MapCard;

@@ -1,61 +1,101 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Container, Grid } from '../elements';
-import SearchBar from '../components/SearchBar';
-import SelectedCategory from '../components/place/SelectedCategory';
-import { Slick } from '../components/common/Slick';
-import ListCard from '../components/place/ListCard';
+/* eslint-disable react/destructuring-assignment */
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
+import { Button, Container, Grid, Image } from '../elements';
+import Swiper from '../components/common/SwiperLB';
 import ContentsTitle from '../components/common/ContentsTitle';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
+import { getSearchConditionDB } from '../redux/async/place';
+import SelectedCategory from '../components/place/SelectedCategory';
+import right from '../images/ic-right.svg';
+import { history } from '../redux/configureStore';
+import { setPlaceListInit } from '../redux/modules/placeSlice';
+import Spinner from '../components/common/Spinner';
 
 const SearchTypeList = () => {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(state => state.loaded.is_loaded);
   const conditionPlaces = useSelector(state => state.place.conditionPlaces);
+  const categoryParams = useSelector(state => state.place.categoryParams);
   const inSideList = conditionPlaces && conditionPlaces.insidePlaces;
   const outSideList = conditionPlaces && conditionPlaces.outSidePlaces;
-  const srcList = [
-    { src: 'https://t1.daumcdn.net/cfile/tistory/213C9A345225669622' },
-    { src: 'https://img.siksinhot.com/article/1613970568705496.jpg' },
-    {
-      src: 'https://mblogthumb-phinf.pstatic.net/MjAxOTA4MjZfMjk5/MDAxNTY2Nzg2MzQzMTE2.Gf-bdbf4G8JpcXijSij4ydO7dKhCpeTUCISRwXDMI90g.Yeoe2X4MKjwyFStB4Vqm2FkTmlLEnx77Sihzs97-reog.JPEG.flourish12/output_2154676882.jpg?type=w800',
-    },
-    { src: 'https://cdn.st-news.co.kr/news/photo/202105/2097_3508_4043.jpg' },
-    {
-      src: 'https://www.artinsight.co.kr/data/tmp/2102/20210224004559_fnyxevid.jpg',
-    },
-    {
-      src: 'https://img1.daumcdn.net/thumb/R720x0/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fliveboard%2Fdailylife%2Fd069f8ac17de4c7c91c0dc056d452779.jpg',
-    },
-    {
-      src: 'https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/2UUt/image/Prcj7-b1i0zgV78lpTYYBdP4GRw.jpg',
-    },
-    {
-      src: 'https://img.wkorea.com/w/2021/02/style_602cfee44c823-970x1200.jpg',
-    },
-  ];
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    if (!conditionPlaces) {
+      const params = history.location.search;
+      dispatch(getSearchConditionDB(params));
+    }
+  }, []);
+
+  const onSearchConditionMore = value => {
+    const params = `condition${categoryParams}&inside=${value}`;
+    dispatch(setPlaceListInit());
+    history.push(`/place/list/${params}`);
+  };
+
   return (
     <>
-      <Container>
-        <Header _type="search" _back _content="검색 결과" _map _search />
-        {/* <SelectedCategory tag={selected[0]} /> */}
-        <ContentsTitle title="실내" />
-        <Grid>
-          <Slick>
-            {inSideList &&
-              inSideList.map(info => {
-                return <ListCard info={info} />;
-              })}
-          </Slick>
+      {isLoading && <Spinner />}
+      <Header
+        _type="search"
+        _back
+        _content={t('selectTypeResultPage.headerSubTitle')}
+        _map
+        _search
+        _color="#000"
+      />
+      <Container height="auto">
+        <SelectedCategory />
+        {/* 실내 리스트 */}
+        <Grid isFlex>
+          <ContentsTitle
+            title={
+              inSideList && inSideList.length === 0
+                ? t('selectTypeResultPage.inSideResult.0')
+                : t('selectTypeResultPage.inSideResult.1')
+            }
+          />
+          {inSideList && inSideList.length !== 0 && (
+            <Button _onClick={() => onSearchConditionMore(1)}>
+              <Image
+                margin="0 0 0 5px"
+                width="24px"
+                height="24px"
+                src={right}
+              />
+            </Button>
+          )}
         </Grid>
-        <Grid padding="0 0 74px 0">
-          <ContentsTitle title="실외에서 시원한 바람과 함께" />
-          <Slick>
-            {outSideList &&
-              outSideList.map(info => {
-                return <ListCard info={info} />;
-              })}
-          </Slick>
+      </Container>
+      <Container padding="0 0 0 24px">
+        <Grid>
+          <Swiper list={inSideList} type="selectResult" />
+        </Grid>
+        {/* 실외 리스트  */}
+        <Grid margin="28px 0 0 0" padding="0 0 100px 0">
+          <Grid isFlex>
+            <ContentsTitle
+              title={
+                outSideList && outSideList.length === 0
+                  ? t('selectTypeResultPage.outSideResult.0')
+                  : t('selectTypeResultPage.outSideResult.1')
+              }
+            />
+            {outSideList && outSideList.length !== 0 && (
+              <Button _onClick={() => onSearchConditionMore(0)}>
+                <Image
+                  margin="0 0 0 5px"
+                  width="24px"
+                  height="24px"
+                  src={right}
+                />
+              </Button>
+            )}
+          </Grid>
+          <Swiper list={outSideList} type="selectResult" />
         </Grid>
       </Container>
       <Navbar />

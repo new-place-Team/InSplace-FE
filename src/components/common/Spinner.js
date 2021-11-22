@@ -1,32 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import { share } from '../../images/index';
+import { spinner } from '../../images/index';
 
-const Spinner = props => {
+const Spinner = () => {
   return (
     <Outter>
-      <Icon src={share} />
+      <Icon src={spinner} />
     </Outter>
   );
 };
 
 const Outter = styled.div`
-  background-color: rgba(0, 0, 0, 0.8);
-  width: 100vw;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999999;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.7);
 `;
 
 const Icon = styled.img`
   width: 100px;
-  ${props => props.margin && `margin:${props.margin}`};
-  vertical-align: text-bottom;
 `;
 
 export default Spinner;

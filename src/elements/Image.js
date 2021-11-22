@@ -1,22 +1,34 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
+import { insplace } from '../images/index';
 
-const Image = props => {
-  const { type, width, height, margin, src } = props;
+const Image = forwardRef(props => {
+  const {
+    type,
+    width,
+    height,
+    margin,
+    padding,
+    color,
+    src,
+    ref,
+    children,
+    _onClick,
+  } = props;
 
   const styles = {
     width,
     height,
     margin,
+    padding,
     src,
+    color,
   };
 
   if (type === 'circle') {
     return (
       <>
-        <ProfileImage {...styles} />
+        <ProfileImage {...styles} onClick={_onClick} />
       </>
     );
   }
@@ -24,33 +36,43 @@ const Image = props => {
   if (type === 'bg') {
     return (
       <>
-        <BgImage {...styles} />
+        <BgImage {...styles} onClick={_onClick}>
+          {children}
+        </BgImage>
       </>
     );
   }
 
   return (
-    <>
-      <DefaultImage {...styles} />
-    </>
+    <DefaultGrid {...styles}>
+      <DefaultImage {...styles} ref={ref} />
+    </DefaultGrid>
   );
-};
+});
 
 Image.defaultProps = {
   width: 'auto',
   height: 'auto',
   type: false,
   margin: false,
-  src: 'http://www.bizhankook.com/upload/bk/article/201806/thumb/15753-31552-sampleM.jpg',
+  padding: false,
+  src: insplace,
+  _onChange: () => {},
 };
 
 // 기본 사각 이미지들
+const DefaultGrid = styled.div`
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
+  margin: ${({ margin }) => margin || '0'};
+`;
 const DefaultImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
   ${props => props.margin && `margin:${props.margin}`};
   src: ${props => props.src};
+  ${props => (props.color ? `color:${props.color}` : '')};
 `;
 
 // background Image
@@ -61,19 +83,35 @@ const BgImage = styled.div`
   background-size: cover;
   background-position: center;
   ${props => (props.margin ? `margin:${props.margin}` : '')};
+  ${props => (props.padding ? `padding:${props.padding}` : '')};
   display: block;
+  position: relative;
+  @media (min-width: 768px) {
+    background-size: cover;
+    background-position: top;
+  }
 `;
 
 // 프로필 이미지 (원형)
 const ProfileImage = styled.div`
+  position: relative;
   width: ${props => props.width};
-  height: ${props => props.width};
+  height: ${props => props.height};
   border-radius: 50%;
   background-image: url('${props => props.src}');
   background-size: cover;
   background-position: center;
+  cursor: pointer;
   ${props => (props.margin ? `margin:${props.margin}` : '')};
-  display: block;
+  display: inline-block;
+  @media (max-width: 1024px) {
+    width: 169px;
+    height: 169px;
+  }
+  @media (max-width: 768px) {
+    width: 110px;
+    height: 110px;
+  }
 `;
 
 export default Image;

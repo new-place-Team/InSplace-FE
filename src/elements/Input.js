@@ -11,11 +11,14 @@ const Input = props => {
     type,
     name,
     value,
+    color,
     _onChange,
+    _onSubmit,
     placeholder,
   } = props;
   const styles = {
     margin,
+    color,
   };
 
   if (inputType === 'form') {
@@ -26,6 +29,7 @@ const Input = props => {
         value={value}
         onChange={_onChange}
         placeholder={placeholder}
+        onKeyPress={e => e.key === 'Enter' && _onSubmit(e)}
         {...styles}
       />
     );
@@ -40,6 +44,7 @@ const Input = props => {
         value={value}
         onChange={_onChange}
         placeholder={placeholder}
+        onKeyPress={e => e.key === 'Enter' && _onSubmit(e)}
         {...styles}
       />
     </>
@@ -52,12 +57,14 @@ Input.defaultProps = {
   name: '',
   value: '',
   _onChange: () => {},
+  _onSubmit: () => {},
   placeholder: '텍스트를 입력해주세요',
 };
 
 const DefaultInput = styled.input`
   width: 100%;
   ${props => (props.margin ? `margin:${props.margin}` : '')};
+  color: #c2c6cb;
   border: none;
   border-bottom: 1px solid #212121;
   box-sizing: border-box;

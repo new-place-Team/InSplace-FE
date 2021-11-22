@@ -1,59 +1,107 @@
 /* eslint-disable */
-/* global kakao */
-import React, { useState } from 'react';
-import { Grid } from '../elements';
-import { useSelector } from 'react-redux';
-import { MapSlick } from '../components/map/MapSlick';
-import { markerdata } from '../shared/MarkerData';
-import MapCard from '../components/map/MapCard';
+import React, { useState, useEffect } from 'react';
+import { Container, Grid } from '../elements';
+import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import SwiperMap from '../components/map/SwiperMap';
 import Map from '../components/map/Map';
 import Header from '../components/common/Header';
 import SelectedCategory from '../components/place/SelectedCategory';
+import {
+  getSearchConditionDB,
+  getSearchConditionListDB,
+} from '../redux/async/place';
+import { history } from '../redux/configureStore';
+import { useTranslation } from 'react-i18next';
 
 const MapContainer = () => {
-  // SelectedCategory 데이터
-  const tag = [{ tag: '두명' }, { tag: '혼성' }, { tag: '카페' }];
-
-  // 지도 상세 페이지에서는 현재 위치를 받아와서 자식 컴포넌트인 MAP에 위도,경도 정보를 보내준다.
-  const [currentCoordinate, setCurrentCoordinate] = useState({});
-  // GeolocationPosition 객체를 유일한 매개변수로 받는 콜백 함수.
-  const getCoordinate = pos => {
-    const { latitude, longitude } = pos.coords;
-    const coordinate = {
-      latitude,
-      longitude,
-    };
-    return setCurrentCoordinate(coordinate);
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+  /* 현재 URI Path 조회 */
+  const { pathname } = history.location;
+  /* Map에 보여줄 ListType */
+  const pathArr = pathname.split('/');
+  const type = pathArr[pathArr.length - 1];
+  /* 장소 List */
+  let placeList = null;
+  if (type === 'result') {
+    // 검색[실내, 실외] 결과 리스트
+    const conditionPlaces = useSelector(state => state.place.conditionPlaces);
+    placeList = conditionPlaces
+      ? [...conditionPlaces.insidePlaces, ...conditionPlaces.outSidePlaces]
+      : null;
+  } else {
+    // 실외List or 실내List or 장소검색List
+    placeList = useSelector(state => state.place.placeList);
+  }
+  const [latLonFocus, setLatLonFocus] = useState(null);
+  const [focusId, setFocusId] = useState(null);
+  const onChageFocus = latLon => {
+    setLatLonFocus({
+      lat: latLon.lat,
+      lon: latLon.lon,
+    });
+  };
+  const onChnageFocusId = focusId => {
+    setFocusId(focusId);
   };
 
-  // 현재위치 받아오기
-  window.navigator.geolocation.getCurrentPosition(pos => {
-    getCoordinate(pos);
-  });
-
-  //현재 위치 좌표
-  console.log('현재 내 위치좌표', currentCoordinate);
+  useEffect(() => {
+    const params = history.location.search;
+    if (!placeList) {
+      if (type === 'result') {
+        dispatch(getSearchConditionDB(params));
+      } else {
+        const qureryString = `search/pages/1/${type}${params}`;
+        dispatch(getSearchConditionListDB(qureryString));
+      }
+    }
+  }, []);
 
   return (
-    <Grid>
-      <Header close content="상세보기" />
-      <Grid padding="0 24px">
-        <SelectedCategory tag={tag} />
-      </Grid>
-      <MapSlick>
-        {markerdata.map((el, idx) => {
-          return <MapCard el={el} key={idx} />;
-        })}
-      </MapSlick>
-      {/* API로 받아온 현재 좌표를 Map 컴포넌트에 props로 전달한다. */}
-      <Map
-        coordinate={currentCoordinate}
-        width="100vw"
-        height="80vh"
-        markerdata={markerdata}
-      />
-    </Grid>
+    <>
+      <Header _back _content={t('placeMapPage.headerSubTitle')} />
+      <Container padding="66px 0 0 0">
+        <Grid padding="0 24px">
+          <SelectedCategory />
+        </Grid>
+        <MapDiv>
+          {/* <MapCategoryWrap padding="0 24px">
+            <SelectedCategory />
+          </MapCategoryWrap> */}
+          <Map
+            width="100%"
+            height="100vh"
+            allPlaces={placeList}
+            latLonFocus={latLonFocus}
+            _onChnageFocusId={onChnageFocusId}
+          />
+
+          {/* SwiperList Card */}
+          {/* <SwiperWrap> */}
+          <SwiperMap
+            list={placeList}
+            _onChageFocus={onChageFocus}
+            focusId={focusId}
+          />
+          {/* </SwiperWrap> */}
+        </MapDiv>
+      </Container>
+    </>
   );
 };
+
+const MapDiv = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100vh;
+`;
+// const MapCategoryWrap = styled.div`
+//   border: 2px solid blue;
+// `;
+// const SwiperWrap = styled.div`
+//   position: relative;
+//   width: 100%;
+// `;
 
 export default MapContainer;

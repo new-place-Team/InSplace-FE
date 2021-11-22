@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-cycle */
 import { combineReducers } from 'redux';
 import { createBrowserHistory } from 'history';
@@ -8,6 +9,8 @@ import { logger } from 'redux-logger';
 /* slice module */
 import placeSlice from './modules/placeSlice';
 import loadedSlice from './modules/loadedSlice';
+import userSlice from './modules/userSlice';
+import commonSlice from './modules/commonSlice';
 
 export const history = createBrowserHistory();
 
@@ -15,6 +18,8 @@ export const history = createBrowserHistory();
 const reducer = combineReducers({
   place: placeSlice.reducer,
   loaded: loadedSlice.reducer,
+  user: userSlice.reducer,
+  common: commonSlice.reducer,
   router: connectRouter(history),
 });
 
@@ -28,7 +33,12 @@ if (env === 'development') {
 
 const store = configureStore({
   reducer,
-  middleware: [...middlewares, ...getDefaultMiddleware()],
+  middleware: [
+    ...middlewares,
+    ...getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+  ],
   devTools: env !== 'production',
 });
 
