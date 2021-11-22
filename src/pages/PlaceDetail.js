@@ -137,6 +137,8 @@ const Detail = props => {
     });
   };
 
+  console.log('detailData ?? ', detailData);
+
   return (
     <>
       {confirmModal && (
@@ -148,7 +150,7 @@ const Detail = props => {
       )}
       <Container padding="0">
         <Grid bg="#F5F5F5">
-          <PlaceSwiper list={detailData.postImages} />
+          <PlaceSwiper list={detailData && detailData.postImages} />
           <PlaceHeader>
             <IconBox>
               <LeftIcon onClick={goBack} />
