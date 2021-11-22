@@ -34,6 +34,7 @@ const Detail = props => {
   const { match } = props;
   const { id } = match.params;
   const detailData = useSelector(state => state.place.detailInfo);
+  console.log('detailData', detailData);
   const isLogin = useSelector(state => state.user.isLogin);
   const [confirmModal, setConfirmModal] = useState(false);
   const { t } = useTranslation();
@@ -52,7 +53,9 @@ const Detail = props => {
   useEffect(() => {
     dispatch(getPlaceDetailDB(id));
     window.scrollTo(0, 0);
-    window.Kakao.init(process.env.REACT_APP_KAKAO_KEY);
+    if (!Kakao.isInitialized()) {
+      window.Kakao.init(process.env.REACT_APP_KAKAO_MAP_KEY);
+    }
   }, []);
 
   // 리뷰 쓰기 페이지로 이동
@@ -112,22 +115,25 @@ const Detail = props => {
     Kakao.Link.sendDefault({
       objectType: 'feed',
       content: {
-        title: '공유 테스트!',
-        description: '내용!',
+        title: detailData.title,
+        description: detailData.postDesc,
         imageUrl: detailData.postImages[0],
         link: {
-          mobileWebUrl: '모바일 url!',
-          androidExecParams: 'test',
+          mobileWebUrl: `https://insplace.co.kr${history.location.pathname}`,
+          webUrl: `https://insplace.co.kr${history.location.pathname}`,
         },
       },
       buttons: [
         {
-          title: '웹으로 이동',
+          title: '자세히 보기',
           link: {
-            mobileWebUrl: '공유할 url!',
+            mobileWebUrl: `https://insplace.co.kr${history.location.pathname}`,
+            webUrl: `https://insplace.co.kr${history.location.pathname}`,
           },
         },
       ],
+      // 카카오톡 미설치 시 카카오톡 설치 경로이동
+      installTalk: true,
     });
   };
 
@@ -221,7 +227,7 @@ const Detail = props => {
                 </Button>
               </Grid>
               <Grid>
-                <Button size="12px" color="#A3A6AA">
+                <Button size="12px" color="#A3A6AA" _onClick={shareKakao}>
                   <Icons margin="0 0 4px 0">
                     <Share />
                   </Icons>

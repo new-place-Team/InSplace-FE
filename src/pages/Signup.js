@@ -92,7 +92,7 @@ const Signup = () => {
         }
       }
     } catch (err) {
-      console.log('error ::::::', err);
+      console.log('error ::::::', err.response);
     }
     return setButtonStatus(false);
   };
@@ -160,7 +160,6 @@ const Signup = () => {
     if (userInfoDB.mbtiId === undefined) {
       userInfoDB.mbtiId = 17;
     }
-
     // if (userInfoDB.maleYN === undefined) {
     //   window.alert('성별을 선택해 주세요!');
     //   return;
@@ -180,17 +179,20 @@ const Signup = () => {
       <Container padding="66px 0 0 0">
         <Grid padding="42px 20px 0 20px">
           <Wrap>
-            <Label type="form">{t('signUpPage.signUpEmail')}</Label>
+            <Label type="form" required>
+              {t('signUpPage.signUpEmail')}
+            </Label>
             <Div>
               <Input
                 inputType="form"
                 type="text"
                 value={userInfo.email}
+                Label
                 name="email"
                 _onChange={onChange}
+                _onSubmit={submitUserInfo}
                 placeholder={t('signUpPage.placeholder.0')}
               />
-
               {userInfo.email !== '' && (
                 <CloseButton
                   src={xcircle}
@@ -206,13 +208,16 @@ const Signup = () => {
           </Wrap>
 
           <Wrap>
-            <Label type="form">{t('signUpPage.signUpPassword')}</Label>
+            <Label type="form" required>
+              {t('signUpPage.signUpPassword')}
+            </Label>
             <Input
               inputType="form"
               type="password"
               value={userInfo.password}
               name="password"
               _onChange={onChange}
+              _onSubmit={submitUserInfo}
               placeholder={t('signUpPage.placeholder.1')}
             />
             {userInfo.password !== '' && (
@@ -228,13 +233,16 @@ const Signup = () => {
             </Text>
           </Wrap>
           <Wrap>
-            <Label type="form">{t('signUpPage.passwordConfirm')}</Label>
+            <Label type="form" required>
+              {t('signUpPage.passwordConfirm')}
+            </Label>
             <Input
               inputType="form"
               type="password"
               value={userInfo.passwordCheck}
               name="passwordCheck"
               _onChange={onChange}
+              _onSubmit={submitUserInfo}
               placeholder={t('signUpPage.placeholder.2')}
             />
             {userInfo.passwordCheck !== '' && (
@@ -250,13 +258,16 @@ const Signup = () => {
             </Text>
           </Wrap>
           <Wrap>
-            <Label type="form">{t('signUpPage.nickName')}</Label>
+            <Label type="form" required>
+              {t('signUpPage.nickName')}
+            </Label>
             <Input
               inputType="form"
               type="text"
               value={userInfo.nickname}
               name="nickname"
               _onChange={onChange}
+              _onSubmit={submitUserInfo}
               placeholder={t('signUpPage.placeholder.3')}
             />
             {/* {userInfo.nickname !== '' && (
@@ -424,4 +435,5 @@ const CloseButton = styled.img`
   width: 20px;
   cursor: pointer;
 `;
+
 export default Signup;

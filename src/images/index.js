@@ -1,5 +1,5 @@
 import bookmark from './ic-bookmark.svg';
-import close from './ic-close.svg';
+
 import heartFilled from './ic-heart-filled.svg';
 import heartLine from './ic-heart-line.svg';
 import map from './ic-map.svg';
@@ -16,11 +16,12 @@ import whiteClose from './close.svg';
 import plus from './plus.svg';
 import polygonimg from './Polygon.png';
 import insplace from './Insplace.png';
-import mypageNext from './next.svg';
+
 import spinner from './spinner.gif';
 import whiteRight from './ic_header_right.svg';
 
 // Icon
+import close from './Icon/ic-close.svg';
 import more from './Icon/ic_more.svg';
 import bad from './Icon/ic_bad.svg';
 import good from './Icon/ic_good.svg';
@@ -29,6 +30,7 @@ import xclose from './Icon/ic_header_close.svg';
 import report from './Icon/ic_report.svg';
 import modalClose from './Icon/ic_modal_close.svg';
 import checked from './Icon/ic_check.svg';
+import mypageNext from './Icon/ic-next.svg';
 
 // illustration
 import profile1 from './illustration/profile1.png';

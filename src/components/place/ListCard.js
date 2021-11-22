@@ -63,7 +63,7 @@ const ListCard = forwardRef((props, ref) => {
       <>
         <SkeletonBg width="237px" height="320px" ref={imgRef}>
           {isLoading && (
-            <Grid _onClick={gotoDetail} width="237px" cursor>
+            <Grid _onClick={gotoDetail} width="237px" cursor="true">
               <CardImageWrap height="320px">
                 <CardImage width="237px" src={info.postImage} />
               </CardImageWrap>
@@ -109,7 +109,7 @@ const ListCard = forwardRef((props, ref) => {
           {isLoading && (
             <Grid
               _onClick={() => history.push(`/place/detail/${info.postId}`)}
-              cursor
+              cursor="true"
               width="100%"
             >
               <CardImageWrap width="242px" height="320px">
@@ -196,7 +196,7 @@ const ListCard = forwardRef((props, ref) => {
     <>
       <SkeletonBg width="247px" height="306px" ref={imgRef}>
         {isLoading && (
-          <Grid _onClick={gotoDetail} cursor>
+          <Grid _onClick={gotoDetail} cursor="true">
             <Image width="247px" height="306px" src={info.postImage} />
           </Grid>
         )}

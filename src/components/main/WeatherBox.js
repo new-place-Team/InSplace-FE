@@ -10,11 +10,37 @@ import { ReactComponent as CloudIcon } from '../../images/weather/cloud.svg';
 import { ReactComponent as Marker } from '../../images/Icon/ic_weather_map-pin.svg';
 import { ReactComponent as Particlulates } from '../../images/Icon/ic_weather_particulates.svg';
 import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good_white.svg';
+// import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good.svg';
+import { ReactComponent as WeatherSoso } from '../../images/Icon/ic_weather_soso.svg';
+import { ReactComponent as WeatherBad } from '../../images/Icon/ic_weather_bad.svg';
+import { ReactComponent as WeatherSoBad } from '../../images/Icon/ic_weather_sobad.svg';
+import { ReactComponent as WeatherDanger } from '../../images/Icon/ic_weather_dangerous.svg';
 // import { get어제대비온도 } from '../../shared/transferText';
 
 const WeatherBox = props => {
   const { info } = props;
   const location = useSelector(state => state.place.location);
+  let PmStatus = '';
+  let PmText = '';
+  if (info) {
+    /* 미세먼지 아이콘 변경 */
+    if (info.pm10 === 2) {
+      PmStatus = WeatherSoso;
+      PmText = '보통';
+    } else if (info.pm10 === 3) {
+      PmStatus = WeatherBad;
+      PmText = '나쁨';
+    } else if (info.pm10 === 4) {
+      PmStatus = WeatherSoBad;
+      PmText = '매우나쁨';
+    } else if (info.pm10 === 5) {
+      PmStatus = WeatherDanger;
+      PmText = '위험';
+    } else {
+      PmStatus = WeatherGood;
+      PmText = '좋음';
+    }
+  }
   return (
     <>
       <WeatherWrap>
@@ -49,9 +75,11 @@ const WeatherBox = props => {
                 <Particlulates />
               </Icons>
               <Text fontSize="14px" color="#fff" bold>
-                좋음
+                {PmText}
               </Text>
               <Icons width="24px" height="24px" margin="0 0 0 4px">
+                {/* 이미지 오류나서 수정할 예정
+                {PmStatus} */}
                 <WeatherGood />
               </Icons>
             </Grid>

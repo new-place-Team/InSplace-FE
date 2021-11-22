@@ -97,6 +97,7 @@ const placeSlice = createSlice({
       if (placeList) {
         const idx = placeList.findIndex(v => v.postId === postId);
         const target = placeList[idx];
+        console.log(placeList, idx, target);
         target.favoriteState = !target.favoriteState;
         target.favoriteState
           ? (target.favoriteCnt += 1)

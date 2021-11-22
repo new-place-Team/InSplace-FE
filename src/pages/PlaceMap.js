@@ -60,11 +60,13 @@ const MapContainer = () => {
     <>
       <Header _back _content="상세보기" _language />
       <Container padding="66px 0 0 0">
-        <button type="button">버튼 클릭!!</button>
         <Grid padding="0 24px">
           <SelectedCategory />
         </Grid>
         <MapDiv>
+          {/* <MapCategoryWrap padding="0 24px">
+            <SelectedCategory />
+          </MapCategoryWrap> */}
           <Map
             width="100%"
             height="100vh"
@@ -74,9 +76,13 @@ const MapContainer = () => {
           />
 
           {/* SwiperList Card */}
-          <SwiperWrap>
-            <SwiperMap list={placeList} _onChageFocus={onChageFocus} />
-          </SwiperWrap>
+          {/* <SwiperWrap> */}
+          <SwiperMap
+            list={placeList}
+            _onChageFocus={onChageFocus}
+            focusId={focusId}
+          />
+          {/* </SwiperWrap> */}
         </MapDiv>
       </Container>
     </>
@@ -88,10 +94,12 @@ const MapDiv = styled.div`
   width: 100%;
   height: 100vh;
 `;
-
-const SwiperWrap = styled.div`
-  position: relative;
-  width: 100%;
-`;
+// const MapCategoryWrap = styled.div`
+//   border: 2px solid blue;
+// `;
+// const SwiperWrap = styled.div`
+//   position: relative;
+//   width: 100%;
+// `;
 
 export default MapContainer;

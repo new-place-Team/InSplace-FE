@@ -119,9 +119,11 @@ const MyPageEdit = props => {
   /* 유저정보 수정 요청 */
   const onSubmitHandler = () => {
     if (nickname === '') {
+      // alert창이 아니라 문구로 나와야함
       return window.alert(t('MyPageEdit.nicNameError.0'));
     }
     if (nicknameDuplicate === true) {
+      // alert창이 아니라 문구로 나와야함
       return window.alert(t('MyPageEdit.nicNameError.3'));
     }
     const formData = new FormData();
