@@ -28,7 +28,7 @@ const initialState = {
   categoryParams: null,
   categoryList: null,
   conditionPlaces: null,
-  detailInfo: {},
+  detailInfo: null,
   currentCoordinate: {},
   placeList: null,
   placePagination: { page: 1, isNext: true },
