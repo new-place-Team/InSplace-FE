@@ -25,7 +25,6 @@ const Main = () => {
 
   const [imgLoading, setImgLoading] = useState(false);
   const imgRef = useRef(null);
-
   useEffect(() => {
     if (mainLists) return;
     dispatch(getMainListDB());

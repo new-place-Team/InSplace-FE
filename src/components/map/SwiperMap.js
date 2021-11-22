@@ -10,10 +10,16 @@ SwiperCore.use([Navigation, Pagination, History]);
 const SwiperMap = React.memo(props => {
   const { list, _onChageFocus, focusId } = props;
   const focusRef = useRef(null);
+  let perViewCnt = 3;
+  let loopYn = true;
+  if (list.length < 3) {
+    perViewCnt = list.lenght === 2 ? 2 : 1;
+    loopYn = false;
+  }
   const setting = {
-    slidesPerView: 3,
+    slidesPerView: perViewCnt,
     spaceBetween: 30,
-    loop: true,
+    loop: loopYn,
     pagination: {
       clickable: true,
     },

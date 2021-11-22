@@ -11,7 +11,7 @@ import { emailCheck } from '../shared/emailCheck';
 import { addUserDB } from '../redux/async/user';
 import { nicknameCheck } from '../shared/api/userApi';
 import Header from '../components/common/Header';
-import Modal from '../components/common/Modal';
+import MbtiModal from '../components/common/MbtiModal';
 import CommonModal from '../components/common/CommonModal';
 
 const Signup = () => {
@@ -369,7 +369,7 @@ const Signup = () => {
             {t('signUpPage.register')}
           </Button>
         </BottomWrap>
-        {modalStatus === true && <Modal />}
+        {modalStatus === true && <MbtiModal />}
       </Container>
     </>
   );

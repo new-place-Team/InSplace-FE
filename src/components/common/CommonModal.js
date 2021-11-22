@@ -121,7 +121,6 @@ const CommonModal = ({ type, showConfirmModal }) => {
       );
       return;
     }
-
     // 휴대폰번호에 자동 하이픈 입력
     const newNumber = autoHypenPhone(feedbackInfo.phoneNumber);
     const params = {
