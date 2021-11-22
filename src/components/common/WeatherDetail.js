@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 import styled from 'styled-components';
 import { ReactComponent as Close } from '../../images/Icon/ic_close.svg';
 import { ReactComponent as Marker } from '../../images/ic-marker.svg';
@@ -22,6 +24,7 @@ import { Grid, Text, Icons } from '../../elements';
 const WeatherInfo = props => {
   const { closeWeatherModal } = props;
   const root = document.querySelector('#root');
+  const { t } = useTranslation();
   const location = useSelector(state => state.place.location);
   const weatherInfo = useSelector(state => state.place.weatherStatus);
   const weatherStatus = weatherInfo && weatherInfo.frontWeather;
@@ -42,23 +45,23 @@ const WeatherInfo = props => {
     /* 미세먼지 아이콘 변경 */
     if (weatherInfo.pm10 === 2) {
       PmStatus = WeatherSoso;
-      PmText = '보통';
+      PmText = t('WeatherDetail.weatherCondition.miseNormal');
     } else if (weatherInfo.pm10 === 3) {
       PmStatus = WeatherBad;
-      PmText = '나쁨';
+      PmText = t('WeatherDetail.weatherCondition.miseBad');
     } else if (weatherInfo.pm10 === 4) {
       PmStatus = WeatherSoBad;
-      PmText = '매우나쁨';
+      PmText = t('WeatherDetail.weatherCondition.miseSoBad');
     } else if (weatherInfo.pm10 === 5) {
       PmStatus = WeatherDanger;
-      PmText = '위험';
+      PmText = t('WeatherDetail.weatherCondition.miseDanger');
     } else {
       PmStatus = WeatherGood;
-      PmText = '좋음';
+      PmText = t('WeatherDetail.weatherCondition.miseGood');
     }
   }
+
   useEffect(() => {
-    console.log('타니');
     root.setAttribute('style', 'overflow: hidden;');
     return () => root.removeAttribute('style');
   }, []);
@@ -142,12 +145,12 @@ const WeatherInfo = props => {
             {/* 초 미세먼지 */}
             <Grid isFlex justify="space-between" padding="0 8%">
               <Text color="#fff" margin="0 0 8px 0">
-                초미세먼지
+                {t('WeatherDetail.particulateMatter')}
               </Text>
               <Text color="#fff">{weatherInfo.pm25}</Text>
             </Grid>
             <Grid isFlex justify="space-between" padding="0 8%">
-              <Text color="#fff">습도</Text>
+              <Text color="#fff">{t('WeatherDetail.humidity')}</Text>
               <Text color="#fff">{weatherInfo.humidity}</Text>
             </Grid>
           </SubInfo>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
@@ -20,8 +21,8 @@ import { ReactComponent as WeatherDanger } from '../../images/Icon/ic_weather_da
 const WeatherBox = props => {
   const { info } = props;
   const location = useSelector(state => state.place.location);
-  let PmStatus = '';
   let PmText = '';
+  let PmStatus = '';
   if (info) {
     /* 미세먼지 아이콘 변경 */
     if (info.pm10 === 2) {

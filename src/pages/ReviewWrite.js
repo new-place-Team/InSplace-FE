@@ -2,7 +2,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Text, Textarea } from '../elements';

@@ -83,10 +83,7 @@
   },
   "selectTypeResultPage": {
     "headerSubTitle": "Search Result",
-    "outSideResult": [
-      "No result of OuterPlace",
-      "Outside with a Cool Breeze"
-    ],
+    "outSideResult": ["No result of OuterPlace", "Outside with a Cool Breeze"],
     "inSideResult": [
       "There is no result of Innerplace",
       "Relaxing Time Indoors"
@@ -224,5 +221,16 @@
   "CommonModal": {
     "agree": "OK",
     "disagree": "CANCEL"
+  },
+  "WeatherDetail": {
+    "weatherCondition": {
+      "miseGood": "Good",
+      "miseBad": "Bad",
+      "miseSoBad": "Very Bad",
+      "miseDanger": "Danger",
+      "miseNormal": "Normal"
+    },
+    "humidity": "humidity",
+    "particulateMatter": "PM"
   }
 }

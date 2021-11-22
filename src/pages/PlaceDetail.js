@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Container, Grid, Text, Image, Button, Icons } from '../elements';
@@ -29,12 +28,10 @@ import { getCategoryText } from '../shared/transferText';
 import ConfirmModal from '../components/common/ConfirmModal';
 
 const Detail = props => {
-  console.log('history', history);
   const dispatch = useDispatch();
   const { match } = props;
   const { id } = match.params;
   const detailData = useSelector(state => state.place.detailInfo);
-  console.log('detailData', detailData);
   const isLogin = useSelector(state => state.user.isLogin);
   const [confirmModal, setConfirmModal] = useState(false);
   const { t } = useTranslation();
@@ -248,7 +245,12 @@ const Detail = props => {
               </Text>
               <Grid margin="16px 0">
                 {/* 카카오 지도 */}
-                <Map width="100%" height="191px" allPlaces={placeMarker} />
+                <Map
+                  width="100%"
+                  height="191px"
+                  allPlaces={placeMarker}
+                  type="detail"
+                />
               </Grid>
               <Text fontSize="14px" color="#3E4042">
                 <Span>{t('placeDetailPage.category.2')}</Span>
