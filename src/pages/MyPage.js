@@ -8,7 +8,7 @@ import { getTokenYn } from '../shared/utils';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { whiteRight, mypageNext, profile1 } from '../images/index';
-import { Button, Container, Grid, Image, Icons } from '../elements';
+import { Button, Container, Grid, Image } from '../elements';
 import sunBg from '../images/weather/sun_full_768.jpg';
 import ConfirmModal from '../components/common/ConfirmModal';
 import CommonModal from '../components/common/CommonModal';
@@ -82,12 +82,14 @@ const MyPage = () => {
         <Header _onBg _content="MyPage" _settings _color="#fff" />
         <Bg src={sunBg}>
           <MyPageInfoGrid>
-            <Image
-              type="circle"
-              width="169px"
-              height="169px"
-              src={userInfo.userImage ? userInfo.userImage : profile1}
-            />
+            <MyPageFrofile>
+              <Image
+                type="circle"
+                width="100%"
+                height="100%"
+                src={userInfo.userImage ? userInfo.userImage : profile1}
+              />
+            </MyPageFrofile>
             <UserInfoGrid>
               <Grid isFlex margin="0 0 17px 0" border="2px solid ornage">
                 <Nicname>{userInfo.nickname}</Nicname>
@@ -105,20 +107,17 @@ const MyPage = () => {
             <Info onClick={showModal}>
               <Title>{t('MyPage.UpdateIssue')}</Title>
               <BottomBox>
-                {/* <Icons
-                  src={mypageNext}
-                  width="66px"
-                  height="62px"
-                  color="#000"
-                /> */}
-                <Image src={mypageNext} />
+                <TextBox>
+                  <MyPageIcon src={mypageNext} />
+                </TextBox>
               </BottomBox>
             </Info>
             <Info onClick={feedbackModal}>
               <Title>{t('MyPage.Opinion')}</Title>
               <BottomBox>
-                <Icons src={mypageNext} width="66px" height="62px" />
-                <Image src={mypageNext} />
+                <TextBox>
+                  <MyPageIcon src={mypageNext} />
+                </TextBox>
               </BottomBox>
             </Info>
             <Info>
@@ -136,6 +135,7 @@ const MyPage = () => {
                 </TextBox>
               </BottomBox>
             </Info>
+            <InfoNav />
           </InfoGrid>
         </Bg>
       </Container>
@@ -156,11 +156,12 @@ const Bg = styled.div`
 `;
 const MyPageInfoGrid = styled.div`
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   align-items: center;
   width: 95.4%;
   height: 25%;
-  margin: 10% 0 52px auto;
+  margin: 100px 0 52px auto;
 `;
 const UserInfoGrid = styled.div`
   display: flex;
@@ -171,31 +172,38 @@ const UserInfoGrid = styled.div`
     padding: 0px 10px 0px 24px;
   }
 `;
-
+const MyPageFrofile = styled.div`
+  display: flex;
+  align-items: center;
+  width: 172px;
+  height: 172px;
+`;
 const InfoGrid = styled.div`
   position: absolute;
   right: 0;
   bottom: 0;
   width: 95.4%;
-  height: 60%;
+  height: calc(100% / 25%) * 100;
   display: flex;
   flex-wrap: wrap;
   margin: 0 0 0 auto;
-  padding-bottom: 64px;
   cursor: pointer;
-  @media (max-width: 415px) {
-    height: 65.5%;
-  }
+  overflow-y: hidden;
 `;
-
+const InfoNav = styled.div`
+  width: 100%;
+  height: 65px;
+  background-color: #000;
+`;
 const Info = styled.div`
   position: relative;
   width: 50%;
-  padding: 48px 40px;
+  height: 100%;
+  padding: 48px 40px 20px;
   background-color: #fff;
   border: 1px solid #e6e9ec;
   @media (max-width: 415px) {
-    padding: 24px;
+    padding: 24px 24px 10px;
   }
 `;
 
@@ -204,9 +212,6 @@ const Nicname = styled.h3`
   font-size: 28px;
   font-weight: bold;
   color: #fff;
-  @media (max-width: 415px) {
-    font-size: 22px;
-  }
 `;
 const Mbti = styled.p`
   margin-right: 11px;
@@ -214,18 +219,12 @@ const Mbti = styled.p`
   font-weight: 700;
   letter-spacing: -0.0024em;
   color: #fff;
-  @media (max-width: 415px) {
-    font-size: 13px;
-  }
 `;
 const Email = styled.p`
   font-size: 18px;
   font-weight: 300;
   letter-spacing: -0.0041em;
   color: #fff;
-  @media (max-width: 415px) {
-    font-size: 13px;
-  }
 `;
 const Title = styled.h5`
   font-size: 26px;
@@ -233,7 +232,7 @@ const Title = styled.h5`
   letter-spacing: 0.0036em;
   color: #3e4042;
   @media (max-width: 415px) {
-    font-size: 16px;
+    font-size: 1.3rem;
   }
 `;
 const BottomBox = styled.div`
@@ -242,10 +241,9 @@ const BottomBox = styled.div`
   align-items: flex-end;
   flex-direction: column;
   height: 100%;
-  padding-bottom: 10px;
-
+  padding: 30px 0 10px 0;
   @media (max-width: 415px) {
-    padding: 80px 0 10px;
+    padding: 50px 0 10px 0;
   }
   img {
     @media (max-width: 415px) {
@@ -260,19 +258,15 @@ const TextBox = styled.p`
   justify-content: flex-end;
   align-items: flex-end;
   flex-direction: column;
-  padding-bottom: 10px;
   font-size: 22px;
   font-weight: bold;
-
   @media (max-width: 415px) {
     font-size: 16px;
   }
-  @media (max-width: 415px) {
-    height: 36px;
-    padding-bottom: 20px;
-  }
 `;
-
+const MyPageIcon = styled.img`
+  object-fit: cover;
+`;
 const Bank = styled.p`
   margin-bottom: 5px;
   color: #a3a6aa;
