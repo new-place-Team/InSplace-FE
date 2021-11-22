@@ -22,7 +22,6 @@ const SwiperMap = React.memo(props => {
     if (list) {
       const findIdx = list.findIndex(v => v.postId === focusId);
       const postFocus = focusRef.current.swiper.pagination.bullets[findIdx];
-      console.log('ref', postFocus);
       if (postFocus) {
         postFocus.click();
       }

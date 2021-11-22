@@ -27,7 +27,7 @@ const ListCard = forwardRef((props, ref) => {
       });
     };
     const observer = new IntersectionObserver(callback, {
-      threshold: 0.5,
+      threshold: 0.17,
     });
     if (imgRef.current) {
       observer.observe(imgRef.current);
@@ -127,7 +127,7 @@ const ListCard = forwardRef((props, ref) => {
         </SkeletonBg>
         <Grid margin="11px 0 0 0">
           <Text fontSize="13px" color="#949494">
-            {info.category}
+            {info && getCategoryText(info.category)}
           </Text>
         </Grid>
         <Text fontSize="16px" color="#272727" bold>
