@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Text } from '../../elements';
 import { setModalOff } from '../../redux/modules/userSlice';
+import { getMainListDB } from '../../redux/async/place';
 
 const LangModal = () => {
   const dispatch = useDispatch();
@@ -12,11 +13,13 @@ const LangModal = () => {
   const korean = e => {
     e.stopPropagation();
     i18n.changeLanguage('ko-KR');
+    dispatch(getMainListDB('init'));
     dispatch(setModalOff());
   };
   const american = e => {
     e.stopPropagation();
     i18n.changeLanguage('en-US');
+    dispatch(getMainListDB('init'));
     dispatch(setModalOff());
   };
 

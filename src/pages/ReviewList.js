@@ -137,9 +137,6 @@ const ReviewList = props => {
     }
   };
 
-  /* {!reviewList ||
-          (reviewList.length === 0 && <p>아직 등록된 리뷰가 없습니다</p>)} */
-
   return (
     <>
       {isLoading && <Spinner />}

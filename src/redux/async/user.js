@@ -228,7 +228,6 @@ export const userFeedbacksDB = createAsyncThunk(
   async (params, thunkAPI) => {
     try {
       const response = await userFeedbacks(params);
-      console.log('params == ', params);
       const modalParams = {
         title: `소중한 의견 감사합니다!`,
       };

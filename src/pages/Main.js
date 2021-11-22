@@ -39,13 +39,15 @@ const Main = () => {
       });
     };
     const observer = new IntersectionObserver(callback, {
-      threshold: 0.17,
+      threshold: 0,
     });
     if (imgRef.current) {
       observer.observe(imgRef.current);
     }
     return () => observer && observer.disconnect();
   }, []);
+
+  console.log('imgLoading == ', imgLoading);
 
   return (
     <>

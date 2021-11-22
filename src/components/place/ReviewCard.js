@@ -55,9 +55,22 @@ const ReviewCard = forwardRef((props, ref) => {
               <Text fontSize="14px" color="#3E4042">
                 {info.nickname}
               </Text>
-              <Text fontSize="12px" color="#A3A6AA" letterSpacing="0.0008em">
-                {info.gender} <Line /> {info.mbti}
-              </Text>
+
+              {info.gender === null && info.mbti === '모름' ? (
+                <></>
+              ) : (
+                <Text fontSize="12px" color="#A3A6AA" letterSpacing="0.0008em">
+                  <>
+                    {info.gender !== null && (
+                      <>
+                        {info.gender}
+                        <Line />
+                      </>
+                    )}
+                    {info.mbti !== '모름' && info.mbti}
+                  </>
+                </Text>
+              )}
             </Grid>
           </Grid>
           <Text fontSize="13px" color="#A3A6AA" letterSpacing="-0.0008em">
