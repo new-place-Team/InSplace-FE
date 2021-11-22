@@ -22,7 +22,8 @@ import { setCommonModalOn } from '../redux/modules/commonSlice';
 const MyPageEdit = props => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const modalStatus = useSelector(state => state.user.modalStatus);
+  const modaloff = useSelector(state => state.user.modalStatus);
+  const [modalStatus, setModalStatus] = useState(false);
   const mbtiInfo = useSelector(state => state.user.userMbti);
   const commomModal = useSelector(state => state.common.modalStatus);
   /* 만약 이 페이지에서 토큰없을시 로그인 페이지 이동 */
@@ -70,7 +71,8 @@ const MyPageEdit = props => {
   };
   /* 모달 열기 */
   const openModal = () => {
-    dispatch(setModalOn());
+    // dispatch(setModalOn());
+    setModalStatus(true);
   };
   /* 이메일, 닉네임 변경 */
   const onChange = e => {
