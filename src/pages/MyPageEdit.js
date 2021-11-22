@@ -11,8 +11,7 @@ import { editProfileDB } from '../redux/async/user';
 // import { history } from '../redux/configureStore';
 import { getTokenYn } from '../shared/utils';
 import { nicknameCheck } from '../shared/api/userApi';
-
-import Modal from '../components/common/Modal';
+import MbtiModal from '../components/common/MbtiModal';
 import Header from '../components/common/Header';
 import { Button, Container, Grid, Image, Text } from '../elements';
 import { plus, polygonimg } from '../images/index';
@@ -24,6 +23,7 @@ const MyPageEdit = props => {
   const { t } = useTranslation();
   const modalStatus = useSelector(state => state.user.modalStatus);
   const mbtiInfo = useSelector(state => state.user.userMbti);
+  /* 공통모달 */
   const commomModal = useSelector(state => state.common.modalStatus);
   /* 만약 이 페이지에서 토큰없을시 로그인 페이지 이동 */
   useEffect(() => {
@@ -274,7 +274,7 @@ const MyPageEdit = props => {
             {t('MyPageEdit.mypageEdit')}
           </Button>
         </BottomWrap>
-        {modalStatus === true ? <Modal /> : null}
+        {modalStatus === true ? <MbtiModal /> : null}
       </Container>
     </>
   );

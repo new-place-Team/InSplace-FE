@@ -47,7 +47,7 @@ const Map = React.memo(props => {
     let map = null;
     if (!isMap) {
       map = new kakao.maps.Map(mapDiv.current, options);
-      setIsMap(new kakao.maps.Map(mapDiv.current, options));
+      setIsMap(map);
     } else {
       map = isMap;
     }

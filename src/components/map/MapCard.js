@@ -1,9 +1,9 @@
-/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Grid, Image, Text } from '../../elements';
+import { getCategoryText } from '../../shared/transferText';
 import { setFavoritesPostDB } from '../../redux/async/place';
 import { isLoginChk } from '../../shared/utils';
 import { ReactComponent as NoSelectedHeader } from '../../images/Icon/ic_heart.svg';
@@ -38,7 +38,7 @@ const MapCard = props => {
         <Grid flex>
           <Grid>
             <Text fontSize="13px" margin="0 0 2px 0">
-              {el.category}
+              {el && getCategoryText(el.category)}
             </Text>
             <MapTitle
               className="mapTitle"
