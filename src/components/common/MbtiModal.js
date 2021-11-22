@@ -2,13 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-
 import { Grid, Text } from '../../elements';
 import { getMbti, setModalOff } from '../../redux/modules/userSlice';
 import { close, checked } from '../../images/index';
 import { getPeopleMbti } from '../../shared/transferText';
 
-const Modal = () => {
+const MbtiModal = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const userInfo = useSelector(state => state.user.userInfo);
@@ -270,4 +269,4 @@ const Icon = styled.img`
   cursor: pointer;
 `;
 
-export default Modal;
+export default MbtiModal;
