@@ -160,15 +160,19 @@ const MyPageInfoGrid = styled.div`
   flex-wrap: wrap;
   align-items: center;
   width: 95.4%;
-  height: 25%;
-  margin: 100px 0 52px auto;
+  height: auto;
+  margin: 80px 0 52px auto;
+
+  @media (max-width: 415px) {
+    margin: 50px 0 30px auto;
+  }
 `;
 const UserInfoGrid = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
   padding: 0px 10px 0px 46px;
-  @media (max-width: 414px) {
+  @media (max-width: 415px) {
     padding: 0px 10px 0px 24px;
   }
 `;
@@ -183,7 +187,7 @@ const InfoGrid = styled.div`
   right: 0;
   bottom: 0;
   width: 95.4%;
-  height: calc(100% / 25%) * 100;
+  height: calc(100% / 30%) * 100;
   display: flex;
   flex-wrap: wrap;
   margin: 0 0 0 auto;
@@ -193,7 +197,6 @@ const InfoGrid = styled.div`
 const InfoNav = styled.div`
   width: 100%;
   height: 65px;
-  background-color: #000;
 `;
 const Info = styled.div`
   position: relative;
@@ -204,6 +207,9 @@ const Info = styled.div`
   border: 1px solid #e6e9ec;
   @media (max-width: 415px) {
     padding: 24px 24px 10px;
+  }
+  @media (max-width: 375px) {
+    padding: 54px 24px 10px;
   }
 `;
 
