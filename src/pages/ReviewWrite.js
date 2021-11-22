@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import React, { useState, useRef, useEffect } from 'react';
+import heic2any from 'heic2any';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
