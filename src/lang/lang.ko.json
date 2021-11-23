@@ -126,7 +126,7 @@
   "ReviewWrite": {
     "headerSubTitle": ["리뷰수정", "리뷰쓰기"],
     "selectWeather": {
-      "selectTitle": "날씨는 어땠나요?,",
+      "selectTitle": "날씨는 어땠나요?",
       "weatherType": ["맑음", "비", "눈", "흐림", "기억안남"]
     },
     "selectWeek": {
