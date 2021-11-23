@@ -95,6 +95,7 @@ const MyPage = () => {
                 type="circle"
                 width="100%"
                 height="100%"
+                f
                 src={userInfo.userImage}
               />
             </MyPageFrofile>
@@ -199,7 +200,7 @@ const InfoGrid = styled.div`
   right: 0;
   bottom: 0;
   width: 95.4%;
-  height: calc(100% / 30%) * 100;
+  /* height: calc(100% / 30%) * 100; */
   display: flex;
   flex-wrap: wrap;
   margin: 0 0 0 auto;

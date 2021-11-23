@@ -14,6 +14,11 @@ import SnowFull768 from './snow_full_768.jpg';
 import Sunshine from './sunshine.png';
 import CloudImg from './cloud.png';
 
+import SunLoading from './sun_loading.jpg';
+import RainLoading from './rain_loading.jpg';
+import CloudLoading from './cloud_loading.jpg';
+import SnowLoading from './snow_loading.jpg';
+
 export {
   SunMain768,
   SunMain375,
@@ -29,4 +34,8 @@ export {
   SnowFull768,
   Sunshine,
   CloudImg,
+  SunLoading,
+  RainLoading,
+  CloudLoading,
+  SnowLoading,
 };
