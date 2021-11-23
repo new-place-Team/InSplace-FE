@@ -39,7 +39,9 @@
     "loginerrMessage": ["이메일을 입력해주세요!", "비밀번호를 입력해주세요!"],
     "kakaoLogin": "카카오 로그인하기",
     "login": "로그인하기",
-    "register": "회원가입"
+    "register": "회원가입",
+    "or": "또는",
+    "infoText": "아직 회원이 아니신가요?"
   },
   "signUpPage": {
     "headerSubTitle": "회원가입",
@@ -95,7 +97,7 @@
     "category": ["실내", "실외"]
   },
   "placeMapPage": {
-    "headerSubTitle": "상세보기"
+    "headerSubTitle": "지도로 보기"
   },
   "placeDetailPage": {
     "navigation": ["가본곳", "찜하기", "리뷰쓰기", "공유하기"],
@@ -217,7 +219,7 @@
     }
   },
   "Navbar": {
-    "login": "로그인을 해야 이용할 수 있는 서비스입니다. 로그인 하시겠습니까?"
+    "login": "로그인을 해야 이용할 수 있는 서비스입니다. 로그인 페이지로 이동 하시겠어요?"
   },
   "CommonModal": {
     "agree": "확인",

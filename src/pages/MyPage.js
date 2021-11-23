@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable import/no-unresolved */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -9,7 +10,10 @@ import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { whiteRight, mypageNext } from '../images/index';
 import { Button, Container, Grid, Image } from '../elements';
-import sunBg from '../images/weather/sun_full_768.jpg';
+import sunbg from '../images/weather/sun_main_1x.jpg';
+import cloudbg from '../images/weather/cloud_main_1x.jpg';
+import snowbg from '../images/weather/snow_main_1x.png';
+import rainbg from '../images/weather/rain_main_1x.png';
 import ConfirmModal from '../components/common/ConfirmModal';
 import CommonModal from '../components/common/CommonModal';
 import {
@@ -23,6 +27,7 @@ const MyPage = () => {
   const [loginModal, setLoginModal] = useState(false);
   const modalStatus = useSelector(state => state.common.modalStatus);
   const feedbackStatus = useSelector(state => state.common.feedbackStatus);
+  const weatherInfo = useSelector(state => state.place.weatherStatus);
   const { t } = useTranslation();
 
   const pageMove = () => {
@@ -55,6 +60,20 @@ const MyPage = () => {
   const feedbackModal = () => {
     dispatch(setFeedbackModalOn());
   };
+  let weatherbg;
+  if (weatherInfo) {
+    if (weatherInfo.frontWeather === 2) {
+      weatherbg = rainbg;
+    } else if (weatherInfo.frontWeather === 3) {
+      weatherbg = snowbg;
+    } else if (weatherInfo.frontWeather === 4) {
+      weatherbg = cloudbg;
+    } else {
+      weatherbg = sunbg;
+    }
+  } else {
+    weatherbg = sunbg;
+  }
 
   return (
     <>
@@ -70,7 +89,7 @@ const MyPage = () => {
       {feedbackStatus && <CommonModal type="feedback" />}
       <Container padding="0" height="100%">
         <Header _onBg _content="MyPage" _settings _color="#fff" />
-        <Bg src={sunBg}>
+        <Bg src={weatherbg}>
           <MyPageInfoGrid>
             <MyPageFrofile>
               <Image

@@ -36,7 +36,9 @@
     "loginerrMessage": ["Type your Email!", "Type your Password!"],
     "kakaoLogin": "KaKao Login",
     "login": "Login",
-    "register": "Sign up"
+    "register": "Sign up",
+    "or": "or",
+    "infoText": "Aren't you a member yet?"
   },
   "signUpPage": {
     "headerSubTitle": "Sign up",
@@ -94,7 +96,7 @@
     "category": ["InnerPlace", "OuterPlace"]
   },
   "placeMapPage": {
-    "headerSubTitle": "상세보기"
+    "headerSubTitle": "Map Result"
   },
   "placeDetailPage": {
     "navigation": ["Visited", "Pick", "Review", "Share"],
