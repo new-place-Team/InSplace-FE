@@ -218,7 +218,7 @@ const Overlay = styled.div`
   left: 0;
   right: 0;
   position: fixed;
-  z-index: 999;
+  z-index: 10;
 `;
 
 const ModalContent = styled.div`
@@ -231,7 +231,7 @@ const ModalContent = styled.div`
   transform: translateX(-50%);
   padding: 0 24px;
   transition: bottom 0.3s ease-out;
-  z-index: 999;
+  z-index: 10;
   overflow-y: auto;
   border-radius: 10px 10px 0 0;
   @media (min-width: 1024px) {

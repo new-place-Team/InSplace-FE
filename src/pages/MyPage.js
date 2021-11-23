@@ -74,7 +74,6 @@ const MyPage = () => {
   } else {
     weatherbg = sunbg;
   }
-
   return (
     <>
       {loginModal && (
@@ -172,7 +171,7 @@ const MyPageInfoGrid = styled.div`
   height: auto;
   margin: 80px 0 52px auto;
 
-  @media (max-width: 415px) {
+  @media (max-width: 500px) {
     margin: 50px 0 30px auto;
   }
 `;
@@ -181,7 +180,7 @@ const UserInfoGrid = styled.div`
   flex: 1;
   flex-direction: column;
   padding: 0px 10px 0px 46px;
-  @media (max-width: 415px) {
+  @media (max-width: 500px) {
     padding: 0px 10px 0px 24px;
   }
 `;
@@ -191,7 +190,7 @@ const MyPageFrofile = styled.div`
   width: auto;
   min-width: 172px;
   height: 172px;
-  @media (max-width: 415px) {
+  @media (max-width: 500px) {
     min-width: 120px;
   }
 `;
@@ -218,7 +217,7 @@ const Info = styled.div`
   padding: 40px 40px 20px;
   background-color: #fff;
   border: 1px solid #e6e9ec;
-  @media (max-width: 415px) {
+  @media (max-width: 500px) {
     padding: 24px 24px 10px;
   }
   @media (max-width: 375px) {
@@ -231,7 +230,7 @@ const Nicname = styled.h3`
   font-size: 28px;
   font-weight: bold;
   color: #fff;
-  @media (max-width: 415px) {
+  @media (max-width: 500px) {
     font-size: 22px;
   }
 `;
@@ -241,7 +240,7 @@ const Mbti = styled.p`
   font-weight: 700;
   letter-spacing: -0.0024em;
   color: #fff;
-  @media (max-width: 415px) {
+  @media (max-width: 500px) {
     font-size: 13px;
   }
 `;
@@ -250,7 +249,7 @@ const Email = styled.p`
   font-weight: 300;
   letter-spacing: -0.0041em;
   color: #fff;
-  @media (max-width: 415px) {
+  @media (max-width: 500px) {
     font-size: 13px;
   }
 `;
@@ -259,7 +258,7 @@ const Title = styled.h5`
   font-weight: 700;
   letter-spacing: 0.0036em;
   color: #3e4042;
-  @media (max-width: 415px) {
+  @media (max-width: 500px) {
     font-size: 16px;
   }
 `;
@@ -270,11 +269,11 @@ const BottomBox = styled.div`
   flex-direction: column;
   height: 100%;
   padding: 30px 0 10px 0;
-  @media (max-width: 415px) {
+  @media (max-width: 500px) {
     padding: 50px 0 10px 0;
   }
   img {
-    @media (max-width: 415px) {
+    @media (max-width: 500px) {
       width: 32px;
     }
   }
@@ -288,7 +287,7 @@ const TextBox = styled.p`
   flex-direction: column;
   font-size: 22px;
   font-weight: bold;
-  @media (max-width: 415px) {
+  @media (max-width: 500px) {
     font-size: 16px;
   }
 `;
