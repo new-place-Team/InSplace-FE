@@ -108,7 +108,7 @@ const SelectTypeBtn = styled.div`
   height: 125px;
   background-color: #232323;
   cursor: pointer;
-  z-index: 10;
+  z-index: 8;
 `;
 
 const NextButton = styled.div`
