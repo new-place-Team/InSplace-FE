@@ -60,18 +60,18 @@ const MapCard = props => {
 };
 
 const MapCardCotainer = styled.div`
-  max-height: 172px;
+  max-height: 162px;
 `;
 const Mapchild = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 172px;
+  height: 162px;
   padding: 20px;
   background-color: #fff;
   /* overflow: hidden; */
 `;
 const MapInfoText = styled.p`
-  padding-top: 10px;
+  padding-top: 16px;
 `;
 const IconArea = styled.div`
   position: absolute;

@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 
 const Test = () => {
   const { t, i18n } = useTranslation();
-  console.log('language :: ', window.navigator.language);
   const korean = () => {
     i18n.changeLanguage('ko-KR');
   };

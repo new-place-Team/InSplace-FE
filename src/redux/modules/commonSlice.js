@@ -11,6 +11,7 @@ const initialState = {
   reportModalStatus: false,
   feedbackStatus: false,
   currentLanguage: null,
+  errorStatus: false,
 };
 
 const commonSlice = createSlice({
@@ -49,6 +50,14 @@ const commonSlice = createSlice({
     setFeedbackModalOn: state => {
       state.feedbackStatus = true;
     },
+    setErrorModalOff: state => {
+      state.errorStatus = false;
+      state.modalInfo = null;
+    },
+    setErrorModalOn: (state, { payload }) => {
+      state.errorStatus = true;
+      state.modalInfo = payload;
+    },
   },
 });
 
@@ -62,6 +71,8 @@ export const {
   setFeedbackModalOff,
   setFeedbackModalOn,
   setLanguage,
+  setErrorModalOff,
+  setErrorModalOn,
 } = commonSlice.actions;
 
 export default commonSlice;

@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Grid, Image, Text } from '../../elements';
+import { setErrorModalOn } from '../../redux/modules/commonSlice';
 import { getReviewPostInfo } from '../../shared/api/placeApi';
+import CommonModal from '../common/CommonModal';
 
 const ReviewPostInfo = props => {
   const { postId } = props;
+  const dispatch = useDispatch();
+  const errorModal = useSelector(state => state.common.errorStatus);
   const [postInfo, setPostInfo] = useState({
     postId,
     category: '',
@@ -18,8 +23,12 @@ const ReviewPostInfo = props => {
       try {
         const res = await getReviewPostInfo(postId);
         setPostInfo(res.data.post);
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        console.log('err == ', err.response);
+        const modalParams = {
+          title: `${err.response.data.errMsg}`,
+        };
+        dispatch(setErrorModalOn(modalParams));
       }
     };
     onLoad();
@@ -27,6 +36,7 @@ const ReviewPostInfo = props => {
 
   return (
     <>
+      {errorModal && <CommonModal type="error" />}
       <TopGrid>
         <Image width="64px" height="64px" src={postInfo.postImage} />
         <Grid flex margin="0 0 0 20px">

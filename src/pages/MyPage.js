@@ -188,8 +188,12 @@ const UserInfoGrid = styled.div`
 const MyPageFrofile = styled.div`
   display: flex;
   align-items: center;
-  width: 172px;
+  width: auto;
+  min-width: 172px;
   height: 172px;
+  @media (max-width: 415px) {
+    min-width: 120px;
+  }
 `;
 const InfoGrid = styled.div`
   position: absolute;
@@ -211,7 +215,7 @@ const Info = styled.div`
   position: relative;
   width: 50%;
   height: 100%;
-  padding: 48px 40px 20px;
+  padding: 40px 40px 20px;
   background-color: #fff;
   border: 1px solid #e6e9ec;
   @media (max-width: 415px) {
@@ -227,6 +231,9 @@ const Nicname = styled.h3`
   font-size: 28px;
   font-weight: bold;
   color: #fff;
+  @media (max-width: 415px) {
+    font-size: 22px;
+  }
 `;
 const Mbti = styled.p`
   margin-right: 11px;
@@ -234,12 +241,18 @@ const Mbti = styled.p`
   font-weight: 700;
   letter-spacing: -0.0024em;
   color: #fff;
+  @media (max-width: 415px) {
+    font-size: 13px;
+  }
 `;
 const Email = styled.p`
   font-size: 18px;
   font-weight: 300;
   letter-spacing: -0.0041em;
   color: #fff;
+  @media (max-width: 415px) {
+    font-size: 13px;
+  }
 `;
 const Title = styled.h5`
   font-size: 26px;
@@ -247,7 +260,7 @@ const Title = styled.h5`
   letter-spacing: 0.0036em;
   color: #3e4042;
   @media (max-width: 415px) {
-    font-size: 1.3rem;
+    font-size: 16px;
   }
 `;
 const BottomBox = styled.div`

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setCommonModalOff,
+  setErrorModalOff,
   setFeedbackModalOff,
   setMoreModalOff,
   setReportModalOff,
@@ -43,6 +44,8 @@ const CommonModal = ({ type, showConfirmModal }) => {
       dispatch(setReportModalOff());
     } else if (type === 'feedback') {
       dispatch(setFeedbackModalOff());
+    } else if (type === 'error') {
+      dispatch(setErrorModalOff());
     } else {
       dispatch(setCommonModalOff());
     }

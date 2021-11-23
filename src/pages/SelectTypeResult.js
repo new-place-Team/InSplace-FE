@@ -48,7 +48,7 @@ const SearchTypeList = () => {
         _color="#000"
       />
       <Container height="auto">
-        <SelectedCategory />
+        <SelectedCategory margin="16px 0" />
         {/* 실내 리스트 */}
         <Grid isFlex>
           <ContentsTitle

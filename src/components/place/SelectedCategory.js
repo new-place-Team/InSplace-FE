@@ -7,7 +7,8 @@ import { history } from '../../redux/configureStore';
 import { Grid } from '../../elements';
 import { setSelectedCategory } from '../../redux/modules/placeSlice';
 
-const SelectedCategory = () => {
+const SelectedCategory = props => {
+  const { margin } = props;
   const dispatch = useDispatch();
   const categoryList = useSelector(state => state.place.categoryList);
 
@@ -19,7 +20,7 @@ const SelectedCategory = () => {
 
   return (
     <>
-      <Grid isFlex margin="20px 0 40px 0">
+      <Grid isFlex margin={margin}>
         {categoryList &&
           categoryList.map((item, idx) => {
             return (
