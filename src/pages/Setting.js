@@ -19,7 +19,7 @@ const Setting = () => {
   const goLogoOut = () => {
     dispatch(logOut());
     const modalParams = {
-      title: `로그아웃되었습니다.`,
+      title: t('Setting.logOutMessage'),
       goPage: '/',
     };
     dispatch(setCommonModalOn(modalParams));
@@ -42,8 +42,8 @@ const Setting = () => {
       {commomModal && <CommonModal />}
       {confirmModal && (
         <ConfirmModal
-          title="회원 탈퇴 하시겠습니까?"
-          content="탈퇴된 회원은 영구적으로 탈퇴됩니다."
+          title={t('Setting.withdrawalMessage')}
+          content={t('Setting.withdrwalContent')}
           setConfirmModal={setConfirmModal}
           confirmFun={goUnRegister}
           confirmText={t('CommonModal.agree')}
