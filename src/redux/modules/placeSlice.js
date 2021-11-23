@@ -295,7 +295,6 @@ const placeSlice = createSlice({
     },
     /* list 페이지 조회 */
     [getSearchConditionListDB.fulfilled]: (state, { payload }) => {
-      console.log('fulfilled === payload', payload);
       if (state.placeList) {
         // 더보기 추가
         state.placeList = [...state.placeList, ...payload.posts];

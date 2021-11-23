@@ -60,15 +60,12 @@ const MapContainer = () => {
 
   return (
     <>
-      <Header _back _content={t('placeMapPage.headerSubTitle')} />
-      <Container padding="66px 0 0 0">
-        <Grid padding="0 24px">
-          <SelectedCategory />
-        </Grid>
-        <MapDiv>
-          {/* <MapCategoryWrap padding="0 24px">
-            <SelectedCategory />
-          </MapCategoryWrap> */}
+      <MapDiv>
+        <Header _back _content={t('placeMapPage.headerSubTitle')} />
+        <Container padding="66px 0 0 0">
+          <MapCategoryWrap>
+            <SelectedCategory margin="27px 0px" />
+          </MapCategoryWrap>
           <Map
             width="100%"
             height="100vh"
@@ -85,8 +82,8 @@ const MapContainer = () => {
             focusId={focusId}
           />
           {/* </SwiperWrap> */}
-        </MapDiv>
-      </Container>
+        </Container>
+      </MapDiv>
     </>
   );
 };
@@ -95,13 +92,14 @@ const MapDiv = styled.div`
   position: relative;
   width: 100%;
   height: 100vh;
+  overflow-y: hidden;
 `;
-// const MapCategoryWrap = styled.div`
-//   border: 2px solid blue;
-// `;
-// const SwiperWrap = styled.div`
-//   position: relative;
-//   width: 100%;
-// `;
+const MapCategoryWrap = styled.div`
+  padding: 0 24px;
+`;
+const SwiperWrap = styled.div`
+  position: relative;
+  width: 100%;
+`;
 
 export default MapContainer;

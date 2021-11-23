@@ -29,7 +29,7 @@ import ConfirmModal from '../components/common/ConfirmModal';
 
 const Detail = props => {
   const dispatch = useDispatch();
-  const { match } = props;
+  const { match, location } = props;
   const { id } = match.params;
   const detailData = useSelector(state => state.place.detailInfo);
   const isLogin = useSelector(state => state.user.isLogin);
@@ -37,7 +37,6 @@ const Detail = props => {
   const { t } = useTranslation();
 
   const newAddr = detailData ? detailData.addressShort.split(' ') : false;
-
   const placeMarker = detailData
     ? [
         {
@@ -65,8 +64,8 @@ const Detail = props => {
   };
 
   const goBack = () => {
-    if (history.length <= 1) {
-      history.goBack('/main');
+    if (history.length <= 2) {
+      history.goBack('/');
     }
     history.goBack();
   };

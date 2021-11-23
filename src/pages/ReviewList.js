@@ -15,7 +15,7 @@ import {
 import CommonModal from '../components/common/CommonModal';
 import ConfirmModal from '../components/common/ConfirmModal';
 import { deleteReview } from '../shared/api/placeApi';
-import { setMoreModalOff } from '../redux/modules/commonSlice';
+import { setErrorModalOn, setMoreModalOff } from '../redux/modules/commonSlice';
 
 const ReviewList = props => {
   const { postId } = props;
@@ -37,6 +37,7 @@ const ReviewList = props => {
     state => state.common.reportModalStatus,
   );
   const moreModalStatus = useSelector(state => state.common.moreModalStatus);
+  const errorModalStatus = useSelector(state => state.common.errorStatus);
   const [confirmModal, setConfirmModal] = useState(false);
 
   // 리뷰 무한 스크롤
@@ -133,7 +134,11 @@ const ReviewList = props => {
         dispatch(setMoreModalOff());
       }
     } catch (err) {
-      console.log(err);
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      dispatch(setErrorModalOn(modalParams));
     }
   };
 
@@ -144,8 +149,11 @@ const ReviewList = props => {
       {moreModalStatus && (
         <CommonModal type="more" showConfirmModal={showConfirmModal} />
       )}
+      {}
       {/* 신고되었다는 확인 메세지 */}
       {reportModalStatus && <CommonModal type="report" />}
+      {/* error일때 모달 */}
+      {errorModalStatus && <CommonModal type="error" />}
       {/* 리뷰 삭제 버튼 클릭시 한번 더 확인하는 모달 */}
       {/* reviewList 컴포넌트에 둬야 한번만 렌더링됨 */}
       {confirmModal && (
@@ -158,7 +166,6 @@ const ReviewList = props => {
           confirmText={t('CommonModal.delete')}
         />
       )}
-
       <ReviewWrap>
         <ReviewTitle>
           <Grid justify="space-between">

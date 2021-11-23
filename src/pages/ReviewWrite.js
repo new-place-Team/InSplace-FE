@@ -12,7 +12,10 @@ import { addReviewDB, updateReviewDB } from '../redux/async/place';
 import ReviewPostInfo from '../components/place/ReviewPostInfo';
 import { getReviewEdit } from '../shared/api/placeApi';
 import CommonModal from '../components/common/CommonModal';
-import { setCommonModalOn } from '../redux/modules/commonSlice';
+import {
+  setCommonModalOn,
+  setErrorModalOn,
+} from '../redux/modules/commonSlice';
 
 const ReviewWrite = props => {
   const { history, match } = props;
@@ -21,6 +24,7 @@ const ReviewWrite = props => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const commomModal = useSelector(state => state.common.modalStatus);
+  const errorModal = useSelector(state => state.common.errorStatus);
   const fileInput = useRef();
   const reviewTypeEdit = reviewId !== undefined;
   const [preview, setPreview] = useState([]);
@@ -214,6 +218,10 @@ const ReviewWrite = props => {
       }
     } catch (err) {
       console.log('err == ', err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      dispatch(setErrorModalOn(modalParams));
     }
   };
 
@@ -226,6 +234,7 @@ const ReviewWrite = props => {
   return (
     <>
       {commomModal && <CommonModal />}
+      {errorModal && <CommonModal type="error" />}
       <Header
         _back
         _content={

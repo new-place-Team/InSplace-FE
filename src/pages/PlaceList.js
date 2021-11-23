@@ -145,22 +145,3 @@ const ImageContainer = styled.div`
   }
 `;
 export default PlaceList;
-
-/* <Text margin="40px 0 0 0" fontSize="20px" bold>
-              {title} ?
-            </Text>
-            <PlaceGrid>
-              {placeList &&
-                placeList.map((info, idx) => {
-                  const lastItem = idx === placeList.length - 1;
-                  return (
-                    <CardWrap key={`key-${info.postId}`}>
-                      <ListCard
-                        type="searchList"
-                        info={info}
-                        ref={lastItem ? setTarget : null}
-                      />
-                    </CardWrap>
-                  );
-                })}
-            </PlaceGrid> */
