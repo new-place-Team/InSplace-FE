@@ -111,6 +111,7 @@ const MyPageEdit = props => {
         setNicknameDuplicate(result);
       }
     } catch (err) {
+      // 닉네임 중복은 모달창이 아닌 문구로 나와야함.
       console.log('error ::::::', err);
     }
     setButtonStatus(false);

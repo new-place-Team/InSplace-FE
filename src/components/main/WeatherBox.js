@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Grid, Text, Icons } from '../../elements';
 import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
@@ -10,8 +11,8 @@ import { ReactComponent as SnowIcon } from '../../images/weather/snow.svg';
 import { ReactComponent as CloudIcon } from '../../images/weather/cloud.svg';
 import { ReactComponent as Marker } from '../../images/Icon/ic_weather_map-pin.svg';
 import { ReactComponent as Particlulates } from '../../images/Icon/ic_weather_particulates.svg';
-import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good_white.svg';
-// import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good.svg';
+// import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good_white.svg';
+import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good.svg';
 import { ReactComponent as WeatherSoso } from '../../images/Icon/ic_weather_soso.svg';
 import { ReactComponent as WeatherBad } from '../../images/Icon/ic_weather_bad.svg';
 import { ReactComponent as WeatherSoBad } from '../../images/Icon/ic_weather_sobad.svg';
@@ -20,26 +21,27 @@ import { ReactComponent as WeatherDanger } from '../../images/Icon/ic_weather_da
 
 const WeatherBox = props => {
   const { info } = props;
+  const { t } = useTranslation();
   const location = useSelector(state => state.place.location);
   let PmText = '';
-  let PmStatus = '';
+  let PmStatus = null;
   if (info) {
     /* 미세먼지 아이콘 변경 */
     if (info.pm10 === 2) {
       PmStatus = WeatherSoso;
-      PmText = '보통';
+      PmText = t('WeatherDetail.weatherCondition.miseNormal');
     } else if (info.pm10 === 3) {
       PmStatus = WeatherBad;
-      PmText = '나쁨';
+      PmText = t('WeatherDetail.weatherCondition.miseBad');
     } else if (info.pm10 === 4) {
       PmStatus = WeatherSoBad;
-      PmText = '매우나쁨';
+      PmText = t('WeatherDetail.weatherCondition.miseSoBad');
     } else if (info.pm10 === 5) {
       PmStatus = WeatherDanger;
-      PmText = '위험';
+      PmText = t('WeatherDetail.weatherCondition.miseDanger');
     } else {
       PmStatus = WeatherGood;
-      PmText = '좋음';
+      PmText = t('WeatherDetail.weatherCondition.miseGood');
     }
   }
   return (
@@ -79,9 +81,8 @@ const WeatherBox = props => {
                 {PmText}
               </Text>
               <Icons width="24px" height="24px" margin="0 0 0 4px">
-                {/* 이미지 오류나서 수정할 예정
-                {PmStatus} */}
-                <WeatherGood />
+                {/* 이미지 오류나서 수정할 예정 */}
+                {PmStatus && <PmStatus />}
               </Icons>
             </Grid>
             {/* 어제 대비 온도 */}

@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
-  "short_name": "Calog",
-  "name": "Calog",
-=======
   "short_name": "InSplace",
-  "name": "Create React App Sample",
->>>>>>> 7c77714867ca1c7470e93aff8a0deccfa84ee7fe
+  "name": "InSplace",
   "icons": [
     { 
       "src": "/icons/calog192.png",

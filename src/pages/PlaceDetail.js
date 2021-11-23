@@ -37,7 +37,6 @@ const Detail = props => {
   const { t } = useTranslation();
 
   const newAddr = detailData ? detailData.addressShort.split(' ') : false;
-
   const placeMarker = detailData
     ? [
         {
@@ -65,8 +64,8 @@ const Detail = props => {
   };
 
   const goBack = () => {
-    if (history.length <= 1) {
-      history.goBack('/main');
+    if (history.length <= 2) {
+      history.goBack('/');
     }
     history.goBack();
   };
@@ -136,8 +135,6 @@ const Detail = props => {
       installTalk: true,
     });
   };
-
-  console.log('detailData ?? ', detailData);
 
   return (
     <>
