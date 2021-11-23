@@ -77,6 +77,7 @@ export const logInCheckDB = createAsyncThunk(
   async thunkAPI => {
     try {
       const response = await logInCheck();
+      console.log('response', response);
       return response.data;
     } catch (err) {
       console.log(err.response);

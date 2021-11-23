@@ -9,7 +9,6 @@ const SwiperLB = props => {
   const setting = {
     slidesPerView: 3,
     spaceBetween: 16,
-    // lazyLoading: true,
     breakpoints: {
       // mobile
       320: {
@@ -34,7 +33,6 @@ const SwiperLB = props => {
       },
       768: {
         slidesPerView: 3,
-        lazyLoading: true,
         spaceBetween: type === 'selectResult' ? 16 : 16,
       },
     },
