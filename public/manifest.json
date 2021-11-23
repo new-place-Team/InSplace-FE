@@ -58,13 +58,13 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/insplace512.jpg",
+      "src": "/icons/insplace512.png",
       "sizes": "310x310",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/insplace512.jpg",
+      "src": "/icons/insplace512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
