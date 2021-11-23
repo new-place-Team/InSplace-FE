@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 /* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -149,7 +148,6 @@ const ReviewList = props => {
       {moreModalStatus && (
         <CommonModal type="more" showConfirmModal={showConfirmModal} />
       )}
-      {}
       {/* 신고되었다는 확인 메세지 */}
       {reportModalStatus && <CommonModal type="report" />}
       {/* error일때 모달 */}
@@ -206,7 +204,7 @@ const ReviewList = props => {
               <>
                 <ReviewCard
                   key={item.reviewId}
-                  loginUser={userInfo.nickname}
+                  loginUser={userInfo && userInfo.nickname}
                   postId={postId}
                   info={item}
                   userId={item.userId}

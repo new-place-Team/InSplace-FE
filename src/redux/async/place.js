@@ -45,6 +45,7 @@ import {
 import { getLoaded } from '../modules/loadedSlice';
 import {
   setCommonModalOn,
+  setErrorModalOn,
   setMoreModalOff,
   setReportModalOn,
 } from '../modules/commonSlice';
@@ -391,6 +392,7 @@ export const deleteReviewDB = createAsyncThunk(
 export const reviewLikeDB = createAsyncThunk(
   'place/reviewLike',
   async (params, thunkAPI) => {
+    console.log('params? ', params);
     try {
       const response = await reviewLike(params);
       thunkAPI.dispatch(reviewLikesList(params));
@@ -402,7 +404,7 @@ export const reviewLikeDB = createAsyncThunk(
       const modalParams = {
         title: `${err.response.data.errMsg}`,
       };
-      thunkAPI.dispatch(setCommonModalOn(modalParams));
+      thunkAPI.dispatch(setErrorModalOn(modalParams));
       return thunkAPI.rejectWithValue(err.response.data);
     }
   },
@@ -422,7 +424,7 @@ export const reviewLikeCancelDB = createAsyncThunk(
       const modalParams = {
         title: `${err.response.data.errMsg}`,
       };
-      thunkAPI.dispatch(setCommonModalOn(modalParams));
+      thunkAPI.dispatch(setErrorModalOn(modalParams));
       return thunkAPI.rejectWithValue(err.response.data);
     }
   },
