@@ -90,7 +90,7 @@ const ModalContainer = styled.div`
   width: 100vw;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.75);
-  z-index: 999;
+  z-index: 10;
 `;
 const ModalContent = styled.div`
   position: relative;

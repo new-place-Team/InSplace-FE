@@ -9,7 +9,7 @@ const SwiperLB = props => {
   const setting = {
     slidesPerView: 3,
     spaceBetween: 16,
-    lazyLoading: true,
+    // lazyLoading: true,
     breakpoints: {
       // mobile
       320: {

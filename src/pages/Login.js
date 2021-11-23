@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Header from '../components/common/Header';
 import { Container, Grid, Input, Label, Text, Button } from '../elements';
@@ -10,12 +10,10 @@ import { logInDB } from '../redux/async/user';
 import { xcircle } from '../images/index';
 import { KAKAO_AUTH_URL } from '../shared/KakaoOAuth';
 import { ReactComponent as KakaoIcon } from '../images/kakaoLogin/join_kakao.svg';
-import CommonModal from '../components/common/CommonModal';
 
 const Login = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const commomModal = useSelector(state => state.common.modalStatus);
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
@@ -46,11 +44,11 @@ const Login = () => {
       return setPassError(t('loginPage.loginerrMessage.1'));
     }
     dispatch(logInDB(userInfo));
+    history.push('/');
   };
 
   return (
     <>
-      {commomModal && <CommonModal />}
       <Header _back _content={t('loginPage.headerSubTitle')} />
       <Container padding="66px 0 0 0">
         <Grid padding="42px 20px 0 20px">

@@ -29,7 +29,7 @@ import ConfirmModal from '../components/common/ConfirmModal';
 
 const Detail = props => {
   const dispatch = useDispatch();
-  const { match, location } = props;
+  const { match } = props;
   const { id } = match.params;
   const detailData = useSelector(state => state.place.detailInfo);
   const isLogin = useSelector(state => state.user.isLogin);
@@ -277,7 +277,7 @@ const PlaceHeader = styled.div`
   line-height: 76px;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 8;
 `;
 const IconBox = styled.div`
   display: flex;
@@ -294,7 +294,7 @@ const InfoGrid = styled.div`
   position: relative;
   top: -44px;
   left: 24px;
-  z-index: 10;
+  z-index: 8;
   width: calc(100% - 24px);
   padding: 28px 24px 34px;
   background-color: #fff;

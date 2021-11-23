@@ -94,8 +94,12 @@ const ReviewWrite = props => {
     }
     const reader = new FileReader();
     let file = fileInput.current.files[0];
-    if (file.name.split('.')[1] === 'heic') {
-      heic2any({ blob, toType: 'image/jpeg' }).then(function (resultBlob) {
+    console.log(file.name.split('.')[1]);
+    // 아이폰 11부터 HEIC 파일이여서 jpeg로 변환해줌
+    if (file.name.split('.')[1] === 'HEIC') {
+      console.log('HEIC == ');
+      const blob = fileInput.current.files[0];
+      heic2any({ blob, toType: 'image/jpeg' }).then(resultBlob => {
         file = new File([resultBlob], `${file.name.split('.')[0]}.jpg`, {
           type: 'image/jpeg',
           lastModified: new Date().getTime(),
@@ -110,23 +114,13 @@ const ReviewWrite = props => {
         };
       });
     } else {
-      console.log('file ? ', file);
       reader.readAsDataURL(file);
-      reader.onload = () => {
+      reader.onloadend = () => {
         const addImage = [];
         addImage.push(reader.result);
         setPreview(preview.concat(addImage));
       };
       setState({ ...state, reviewImages: state.reviewImages.concat(file) });
-
-      // file 읽기 실패되었을때 실행
-      reader.onerror = error => {
-        const params = {
-          title: t('ReviewWrite.Modal.errorPhoto'),
-        };
-        dispatch(setCommonModalOn(params));
-        console.log('error = ', error);
-      };
     }
 
     // // file 읽는게 성공적으로 되었을때 실행

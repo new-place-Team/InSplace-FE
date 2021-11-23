@@ -73,7 +73,7 @@ const Overlay = styled.div`
   width: 100vw;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.48);
-  z-index: 100;
+  z-index: 10;
 `;
 const ModalContainer = styled.div`
   position: absolute;
