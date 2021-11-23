@@ -64,6 +64,7 @@ const Detail = props => {
   };
 
   const goBack = () => {
+    console.log('length>>', history.length);
     if (history.length <= 2) {
       history.goBack('/');
     }
@@ -277,7 +278,7 @@ const PlaceHeader = styled.div`
   line-height: 76px;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 8;
 `;
 const IconBox = styled.div`
   display: flex;
@@ -294,7 +295,7 @@ const InfoGrid = styled.div`
   position: relative;
   top: -44px;
   left: 24px;
-  z-index: 10;
+  z-index: 8;
   width: calc(100% - 24px);
   padding: 28px 24px 34px;
   background-color: #fff;

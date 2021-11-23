@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Grid, Image, Text } from '../elements';
+import { Container, Grid, Image, Text } from '../elements';
 import { ReactComponent as LeftIcon } from '../images/ic-left.svg';
 import { history } from '../redux/configureStore';
 import { placeSearch } from '../images';
@@ -48,10 +48,12 @@ const SearchPage = () => {
           </Grid>
         </Content>
       </HeaderBar>
-      <ImageContainer>
-        <Image src={placeSearch} />
-        <Text color="#3E4042">{t('SearchPlace.text')}</Text>
-      </ImageContainer>
+      <Container>
+        <ImageContainer>
+          <Image src={placeSearch} />
+          <Text color="#3E4042">{t('SearchPlace.text')}</Text>
+        </ImageContainer>
+      </Container>
     </>
   );
 };
@@ -69,6 +71,7 @@ const Content = styled.div`
   height: 66px;
   min-height: 66px;
   margin: 0 auto;
+  padding: 0 26px 0 8px;
 `;
 
 const IconArea = styled.div`
@@ -93,11 +96,16 @@ const Input = styled.input`
 `;
 
 const ImageContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10%;
   flex-direction: column;
+  width: 100%;
+  height: 100vh;
+
   img {
     width: 461px;
     display: block;

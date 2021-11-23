@@ -18,7 +18,7 @@ import commonSlice from './commonSlice';
 // inititalState
 const initialState = {
   userMbti: {},
-  userInfo: null,
+  userInfo: {},
   modalStatus: false,
   isLogin: false,
   userPickPlaces: { likeList: null, visitedList: null },

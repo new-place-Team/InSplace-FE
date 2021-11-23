@@ -26,7 +26,6 @@ const Navbar = () => {
   const { t } = useTranslation();
   const isLogin = useSelector(state => state.user.isLogin);
   const userInfo = useSelector(state => state.user.userInfo);
-  console.log(isLogin, userInfo);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
   const [weatherModalShow, setWeatherModalShow] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
@@ -121,7 +120,7 @@ const Navbar = () => {
               <HeartIcon />
             </Icon>
             {/* 로그인 안 상태일때 */}
-            {isLogin === false || !userInfo ? (
+            {isLogin === false || userInfo === {} ? (
               <Icon
                 color={pathName === '/mypage' ? '#000' : ''}
                 onClick={() => loginCheck('/mypage')}
@@ -151,7 +150,7 @@ const Nav = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 0px -2px 3px rgb(196 196 196 /25%);
-  z-index: 99;
+  z-index: 9;
 `;
 
 const Content = styled.div`

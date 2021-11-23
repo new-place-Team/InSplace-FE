@@ -188,6 +188,7 @@ Header.defaultProps = {
   _map: false,
   _close: false,
   _color: '#212529',
+  padding: false,
 };
 
 const HeaderBar = styled.div`
