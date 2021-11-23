@@ -95,7 +95,7 @@ const ReviewWrite = props => {
     const reader = new FileReader();
     let file = fileInput.current.files[0];
     if (file.name.split('.')[1] === 'heic') {
-      heic2any({ blob, toType: 'image/jpeg' }).then(function (resultBlob) {
+      heic2any({ blob, toType: 'image/jpeg' }).then(resultBlob => {
         file = new File([resultBlob], `${file.name.split('.')[0]}.jpg`, {
           type: 'image/jpeg',
           lastModified: new Date().getTime(),
