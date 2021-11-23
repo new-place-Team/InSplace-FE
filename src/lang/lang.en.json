@@ -166,7 +166,10 @@
   "Setting": {
     "headerSubTitle": "Setting",
     "logOut": "Logout",
-    "withdrawal": "Withdrawal"
+    "withdrawal": "Withdrawal",
+    "logOutMessage": "Logout Success!",
+    "withdrawalMessage": "Do you really want to withdraw",
+    "withdrwalContent": "permanently withdrawn?"
   },
   "MyPage": {
     "UpdateIssue": "Update Issue",
