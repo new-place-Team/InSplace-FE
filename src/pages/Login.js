@@ -104,6 +104,14 @@ const Login = () => {
         </Grid>
         <BottomWrap>
           <TButton onClick={submitUserInfo}>{t('loginPage.login')}</TButton>
+
+          <Grid margin="20px 0 30px 0">
+            <RelativeGrid>
+              <RelativeText>{t('loginPage.or')}</RelativeText>
+            </RelativeGrid>
+            <hr style={{ color: '#A3A6AA' }} />
+          </Grid>
+
           {/* 카카오 로그인 버튼 */}
           <KakaoButton
             bg="#fce55a"
@@ -119,9 +127,13 @@ const Login = () => {
           </KakaoButton>
           <Grid isFlex margin="24px 0 0 0" justify="center">
             <Text fontSize="13px" color="#A3A6AA" margin="0 12px 0 0">
-              아직 회원이 아니신가요?
+              {t('loginPage.infoText')}
             </Text>
-            <Button color="#A3A6AA" _onClick={() => history.push('/signUp')}>
+            <Button
+              color="#A3A6AA"
+              bold
+              _onClick={() => history.push('/signUp')}
+            >
               {t('loginPage.register')}
             </Button>
           </Grid>
@@ -180,5 +192,23 @@ const CloseButton = styled.img`
   bottom: 17px;
   width: 20px;
   cursor: pointer;
+`;
+
+const RelativeGrid = styled.div`
+  display: inline-block;
+  position: relative;
+  top: 10px;
+  display: flex;
+  justify-content: center;
+
+  /* background-color: #fff; */
+`;
+
+const RelativeText = styled.p`
+  padding: 0 20px;
+  background-color: #fff;
+  color: #a3a6aa;
+  text-align: center;
+  font-size: 13px;
 `;
 export default Login;
