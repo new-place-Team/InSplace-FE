@@ -64,6 +64,7 @@ const Detail = props => {
   };
 
   const goBack = () => {
+    console.log('length>>', history.length);
     if (history.length <= 2) {
       history.goBack('/');
     }
