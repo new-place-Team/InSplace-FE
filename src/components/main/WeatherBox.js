@@ -11,8 +11,8 @@ import { ReactComponent as SnowIcon } from '../../images/weather/snow.svg';
 import { ReactComponent as CloudIcon } from '../../images/weather/cloud.svg';
 import { ReactComponent as Marker } from '../../images/Icon/ic_weather_map-pin.svg';
 import { ReactComponent as Particlulates } from '../../images/Icon/ic_weather_particulates.svg';
-import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good_white.svg';
-// import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good.svg';
+// import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good_white.svg';
+import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good.svg';
 import { ReactComponent as WeatherSoso } from '../../images/Icon/ic_weather_soso.svg';
 import { ReactComponent as WeatherBad } from '../../images/Icon/ic_weather_bad.svg';
 import { ReactComponent as WeatherSoBad } from '../../images/Icon/ic_weather_sobad.svg';
@@ -24,7 +24,7 @@ const WeatherBox = props => {
   const { t } = useTranslation();
   const location = useSelector(state => state.place.location);
   let PmText = '';
-  let PmStatus = '';
+  let PmStatus = null;
   if (info) {
     /* 미세먼지 아이콘 변경 */
     if (info.pm10 === 2) {
@@ -81,9 +81,8 @@ const WeatherBox = props => {
                 {PmText}
               </Text>
               <Icons width="24px" height="24px" margin="0 0 0 4px">
-                {/* 이미지 오류나서 수정할 예정
-                {PmStatus} */}
-                <WeatherGood />
+                {/* 이미지 오류나서 수정할 예정 */}
+                {PmStatus && <PmStatus />}
               </Icons>
             </Grid>
             {/* 어제 대비 온도 */}

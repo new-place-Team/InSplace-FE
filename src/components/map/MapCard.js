@@ -2,6 +2,7 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { history } from '../../redux/configureStore';
 import { Grid, Image, Text } from '../../elements';
 import { getCategoryText } from '../../shared/transferText';
 import { setFavoritesPostDB } from '../../redux/async/place';
@@ -32,7 +33,13 @@ const MapCard = props => {
   return (
     <MapCardCotainer ref={content}>
       <Mapchild>
-        <Grid width="101px" height="121px" margin="0 20px 0 0">
+        <Grid
+          width="101px"
+          height="121px"
+          margin="0 20px 0 0"
+          cursor="true"
+          _onClick={() => history.push(`/place/detail/${el.postId}`)}
+        >
           <Image width="100%" height="121px" src={el.postImage} />
         </Grid>
         <Grid flex>

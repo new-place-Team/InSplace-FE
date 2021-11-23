@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { insplace } from '../images/index';
 
-const Image = forwardRef(props => {
+const Image = forwardRef((props, ref) => {
   const {
     type,
     width,
@@ -11,7 +11,6 @@ const Image = forwardRef(props => {
     padding,
     color,
     src,
-    ref,
     children,
     _onClick,
   } = props;

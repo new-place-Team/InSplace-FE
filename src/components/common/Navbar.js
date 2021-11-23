@@ -121,7 +121,7 @@ const Navbar = () => {
               <HeartIcon />
             </Icon>
             {/* 로그인 안 상태일때 */}
-            {isLogin === false || userInfo === {} ? (
+            {isLogin === false || !userInfo ? (
               <Icon
                 color={pathName === '/mypage' ? '#000' : ''}
                 onClick={() => loginCheck('/mypage')}
