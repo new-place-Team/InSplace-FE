@@ -19,8 +19,7 @@ const PlaceList = props => {
   const placeList = useSelector(state => state.place.placeList);
   const pagination = useSelector(state => state.place.placePagination);
   const { t } = useTranslation();
-  console.log('pagination === ', pagination);
-  console.log('searchType === ', searchType);
+
   /* target 을 지켜보다 target이 정해진 threshold 비율만큼 지정 행동 */
   const [target, setTarget] = useState(null);
 
@@ -111,6 +110,7 @@ const PlaceGrid = styled.div`
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
+  padding-bottom: 60px;
 `;
 const CardWrap = styled.div`
   width: 23.5%;
@@ -128,11 +128,15 @@ const CardWrap = styled.div`
   }
 `;
 const ImageContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10%;
   flex-direction: column;
+  width: 100%;
+  height: 100vh;
   img {
     width: 461px;
     display: block;

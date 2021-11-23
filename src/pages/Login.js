@@ -15,13 +15,13 @@ import CommonModal from '../components/common/CommonModal';
 const Login = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const commomModal = useSelector(state => state.common.modalStatus);
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
   });
   const [emailError, setEmailError] = useState('');
   const [passError, setPassError] = useState('');
+  const modalStatus = useSelector(state => state.common.modalStatus);
 
   const onChange = e => {
     setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
@@ -50,7 +50,7 @@ const Login = () => {
 
   return (
     <>
-      {commomModal && <CommonModal />}
+      {modalStatus && <CommonModal />}
       <Header _back _content={t('loginPage.headerSubTitle')} />
       <Container padding="66px 0 0 0">
         <Grid padding="42px 20px 0 20px">

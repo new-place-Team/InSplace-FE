@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-undef */
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -18,6 +19,10 @@ import {
   SnowFull768,
   Sunshine,
   CloudImg,
+  SunLoading,
+  RainLoading,
+  CloudLoading,
+  SnowLoading,
 } from '../../images/weather/index.js';
 import { Grid, Text, Icons } from '../../elements';
 
@@ -27,19 +32,27 @@ const WeatherInfo = props => {
   const { t } = useTranslation();
   const location = useSelector(state => state.place.location);
   const weatherInfo = useSelector(state => state.place.weatherStatus);
+  const [imgLoading, setImgLoading] = useState(false);
+  const imgRef = useRef(null);
   const weatherStatus = weatherInfo && weatherInfo.frontWeather;
   let weatherBg = SunFull768;
+  let weatherLoading = SunLoading;
   let PmStatus = '';
   let PmText = '';
   if (weatherInfo) {
     /* 날씨에 따른 배경 이미지 */
     if (weatherStatus === 2) {
+      // 로딩 이미지 안먹힘
+      weatherLoading = RainLoading;
       weatherBg = RainFull768;
     } else if (weatherStatus === 3) {
+      weatherLoading = SnowLoading;
       weatherBg = SnowFull768;
     } else if (weatherStatus === 4) {
+      weatherLoading = CloudLoading;
       weatherBg = CloudFull768;
     } else {
+      weatherLoading = SunLoading;
       weatherBg = SunFull768;
     }
     /* 미세먼지 아이콘 변경 */
@@ -65,7 +78,22 @@ const WeatherInfo = props => {
     root.setAttribute('style', 'overflow: hidden;');
     return () => root.removeAttribute('style');
   }, []);
-
+  useEffect(() => {
+    const callback = entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setImgLoading(true);
+        }
+      });
+    };
+    const observer = new IntersectionObserver(callback, {
+      threshold: 0,
+    });
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
+    return () => observer && observer.disconnect();
+  }, []);
   /* 비 호출 */
   const getRain = () => {
     let increment = 0;
@@ -103,15 +131,15 @@ const WeatherInfo = props => {
     }
     return drops;
   };
+
   return (
-    <Wrap>
+    <Wrap ref={imgRef}>
       <Container>
         {/* 닫기버튼 */}
         <CloseBtn onClick={() => closeWeatherModal()}>
           <Close />
         </CloseBtn>
-        <WeatherModal src={weatherBg}>
-          {/* Main Info */}
+        <WeatherModal src={imgLoading ? weatherBg : weatherLoading}>
           <Grid padding="77px 0 0 8%">
             {/* 현재위치 주소 */}
             <Grid isFlex>
@@ -188,7 +216,7 @@ const Wrap = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
-  z-index: 100;
+  z-index: 10;
 `;
 
 const Container = styled.div`
@@ -206,6 +234,7 @@ const WeatherModal = styled.div`
   background-image: url('${props => props.src}');
   background-size: cover;
   background-position: center;
+  background-color: #f1f1f1;
 `;
 
 const CloseBtn = styled.div`

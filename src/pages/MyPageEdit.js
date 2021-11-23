@@ -3,6 +3,7 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import heic2any from 'heic2any';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalOn } from '../redux/modules/userSlice';
@@ -58,16 +59,29 @@ const MyPageEdit = props => {
   /* 사진 */
   const selectFile = () => {
     const reader = new FileReader();
-    const file = fileInput.current.files[0];
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setPreview(reader.result);
-    };
-    setInfo({ ...info, userImage: file });
-    reader.onerror = error => {
-      console.log('error = ', error);
-    };
+    let file = fileInput.current.files[0];
+    if (file.name.split('.')[1] === 'HEIC') {
+      const blob = fileInput.current.files[0];
+      heic2any({ blob, toType: 'image/jpeg' }).then(resultBlob => {
+        file = new File([resultBlob], `${file.name.split('.')[0]}.jpg`, {
+          type: 'image/jpeg',
+          lastModified: new Date().getTime(),
+        });
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          setPreview(reader.result);
+        };
+        setInfo({ ...info, userImage: file });
+      });
+    } else {
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setPreview(reader.result);
+      };
+      setInfo({ ...info, userImage: file });
+    }
   };
+
   /* 모달 열기 */
   const openModal = () => {
     dispatch(setModalOn());
@@ -295,7 +309,7 @@ const Div = styled.div`
 `;
 const UploadWrap = styled.div`
   margin: -40px -120px 0 0;
-  z-index: 50;
+  z-index: 8;
   @media (max-width: 415px) {
     margin: -40px -100px 0 0;
   }

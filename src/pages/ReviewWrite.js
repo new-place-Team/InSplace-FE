@@ -16,6 +16,8 @@ import {
   setCommonModalOn,
   setErrorModalOn,
 } from '../redux/modules/commonSlice';
+import Spinner from '../components/common/Spinner';
+import { getLoaded } from '../redux/modules/loadedSlice';
 
 const ReviewWrite = props => {
   const { history, match } = props;
@@ -25,6 +27,7 @@ const ReviewWrite = props => {
   const { t } = useTranslation();
   const commomModal = useSelector(state => state.common.modalStatus);
   const errorModal = useSelector(state => state.common.errorStatus);
+  const isLoading = useSelector(state => state.loaded.is_loaded);
   const fileInput = useRef();
   const reviewTypeEdit = reviewId !== undefined;
   const [preview, setPreview] = useState([]);
@@ -92,17 +95,20 @@ const ReviewWrite = props => {
       dispatch(setCommonModalOn(params));
       return;
     }
+    dispatch(getLoaded(true));
     const reader = new FileReader();
     let file = fileInput.current.files[0];
-    if (file.name.split('.')[1] === 'heic') {
+    // 아이폰 11부터 HEIC 파일이여서 jpeg로 변환해줌
+    if (file.name.split('.')[1] === 'HEIC') {
+      const blob = fileInput.current.files[0];
       heic2any({ blob, toType: 'image/jpeg' }).then(resultBlob => {
         file = new File([resultBlob], `${file.name.split('.')[0]}.jpg`, {
           type: 'image/jpeg',
           lastModified: new Date().getTime(),
         });
-        console.log('heic file ==== ', file);
         reader.readAsDataURL(file);
         reader.onloadend = () => {
+          dispatch(getLoaded(false));
           const addImage = [];
           addImage.push(reader.result);
           setPreview(preview.concat(addImage));
@@ -110,23 +116,15 @@ const ReviewWrite = props => {
         };
       });
     } else {
-      console.log('file ? ', file);
       reader.readAsDataURL(file);
-      reader.onload = () => {
+      reader.onloadend = () => {
+        dispatch(getLoaded(false));
         const addImage = [];
         addImage.push(reader.result);
         setPreview(preview.concat(addImage));
       };
-      setState({ ...state, reviewImages: state.reviewImages.concat(file) });
 
-      // file 읽기 실패되었을때 실행
-      reader.onerror = error => {
-        const params = {
-          title: t('ReviewWrite.Modal.errorPhoto'),
-        };
-        dispatch(setCommonModalOn(params));
-        console.log('error = ', error);
-      };
+      setState({ ...state, reviewImages: state.reviewImages.concat(file) });
     }
 
     // // file 읽는게 성공적으로 되었을때 실행
@@ -233,6 +231,7 @@ const ReviewWrite = props => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       {commomModal && <CommonModal />}
       {errorModal && <CommonModal type="error" />}
       <Header

@@ -49,7 +49,6 @@ export const logInDB = createAsyncThunk(
       if (response) {
         const USER_TOKEN = response.data.token;
         window.localStorage.setItem('USER_TOKEN', USER_TOKEN);
-
         const userInfo = {
           userId: response.data.userId,
           email: response.data.email,
@@ -58,11 +57,7 @@ export const logInDB = createAsyncThunk(
           userImage: response.data.userImage,
           mbti: response.data.mbti,
         };
-        const modalParams = {
-          title: '로그인에 성공하셨습니다',
-          goPage: '/',
-        };
-        thunkAPI.dispatch(setCommonModalOn(modalParams));
+        history.push('/');
         return userInfo;
       }
     } catch (err) {
@@ -83,7 +78,6 @@ export const logInCheckDB = createAsyncThunk(
   async thunkAPI => {
     try {
       const response = await logInCheck();
-      console.log('response', response);
       return response.data;
     } catch (err) {
       console.log(err.response);
