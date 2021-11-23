@@ -189,6 +189,9 @@ const placeSlice = createSlice({
         );
       }
     },
+    initState: state => {
+      state.mainLists = null;
+    },
   },
 
   extraReducers: {
@@ -324,6 +327,7 @@ export const {
   resetReviewList,
   resetReviewLikeList,
   resetReviewPagination,
+  initState,
 } = placeSlice.actions;
 
 export const { getLoaded } = loadedSlice.actions;

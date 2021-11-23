@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import detector from 'i18next-browser-languagedetector';
@@ -13,7 +12,6 @@ const resource = {
     translation: langKo,
   },
 };
-const currLang = localStorage.getItem('LANGUAGE');
 
 i18n
   .use(detector)
@@ -21,7 +19,7 @@ i18n
   .init({
     resources: resource,
     // 초기 설정 언어
-    lng: currLang,
+    lng: 'ko-KR',
     fallbackLng: {
       'en-US': ['en-US'],
       default: ['ko-KR'],

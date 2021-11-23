@@ -60,7 +60,7 @@ const MapContainer = () => {
 
   return (
     <>
-      <Header _back _content={t('placeMapPage.headerSubTitle')} _language />
+      <Header _back _content={t('placeMapPage.headerSubTitle')} />
       <Container padding="66px 0 0 0">
         <Grid padding="0 24px">
           <SelectedCategory />
