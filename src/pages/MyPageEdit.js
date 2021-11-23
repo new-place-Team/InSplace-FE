@@ -60,7 +60,10 @@ const MyPageEdit = props => {
   const selectFile = () => {
     const reader = new FileReader();
     let file = fileInput.current.files[0];
-    if (file.name.split('.')[1] === 'HEIC') {
+    if (
+      file.name.split('.')[1] === 'HEIC' ||
+      file.name.split('.')[1] === 'heic'
+    ) {
       const blob = fileInput.current.files[0];
       heic2any({ blob, toType: 'image/jpeg' }).then(resultBlob => {
         file = new File([resultBlob], `${file.name.split('.')[0]}.jpg`, {
