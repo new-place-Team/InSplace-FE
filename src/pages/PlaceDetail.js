@@ -29,7 +29,7 @@ import ConfirmModal from '../components/common/ConfirmModal';
 
 const Detail = props => {
   const dispatch = useDispatch();
-  const { match, location } = props;
+  const { match } = props;
   const { id } = match.params;
   const detailData = useSelector(state => state.place.detailInfo);
   const isLogin = useSelector(state => state.user.isLogin);
@@ -140,7 +140,7 @@ const Detail = props => {
     <>
       {confirmModal && (
         <ConfirmModal
-          title="로그인을 해야 이용할 수 있는 서비스입니다. 로그인 하시겠습니까?"
+          title={t('Navbar.login')}
           setConfirmModal={setConfirmModal}
           goToLogin
         />
