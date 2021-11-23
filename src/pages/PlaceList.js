@@ -128,11 +128,15 @@ const CardWrap = styled.div`
   }
 `;
 const ImageContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10%;
   flex-direction: column;
+  width: 100%;
+  height: 100vh;
   img {
     width: 461px;
     display: block;
