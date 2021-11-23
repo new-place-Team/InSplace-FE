@@ -74,7 +74,6 @@ const MyPage = () => {
   } else {
     weatherbg = sunbg;
   }
-
   return (
     <>
       {loginModal && (
