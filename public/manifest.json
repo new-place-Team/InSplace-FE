@@ -3,68 +3,68 @@
   "name": "InSplace",
   "icons": [
     { 
-      "src": "/icons/calog192.png",
+      "src": "/icons/insplace192.png",
       "sizes": "57x57",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/calog192.png",
+      "src": "/icons/insplace192.png",
       "sizes": "60x60",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/calog192.png",
+      "src": "/icons/insplace192.png",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/calog192.png",
+      "src": "/icons/insplace192.png",
       "sizes": "76x76",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/calog192.png",
+      "src": "/icons/insplace192.png",
       "sizes": "114x114",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/calog192.png",
+      "src": "/icons/insplace192.png",
       "sizes": "120x120",
       "type": "image/png",
       "purpose": "any maskable"
     },
 
     {
-      "src": "/icons/calog192.png",
+      "src": "/icons/insplace192.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/calog192.png",
+      "src": "/icons/insplace192.png",
       "sizes": "152x152",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/calog192.png",
+      "src": "/icons/insplace192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/calog512.jpg",
+      "src": "/icons/insplace512.jpg",
       "sizes": "310x310",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/calog512.jpg",
+      "src": "/icons/insplace512.jpg",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
