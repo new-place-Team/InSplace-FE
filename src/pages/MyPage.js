@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable import/no-unresolved */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -9,7 +10,10 @@ import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { whiteRight, mypageNext } from '../images/index';
 import { Button, Container, Grid, Image } from '../elements';
-import sunBg from '../images/weather/sun_full_768.jpg';
+import sunbg from '../images/weather/sun_main_1x.jpg';
+import cloudbg from '../images/weather/cloud_main_1x.jpg';
+import snowbg from '../images/weather/snow_main_1x.png';
+import rainbg from '../images/weather/rain_main_1x.png';
 import ConfirmModal from '../components/common/ConfirmModal';
 import CommonModal from '../components/common/CommonModal';
 import {
@@ -23,6 +27,7 @@ const MyPage = () => {
   const [loginModal, setLoginModal] = useState(false);
   const modalStatus = useSelector(state => state.common.modalStatus);
   const feedbackStatus = useSelector(state => state.common.feedbackStatus);
+  const weatherInfo = useSelector(state => state.place.weatherStatus);
   const { t } = useTranslation();
 
   const pageMove = () => {
@@ -55,6 +60,20 @@ const MyPage = () => {
   const feedbackModal = () => {
     dispatch(setFeedbackModalOn());
   };
+  let weatherbg;
+  if (weatherInfo) {
+    if (weatherInfo.frontWeather === 2) {
+      weatherbg = rainbg;
+    } else if (weatherInfo.frontWeather === 3) {
+      weatherbg = snowbg;
+    } else if (weatherInfo.frontWeather === 4) {
+      weatherbg = cloudbg;
+    } else {
+      weatherbg = sunbg;
+    }
+  } else {
+    weatherbg = sunbg;
+  }
 
   return (
     <>
@@ -70,7 +89,7 @@ const MyPage = () => {
       {feedbackStatus && <CommonModal type="feedback" />}
       <Container padding="0" height="100%">
         <Header _onBg _content="MyPage" _settings _color="#fff" />
-        <Bg src={sunBg}>
+        <Bg src={weatherbg}>
           <MyPageInfoGrid>
             <MyPageFrofile>
               <Image
@@ -120,7 +139,7 @@ const MyPage = () => {
               <Title>{t('MyPage.Donation')}</Title>
               <BottomBox>
                 <TextBox>
-                  <Bank>카카오뱅크</Bank>
+                  <Bank>{t('MyPage.KakaoBank')}</Bank>
                   <BankNumber>7979-39-23429</BankNumber>
                 </TextBox>
               </BottomBox>
@@ -169,8 +188,12 @@ const UserInfoGrid = styled.div`
 const MyPageFrofile = styled.div`
   display: flex;
   align-items: center;
-  width: 172px;
+  width: auto;
+  min-width: 172px;
   height: 172px;
+  @media (max-width: 415px) {
+    min-width: 120px;
+  }
 `;
 const InfoGrid = styled.div`
   position: absolute;
@@ -192,7 +215,7 @@ const Info = styled.div`
   position: relative;
   width: 50%;
   height: 100%;
-  padding: 48px 40px 20px;
+  padding: 40px 40px 20px;
   background-color: #fff;
   border: 1px solid #e6e9ec;
   @media (max-width: 415px) {
@@ -208,6 +231,9 @@ const Nicname = styled.h3`
   font-size: 28px;
   font-weight: bold;
   color: #fff;
+  @media (max-width: 415px) {
+    font-size: 22px;
+  }
 `;
 const Mbti = styled.p`
   margin-right: 11px;
@@ -215,12 +241,18 @@ const Mbti = styled.p`
   font-weight: 700;
   letter-spacing: -0.0024em;
   color: #fff;
+  @media (max-width: 415px) {
+    font-size: 13px;
+  }
 `;
 const Email = styled.p`
   font-size: 18px;
   font-weight: 300;
   letter-spacing: -0.0041em;
   color: #fff;
+  @media (max-width: 415px) {
+    font-size: 13px;
+  }
 `;
 const Title = styled.h5`
   font-size: 26px;
@@ -228,7 +260,7 @@ const Title = styled.h5`
   letter-spacing: 0.0036em;
   color: #3e4042;
   @media (max-width: 415px) {
-    font-size: 1.3rem;
+    font-size: 16px;
   }
 `;
 const BottomBox = styled.div`

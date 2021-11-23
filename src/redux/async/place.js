@@ -149,7 +149,7 @@ export const getCurrentCoordinateWEB = createAsyncThunk(
           lon: res.coords.longitude,
         };
         /* 위도경도 기반으로 현재주소 조회 */
-        const addressRes = await getLocationAddress(latLon);
+        const addressRes = await getLocationAddress(latLon, _params);
         const address = addressRes.data.documents[0].address_name;
         return { latLon, address };
       }

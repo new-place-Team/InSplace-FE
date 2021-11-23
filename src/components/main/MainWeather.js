@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { main } from '../../images';
 import {
@@ -14,7 +14,7 @@ import {
   CloudImg,
 } from '../../images/weather/index';
 
-const MainWeather = forwardRef((props, ref) => {
+const MainWeather = props => {
   let img375 = main;
   let img768 = main;
   const { weatherInfo, imgLoading } = props;
@@ -76,16 +76,8 @@ const MainWeather = forwardRef((props, ref) => {
 
   return (
     <ImgArea>
-      <BackgroundImg
-        className="phone"
-        src={imgLoading ? img375 : main}
-        ref={ref}
-      />
-      <BackgroundImg
-        className="tablet"
-        src={imgLoading ? img768 : main}
-        ref={ref}
-      />
+      <BackgroundImg className="phone" src={imgLoading ? img375 : main} />
+      <BackgroundImg className="tablet" src={imgLoading ? img768 : main} />
       {weatherInfo && weatherStatus === 1 ? (
         <SunshineContainer>
           <SunshineArea src={Sunshine} />
@@ -111,7 +103,7 @@ const MainWeather = forwardRef((props, ref) => {
       {weatherStatus === 4 ? <CloudArea src={CloudImg} /> : ''}
     </ImgArea>
   );
-});
+};
 const ImgArea = styled.div`
   .phone {
     display: none;

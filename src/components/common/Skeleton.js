@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 
-const Skeleton = forwardRef(props => {
-  const { type, ref } = props;
+const Skeleton = forwardRef((props, ref) => {
+  const { type } = props;
   if (type === 'mainTop') {
     return (
       <MainContainer ref={ref}>

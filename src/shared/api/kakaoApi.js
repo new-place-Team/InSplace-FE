@@ -9,9 +9,15 @@ const kakoApi = axios.create({
   },
 });
 
-export const getLocationAddress = latLon => {
+export const getLocationAddress = (latLon, _params) => {
+  let lang;
+  if (!_params) {
+    lang = 'ko';
+  } else {
+    lang = _params;
+  }
   const URI = 'v2/local/geo/coord2regioncode.json?';
-  return kakoApi.get(`${URI}x=${latLon.lon}&y=${latLon.lat}&lang=ko`);
+  return kakoApi.get(`${URI}x=${latLon.lon}&y=${latLon.lat}&lang=${lang}`);
 };
 
 export default kakoApi;

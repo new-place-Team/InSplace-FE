@@ -36,7 +36,9 @@
     "loginerrMessage": ["Type your Email!", "Type your Password!"],
     "kakaoLogin": "KaKao Login",
     "login": "Login",
-    "register": "Sign up"
+    "register": "Sign up",
+    "or": "or",
+    "infoText": "Aren't you a member yet?"
   },
   "signUpPage": {
     "headerSubTitle": "Sign up",
@@ -94,7 +96,7 @@
     "category": ["InnerPlace", "OuterPlace"]
   },
   "placeMapPage": {
-    "headerSubTitle": "상세보기"
+    "headerSubTitle": "Map Result"
   },
   "placeDetailPage": {
     "navigation": ["Visited", "Pick", "Review", "Share"],
@@ -174,7 +176,8 @@
     "Modal": {
       "service": "I will be Back",
       "goLogin": "Could you Login?"
-    }
+    },
+    "KakaoBank": "Kakaobank"
   },
   "MyPageEdit": {
     "headerSubTitle": "Edit Profile",
@@ -220,7 +223,25 @@
   },
   "CommonModal": {
     "agree": "OK",
-    "disagree": "CANCEL"
+    "disagree": "CANCEL",
+    "edit": "Edit",
+    "delete": "Delete",
+    "singo": "Report",
+    "ReviewSetting": "Review Setting",
+    "ReviewReport": "Report",
+    "feedback": {
+      "headerSubTitle": "FeedBack",
+      "content": "Send us FeedBack for development",
+      "phoneNumber": "Phone",
+      "gift": "We'll send you Gifticons through a Raffle",
+      "writePhone": "Please fill Phone Number",
+      "placeholder": "Please Send what you want!",
+      "submit": "FeedBack",
+      "error": [
+        "Please fill Review at least letters",
+        "Please fill all form!, then send you Grifticons through a Raffle"
+      ]
+    }
   },
   "WeatherDetail": {
     "weatherCondition": {
