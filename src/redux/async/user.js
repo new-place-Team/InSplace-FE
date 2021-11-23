@@ -57,6 +57,7 @@ export const logInDB = createAsyncThunk(
           userImage: response.data.userImage,
           mbti: response.data.mbti,
         };
+        history.push('/');
         return userInfo;
       }
     } catch (err) {
