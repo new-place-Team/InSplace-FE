@@ -295,7 +295,7 @@ const Div = styled.div`
 `;
 const UploadWrap = styled.div`
   margin: -40px -120px 0 0;
-  z-index: 50;
+  z-index: 8;
   @media (max-width: 415px) {
     margin: -40px -100px 0 0;
   }

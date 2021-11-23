@@ -151,7 +151,7 @@ const Nav = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 0px -2px 3px rgb(196 196 196 /25%);
-  z-index: 99;
+  z-index: 9;
 `;
 
 const Content = styled.div`
