@@ -46,8 +46,6 @@ const Main = () => {
     return () => observer && observer.disconnect();
   }, []);
 
-  console.log('imgLoading == ', imgLoading);
-
   return (
     <>
       <Container padding="0">

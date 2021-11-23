@@ -92,6 +92,7 @@ const Signup = () => {
         }
       }
     } catch (err) {
+      // 중복된 닉네임일 경우 모달창이 아닌 text가 보여줘야함
       console.log('error ::::::', err.response);
     }
     return setButtonStatus(false);

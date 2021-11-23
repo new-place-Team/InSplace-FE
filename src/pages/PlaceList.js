@@ -19,7 +19,8 @@ const PlaceList = props => {
   const placeList = useSelector(state => state.place.placeList);
   const pagination = useSelector(state => state.place.placePagination);
   const { t } = useTranslation();
-
+  console.log('pagination === ', pagination);
+  console.log('searchType === ', searchType);
   /* target 을 지켜보다 target이 정해진 threshold 비율만큼 지정 행동 */
   const [target, setTarget] = useState(null);
 
@@ -69,7 +70,7 @@ const PlaceList = props => {
     <>
       <Header _back _content={t('placeList.headerSubTitle')} _map _search />
       <Container>
-        <SelectedCategory />
+        {searchType !== 'total' && <SelectedCategory />}
         {placeList && placeList.length <= 0 ? (
           <ImageContainer>
             <Image src={placeSearchResult} />
@@ -144,22 +145,3 @@ const ImageContainer = styled.div`
   }
 `;
 export default PlaceList;
-
-/* <Text margin="40px 0 0 0" fontSize="20px" bold>
-              {title} ?
-            </Text>
-            <PlaceGrid>
-              {placeList &&
-                placeList.map((info, idx) => {
-                  const lastItem = idx === placeList.length - 1;
-                  return (
-                    <CardWrap key={`key-${info.postId}`}>
-                      <ListCard
-                        type="searchList"
-                        info={info}
-                        ref={lastItem ? setTarget : null}
-                      />
-                    </CardWrap>
-                  );
-                })}
-            </PlaceGrid> */
