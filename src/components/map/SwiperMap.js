@@ -66,7 +66,7 @@ const Wrap = styled.div`
   width: 100%;
   background-color: transparent;
   position: absolute;
-  bottom: 60px;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 9;
@@ -77,19 +77,37 @@ const Wrap = styled.div`
     h3 {
       height: 23px;
       overflow: hidden;
+      @media (max-width: 415px) {
+        font-size: 14px;
+      }
     }
     p {
       height: 34px;
       overflow: hidden;
+      @media (max-width: 415px) {
+        font-size: 12px;
+        padding-top: 28px;
+      }
     }
     .swiper-slide-active {
       width: 55% !important;
+      @media (max-width: 415px) {
+        width: 85% !important;
+      }
       h3,
       p {
         overflow: visible;
         height: auto;
       }
     }
+  }
+  // swiper의 pagination 화면에 안보이게 숨기기
+  .swiper-pagination-bullets {
+    display: none;
+    position: absolute;
+    left: -999;
+    width: 1px;
+    height: 1px;
   }
 `;
 

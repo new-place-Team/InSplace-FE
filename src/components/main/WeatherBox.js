@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Grid, Text, Icons } from '../../elements';
 import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
@@ -20,6 +21,7 @@ import { ReactComponent as WeatherDanger } from '../../images/Icon/ic_weather_da
 
 const WeatherBox = props => {
   const { info } = props;
+  const { t } = useTranslation();
   const location = useSelector(state => state.place.location);
   let PmText = '';
   let PmStatus = '';
@@ -27,19 +29,19 @@ const WeatherBox = props => {
     /* 미세먼지 아이콘 변경 */
     if (info.pm10 === 2) {
       PmStatus = WeatherSoso;
-      PmText = '보통';
+      PmText = t('WeatherDetail.weatherCondition.miseNormal');
     } else if (info.pm10 === 3) {
       PmStatus = WeatherBad;
-      PmText = '나쁨';
+      PmText = t('WeatherDetail.weatherCondition.miseBad');
     } else if (info.pm10 === 4) {
       PmStatus = WeatherSoBad;
-      PmText = '매우나쁨';
+      PmText = t('WeatherDetail.weatherCondition.miseSoBad');
     } else if (info.pm10 === 5) {
       PmStatus = WeatherDanger;
-      PmText = '위험';
+      PmText = t('WeatherDetail.weatherCondition.miseDanger');
     } else {
       PmStatus = WeatherGood;
-      PmText = '좋음';
+      PmText = t('WeatherDetail.weatherCondition.miseGood');
     }
   }
   return (

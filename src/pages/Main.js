@@ -22,7 +22,6 @@ const Main = () => {
   const weatherList = mainLists && mainLists.weatherPlace;
   const weatherInfo = mainLists && mainLists.weather;
   const { t } = useTranslation();
-
   const [imgLoading, setImgLoading] = useState(false);
   const imgRef = useRef(null);
   useEffect(() => {
@@ -46,8 +45,6 @@ const Main = () => {
     }
     return () => observer && observer.disconnect();
   }, []);
-
-  console.log('imgLoading == ', imgLoading);
 
   return (
     <>
