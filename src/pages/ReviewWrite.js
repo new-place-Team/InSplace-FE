@@ -99,7 +99,10 @@ const ReviewWrite = props => {
     const reader = new FileReader();
     let file = fileInput.current.files[0];
     // 아이폰 11부터 HEIC 파일이여서 jpeg로 변환해줌
-    if (file.name.split('.')[1] === 'HEIC') {
+    if (
+      file.name.split('.')[1] === 'HEIC' ||
+      file.name.split('.')[1] === 'heic'
+    ) {
       const blob = fileInput.current.files[0];
       heic2any({ blob, toType: 'image/jpeg' }).then(resultBlob => {
         file = new File([resultBlob], `${file.name.split('.')[0]}.jpg`, {
