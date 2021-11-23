@@ -137,8 +137,6 @@ const Detail = props => {
     });
   };
 
-  console.log('detailData ?? ', detailData);
-
   return (
     <>
       {confirmModal && (

@@ -19,6 +19,7 @@ const SearchPage = () => {
   const GotoSearchPage = () => {
     const params = `total?result=${state}`;
     dispatch(setPlaceListInit());
+
     history.push(`/place/list/${params}`);
     setState('');
   };

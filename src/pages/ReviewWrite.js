@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React, { useState, useRef, useEffect } from 'react';
-// import heic2any from 'heic2any';
+import heic2any from 'heic2any';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -89,24 +89,58 @@ const ReviewWrite = props => {
       return;
     }
     const reader = new FileReader();
-    const file = fileInput.current.files[0];
-    reader.readAsDataURL(file);
-    // file 읽는게 성공적으로 되었을때 실행
-    reader.onload = () => {
-      const addImage = [];
-      addImage.push(reader.result);
-      setPreview(preview.concat(addImage));
-    };
-    setState({ ...state, reviewImages: state.reviewImages.concat(file) });
-
-    // file 읽기 실패되었을때 실행
-    reader.onerror = error => {
-      const params = {
-        title: t('ReviewWrite.Modal.errorPhoto'),
+    let file = fileInput.current.files[0];
+    if (file.name.split('.')[1] === 'heic') {
+      heic2any({ blob, toType: 'image/jpeg' }).then(function (resultBlob) {
+        file = new File([resultBlob], `${file.name.split('.')[0]}.jpg`, {
+          type: 'image/jpeg',
+          lastModified: new Date().getTime(),
+        });
+        console.log('heic file ==== ', file);
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+          const addImage = [];
+          addImage.push(reader.result);
+          setPreview(preview.concat(addImage));
+          setState({ ...state, reviewImages: state.reviewImages.concat(file) });
+        };
+      });
+    } else {
+      console.log('file ? ', file);
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const addImage = [];
+        addImage.push(reader.result);
+        setPreview(preview.concat(addImage));
       };
-      dispatch(setCommonModalOn(params));
-      console.log('error = ', error);
-    };
+      setState({ ...state, reviewImages: state.reviewImages.concat(file) });
+
+      // file 읽기 실패되었을때 실행
+      reader.onerror = error => {
+        const params = {
+          title: t('ReviewWrite.Modal.errorPhoto'),
+        };
+        dispatch(setCommonModalOn(params));
+        console.log('error = ', error);
+      };
+    }
+
+    // // file 읽는게 성공적으로 되었을때 실행
+    // reader.onload = () => {
+    //   const addImage = [];
+    //   addImage.push(reader.result);
+    //   setPreview(preview.concat(addImage));
+    // };
+    // setState({ ...state, reviewImages: state.reviewImages.concat(file) });
+
+    // // file 읽기 실패되었을때 실행
+    // reader.onerror = error => {
+    //   const params = {
+    //     title: t('ReviewWrite.Modal.errorPhoto'),
+    //   };
+    //   dispatch(setCommonModalOn(params));
+    //   console.log('error = ', error);
+    // };
   };
 
   const deleteImage = index => {

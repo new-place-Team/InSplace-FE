@@ -19,7 +19,7 @@ const PlaceList = props => {
   const placeList = useSelector(state => state.place.placeList);
   const pagination = useSelector(state => state.place.placePagination);
   const { t } = useTranslation();
-
+  console.log('pagination === ', pagination);
   /* target 을 지켜보다 target이 정해진 threshold 비율만큼 지정 행동 */
   const [target, setTarget] = useState(null);
 
@@ -52,6 +52,7 @@ const PlaceList = props => {
       const qureryString = `search/pages/${
         pagination.page + 1
       }/${searchType}${url}`;
+      console.log('qureryString ? ', qureryString);
       dispatch(getSearchConditionListDB(qureryString));
       observer.unobserve(entires.target); // 관찰 중지 시켜준다.
     };
