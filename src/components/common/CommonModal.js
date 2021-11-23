@@ -100,7 +100,7 @@ const CommonModal = ({ type, showConfirmModal }) => {
       description: reportInfo.description,
     };
     if (reportInfo.description.length <= 14) {
-      return setErrorMessage('리뷰는 최소 15자 이상 등록해주세요');
+      return setErrorMessage(t('CommonModal.feedback.error.0'));
     }
     return dispatch(reviewReportDB(params));
   };
@@ -116,9 +116,7 @@ const CommonModal = ({ type, showConfirmModal }) => {
 
   const feedbackSubmit = () => {
     if (feedbackInfo.phoneNumber === '' || feedbackInfo.description === '') {
-      setErrorMessage(
-        '정보를 모두 입력해주세요. 추첨을 통해 기프티콘을 보내드립니다',
-      );
+      setErrorMessage(t('CommonModal.feedback.error.1'));
       return;
     }
     const newNumber = autoHypenPhone(feedbackInfo.phoneNumber);
@@ -137,15 +135,17 @@ const CommonModal = ({ type, showConfirmModal }) => {
       <ModalContainer className="close" onClick={CloseModal}>
         <ModalContent>
           <Grid justify="space-between">
-            <Title>의견보내기</Title>
+            <Title>{t('CommonModal.feedback.headerSubTitle')}</Title>
             <CloseButton className="close" src={close} />
           </Grid>
-          <Content>개선사항을 보내주세요</Content>
+          <Content>{t('CommonModal.feedback.content')}</Content>
           <FeedbackWrap>
-            <FeedbackLabel>휴대폰번호</FeedbackLabel>
+            <FeedbackLabel>
+              {t('CommonModal.feedback.phoneNumber')}
+            </FeedbackLabel>
             <Span>
-              추첨을 통해 커피 기프티콘을 보내드려요. <br />
-              연락처를 적어주세요
+              {t('CommonModal.feedback.gift')} <br />
+              {t('CommonModal.feedback.writePhone')}
             </Span>
             <FeedbackInput
               name="phoneNumber"
@@ -156,7 +156,7 @@ const CommonModal = ({ type, showConfirmModal }) => {
           <FeedbackTextarea
             rows={10}
             name="description"
-            placeholder="자유롭게 의견을 보내주세요"
+            placeholder={t('CommonModal.feedback.placeholder')}
             value={feedbackInfo.description}
             onChange={onChange}
           >
@@ -171,7 +171,7 @@ const CommonModal = ({ type, showConfirmModal }) => {
             padding="15px"
             onClick={feedbackSubmit}
           >
-            의견보내기
+            {t('CommonModal.feedback.submit')}
           </ModalButton>
         </ModalContent>
       </ModalContainer>
@@ -184,7 +184,11 @@ const CommonModal = ({ type, showConfirmModal }) => {
       <MoreContainer className="close more" onClick={MoreModalClose}>
         <MoreModalContent>
           <Grid justify="space-between">
-            <Title>{report ? '신고 사유' : '리뷰 설정'}</Title>
+            <Title>
+              {report
+                ? t('CommonModal.ReviewReport')
+                : t('CommonModal.ReviewSetting')}
+            </Title>
             <CloseButton
               className="close"
               src={modalClose}

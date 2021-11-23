@@ -177,7 +177,8 @@
     "Modal": {
       "service": "서비스 준비중입니다.",
       "goLogin": "로그인이 필요한 서비스입니다."
-    }
+    },
+    "KakaoBank": "카카오뱅크"
   },
   "MyPageEdit": {
     "headerSubTitle": "프로필 수정",
@@ -226,7 +227,22 @@
     "disagree": "취소",
     "edit": "수정",
     "delete": "삭제",
-    "singo": "신고하기"
+    "singo": "신고하기",
+    "ReviewSetting": "리뷰설정",
+    "ReviewReport": "신고사유",
+    "feedback": {
+      "headerSubTitle": "의견보내기",
+      "content": "개선사항을 보내주세요",
+      "phoneNumber": "휴대폰번호",
+      "gift": "추첨을 통해 커피 기프티콘을 보내드려요.",
+      "writePhone": "연락처를 적어주세요",
+      "placeholder": "자유롭게 의견을 보내주세요",
+      "submit": "의견보내기",
+      "error": [
+        "리뷰는 최소 15자 이상 등록해주세요",
+        "정보를 모두 입력해주세요. 추첨을 통해 기프티콘을 보내드립니다"
+      ]
+    }
   },
   "WeatherDetail": {
     "weatherCondition": {

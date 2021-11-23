@@ -139,7 +139,7 @@ const MyPage = () => {
               <Title>{t('MyPage.Donation')}</Title>
               <BottomBox>
                 <TextBox>
-                  <Bank>카카오뱅크</Bank>
+                  <Bank>{t('MyPage.KakaoBank')}</Bank>
                   <BankNumber>7979-39-23429</BankNumber>
                 </TextBox>
               </BottomBox>
