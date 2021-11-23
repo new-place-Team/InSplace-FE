@@ -20,6 +20,7 @@ const PlaceList = props => {
   const pagination = useSelector(state => state.place.placePagination);
   const { t } = useTranslation();
   console.log('pagination === ', pagination);
+  console.log('searchType === ', searchType);
   /* target 을 지켜보다 target이 정해진 threshold 비율만큼 지정 행동 */
   const [target, setTarget] = useState(null);
 
@@ -52,7 +53,6 @@ const PlaceList = props => {
       const qureryString = `search/pages/${
         pagination.page + 1
       }/${searchType}${url}`;
-      console.log('qureryString ? ', qureryString);
       dispatch(getSearchConditionListDB(qureryString));
       observer.unobserve(entires.target); // 관찰 중지 시켜준다.
     };
@@ -70,7 +70,7 @@ const PlaceList = props => {
     <>
       <Header _back _content={t('placeList.headerSubTitle')} _map _search />
       <Container>
-        <SelectedCategory />
+        {searchType !== 'total' && <SelectedCategory />}
         {placeList && placeList.length <= 0 ? (
           <ImageContainer>
             <Image src={placeSearchResult} />
