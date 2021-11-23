@@ -26,7 +26,6 @@ const Navbar = () => {
   const { t } = useTranslation();
   const isLogin = useSelector(state => state.user.isLogin);
   const userInfo = useSelector(state => state.user.userInfo);
-  console.log(isLogin, userInfo);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
   const [weatherModalShow, setWeatherModalShow] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
