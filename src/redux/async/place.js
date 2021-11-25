@@ -156,10 +156,6 @@ export const getCurrentCoordinateWEB = createAsyncThunk(
       }
     } catch (err) {
       console.log(err.response);
-      const modalParams = {
-        title: `${err.response}`,
-      };
-      thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err);
     }
   },

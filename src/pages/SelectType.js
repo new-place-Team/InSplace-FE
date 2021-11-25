@@ -10,7 +10,10 @@ import { Container, Grid, Text, Label } from '../elements/index';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import { history } from '../redux/configureStore';
 // import { getPeopleText } from '../shared/transferText';
-import { getSearchConditionDB } from '../redux/async/place';
+import {
+  getSearchConditionDB,
+  getCurrentCoordinateWEB,
+} from '../redux/async/place';
 import CommonModal from '../components/common/CommonModal';
 import GuModal from '../components/common/GuModal';
 import { setCommonModalOn } from '../redux/modules/commonSlice';
@@ -122,7 +125,18 @@ const SelectedType = () => {
   /* 지역구 모달 Close */
   const closeGuModal = () => setGuModal(false);
   /* 지역구 변경 */
-  const changeGuInfo = guInfo => setCurrentGu(guInfo);
+  const changeGuInfo = async guInfo => {
+    /* 현재 위치 체크 */
+    if (guInfo.guId === 0 && !location) {
+      const payload = await dispatch(getCurrentCoordinateWEB());
+      if (!payload.payload.address) {
+        const modalParams = { title: t('selectTypePage.pleaseCheckLocation') };
+        dispatch(setCommonModalOn(modalParams));
+        return;
+      }
+    }
+    setCurrentGu(guInfo);
+  };
   /* category 별 검색 */
   const goSearch = () => {
     if (
