@@ -7,7 +7,6 @@ import { getSeoulGuList } from '../../shared/commonData';
 
 const GuModal = props => {
   const { closeGuModal, currentGu, changeGuInfo } = props;
-  console.log('currentgu', currentGu);
   const guList = getSeoulGuList();
   const { t } = useTranslation();
   return (
@@ -17,8 +16,7 @@ const GuModal = props => {
           <ModalContent>
             <TitleWrap>
               <Text bold margin="32px 0px 20px">
-                {/* {t('MbtiModal.mbtiTitle')} */}
-                지역을 선택해주세요.
+                {t('guList.pleaseSelectArea')}
               </Text>
               <AbsolBtn className="close" onClick={closeGuModal} src={close}>
                 {/* <Image className="close" width="100%" src={xclose} /> */}

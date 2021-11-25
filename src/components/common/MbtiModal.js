@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Grid, Text } from '../../elements';
 import { getMbti, setModalOff } from '../../redux/modules/userSlice';
-import { close, checked, left } from '../../images/index';
+import { close, checked } from '../../images/index';
 import { getPeopleMbti } from '../../shared/transferText';
 import { getMbtiList } from '../../shared/commonData';
 

@@ -18,13 +18,16 @@ import polygonimg from '../images/Polygon.png';
 
 const SelectedType = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const weatherStatus = useSelector(state => state.place.weatherStatus);
   const location = useSelector(state => state.place.location);
   const commomModal = useSelector(state => state.common.modalStatus);
 
   const [guModal, setGuModal] = useState(false);
-  const [currentGu, setCurrentGu] = useState({ guId: 1, text: '서울전체' });
-  const { t } = useTranslation();
+  const [currentGu, setCurrentGu] = useState({
+    guId: 1,
+    text: t('guList.all'),
+  });
 
   const [categoryInfo, setCategoryInfo] = React.useState({
     MemberCnt: '',
@@ -164,7 +167,7 @@ const SelectedType = () => {
           <SelectGuArea>
             <Grid padding="12px 24px 24px 24px">
               <Label type="form" marginBottom="0">
-                지역선택
+                {t('guList.selectArea')}
               </Label>
               <GuArea onClick={openGuModal}>
                 {/* <Text>{t('signUpPage.noMbtiSelect')}</Text> */}

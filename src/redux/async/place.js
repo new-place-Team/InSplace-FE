@@ -392,7 +392,6 @@ export const deleteReviewDB = createAsyncThunk(
 export const reviewLikeDB = createAsyncThunk(
   'place/reviewLike',
   async (params, thunkAPI) => {
-    console.log('params? ', params);
     try {
       const response = await reviewLike(params);
       thunkAPI.dispatch(reviewLikesList(params));
