@@ -208,7 +208,6 @@ const placeSlice = createSlice({
     },
     /* rejected 처리 실패 */
     [getMainListDB.rejected]: (state, { action }) => {
-      console.log(action);
       const modalParams = {
         title: `${action.meta.response.data.errMsg}`,
       };
@@ -239,7 +238,6 @@ const placeSlice = createSlice({
     },
     // 리뷰 추천순 조회
     [getReviewLikesListDB.fulfilled]: (state, { payload }) => {
-      // console.log(current(state.reviewLikesList));
       if (state.reviewLikesList) {
         state.reviewLikesList = [...state.reviewLikesList, ...payload.reviews];
         state.reviewLikesPagination = {

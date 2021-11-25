@@ -64,7 +64,6 @@ const SelectedContents = props => {
       setActive({ ...active, weather: false });
       setState({ ...state, weather: value });
     }
-    // console.log('selectedReviewBtn state === ', state);
   };
 
   if (selectType === 'review') {

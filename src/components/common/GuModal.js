@@ -1,67 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Grid, Text } from '../../elements';
-import { getMbti, setModalOff } from '../../redux/modules/userSlice';
 import { close, checked } from '../../images/index';
-import { getPeopleMbti } from '../../shared/transferText';
-import { getMbtiList } from '../../shared/commonData';
+import { getSeoulGuList } from '../../shared/commonData';
 
-const MbtiModal = () => {
-  const dispatch = useDispatch();
+const GuModal = props => {
+  const { closeGuModal, currentGu, changeGuInfo } = props;
+  const guList = getSeoulGuList();
   const { t } = useTranslation();
-  const userInfo = useSelector(state => state.user.userInfo);
-  const reduxMbti = useSelector(state => state.user.userMbti.mbtiId);
-  const mbtiNum = getPeopleMbti(userInfo.mbti);
-  const mbtiList = getMbtiList();
-  let currentMbtiId;
-  if (!reduxMbti) {
-    currentMbtiId = mbtiNum;
-  } else {
-    currentMbtiId = reduxMbti;
-  }
-
-  const selectMbti = mbtiInfo => {
-    dispatch(getMbti(mbtiInfo));
-    dispatch(setModalOff());
-  };
-  const modaloff = e => {
-    e.stopPropagation();
-    const name = e.target.className;
-    if (name.indexOf('close') === -1) {
-      return;
-    }
-    dispatch(setModalOff());
-  };
-
   return (
     <>
-      <Overlay className="close" onClick={modaloff}>
+      <Overlay className="close" onClick={closeGuModal}>
         <Grid>
           <ModalContent>
             <TitleWrap>
-              <Text bold margin="32px 0px">
-                {t('MbtiModal.mbtiTitle')}
+              <Text bold margin="32px 0px 20px">
+                {t('guList.pleaseSelectArea')}
               </Text>
-              <AbsolBtn className="close" onClick={modaloff} src={close}>
+              <AbsolBtn className="close" onClick={closeGuModal} src={close}>
                 {/* <Image className="close" width="100%" src={xclose} /> */}
               </AbsolBtn>
             </TitleWrap>
-            {mbtiList.length > 0 &&
-              mbtiList.map(item => {
+            {guList.length > 0 &&
+              guList.map(item => {
                 return (
-                  <MBTIDiv
-                    key={item.mbtiId}
-                    onClick={() => {
-                      selectMbti(item);
-                    }}
-                  >
-                    <Text>{item.type}</Text>
-                    {currentMbtiId === item.mbtiId ? (
+                  <GuContent key={item.guId} onClick={() => changeGuInfo(item)}>
+                    <Text>{item.text}</Text>
+                    {currentGu.guId === item.guId ? (
                       <Icon src={checked} />
                     ) : null}
-                  </MBTIDiv>
+                  </GuContent>
                 );
               })}
           </ModalContent>
@@ -110,7 +79,7 @@ const AbsolBtn = styled.button`
   background-image: url('${props => props.src}');
   background-repeat: no-repeat;
 `;
-const MBTIDiv = styled.div`
+const GuContent = styled.div`
   width: 100%;
   padding: 22px 0;
   /* height: 5rem; */
@@ -129,4 +98,4 @@ const Icon = styled.img`
   cursor: pointer;
 `;
 
-export default MbtiModal;
+export default GuModal;
