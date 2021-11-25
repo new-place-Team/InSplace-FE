@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +15,7 @@ const SearchPage = () => {
   const onChange = e => {
     setState(e.target.value);
   };
+  const inputRef = useRef(null);
 
   const GotoSearchPage = () => {
     const params = `total?result=${state}`;
@@ -27,6 +28,10 @@ const SearchPage = () => {
   const goBack = () => {
     history.goBack();
   };
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
   return (
     <>
       <HeaderBar>
@@ -42,6 +47,7 @@ const SearchPage = () => {
                 value={state}
                 placeholder={t('SearchPlace.placeholder')}
                 onChange={onChange}
+                ref={inputRef}
                 onKeyPress={e => e.key === 'Enter' && GotoSearchPage(e)}
               />
             </Grid>

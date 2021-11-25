@@ -15,6 +15,7 @@ const Label = props => {
     children,
     required,
     bold,
+    marginBottom,
   } = props;
   const styles = {
     flex,
@@ -24,6 +25,7 @@ const Label = props => {
     color,
     bold,
     required,
+    marginBottom,
   };
   if (type === 'form') {
     return <LabelForm {...styles}>{children}</LabelForm>;
@@ -54,7 +56,7 @@ const LabelWrap = styled.label`
 `;
 const LabelForm = styled.label`
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: ${({ marginBottom }) => marginBottom || '10px'};
   font-size: 13px;
   font-weight: bold;
   color: #b5b5b5;
