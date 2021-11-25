@@ -26,7 +26,8 @@
     },
     "returnText": ["한명", "두명", "네명 미만", "네명 이상"],
     "resultSentence": ["이", "장소 을(를)", "가고 싶어요"],
-    "alert": "유형을 모두 선택해주세요"
+    "alert": "유형을 모두 선택해주세요",
+    "pleaseCheckLocation": "현재 위치 액세스를 허용해주세요."
   },
   "loginPage": {
     "headerSubTitle": "로그인",

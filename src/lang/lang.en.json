@@ -23,7 +23,8 @@
     },
     "returnText": ["One", "Two", "Less than Four", "More than Four"],
     "resultSentence": ["", "Place", "Want(s) to go"],
-    "alert": "Please Select all Types"
+    "alert": "Please Select all Types",
+    "pleaseCheckLocation": "Please allow access to your current location."
   },
   "loginPage": {
     "headerSubTitle": "Login",

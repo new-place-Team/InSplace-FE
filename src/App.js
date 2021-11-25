@@ -1,6 +1,3 @@
-/* eslint-disable no-return-assign */
-/* eslint-disable prefer-const */
-/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,8 +6,6 @@ import { ThemeProvider } from 'styled-components';
 import { history } from './redux/configureStore';
 import { getTokenYn } from './shared/utils';
 import { logInCheckDB } from './redux/async/user';
-// import { getCurrentCoordinate } from './redux/modules/placeSlice';
-// eslint-disable-next-line import/named
 import { getCurrentCoordinateWEB, getWeatherDB } from './redux/async/place';
 
 import Main from './pages/Main';
