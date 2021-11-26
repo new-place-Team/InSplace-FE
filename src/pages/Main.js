@@ -96,7 +96,7 @@ const SkeletonGrid = styled.div`
   position: relative;
   height: 672px;
   @media (max-width: 414px) {
-    height: 525px;
+    height: 473px;
   }
 `;
 
