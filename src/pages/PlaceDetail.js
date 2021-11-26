@@ -42,6 +42,7 @@ const Detail = props => {
         {
           postLocationY: detailData.postLocationY,
           postLocationX: detailData.postLocationX,
+          category: detailData.categoryId,
         },
       ]
     : null;

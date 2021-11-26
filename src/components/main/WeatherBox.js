@@ -69,7 +69,7 @@ const WeatherBox = props => {
               </Icons>
               <Text fontSize="14px" color="#fff" bold margin="0 0 0 8px">
                 {/* 현재위치 주소 */}
-                {location ? location.address : '현재위치 정보 없음'}
+                {location ? location.address : t('mainPage.hasNoLocation')}
               </Text>
             </Grid>
             {/* 미세먼지 */}

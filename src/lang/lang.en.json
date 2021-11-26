@@ -5,7 +5,8 @@
     "recommend": "Recommend Place",
     "weatherPlace": "Weather Place",
     "popularPlace": "Most Recommended",
-    "adminPlace": "Admin's Pick"
+    "adminPlace": "Admin's Pick",
+    "hasNoLocation": "No current location information"
   },
   "selectTypePage": {
     "headerSubTitle": "Select type",
