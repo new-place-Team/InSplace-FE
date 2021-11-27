@@ -140,21 +140,22 @@ const ReviewCard = forwardRef((props, ref) => {
               </Text>
             )}
           </Grid>
-          {userCheck ? (
-            <Button
-              padding="5px 10px"
-              _onClick={() => showMoreModal(info.reviewId, userId, '')}
-            >
-              <Image src={more} />
-            </Button>
-          ) : (
-            <Button
-              padding="5px 10px"
-              _onClick={() => showMoreModal(info.reviewId, userId, 'report')}
-            >
-              <Image src={report} />
-            </Button>
-          )}
+          {loginUser &&
+            (userCheck ? (
+              <Button
+                padding="5px 10px"
+                _onClick={() => showMoreModal(info.reviewId, userId, '')}
+              >
+                <Image src={more} />
+              </Button>
+            ) : (
+              <Button
+                padding="5px 10px"
+                _onClick={() => showMoreModal(info.reviewId, userId, 'report')}
+              >
+                <Image src={report} />
+              </Button>
+            ))}
         </Grid>
       </ReviewCardWrap>
     </>

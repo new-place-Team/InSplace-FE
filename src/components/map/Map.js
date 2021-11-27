@@ -107,7 +107,7 @@ const Map = React.memo(props => {
   return (
     <>
       {/* 지도를 띄워줄 div 영역 */}
-      <MapContainer width={width} height={height} ref={mapDiv} />
+      <MapContainer width={width} height={height} ref={mapDiv} type={type} />
     </>
   );
 });
@@ -115,6 +115,7 @@ const Map = React.memo(props => {
 const MapContainer = styled.div`
   width: ${props => props.width};
   height: ${props => props.height};
+  top: ${props => (props.type === 'detail' ? '15%' : '-18%')};
 `;
 
 export default Map;

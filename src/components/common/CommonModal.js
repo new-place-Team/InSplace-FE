@@ -133,6 +133,13 @@ const CommonModal = ({ type, showConfirmModal }) => {
     }
   };
 
+  const onEnter = e => {
+    console.log('onEnter', e);
+    if (e.key === 'Enter') {
+      CloseModal();
+    }
+  };
+
   if (type === 'feedback') {
     return (
       <ModalContainer className="close" onClick={CloseModal}>
@@ -267,7 +274,11 @@ const CommonModal = ({ type, showConfirmModal }) => {
   // 기본 확인 모달
   return (
     <>
-      <ModalContainer className="close" onClick={CloseModal}>
+      <ModalContainer
+        className="close"
+        onClick={CloseModal}
+        onKeyPress={onEnter}
+      >
         <ModalContent>
           {modalInfo && <Title>{modalInfo.title}</Title>}
           {modalInfo && <Content>{modalInfo.content}</Content>}

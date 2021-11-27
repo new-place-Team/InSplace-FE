@@ -67,6 +67,10 @@ import travelSmall from './map/ic_map_travel_small.svg';
 import restaurant from './map/ic_map_restaurant.svg';
 import restaurantSmall from './map/ic_map_restaurant_small.svg';
 
+// common
+import noImg from './common/noImg.png';
+import noImgMain from './common/noImg_main.png';
+
 export {
   bookmark,
   close,
@@ -126,4 +130,6 @@ export {
   restaurant,
   restaurantSmall,
   whiteRight,
+  noImg,
+  noImgMain,
 };

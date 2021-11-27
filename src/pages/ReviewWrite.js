@@ -25,7 +25,7 @@ const ReviewWrite = props => {
   const reviewId = history.location.state;
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const commomModal = useSelector(state => state.common.modalStatus);
+  const commonModal = useSelector(state => state.common.modalStatus);
   const errorModal = useSelector(state => state.common.errorStatus);
   const isLoading = useSelector(state => state.loaded.is_loaded);
   const fileInput = useRef();
@@ -167,10 +167,9 @@ const ReviewWrite = props => {
 
   // 리뷰 등록 수정
   const handleReview = () => {
+    if (commonModal) return;
     if (state.reviewDesc.length <= 14) {
-      const params = {
-        title: t('ReviewWrite.Modal.minReview'),
-      };
+      const params = { title: t('ReviewWrite.Modal.minReview') };
       dispatch(setCommonModalOn(params));
       return;
     }
@@ -235,7 +234,7 @@ const ReviewWrite = props => {
   return (
     <>
       {isLoading && <Spinner />}
-      {commomModal && <CommonModal />}
+      {commonModal && <CommonModal />}
       {errorModal && <CommonModal type="error" />}
       <Header
         _back

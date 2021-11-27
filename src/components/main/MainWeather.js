@@ -18,9 +18,8 @@ const MainWeather = props => {
   let img375 = main;
   let img768 = main;
   const { weatherInfo, imgLoading } = props;
+  const weatherStatus = weatherInfo && weatherInfo.frontWeather;
 
-  // const weatherStatus = weatherInfo && weatherInfo.frontWeather;
-  const weatherStatus = 3;
   if (weatherInfo) {
     if (weatherStatus === 2) {
       img768 = rain768;
