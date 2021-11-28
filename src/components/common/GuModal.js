@@ -12,7 +12,7 @@ const GuModal = props => {
   return (
     <>
       <Overlay className="close" onClick={closeGuModal}>
-        <Grid>
+        <Grid cursor>
           <ModalContent>
             <TitleWrap>
               <Text bold margin="32px 0px 20px">
