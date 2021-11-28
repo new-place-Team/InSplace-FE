@@ -67,7 +67,7 @@ const PlaceList = props => {
 
   return (
     <>
-      <Header _back _content={t('placeList.headerSubTitle')} _map _search />
+      <Header _replace _content={t('placeList.headerSubTitle')} _map _search />
       <Container>
         {searchType !== 'total' && <SelectedCategory margin="16px 0" />}
         {placeList && placeList.length <= 0 ? (

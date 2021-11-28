@@ -17,6 +17,7 @@ const Header = props => {
   const {
     _onBg,
     _back,
+    _replace,
     _search,
     _content,
     _map,
@@ -46,12 +47,22 @@ const Header = props => {
   const goBack = () => {
     history.goBack();
   };
+  const goReplace = () => {
+    history.replace('/');
+  };
 
   if (_onBg) {
     return (
       <ContentArea>
         <Content>
           <Grid isFlex width="100%">
+            {_replace && (
+              <Grid margin="0 13px 0 0">
+                <IconArea onClick={goReplace} color={_color}>
+                  <LeftIcon />
+                </IconArea>
+              </Grid>
+            )}
             {_back && (
               <Grid margin="0 13px 0 0">
                 <IconArea onClick={goBack} color={_color}>
@@ -118,6 +129,13 @@ const Header = props => {
       <ContentArea>
         <Content>
           <Grid isFlex width="100%">
+            {_replace && (
+              <Grid margin="0 13px 0 0">
+                <IconArea onClick={goReplace} color={_color}>
+                  <LeftIcon />
+                </IconArea>
+              </Grid>
+            )}
             {_back && (
               <Grid margin="0 13px 0 0">
                 <IconArea onClick={goBack} color={_color}>

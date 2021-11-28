@@ -305,7 +305,6 @@ const NextButton = styled.button`
   bottom: -37px;
   background-color: #000;
   border: 1px solid black;
-  border: 2px solid yellow;
   svg {
     width: 36px;
     height: 36px;
