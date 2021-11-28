@@ -7,11 +7,14 @@ import SwiperCore, { Pagination } from 'swiper';
 import { noImgDetail } from '../../images/index';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
+import { ReactComponent as Instagram } from '../../images/Icon/ic_instagram.svg';
+import { Icons } from '../../elements';
 
 SwiperCore.use([Pagination]);
 
 const PlaceSwiper = props => {
-  const { list } = props;
+  const { list, source } = props;
+  console.log('source ============== ', source);
 
   const pagination = {
     clickable: true, // 버튼 클릭 여부
@@ -37,6 +40,11 @@ const PlaceSwiper = props => {
             return (
               <SwiperSlide key={`card_${info}`}>
                 <EntireImage src={info} errImg={noImgDetail} />
+                <Source>
+                  <Icons margin="0 0 4px 0" color="#282828">
+                    <Instagram />@{source}
+                  </Icons>
+                </Source>
               </SwiperSlide>
             );
           })}
@@ -74,6 +82,20 @@ const EntireImage = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+`;
+
+const Source = styled.div`
+  position: absolute;
+  bottom: 56px;
+  left: 40px;
+  color: #fff;
+  font-size: 13px;
+  svg {
+    margin-right: 6px;
+  }
+  @media (max-width: 415px) {
+    left: 24px;
+  }
 `;
 
 export default PlaceSwiper;

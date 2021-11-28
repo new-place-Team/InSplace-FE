@@ -35,6 +35,7 @@ const Detail = props => {
   const isLogin = useSelector(state => state.user.isLogin);
   const [confirmModal, setConfirmModal] = useState(false);
   const { t } = useTranslation();
+  console.log('detailData ============ ', detailData);
 
   const newAddr = detailData ? detailData.addressShort.split(' ') : false;
   const placeMarker = detailData
@@ -149,7 +150,10 @@ const Detail = props => {
       )}
       <Container padding="0">
         <Grid bg="#F5F5F5">
-          <PlaceSwiper list={detailData && detailData.postImages} />
+          <PlaceSwiper
+            list={detailData && detailData.postImages}
+            source={detailData && detailData.source}
+          />
           <PlaceHeader>
             <IconBox>
               <LeftIcon onClick={goBack} />
@@ -295,13 +299,16 @@ const IconBox = styled.div`
 const InfoGrid = styled.div`
   position: relative;
   top: -44px;
-  left: 24px;
+  left: 40px;
   z-index: 8;
   width: calc(100% - 24px);
   padding: 28px 24px 34px;
   background-color: #fff;
   box-shadow: 0px 1px 4px -12px rgba(0, 0, 0, 0.5);
   overflow-x: hidden;
+  @media (max-width: 415px) {
+    left: 24px;
+  }
 `;
 
 const IconNavigation = styled.section`
