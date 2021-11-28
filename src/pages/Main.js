@@ -13,17 +13,33 @@ import Navbar from '../components/common/Navbar';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import Swiper from '../components/common/SwiperLB';
 import MainWeather from '../components/main/MainWeather';
+import theme from '../styles/theme';
 
 const Main = () => {
   const dispatch = useDispatch();
-  const mainLists = useSelector(state => state.place.mainLists);
-  const likeList = mainLists && mainLists.likePlace;
-  const pickList = mainLists && mainLists.pickPlace;
-  const weatherList = mainLists && mainLists.weatherPlace;
-  const weatherInfo = mainLists && mainLists.weather;
   const { t } = useTranslation();
+  const mainLists = useSelector(state => state.place.mainLists);
   const [imgLoading, setImgLoading] = useState(false);
   const imgRef = useRef(null);
+
+  const getBg = info => {
+    const status = info.frontWeather;
+    let weatherKey = '';
+    switch (status) {
+      case 1:
+        weatherKey = 'sun';
+        break;
+      case 2:
+        weatherKey = 'rain';
+        break;
+      case 3:
+        weatherKey = 'snow';
+        break;
+      default:
+        weatherKey = 'cloud';
+    }
+    return theme.weatherBgColor[weatherKey];
+  };
   useEffect(() => {
     if (mainLists) return;
     dispatch(getMainListDB());
@@ -53,8 +69,11 @@ const Main = () => {
           <Header _onBg _content="InSplace" _search _language _color="#fff" />
           {/* Weather Section */}
           <>
-            <MainWeather weatherInfo={weatherInfo} imgLoading={imgLoading} />
-            <WeatherBox info={weatherInfo} />
+            <MainWeather
+              weatherInfo={mainLists && mainLists.weather}
+              imgLoading={imgLoading}
+            />
+            <WeatherBox info={mainLists && mainLists.weather} />
             {/* 장소 추천받기 */}
             <SelectTypeBtn onClick={() => history.push('/select-type')}>
               <Grid height="22px" margin="19px 0 0 18px">
@@ -73,17 +92,23 @@ const Main = () => {
           {/* 날씨에 따른 공간 */}
           <Grid padding="0 0 48px 24px">
             <ContentsTitle title={t('mainPage.weatherPlace')} />
-            <Swiper list={weatherList} />
+            <Swiper list={mainLists && mainLists.weatherPlace} />
           </Grid>
           {/* 좋아요 순 추천 공간 */}
-          <Grid padding="0 0 48px 24px">
+          <Grid
+            padding="0 0 48px 24px"
+            bg={mainLists ? getBg(mainLists.weather)[0] : ''}
+          >
             <ContentsTitle title={t('mainPage.popularPlace')} />
-            <Swiper list={likeList} />
+            <Swiper list={mainLists && mainLists.likePlace} />
           </Grid>
           {/* 관리자 추천 공간 */}
-          <Grid padding="0 0 112px 24px">
+          <Grid
+            padding="0 0 112px 24px"
+            bg={mainLists ? getBg(mainLists.weather)[1] : ''}
+          >
             <ContentsTitle title={t('mainPage.adminPlace')} />
-            <Swiper list={pickList} />
+            <Swiper list={mainLists && mainLists.pickPlace} />
           </Grid>
         </Grid>
       </Container>

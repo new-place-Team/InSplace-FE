@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination } from 'swiper';
+import { noImgDetail } from '../../images/index';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 
@@ -35,7 +36,7 @@ const PlaceSwiper = props => {
           list.map(info => {
             return (
               <SwiperSlide key={`card_${info}`}>
-                <EntireImage src={info} />
+                <EntireImage src={info} errImg={noImgDetail} />
               </SwiperSlide>
             );
           })}
@@ -68,7 +69,8 @@ const EntireImage = styled.div`
   position: relative;
   width: 100%;
   height: 504px;
-  background-image: url('${props => props.src}');
+  background-image: url('${props => props.src}'),
+    url('${props => props.errImg}');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
