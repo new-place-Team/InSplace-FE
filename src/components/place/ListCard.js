@@ -3,7 +3,7 @@ import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Grid, Image, Text } from '../../elements/index';
-import { heartFilled } from '../../images/index';
+import { heartFilled, noImgMain } from '../../images/index';
 import { getCategoryText } from '../../shared/transferText';
 import { history } from '../../redux/configureStore';
 import { ReactComponent as NoSelectedHeader } from '../../images/Icon/ic_heart.svg';
@@ -57,6 +57,11 @@ const ListCard = forwardRef((props, ref) => {
     };
     dispatch(setFavoritesPostDB(params));
   };
+
+  /* 이미지 ErrorHandle */
+  const handleImgError = e => {
+    e.target.src = noImgMain;
+  };
   /* 메인 카드 */
   if (type === 'main') {
     return (
@@ -65,7 +70,11 @@ const ListCard = forwardRef((props, ref) => {
           {isLoading && (
             <Grid _onClick={gotoDetail} width="237px" cursor="true">
               <CardImageWrap height="320px">
-                <CardImage width="237px" src={info.postImage} />
+                <CardImage
+                  width="237px"
+                  src={info.postImage}
+                  onError={handleImgError}
+                />
               </CardImageWrap>
               <Tag>
                 <Text color="#fff" fontSize="14px">
@@ -113,7 +122,11 @@ const ListCard = forwardRef((props, ref) => {
               width="100%"
             >
               <CardImageWrap width="242px" height="320px">
-                <CardImage width="242px" src={info.postImage} />
+                <CardImage
+                  width="242px"
+                  src={info.postImage}
+                  onError={handleImgError}
+                />
               </CardImageWrap>
               <IconArea onClick={setFavorites}>
                 {info && info.favoriteState ? (
@@ -156,7 +169,7 @@ const ListCard = forwardRef((props, ref) => {
             {isLoading && (
               <Grid _onClick={gotoDetail}>
                 <CardImageWrap height="196px">
-                  <CardImage src={info.postImage} />
+                  <CardImage src={info.postImage} onError={handleImgError} />
                 </CardImageWrap>
                 <IconArea onClick={setFavorites}>
                   {info && info.favoriteState ? (

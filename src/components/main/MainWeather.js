@@ -18,8 +18,8 @@ const MainWeather = props => {
   let img375 = main;
   let img768 = main;
   const { weatherInfo, imgLoading } = props;
-
   const weatherStatus = weatherInfo && weatherInfo.frontWeather;
+
   if (weatherInfo) {
     if (weatherStatus === 2) {
       img768 = rain768;
@@ -129,7 +129,7 @@ const BackgroundImg = styled.img`
   object-fit: cover;
   z-index: -1;
   @media (max-width: 414px) {
-    height: 525px;
+    height: 473px;
   }
 `;
 const SunshineContainer = styled.div`
@@ -153,8 +153,8 @@ const SunshineArea = styled.div`
   animation: shine 5s infinite linear alternate;
 
   @media (max-width: 414px) {
-    top: -24%;
-    right: -11%;
+    top: -23%;
+    right: -17%;
     width: 100%;
     height: 100%;
   }

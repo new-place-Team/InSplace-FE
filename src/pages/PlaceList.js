@@ -69,7 +69,7 @@ const PlaceList = props => {
     <>
       <Header _back _content={t('placeList.headerSubTitle')} _map _search />
       <Container>
-        {searchType !== 'total' && <SelectedCategory />}
+        {searchType !== 'total' && <SelectedCategory margin="16px 0" />}
         {placeList && placeList.length <= 0 ? (
           <ImageContainer>
             <Image src={placeSearchResult} />

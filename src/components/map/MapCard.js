@@ -30,6 +30,7 @@ const MapCard = props => {
     };
     dispatch(setFavoritesPostDB(params));
   };
+
   return (
     <MapCardCotainer ref={content}>
       <Mapchild>
@@ -40,7 +41,7 @@ const MapCard = props => {
           cursor="true"
           _onClick={() => history.push(`/place/detail/${el.postId}`)}
         >
-          <Image width="100%" height="121px" src={el.postImage} />
+          <Image width="100%" height="121px" type="map" src={el.postImage} />
         </Grid>
         <Grid flex>
           <Grid>
