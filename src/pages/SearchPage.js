@@ -102,15 +102,12 @@ const Input = styled.input`
 `;
 
 const ImageContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 75vh;
   img {
     width: 461px;
     display: block;
