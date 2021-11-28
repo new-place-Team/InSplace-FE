@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Grid } from '../elements';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import SwiperMap from '../components/map/SwiperMap';
+import SwiperMap from '../components/place/SwiperMap';
 import Map from '../components/map/Map';
 import Header from '../components/common/Header';
 import SelectedCategory from '../components/place/SelectedCategory';

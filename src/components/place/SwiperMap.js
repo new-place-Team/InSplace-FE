@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination, Navigation, History } from 'swiper';
 import styled from 'styled-components';
-import MapCard from './MapCard';
+import MapCard from '../map/MapCard';
 
 SwiperCore.use([Navigation, Pagination, History]);
 

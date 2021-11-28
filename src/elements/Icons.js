@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Icons = props => {
-  const { width, height, margin, color, children, size } = props;
+  const { width, height, margin, color, children, size, _onClick } = props;
 
   const styles = {
     width,
@@ -13,12 +13,17 @@ const Icons = props => {
     size,
   };
 
-  return <IconArea {...styles}>{children}</IconArea>;
+  return (
+    <IconArea {...styles} onClick={_onClick}>
+      {children}
+    </IconArea>
+  );
 };
 
 Icons.defaultPorps = {
   width: '24px',
   height: '24px',
+  _onClick: () => {},
 };
 
 const IconArea = styled.div`
@@ -29,6 +34,7 @@ const IconArea = styled.div`
   height: ${props => props.height};
   margin: ${({ margin }) => margin || 0};
   cursor: pointer;
+
   svg {
     width: ${({ width }) => width || '24px'};
     height: ${({ height }) => height || '24px'};

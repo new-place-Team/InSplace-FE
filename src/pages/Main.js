@@ -14,6 +14,7 @@ import { ReactComponent as Right } from '../images/ic-next.svg';
 import Swiper from '../components/common/SwiperLB';
 import MainWeather from '../components/main/MainWeather';
 import theme from '../styles/theme';
+import Banner from '../components/common/Banner';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -128,13 +129,16 @@ const Main = () => {
           </Grid>
           {/* 관리자 추천 공간 */}
           <Grid
-            padding="0 0 112px 24px"
+            padding="0 0 48px 24px"
+            // padding="0 0 112px 24px"
             bg={mainLists ? getBg(mainLists.weather)[1] : ''}
           >
             <ContentsTitle title={t('mainPage.adminPlace')} />
             <Swiper list={mainLists && mainLists.pickPlace} />
           </Grid>
         </Grid>
+        <Banner />
+        <BottomHeight />
       </Container>
       <Navbar />
     </>
@@ -173,5 +177,7 @@ const NextButton = styled.div`
     fill: #fff;
   }
 `;
-
+const BottomHeight = styled.div`
+  height: 65px;
+`;
 export default Main;
