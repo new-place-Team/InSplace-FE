@@ -3,16 +3,17 @@ import React, { useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination, Navigation, History } from 'swiper';
 import styled from 'styled-components';
-import MapCard from './MapCard';
+import MapCard from '../map/MapCard';
 
 SwiperCore.use([Navigation, Pagination, History]);
 
 const SwiperMap = React.memo(props => {
   const { list, _onChageFocus, focusId } = props;
   const focusRef = useRef(null);
-  let perViewCnt = 3;
+  let perViewCnt = 2;
   let loopYn = true;
-  if (list && list.length < 3) {
+
+  if (list && list.length < 2) {
     perViewCnt = list.lenght === 2 ? 2 : 1;
     loopYn = false;
   }
@@ -24,6 +25,7 @@ const SwiperMap = React.memo(props => {
       clickable: true,
     },
   };
+
   useEffect(() => {
     if (list) {
       const findIdx = list.findIndex(v => v.postId === focusId);
@@ -37,7 +39,9 @@ const SwiperMap = React.memo(props => {
   return (
     <Wrap>
       <Swiper
-        className="mapSwiper"
+        perViewCnt
+        className={perViewCnt === 1 ? 'mapSwiper mapSwiperFull' : 'mapSwiper'}
+        // className="mapSwiper"
         /* 스와이프 했을떄 실행할 함수 */
         onSlideChange={e => {
           const coord = {
@@ -68,37 +72,22 @@ const Wrap = styled.div`
   position: absolute;
   bottom: 50px;
   left: 50%;
+  padding-left: 40px;
   transform: translateX(-50%);
   z-index: 9;
-
+  @media (max-width: 415px) {
+    padding-left: 24px;
+  }
   .mapSwiper {
     .swiper-slide {
     }
-    h3 {
-      height: 23px;
-      overflow: hidden;
-      @media (max-width: 415px) {
-        font-size: 14px;
-      }
-    }
     p {
-      height: 34px;
-      overflow: hidden;
-      @media (max-width: 415px) {
-        font-size: 12px;
-        padding-top: 28px;
-      }
+      position: absolute;
+      bottom: 0;
+      font-size: 13px;
     }
     .swiper-slide-active {
-      width: 55% !important;
-      @media (max-width: 415px) {
-        width: 85% !important;
-      }
-      h3,
-      p {
-        overflow: visible;
-        height: auto;
-      }
+      width: 80% !important;
     }
   }
   // swiper의 pagination 화면에 안보이게 숨기기
@@ -108,6 +97,9 @@ const Wrap = styled.div`
     left: -999;
     width: 1px;
     height: 1px;
+  }
+  .mapSwiperFull .swiper-slide-active {
+    width: 90% !important;
   }
 `;
 

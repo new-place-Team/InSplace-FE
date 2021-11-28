@@ -416,6 +416,7 @@ const MBTIDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   position: relative;
+  cursor: pointer;
 `;
 
 const Icon = styled.img`

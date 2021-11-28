@@ -9,7 +9,6 @@ import SelectedContents from '../components/place/SelectedContents';
 import { Container, Grid, Text, Label } from '../elements/index';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import { history } from '../redux/configureStore';
-// import { getPeopleText } from '../shared/transferText';
 import {
   getSearchConditionDB,
   getCurrentCoordinateWEB,
@@ -240,12 +239,10 @@ const SelectedType = () => {
               />
             );
           })}
-        </SelectContainer>
-        <Grid _onClick={goSearch}>
-          <NextButton>
+          <NextButton onClick={goSearch}>
             <Right />
           </NextButton>
-        </Grid>
+        </SelectContainer>
         <Grid height="64px" padding="64px" />
         {guModal && (
           <GuModal
@@ -265,15 +262,19 @@ const ChangeContainer = styled.div`
   background-color: #fff;
   width: 100%;
   z-index: 3;
+  position: sticky;
+  top: -11px;
 `;
 
 const ChangeText = styled.div`
+  position: sticky;
+  top: 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   width: 768px;
   &.hide {
-    padding: 40px 34px;
+    padding: 16px 40px 34px;
   }
 
   @media (max-width: 500px) {
@@ -284,6 +285,7 @@ const ChangeText = styled.div`
   }
 `;
 const SelectContainer = styled.div`
+  position: relative;
   width: 100%;
   /* padding-top: 150px; */
   @media (max-width: 500px) {
@@ -299,6 +301,7 @@ const LineBreak = styled.div`
 `;
 
 const NextButton = styled.button`
+  display: block;
   width: 80px;
   height: 80px;
   position: absolute;
@@ -325,6 +328,7 @@ const GuArea = styled.div`
   justify-content: space-between;
   align-items: center;
   position: relative;
+  cursor: pointer;
 `;
 
 const Icon = styled.img`

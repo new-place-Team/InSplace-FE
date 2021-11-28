@@ -279,7 +279,7 @@ const BottomBox = styled.div`
     }
   }
 `;
-const TextBox = styled.p`
+const TextBox = styled.div`
   width: 100%;
   height: 66px;
   display: flex;
