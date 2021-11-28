@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable import/no-unresolved */
 import React from 'react';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,7 +12,6 @@ SwiperCore.use([Pagination]);
 
 const PlaceSwiper = props => {
   const { list, source } = props;
-  console.log('source ============== ', source);
 
   const pagination = {
     clickable: true, // 버튼 클릭 여부
