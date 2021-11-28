@@ -31,6 +31,7 @@ import report from './Icon/ic_report.svg';
 import modalClose from './Icon/ic_modal_close.svg';
 import checked from './Icon/ic_check.svg';
 import mypageNext from './Icon/ic-next.svg';
+import instagram from './Icon/ic_instagram.svg';
 
 // illustration
 import profile1 from './illustration/profile1.png';
@@ -134,4 +135,5 @@ export {
   noImgMain,
   noImgMap,
   noImgDetail,
+  instagram,
 };
