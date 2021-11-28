@@ -35,7 +35,6 @@ const Detail = props => {
   const isLogin = useSelector(state => state.user.isLogin);
   const [confirmModal, setConfirmModal] = useState(false);
   const { t } = useTranslation();
-  console.log('detailData ???? ', detailData);
 
   const newAddr = detailData ? detailData.addressShort.split(' ') : false;
   const placeMarker = detailData

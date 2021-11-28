@@ -44,7 +44,6 @@ const Main = () => {
   };
 
   const handleScroll = () => {
-    console.log('onTop', onTop);
     if (window.scrollY > 66) {
       setOnTop(false);
     } else {
