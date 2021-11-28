@@ -101,7 +101,7 @@ const WeatherBox = props => {
 const WeatherWrap = styled.div`
   width: 100%;
   height: 100%;
-  padding: 31px 0 0 37px;
+  padding: 86px 0 0 37px;
 `;
 
 const WeatherContent = styled.div`

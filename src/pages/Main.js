@@ -20,6 +20,7 @@ const Main = () => {
   const { t } = useTranslation();
   const mainLists = useSelector(state => state.place.mainLists);
   const [imgLoading, setImgLoading] = useState(false);
+  const [onTop, setOnTop] = useState(true);
   const imgRef = useRef(null);
 
   const getBg = info => {
@@ -40,9 +41,24 @@ const Main = () => {
     }
     return theme.weatherBgColor[weatherKey];
   };
+
+  const handleScroll = () => {
+    console.log('onTop', onTop);
+    if (window.scrollY > 66) {
+      setOnTop(false);
+    } else {
+      setOnTop(true);
+    }
+  };
+
   useEffect(() => {
-    if (mainLists) return;
-    dispatch(getMainListDB());
+    window.addEventListener('scroll', handleScroll);
+    if (!mainLists) {
+      dispatch(getMainListDB());
+    }
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -65,8 +81,16 @@ const Main = () => {
   return (
     <>
       <Container padding="0">
+        <Header
+          _onBg
+          _content="InSplace"
+          _search
+          _language
+          _color="#fff"
+          _onTop={onTop}
+          _main
+        />
         <SkeletonGrid ref={imgRef}>
-          <Header _onBg _content="InSplace" _search _language _color="#fff" />
           {/* Weather Section */}
           <>
             <MainWeather
@@ -120,6 +144,7 @@ const Main = () => {
 const SkeletonGrid = styled.div`
   position: relative;
   height: 672px;
+  margin-top: -66px;
   @media (max-width: 414px) {
     height: 473px;
   }

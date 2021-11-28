@@ -12,14 +12,14 @@ const Container = props => {
 
 Container.defaultProps = {
   padding: '66px 24px 0 24px',
-  height: '100vh',
+  height: '100%',
 };
 
 const ContainerWrap = styled.div`
   position: relative;
   max-width: 768px;
   height: ${({ height }) => height};
-  min-height: ${({ height }) => height || '100vh'};
+  min-height: ${({ height }) => height || '100%'};
   margin: 0 auto;
   padding: ${({ padding }) => padding || '0 24px'};
 `;
