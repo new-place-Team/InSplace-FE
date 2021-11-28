@@ -57,6 +57,9 @@ const BannerWrap = styled.div`
   &.closeBanner {
     display: none;
   }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const BannerContent = styled.p`
   color: #fff;
