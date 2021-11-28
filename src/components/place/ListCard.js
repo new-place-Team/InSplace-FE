@@ -58,6 +58,7 @@ const ListCard = forwardRef((props, ref) => {
     dispatch(setFavoritesPostDB(params));
   };
 
+  /* 이미지 ErrorHandle */
   const handleImgError = e => {
     e.target.src = noImgMain;
   };
