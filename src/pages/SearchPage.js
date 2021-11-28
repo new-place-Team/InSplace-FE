@@ -26,7 +26,7 @@ const SearchPage = () => {
   };
 
   const goBack = () => {
-    history.goBack();
+    history.replace('/');
   };
 
   useEffect(() => {
@@ -111,7 +111,6 @@ const ImageContainer = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-
   img {
     width: 461px;
     display: block;
