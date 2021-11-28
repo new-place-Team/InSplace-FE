@@ -82,6 +82,8 @@ const Wrap = styled.div`
     .swiper-slide {
     }
     p {
+      position: absolute;
+      bottom: 0;
       font-size: 13px;
     }
     .swiper-slide-active {
