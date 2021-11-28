@@ -1,24 +1,35 @@
 /* eslint-disable no-alert */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import SelectedContents from '../components/place/SelectedContents';
-import { Container, Grid, Text } from '../elements/index';
+import { Container, Grid, Text, Label } from '../elements/index';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import { history } from '../redux/configureStore';
-// import { getPeopleText } from '../shared/transferText';
-import { getSearchConditionDB } from '../redux/async/place';
+import {
+  getSearchConditionDB,
+  getCurrentCoordinateWEB,
+} from '../redux/async/place';
 import CommonModal from '../components/common/CommonModal';
+import GuModal from '../components/common/GuModal';
 import { setCommonModalOn } from '../redux/modules/commonSlice';
+import polygonimg from '../images/Polygon.png';
 
 const SelectedType = () => {
   const dispatch = useDispatch();
-  const weatherStatus = useSelector(state => state.place.weatherStatus);
-  const commomModal = useSelector(state => state.common.modalStatus);
   const { t } = useTranslation();
+  const weatherStatus = useSelector(state => state.place.weatherStatus);
+  const location = useSelector(state => state.place.location);
+  const commomModal = useSelector(state => state.common.modalStatus);
+
+  const [guModal, setGuModal] = useState(false);
+  const [currentGu, setCurrentGu] = useState({
+    guId: 1,
+    text: t('guList.all'),
+  });
 
   const [categoryInfo, setCategoryInfo] = React.useState({
     MemberCnt: '',
@@ -107,6 +118,25 @@ const SelectedType = () => {
       bg: '#bbc0cf',
     },
   ]);
+
+  /* 지역구 모달 Open */
+  const openGuModal = () => setGuModal(true);
+  /* 지역구 모달 Close */
+  const closeGuModal = () => setGuModal(false);
+  /* 지역구 변경 */
+  const changeGuInfo = async guInfo => {
+    /* 현재 위치 체크 */
+    if (guInfo.guId === 0 && !location) {
+      const payload = await dispatch(getCurrentCoordinateWEB());
+      if (!payload.payload.address) {
+        const modalParams = { title: t('selectTypePage.pleaseCheckLocation') };
+        dispatch(setCommonModalOn(modalParams));
+        return;
+      }
+    }
+    setCurrentGu(guInfo);
+  };
+  /* category 별 검색 */
   const goSearch = () => {
     if (
       categoryInfo.gender === '' ||
@@ -121,7 +151,13 @@ const SelectedType = () => {
       return;
     }
 
-    const params = `?weather=${weatherStatus.status}&category=${categoryInfo.category.value}&num=${categoryInfo.MemberCnt.value}&gender=${categoryInfo.gender.value}`;
+    let params = `?weather=${weatherStatus.status}&category=${categoryInfo.category.value}&num=${categoryInfo.MemberCnt.value}&gender=${categoryInfo.gender.value}`;
+    if (currentGu.guId === 0) {
+      const { latLon } = location;
+      params += `&x=${latLon.lat}&y=${latLon.lon}`;
+    } else if (currentGu.guId > 1) {
+      params += `&area=${currentGu.text}`;
+    }
     dispatch(getSearchConditionDB(params));
     history.push(`/select-type/result${params}`);
   };
@@ -141,6 +177,18 @@ const SelectedType = () => {
       />
       <Container padding="66px 0 0 0">
         <ChangeContainer>
+          <SelectGuArea>
+            <Grid padding="12px 24px 24px 24px">
+              <Label type="form" marginBottom="0">
+                {t('guList.selectArea')}
+              </Label>
+              <GuArea onClick={openGuModal}>
+                {/* <Text>{t('signUpPage.noMbtiSelect')}</Text> */}
+                <Text>{currentGu.text}</Text>
+                <Icon src={polygonimg} />
+              </GuArea>
+            </Grid>
+          </SelectGuArea>
           <ChangeText className={!showCategory && 'hide'}>
             {categoryInfo.gender !== '' && (
               <Grid isFlex>
@@ -191,13 +239,18 @@ const SelectedType = () => {
               />
             );
           })}
-        </SelectContainer>
-        <Grid _onClick={goSearch}>
-          <NextButton>
+          <NextButton onClick={goSearch}>
             <Right />
           </NextButton>
-        </Grid>
+        </SelectContainer>
         <Grid height="64px" padding="64px" />
+        {guModal && (
+          <GuModal
+            currentGu={currentGu}
+            changeGuInfo={type => changeGuInfo(type)}
+            closeGuModal={closeGuModal}
+          />
+        )}
       </Container>
       <Navbar />
     </>
@@ -205,33 +258,38 @@ const SelectedType = () => {
 };
 
 const ChangeContainer = styled.div`
-  position: fixed;
+  /* position: fixed; */
   background-color: #fff;
   width: 100%;
   z-index: 3;
+  position: sticky;
+  top: -11px;
 `;
 
 const ChangeText = styled.div`
+  position: sticky;
+  top: 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   width: 768px;
   &.hide {
-    padding: 40px 34px;
+    padding: 16px 40px 34px;
   }
 
   @media (max-width: 500px) {
     width: 100%;
     &.hide {
-      padding: 30px 24px;
+      padding: 0 24px 24px 24px;
     }
   }
 `;
 const SelectContainer = styled.div`
+  position: relative;
   width: 100%;
-  padding-top: 150px;
+  /* padding-top: 150px; */
   @media (max-width: 500px) {
-    padding-top: 130px;
+    /* padding-top: 130px; */
   }
   &.hide {
     padding-top: 0;
@@ -243,6 +301,7 @@ const LineBreak = styled.div`
 `;
 
 const NextButton = styled.button`
+  display: block;
   width: 80px;
   height: 80px;
   position: absolute;
@@ -255,6 +314,27 @@ const NextButton = styled.button`
     height: 36px;
     fill: #fff;
   }
+`;
+const SelectGuArea = styled.div`
+  width: 100%;
+`;
+const GuArea = styled.div`
+  width: 100%;
+  height: 3rem;
+  font-size: 16px;
+  border-bottom: 1px solid #c4c4c4;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+`;
+
+const Icon = styled.img`
+  width: 16px;
+  margin: ${({ margin }) => margin || '0'};
+  vertical-align: text-bottom;
 `;
 
 export default SelectedType;

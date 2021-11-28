@@ -6,7 +6,7 @@ import { Grid, Text } from '../../elements';
 const ContentsTitle = props => {
   const { title, color, search } = props;
   return (
-    <Grid justify="space-between" margin="24px 0">
+    <Grid justify="space-between" padding="24px 0">
       <Grid>
         <Text fontSize="20px" color={color} bold>
           {title}

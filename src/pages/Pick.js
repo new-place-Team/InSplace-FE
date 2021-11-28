@@ -78,7 +78,6 @@ const Pick = () => {
             >
               <PinFilled />
             </Icons>
-            {/* <Image src={pin} width="24px" height="24px" margin="0 8px 1px 0" /> */}
             <Text
               fontSize="16px"
               color={isLikeSelected ? '#A3A6AA' : '#282828'}

@@ -34,6 +34,12 @@ const theme = {
     rain: '#558ED0',
     snow: '#81BCDA',
   },
+  weatherBgColor: {
+    sun: ['#FAF4E3', '#E9F1E8'],
+    cloud: ['#F1F1F1', '#D8D8D8'],
+    rain: ['#E9F1F5', '#C7DAE5'],
+    snow: ['#F0F4FA', '#D3DDEA'],
+  },
 };
 
 export default theme;

@@ -17,6 +17,7 @@ import {
 } from '../async/place';
 import { getCategoryArrText } from '../../shared/transferText';
 import loadedSlice from './loadedSlice';
+import { setCommonModalOn } from './commonSlice';
 /* init */
 const initialState = {
   mainLists: null,
@@ -96,6 +97,7 @@ const placeSlice = createSlice({
       }
       if (placeList) {
         const idx = placeList.findIndex(v => v.postId === postId);
+        if (idx === -1) return;
         const target = placeList[idx];
         target.favoriteState = !target.favoriteState;
         target.favoriteState
@@ -205,8 +207,11 @@ const placeSlice = createSlice({
       state.weatherStatus = payload.weather;
     },
     /* rejected 처리 실패 */
-    [getMainListDB.rejected]: (state, { payload }) => {
-      console.log(payload);
+    [getMainListDB.rejected]: (state, { action }) => {
+      const modalParams = {
+        title: `${action.meta.response.data.errMsg}`,
+      };
+      setCommonModalOn(modalParams);
     },
     /* 타입별 검색 처리 완료 */
     [getSearchConditionDB.fulfilled]: (state, { payload }) => {
@@ -233,7 +238,6 @@ const placeSlice = createSlice({
     },
     // 리뷰 추천순 조회
     [getReviewLikesListDB.fulfilled]: (state, { payload }) => {
-      // console.log(current(state.reviewLikesList));
       if (state.reviewLikesList) {
         state.reviewLikesList = [...state.reviewLikesList, ...payload.reviews];
         state.reviewLikesPagination = {
@@ -290,8 +294,10 @@ const placeSlice = createSlice({
     },
     /* 가본장소 추가 실패 */
     [setVisitedPostDB.rejected]: (state, action) => {
-      const { payload } = action;
-      console.log(payload);
+      const modalParams = {
+        title: `${action.meta.response.data.errMsg}`,
+      };
+      setCommonModalOn(modalParams);
     },
     /* list 페이지 조회 */
     [getSearchConditionListDB.fulfilled]: (state, { payload }) => {

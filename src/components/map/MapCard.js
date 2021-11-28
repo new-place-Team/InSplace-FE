@@ -30,17 +30,15 @@ const MapCard = props => {
     };
     dispatch(setFavoritesPostDB(params));
   };
+
   return (
-    <MapCardCotainer ref={content}>
+    <MapCardCotainer
+      ref={content}
+      onClick={() => history.push(`/place/detail/${el.postId}`)}
+    >
       <Mapchild>
-        <Grid
-          width="101px"
-          height="121px"
-          margin="0 20px 0 0"
-          cursor="true"
-          _onClick={() => history.push(`/place/detail/${el.postId}`)}
-        >
-          <Image width="100%" height="121px" src={el.postImage} />
+        <Grid width="101px" height="121px" margin="0 20px 0 0" cursor="true">
+          <Image width="100%" height="121px" type="map" src={el.postImage} />
         </Grid>
         <Grid flex>
           <Grid>
@@ -68,6 +66,7 @@ const MapCard = props => {
 
 const MapCardCotainer = styled.div`
   max-height: 162px;
+  cursor: pointer;
 `;
 const Mapchild = styled.div`
   display: flex;

@@ -1,6 +1,6 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, memo } from 'react';
 import styled from 'styled-components';
-import { insplace } from '../images/index';
+import { insplace, noImgMap, noImgDetail } from '../images/index';
 
 const Image = forwardRef((props, ref) => {
   const {
@@ -24,6 +24,13 @@ const Image = forwardRef((props, ref) => {
     color,
   };
 
+  /* 이미지 ErrorHandle */
+  const handleImgError = e => {
+    if (type === 'map') {
+      e.target.src = noImgMap;
+    }
+  };
+
   if (type === 'circle') {
     return (
       <>
@@ -35,7 +42,7 @@ const Image = forwardRef((props, ref) => {
   if (type === 'bg') {
     return (
       <>
-        <BgImage {...styles} onClick={_onClick}>
+        <BgImage {...styles} onClick={_onClick} errImg={noImgDetail}>
           {children}
         </BgImage>
       </>
@@ -44,7 +51,7 @@ const Image = forwardRef((props, ref) => {
 
   return (
     <DefaultGrid {...styles}>
-      <DefaultImage {...styles} ref={ref} />
+      <DefaultImage {...styles} ref={ref} onError={handleImgError} />
     </DefaultGrid>
   );
 });
@@ -78,7 +85,8 @@ const DefaultImage = styled.img`
 const BgImage = styled.div`
   width: ${props => props.width};
   height: ${props => props.height};
-  background-image: url('${props => props.src}');
+  background-image: url('${props => props.src}'),
+    url('${props => props.errImg}');
   background-size: cover;
   background-position: center;
   ${props => (props.margin ? `margin:${props.margin}` : '')};
@@ -113,4 +121,4 @@ const ProfileImage = styled.div`
   }
 `;
 
-export default Image;
+export default memo(Image);

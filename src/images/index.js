@@ -31,6 +31,7 @@ import report from './Icon/ic_report.svg';
 import modalClose from './Icon/ic_modal_close.svg';
 import checked from './Icon/ic_check.svg';
 import mypageNext from './Icon/ic-next.svg';
+import instagram from './Icon/ic_instagram.svg';
 
 // illustration
 import profile1 from './illustration/profile1.png';
@@ -66,6 +67,11 @@ import travel from './map/ic_map_travel.svg';
 import travelSmall from './map/ic_map_travel_small.svg';
 import restaurant from './map/ic_map_restaurant.svg';
 import restaurantSmall from './map/ic_map_restaurant_small.svg';
+
+// common
+import noImgMain from './common/noImg_main.png';
+import noImgMap from './common/noImg_map.png';
+import noImgDetail from './common/noImg_detail.png';
 
 export {
   bookmark,
@@ -126,4 +132,8 @@ export {
   restaurant,
   restaurantSmall,
   whiteRight,
+  noImgMain,
+  noImgMap,
+  noImgDetail,
+  instagram,
 };

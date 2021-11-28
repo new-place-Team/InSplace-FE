@@ -17,6 +17,7 @@ const Header = props => {
   const {
     _onBg,
     _back,
+    _replace,
     _search,
     _content,
     _map,
@@ -26,6 +27,8 @@ const Header = props => {
     _color,
     _settings,
     _language,
+    _onTop,
+    _main,
   } = props;
 
   const gotoMapPage = () => {
@@ -46,12 +49,55 @@ const Header = props => {
   const goBack = () => {
     history.goBack();
   };
+  const goReplace = () => {
+    history.replace('/');
+  };
+
+  if (_main) {
+    return (
+      <ContentBgArea onTop={_onTop}>
+        <Content>
+          <Grid isFlex width="100%">
+            {_content && (
+              <Text fontSize="18px" bold color={_onTop ? _color : '#000'}>
+                {_content}
+              </Text>
+            )}
+          </Grid>
+          <Grid isFlex width="100%" justifyContent="flex-end">
+            {_search && (
+              <Grid margin="0 13px 0 0" _onClick={gotoSearchPage}>
+                <IconArea color={_onTop ? _color : '#000'}>
+                  <Search />
+                </IconArea>
+              </Grid>
+            )}
+            {_language && (
+              <Grid _onClick={openLangModal}>
+                <IconArea color={_onTop ? _color : '#000'}>
+                  <Language />
+                </IconArea>
+              </Grid>
+            )}
+          </Grid>
+          {modalStatus === true && <LangModal />}
+        </Content>
+      </ContentBgArea>
+    );
+  }
 
   if (_onBg) {
     return (
       <ContentArea>
         <Content>
           <Grid isFlex width="100%">
+            {_replace && (
+              <Grid margin="0 13px 0 0">
+                <IconArea onClick={goReplace} color={_color}>
+                  <LeftIcon />
+                </IconArea>
+              </Grid>
+            )}
             {_back && (
               <Grid margin="0 13px 0 0">
                 <IconArea onClick={goBack} color={_color}>
@@ -118,6 +164,13 @@ const Header = props => {
       <ContentArea>
         <Content>
           <Grid isFlex width="100%">
+            {_replace && (
+              <Grid margin="0 13px 0 0">
+                <IconArea onClick={goReplace} color={_color}>
+                  <LeftIcon />
+                </IconArea>
+              </Grid>
+            )}
             {_back && (
               <Grid margin="0 13px 0 0">
                 <IconArea onClick={goBack} color={_color}>
@@ -207,6 +260,18 @@ const ContentArea = styled.div`
   margin: 0 auto;
   padding: 0 26px 0 24px;
   z-index: 4;
+`;
+
+const ContentBgArea = styled.div`
+  max-width: 768px;
+  height: 66px;
+  min-height: 66px;
+  margin: 0 auto;
+  padding: 0 26px 0 24px;
+  z-index: 11;
+  position: sticky;
+  top: 0;
+  background-color: ${props => (props.onTop ? '' : '#fff')};
 `;
 
 const Content = styled.div`
