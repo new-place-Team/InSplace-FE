@@ -241,11 +241,9 @@ const SelectedType = () => {
             );
           })}
         </SelectContainer>
-        <Grid _onClick={goSearch}>
-          <NextButton>
-            <Right />
-          </NextButton>
-        </Grid>
+        <NextButton onClick={goSearch}>
+          <Right />
+        </NextButton>
         <Grid height="64px" padding="64px" />
         {guModal && (
           <GuModal
@@ -299,6 +297,7 @@ const LineBreak = styled.div`
 `;
 
 const NextButton = styled.button`
+  display: block;
   width: 80px;
   height: 80px;
   position: absolute;
@@ -325,6 +324,7 @@ const GuArea = styled.div`
   justify-content: space-between;
   align-items: center;
   position: relative;
+  cursor: pointer;
 `;
 
 const Icon = styled.img`

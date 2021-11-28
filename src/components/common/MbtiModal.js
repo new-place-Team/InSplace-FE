@@ -94,6 +94,7 @@ const ModalContent = styled.div`
   z-index: 10;
   overflow-y: auto;
   border-radius: 10px 10px 0 0;
+  cursor: pointer;
   @media (min-width: 1024px) {
     width: 768px;
   }

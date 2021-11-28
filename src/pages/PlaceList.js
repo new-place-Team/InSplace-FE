@@ -67,7 +67,7 @@ const PlaceList = props => {
 
   return (
     <>
-      <Header _back _content={t('placeList.headerSubTitle')} _map _search />
+      <Header _replace _content={t('placeList.headerSubTitle')} _map _search />
       <Container>
         {searchType !== 'total' && <SelectedCategory margin="16px 0" />}
         {placeList && placeList.length <= 0 ? (
@@ -136,13 +136,12 @@ const ImageContainer = styled.div`
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   img {
     width: 461px;
     display: block;
   }
   @media (max-width: 500px) {
-    margin-top: 20%;
     img {
       width: 100%;
     }

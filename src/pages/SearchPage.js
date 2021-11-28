@@ -26,7 +26,7 @@ const SearchPage = () => {
   };
 
   const goBack = () => {
-    history.goBack();
+    history.replace('/');
   };
 
   useEffect(() => {
@@ -110,14 +110,12 @@ const ImageContainer = styled.div`
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
-
+  height: 100%;
   img {
     width: 461px;
     display: block;
   }
   @media (max-width: 500px) {
-    margin-top: 20%;
     img {
       width: 100%;
     }
