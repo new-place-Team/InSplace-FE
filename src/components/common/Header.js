@@ -268,7 +268,7 @@ const ContentBgArea = styled.div`
   min-height: 66px;
   margin: 0 auto;
   padding: 0 26px 0 24px;
-  z-index: 11;
+  z-index: 9;
   position: sticky;
   top: 0;
   background-color: ${props => (props.onTop ? '' : '#fff')};

@@ -6,6 +6,7 @@ import { ReactComponent as Close } from '../../images/Icon/ic_close.svg';
 import { history } from '../../redux/configureStore';
 import { setCommonModalOn } from '../../redux/modules/commonSlice';
 import CommonModal from './CommonModal';
+import { setTodayCookie } from '../../shared/utils';
 
 const Banner = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,8 @@ const Banner = () => {
 
   const closeToday = e => {
     e.stopPropagation();
-    setChecked(true);
+    setChecked(ischecked => !ischecked);
+    setTodayCookie();
   };
   return (
     <>
@@ -40,14 +42,14 @@ const Banner = () => {
 
       <BannerWrap className={active && 'closeBanner'} onClick={goToFeedBack}>
         <CheckBoxGrid onClick={closeToday}>
-          <input type="checkbox" checked={checked} />
+          <input type="checkbox" checked={checked} onChange={closeToday} />
           <Label fontSize="12px" margin="0 0 0 5px" color="#fff" cursor="true">
             오늘 하루 보지 않기
           </Label>
         </CheckBoxGrid>
         <Grid justify="space-between" padding="30px 24px">
           <BannerContent>
-            한줄 후기 작성하면 스타벅스 <Span>아메리카노</Span> ☕
+            서비스 사용 후 의견을 남겨주시면 스타벅스 <Span>아메리카노</Span> ☕
           </BannerContent>
           <Icons _onClick={closeBanner} className="closeButton">
             <Close />
@@ -78,6 +80,9 @@ const BannerWrap = styled.div`
 const BannerContent = styled.p`
   color: #fff;
   font-weight: 600;
+  @media (max-width: 415px) {
+    font-size: 13px;
+  }
 `;
 const Span = styled.span`
   color: #51d787;

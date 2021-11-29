@@ -93,3 +93,9 @@ export const autoHypenPhone = str => {
   tmp += newStr.substr(7);
   return tmp;
 };
+
+export const setTodayCookie = () => {
+  const today = new Date();
+  today.setHours(today.getHours() + 24);
+  localStorage.setItem('closeBanner', today);
+};
