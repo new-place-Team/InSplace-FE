@@ -16,6 +16,7 @@ const Label = props => {
     required,
     bold,
     marginBottom,
+    cursor,
   } = props;
   const styles = {
     flex,
@@ -26,6 +27,7 @@ const Label = props => {
     bold,
     required,
     marginBottom,
+    cursor,
   };
   if (type === 'form') {
     return <LabelForm {...styles}>{children}</LabelForm>;
@@ -39,7 +41,7 @@ Label.defaultProps = {
   padding: '0px',
   fontSize: `${theme.fontSize.normal}`,
   color: `${theme.color.mainColor}`,
-  bold: `${theme.fontWeight.regular}`,
+  bold: false,
   required: false,
 };
 
@@ -49,10 +51,8 @@ const LabelWrap = styled.label`
   ${props => (props.padding ? `padding:${props.padding}` : '')};
   ${props => (props.fontSize ? `font-size:${props.fontSize}` : '')};
   ${props => (props.color ? `color:${props.color}` : '')};
-  font-weight: ${props =>
-    props.bold
-      ? `${theme.fontWeight.extraBold}`
-      : `${theme.fontWeight.regular}`};
+  font-weight: ${props => (props.bold ? `600` : `400`)};
+  ${props => props.cursor && `cursor:pointer`};
 `;
 const LabelForm = styled.label`
   display: block;
@@ -60,6 +60,7 @@ const LabelForm = styled.label`
   font-size: 13px;
   font-weight: bold;
   color: #b5b5b5;
+  ${props => props.cursor && `cursor:pointer`};
   &::after {
     display: inline-block;
     ${props =>
