@@ -25,7 +25,6 @@ import Pick from './pages/Pick';
 import Notification from './pages/Notification';
 import SearchPage from './pages/SearchPage';
 import Setting from './pages/Setting';
-import Test from './components/common/Test';
 // import Navbar from './components/Navbar';
 
 function App() {
@@ -72,7 +71,6 @@ function App() {
           <Route path="/picklist" exact component={Pick} />
           <Route path="/setting" exact component={Setting} />
           <Route path="/notification" exact component={Notification} />
-          <Route path="/test" exact component={Test} />
         </Switch>
         {/* <Navbar /> */}
       </ThemeProvider>

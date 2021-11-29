@@ -66,7 +66,7 @@
     "idErrorMessage": ["이메일을 입력해주세요", "이메일 형식이 맞지않습니다."],
     "passErrorMessage": [
       "비밀번호를 입력해주세요",
-      "비밀번호는 8자리 이상으로 입력해주세요"
+      "비밀번호는 8자리 이상으로 16자리 이하로 입력해주세요"
     ],
     "passconfirmMessage": [
       "비밀번호 확인을 입력해주세요",
@@ -204,7 +204,7 @@
     "idErrorMessage": ["이메일을 입력해주세요", "이메일 형식이 맞지않습니다."],
     "passErrorMessage": [
       "비밀번호를 입력해주세요",
-      "비밀번호는 8자리 이상으로 입력해주세요"
+      "비밀번호는 8자리 이상으로 16자리 이하로 입력해주세요"
     ],
     "passconfirmMessage": [
       "비밀번호 확인을 입력해주세요",
@@ -291,5 +291,9 @@
     "jungnang": "중랑구",
     "selectArea": "지역선택",
     "pleaseSelectArea": "지역을 선택해주세요."
+  },
+  "Banner": {
+    "BannerSentence": "한줄 후기 작성하면 스타벅스 ",
+    "Americano": "아메리카노"
   }
 }

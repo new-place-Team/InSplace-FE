@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Icons } from '../../elements';
 import { ReactComponent as Close } from '../../images/Icon/ic_close.svg';
@@ -9,6 +10,7 @@ import { setCommonModalOn } from '../../redux/modules/commonSlice';
 
 const Banner = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const modalStatus = useSelector(state => state.common.modalStatus);
   const isLogin = useSelector(state => state.user.isLogin);
   const [active, setActive] = useState(false);
@@ -34,7 +36,8 @@ const Banner = () => {
       <BannerWrap className={active && 'closeBanner'} onClick={goToFeedBack}>
         <Grid justify="space-between" padding="30px 24px">
           <BannerContent>
-            한줄 후기 작성하면 스타벅스 <Span>아메리카노</Span> ☕
+            {t('Banner.BannerSentence')}
+            <Span>{t('Banner.Americano')}</Span> ☕
           </BannerContent>
           <Icons _onClick={closeBanner} className="closeButton">
             <Close />

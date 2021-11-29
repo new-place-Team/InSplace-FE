@@ -127,7 +127,7 @@ const Signup = () => {
       setPassError(t('signUpPage.passErrorMessage.0'));
       return;
     }
-    if (userInfo.password.length < 8) {
+    if (userInfo.password.length < 8 || userInfo.password.length > 16) {
       setPassError(t('signUpPage.passErrorMessage.1'));
       return;
     }
