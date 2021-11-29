@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Icons } from '../../elements';
+import { Grid, Icons, Label } from '../../elements';
 import { ReactComponent as Close } from '../../images/Icon/ic_close.svg';
-import CommonModal from './CommonModal';
 import { history } from '../../redux/configureStore';
 import { setCommonModalOn } from '../../redux/modules/commonSlice';
+import CommonModal from './CommonModal';
 
 const Banner = () => {
   const dispatch = useDispatch();
   const modalStatus = useSelector(state => state.common.modalStatus);
   const isLogin = useSelector(state => state.user.isLogin);
   const [active, setActive] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   const closeBanner = e => {
     e.stopPropagation();
@@ -28,10 +29,22 @@ const Banner = () => {
       history.push(`/mypage`);
     }
   };
+
+  const closeToday = e => {
+    e.stopPropagation();
+    setChecked(true);
+  };
   return (
     <>
       {modalStatus && <CommonModal />}
+
       <BannerWrap className={active && 'closeBanner'} onClick={goToFeedBack}>
+        <CheckBoxGrid onClick={closeToday}>
+          <input type="checkbox" checked={checked} />
+          <Label fontSize="12px" margin="0 0 0 5px" color="#fff" cursor="true">
+            오늘 하루 보지 않기
+          </Label>
+        </CheckBoxGrid>
         <Grid justify="space-between" padding="30px 24px">
           <BannerContent>
             한줄 후기 작성하면 스타벅스 <Span>아메리카노</Span> ☕
@@ -61,11 +74,19 @@ const BannerWrap = styled.div`
     width: 100%;
   }
 `;
+
 const BannerContent = styled.p`
   color: #fff;
   font-weight: 600;
 `;
 const Span = styled.span`
   color: #51d787;
+`;
+const CheckBoxGrid = styled.div`
+  display: flex;
+  position: absolute;
+  bottom: 8px;
+  left: 20px;
+  cursor: pointer;
 `;
 export default Banner;
