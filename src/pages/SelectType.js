@@ -17,6 +17,11 @@ import CommonModal from '../components/common/CommonModal';
 import GuModal from '../components/common/GuModal';
 import { setCommonModalOn } from '../redux/modules/commonSlice';
 import polygonimg from '../images/Polygon.png';
+import {
+  getPeopleText,
+  getGenderText,
+  getCategoryText,
+} from '../shared/transferText';
 
 const SelectedType = () => {
   const dispatch = useDispatch();
@@ -24,6 +29,7 @@ const SelectedType = () => {
   const weatherStatus = useSelector(state => state.place.weatherStatus);
   const location = useSelector(state => state.place.location);
   const commomModal = useSelector(state => state.common.modalStatus);
+  const categoryObj = useSelector(state => state.place.categoryList);
 
   const [guModal, setGuModal] = useState(false);
   const [currentGu, setCurrentGu] = useState({
@@ -31,34 +37,19 @@ const SelectedType = () => {
     text: t('guList.all'),
   });
 
-  const [categoryInfo, setCategoryInfo] = React.useState({
-    MemberCnt: '',
-    gender: '',
-    category: '',
-  });
+  const [categoryInfo, setCategoryInfo] = React.useState(
+    categoryObj || {
+      num: '',
+      gender: '',
+      category: '',
+    },
+  );
 
   const showCategory =
-    categoryInfo.MemberCnt === '' &&
+    categoryInfo.num === '' &&
     categoryInfo.gender === '' &&
     categoryInfo.category === '';
 
-  const getPeopleText = type => {
-    let text = '';
-    switch (type) {
-      case 1:
-        text = t('selectTypePage.returnText.0');
-        break;
-      case 2:
-        text = t('selectTypePage.returnText.1');
-        break;
-      case 3:
-        text = t('selectTypePage.returnText.2');
-        break;
-      default:
-        text = t('selectTypePage.returnText.3');
-    }
-    return text;
-  };
   const [selectData, setSelectData] = React.useState([
     {
       title: t('selectTypePage.selectGender.selectTitle'),
@@ -100,7 +91,7 @@ const SelectedType = () => {
           value: 4,
         },
       ],
-      type: 'MemberCnt',
+      type: 'num',
       grid: 2,
       bg: '#e8ecf2',
     },
@@ -140,17 +131,18 @@ const SelectedType = () => {
   const goSearch = () => {
     if (
       categoryInfo.gender === '' ||
-      categoryInfo.MemberCnt === '' ||
+      categoryInfo.num === '' ||
       categoryInfo.category === ''
     ) {
       const modalParams = {
         title: t('selectTypePage.alert'),
       };
       dispatch(setCommonModalOn(modalParams));
+      // window.alert(t('selectTypePage.alert'));
       return;
     }
 
-    let params = `?weather=${weatherStatus.status}&category=${categoryInfo.category.value}&num=${categoryInfo.MemberCnt.value}&gender=${categoryInfo.gender.value}`;
+    let params = `?weather=${weatherStatus.status}&category=${categoryInfo.category.value}&num=${categoryInfo.num.value}&gender=${categoryInfo.gender.value}`;
     if (currentGu.guId === 0) {
       const { latLon } = location;
       params += `&x=${latLon.lat}&y=${latLon.lon}`;
@@ -192,14 +184,15 @@ const SelectedType = () => {
             {categoryInfo.gender !== '' && (
               <Grid isFlex>
                 <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                  {categoryInfo.gender.selecteText}
+                  {getGenderText(categoryInfo.gender.value)}
                 </Text>
               </Grid>
             )}
-            {categoryInfo.MemberCnt !== '' && (
+            {categoryInfo.num !== '' && (
               <Grid isFlex margin="0 10px">
                 <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                  {getPeopleText(categoryInfo.MemberCnt.value)}
+                  {getPeopleText(categoryInfo.num.value)}
+                  {/* {categoryInfo.num.selecteText} */}
                 </Text>
                 <Text bold fontSize="20px" color="#C0C0C0">
                   &nbsp;{t('selectTypePage.resultSentence.0')}
@@ -210,7 +203,7 @@ const SelectedType = () => {
               <>
                 <Grid isFlex>
                   <Text bold fontSize="20px" border="2px solid #C0C0C0">
-                    {categoryInfo.category.selecteText}
+                    {getCategoryText(categoryInfo.category.value)}
                   </Text>
                   <Text bold fontSize="20px" color="#C0C0C0">
                     &nbsp;{t('selectTypePage.resultSentence.1')}

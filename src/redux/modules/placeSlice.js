@@ -65,7 +65,7 @@ const placeSlice = createSlice({
         });
         const obj = {};
         obj[item] = {
-          selectText: getCategoryArrText(item, typeValue),
+          selecteText: getCategoryArrText(item, typeValue),
           value: typeValue,
         };
         return obj;
