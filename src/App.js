@@ -33,7 +33,7 @@ function App() {
   const location = useSelector(state => state.place.location);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
   /* 구글 애널리틱스 */
-  const TRACKING_ID = 'G-4HT5P5JP18';
+  const TRACKING_ID = 'UA-213812312-1';
   ReactGA.initialize(TRACKING_ID);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ function App() {
   return (
     <ConnectedRouter history={history}>
       <ThemeProvider theme={theme}>
-        <Analytics id="G-4HT5P5JP18" debug>
+        <Analytics id="UA-213812312-1" debug>
           <Switch>
             <Route path="/" exact component={Main} />
             <Route path="/select-type" exact component={SelectType} />
