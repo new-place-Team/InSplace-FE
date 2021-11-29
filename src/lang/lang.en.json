@@ -3,10 +3,13 @@
 
   "mainPage": {
     "recommend": "Recommend Place",
-    "weatherPlace": "Weather Place",
     "popularPlace": "Most Recommended",
     "adminPlace": "Admin's Pick",
-    "hasNoLocation": "No current location information"
+    "hasNoLocation": "No current location information",
+    "weatherInfo": ["A space suitable for a sunny day",  
+      "A place suitable for a rainy day",
+      "A place suitable for a snowy day", 
+      "A place suitable for a cloudy day"]
   },
   "selectTypePage": {
     "headerSubTitle": "Select type",
