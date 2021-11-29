@@ -31,22 +31,22 @@ const Banner = () => {
     }
   };
 
-  const closeToday = e => {
-    e.stopPropagation();
-    setChecked(ischecked => !ischecked);
-    setTodayCookie();
-  };
+  // const closeToday = e => {
+  //   e.stopPropagation();
+  //   setChecked(ischecked => !ischecked);
+  //   setTodayCookie();
+  // };
   return (
     <>
       {modalStatus && <CommonModal />}
 
       <BannerWrap className={active && 'closeBanner'} onClick={goToFeedBack}>
-        <CheckBoxGrid onClick={closeToday}>
+        {/* <CheckBoxGrid onClick={closeToday}>
           <input type="checkbox" checked={checked} onChange={closeToday} />
           <Label fontSize="12px" margin="0 0 0 5px" color="#fff" cursor="true">
             오늘 하루 보지 않기
           </Label>
-        </CheckBoxGrid>
+        </CheckBoxGrid> */}
         <Grid justify="space-between" padding="30px 24px">
           <BannerContent>
             서비스 사용 후 의견을 남겨주시면 스타벅스 <Span>아메리카노</Span> ☕
