@@ -168,7 +168,7 @@ const ReviewWrite = props => {
   // 리뷰 등록 수정
   const handleReview = () => {
     if (commonModal) return;
-    if (state.reviewDesc.length <= 14) {
+    if (state.reviewDesc.length <= 4) {
       const params = { title: t('ReviewWrite.Modal.minReview') };
       dispatch(setCommonModalOn(params));
       return;

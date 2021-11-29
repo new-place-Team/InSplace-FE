@@ -225,7 +225,7 @@ const CommonModal = ({ type, showConfirmModal }) => {
                     padding="20px"
                     margin="16px 0 0 0"
                     border="1px solid #E6E9EC"
-                    placeholder="최소 15자 이상 써 주세요"
+                    placeholder="최소 5자 이상 써 주세요"
                     _onChange={e =>
                       setReportInfo({
                         ...reportInfo,

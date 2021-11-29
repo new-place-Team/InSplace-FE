@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
+import ReactGA from 'react-ga';
 import { setModalOn } from '../redux/modules/userSlice';
 import { Container, Grid, Input, Label, Button, Text } from '../elements';
 import polygonimg from '../images/Polygon.png';
@@ -98,6 +99,13 @@ const Signup = () => {
     return setButtonStatus(false);
   };
 
+  const addReactGa = () => {
+    ReactGA.event({
+      category: 'User',
+      action: 'Created an Account',
+    });
+  };
+
   // 서버에 전달할 유저 정보
   const userInfoDB = {
     email: userInfo.email,
@@ -127,7 +135,7 @@ const Signup = () => {
       setPassError(t('signUpPage.passErrorMessage.0'));
       return;
     }
-    if (userInfo.password.length < 8) {
+    if (userInfo.password.length < 8 || userInfo.password.length > 16) {
       setPassError(t('signUpPage.passErrorMessage.1'));
       return;
     }
@@ -172,8 +180,8 @@ const Signup = () => {
     // 회원정보 미들웨어로 dispatch
     // console.log(userInfoDB);
     dispatch(addUserDB(userInfoDB));
+    addReactGa();
   };
-
   return (
     <>
       {commomModal && <CommonModal />}
