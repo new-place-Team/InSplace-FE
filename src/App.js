@@ -27,9 +27,6 @@ import Pick from './pages/Pick';
 import Notification from './pages/Notification';
 import SearchPage from './pages/SearchPage';
 import Setting from './pages/Setting';
-import Boarding from './pages/Boarding';
-import ServiceAgree from './pages/ServiceAgree';
-import Test from './components/common/Test';
 
 function App() {
   const dispatch = useDispatch();
@@ -80,9 +77,6 @@ function App() {
             <Route path="/picklist" exact component={Pick} />
             <Route path="/setting" exact component={Setting} />
             <Route path="/notification" exact component={Notification} />
-            <Route path="/boarding" exact component={Boarding} />
-            <Route path="/service" exact component={ServiceAgree} />
-            <Route path="/test" exact component={Test} />
           </Switch>
         </Analytics>
       </ThemeProvider>

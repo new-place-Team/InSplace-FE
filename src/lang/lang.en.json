@@ -66,7 +66,7 @@
     ],
     "passErrorMessage": [
       "Please fill your Password!",
-      "Please fill a password of at least 8 digits  "
+      "Please enter the password with more than 8 digits and less than 16 digits "
     ],
     "passconfirmMessage": [
       "Please fill Password Confirmation",
@@ -289,5 +289,9 @@
     "jungnang": "Jungnang-gu",
     "selectArea": "Region selection",
     "pleaseSelectArea": "Please select a region"
+  },
+  "Banner": {
+    "BannerSentence": "If you leave your opinion, Starbucks ",
+    "Americano": "Americano"
   }
 }
