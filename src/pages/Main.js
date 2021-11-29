@@ -115,7 +115,13 @@ const Main = () => {
         <Grid>
           {/* 날씨에 따른 공간 */}
           <Grid padding="0 0 48px 24px">
-            <ContentsTitle title={t('mainPage.weatherPlace')} />
+            <ContentsTitle
+              title={t(
+                `mainPage.weatherInfo.${
+                  mainLists && mainLists.weather.frontWeather - 1
+                }`,
+              )}
+            />
             <Swiper list={mainLists && mainLists.weatherPlace} />
           </Grid>
           {/* 좋아요 순 추천 공간 */}

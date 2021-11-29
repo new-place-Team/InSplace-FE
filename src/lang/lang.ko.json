@@ -3,10 +3,14 @@
 
   "mainPage": {
     "recommend": "장소 추천 받기",
-    "weatherPlace": "날씨에 따른 공간",
-    "popularPlace": "좋아요를 많이 받은",
-    "adminPlace": "운영자 픽",
-    "hasNoLocation": "현재위치 정보 없음"
+    "popularPlace": "인플러들에게 선택받은 공간",
+    "adminPlace": "MD's PICK",
+    "hasNoLocation": "현재위치 정보 없음",
+    "weatherInfo": ["맑은 날에 어울리는 공간",  
+      "비 오는 날에 어울리는 공간",
+      "눈 오는 날에 어울리는 공간", 
+      "흐린 날에 어울리는 공간"]
+    
   },
   "weatherBox": {
     "degreeStatus": ["어제보다", "높아요", "낮아요", "어제와 온도가 같아요"]

@@ -9,8 +9,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setModalOn } from '../redux/modules/userSlice';
 import { getPeopleMbti } from '../shared/transferText';
 import { editProfileDB } from '../redux/async/user';
-// import { getLoaded } from '../redux/modules/loadedSlice';
-// import { history } from '../redux/configureStore';
 import { getTokenYn } from '../shared/utils';
 import { nicknameCheck } from '../shared/api/userApi';
 import MbtiModal from '../components/common/MbtiModal';
