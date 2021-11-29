@@ -17,14 +17,12 @@ const LangModal = () => {
     e.stopPropagation();
     i18n.changeLanguage('ko-KR');
     dispatch(getCurrentCoordinateWEB('ko'));
-    dispatch(getMainListDB('init'));
     dispatch(setModalOff());
   };
   const american = e => {
     e.stopPropagation();
     i18n.changeLanguage('en-US');
     dispatch(getCurrentCoordinateWEB('en'));
-    dispatch(getMainListDB('init'));
     dispatch(setModalOff());
   };
 

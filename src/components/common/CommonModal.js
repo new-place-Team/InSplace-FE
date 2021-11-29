@@ -134,7 +134,6 @@ const CommonModal = ({ type, showConfirmModal }) => {
   };
 
   const onEnter = e => {
-    console.log('onEnter', e);
     if (e.key === 'Enter') {
       CloseModal();
     }

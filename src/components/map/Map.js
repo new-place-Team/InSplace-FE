@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {
   activity,
@@ -20,6 +21,7 @@ const Map = React.memo(props => {
   const [isMarker, setIsMarker] = useState(null);
   const { width, height, allPlaces, latLonFocus, _onChnageFocusId, type } =
     props;
+  const location = useSelector(state => state.place.location);
 
   useEffect(() => {
     /* 페이지가 로드 시 지도 생성 */
@@ -56,6 +58,18 @@ const Map = React.memo(props => {
     if (isMarker) {
       isMarker.map(v => v.setMap(null));
     }
+    /* 현재위치 */
+    if (location) {
+      const markerPosition = new kakao.maps.LatLng(
+        location.latLon.lat,
+        location.latLon.lon,
+      );
+      const nowMarker = new kakao.maps.Marker({
+        position: markerPosition,
+      });
+      nowMarker.setMap(map);
+    }
+
     const markers = allPlaces.map(el => {
       const { lat, lon } = latLon;
       const markerFocus = el.postLocationX === lon && el.postLocationY === lat;
