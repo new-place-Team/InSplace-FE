@@ -23,7 +23,6 @@ const Setting = () => {
       goPage: '/',
     };
     dispatch(setCommonModalOn(modalParams));
-    // window.location.href = '/';
   };
 
   const onClick = () => {
@@ -31,9 +30,8 @@ const Setting = () => {
   };
 
   const goUnRegister = () => {
-    dispatch(unRegisterDB());
     setConfirmModal(false);
-    window.location.href = '/';
+    dispatch(unRegisterDB());
   };
 
   return (
