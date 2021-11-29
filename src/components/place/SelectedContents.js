@@ -1,6 +1,5 @@
 /* eslint-disable no-shadow */
-/* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Grid, Text } from '../../elements';
@@ -174,4 +173,4 @@ const ReviewButton = styled.button`
     margin-right: 0;
   }
 `;
-export default SelectedContents;
+export default memo(SelectedContents);

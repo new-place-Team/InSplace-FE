@@ -53,6 +53,7 @@ const placeSlice = createSlice({
     },
     setSelectedCategory: (state, { payload }) => {
       const objList = payload.replace('?', '').split('&');
+      // category 3개 고정
       const categoryArr = ['gender', 'num', 'category'];
       const newCategoryList = categoryArr.map(item => {
         let typeValue = 0;
@@ -62,9 +63,14 @@ const placeSlice = createSlice({
             typeValue = Number(objArr[1]);
           }
         });
-        return getCategoryArrText(item, typeValue);
+        const obj = {};
+        obj[item] = {
+          selectText: getCategoryArrText(item, typeValue),
+          value: typeValue,
+        };
+        return obj;
       });
-      state.categoryList = newCategoryList;
+      state.categoryList = Object.assign({}, ...newCategoryList);
       state.categoryParams = payload;
     },
     setFocusCoord: (state, { payload }) => {

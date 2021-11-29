@@ -24,8 +24,6 @@ const SelectedType = () => {
   const weatherStatus = useSelector(state => state.place.weatherStatus);
   const location = useSelector(state => state.place.location);
   const commomModal = useSelector(state => state.common.modalStatus);
-  const categoryList = useSelector(state => state.place.categoryList);
-  console.log('categoryList', categoryList);
 
   const [guModal, setGuModal] = useState(false);
   const [currentGu, setCurrentGu] = useState({
@@ -149,7 +147,6 @@ const SelectedType = () => {
         title: t('selectTypePage.alert'),
       };
       dispatch(setCommonModalOn(modalParams));
-      // window.alert(t('selectTypePage.alert'));
       return;
     }
 
