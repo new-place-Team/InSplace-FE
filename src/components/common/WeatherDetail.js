@@ -75,7 +75,7 @@ const WeatherInfo = props => {
   }
 
   useEffect(() => {
-    root.setAttribute('style', 'overflow: hidden;');
+    root.setAttribute('style', 'overflow: hidden; height: 100vh;');
     return () => root.removeAttribute('style');
   }, []);
   useEffect(() => {
@@ -216,7 +216,7 @@ const Wrap = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
-  z-index: 10;
+  z-index: 12;
 `;
 
 const Container = styled.div`

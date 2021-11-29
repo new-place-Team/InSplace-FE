@@ -2,6 +2,7 @@
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { Grid, Image, Text } from '../../elements/index';
 import { heartFilled, noImgMain } from '../../images/index';
 import { getCategoryText } from '../../shared/transferText';
@@ -17,6 +18,7 @@ const ListCard = forwardRef((props, ref) => {
   const isLogin = useSelector(state => state.user.isLogin);
   const [isLoading, setIsLoading] = useState(false);
   const imgRef = useRef(null);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     const callback = entries => {
@@ -93,7 +95,7 @@ const ListCard = forwardRef((props, ref) => {
         </SkeletonBg>
         <Grid margin="16px 0 0 0">
           <Text fontSize="16px" color="#272727" bold>
-            {info && info.title}
+            {info && i18n.language === 'ko-KR' ? info.title : info.titleEn}
           </Text>
         </Grid>
         <Grid margin="6px 0 0 0" isFlex width="100%">
@@ -104,7 +106,9 @@ const ListCard = forwardRef((props, ref) => {
             {info && info.favoriteCnt}
           </Text>
           <Text fontSize="14px" color="#646464">
-            {info && info.addressShort}
+            {info && i18n.language === 'ko-KR'
+              ? info.addressShort
+              : info.addressShortEn}
           </Text>
         </Grid>
       </>

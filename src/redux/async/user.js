@@ -149,6 +149,7 @@ export const kakaoLogin = createAsyncThunk(
     }
   },
 );
+
 /* 유저 좋아요 리스트 조회 */
 export const getFavoritesDB = createAsyncThunk(
   'user/getFavorites',
