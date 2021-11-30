@@ -106,12 +106,7 @@ const ReviewCard = forwardRef((props, ref) => {
           </Grid>
         </Grid>
         <Grid isFlex width="50%">
-          <Text
-            margin="0 20px 0 0"
-            fontSize="14px"
-            color="#3E4042"
-            letterSpacing="-0.0008em"
-          >
+          <Text fontSize="14px" color="#3E4042" letterSpacing="-0.0008em">
             {t('ReviewCard.revisited')}
           </Text>
           <Grid>
@@ -119,10 +114,10 @@ const ReviewCard = forwardRef((props, ref) => {
           </Grid>
         </Grid>
         <ReviewDesc>{info.reviewDesc}</ReviewDesc>
-        <Grid margin="0 0 24px 0">
-          <ReviewSwiper list={info.reviewImages} />
-        </Grid>
-        <Grid justify="space-between">
+
+        <ReviewSwiper list={info.reviewImages} />
+
+        <Grid justify="space-between" margin="24px 0 0 0">
           <Grid isFlex>
             {info.likeState ? (
               <LikeButton className="active" onClick={handleLikesCancel}>
@@ -175,7 +170,7 @@ const Line = styled.span`
   }
 `;
 const ReviewDesc = styled.p`
-  margin: 16px 0 24px;
+  margin-top: 16px;
   font-size: 14px;
   color: #3e4042;
   letter-spacing: -0.0008em;
