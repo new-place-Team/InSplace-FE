@@ -8,13 +8,16 @@ import { Grid } from '../../elements/index';
 import theme from '../../styles/theme';
 import WeatherDetail from './WeatherDetail';
 /* weather Icon */
-import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
-import { ReactComponent as CloudIcon } from '../../images/weather/cloud.svg';
-import { ReactComponent as RainIcon } from '../../images/weather/rain.svg';
-import { ReactComponent as SnowIcon } from '../../images/weather/snow.svg';
+// import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
+// import { ReactComponent as CloudIcon } from '../../images/weather/cloud.svg';
+// import { ReactComponent as RainIcon } from '../../images/weather/rain.svg';
+// import { ReactComponent as SnowIcon } from '../../images/weather/snow.svg';
+
 /* Nav Icon */
 import { ReactComponent as HomeIcon } from '../../images/nav/ic_nav_home.svg';
-import { ReactComponent as HomeFillIcon } from '../../images/nav/ic_nav_home-filled.svg';
+// import { ReactComponent as HomeFillIcon } from '../../images/nav/ic_nav_home-filled.svg';
+import { ReactComponent as NavMap } from '../../images/nav/ic_nav_map.svg';
+import { ReactComponent as NavMapFill } from '../../images/nav/ic_nav_map-filled.svg';
 import { ReactComponent as FilterIcon } from '../../images/nav/ic_nav_fliter.svg';
 import { ReactComponent as HeartIcon } from '../../images/nav/ic_nav_heart.svg';
 import { ReactComponent as MypageIcon } from '../../images/nav/ic_nav_mypage.svg';
@@ -31,21 +34,16 @@ const Navbar = () => {
   const [weatherModalShow, setWeatherModalShow] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
 
-  let WeatherIcon = '';
   let weatherKey = '';
   if (weatherStatus) {
     const status = weatherStatus.frontWeather;
     if (status === 2) {
-      WeatherIcon = <RainIcon />;
       weatherKey = 'rain';
     } else if (status === 3) {
-      WeatherIcon = <SnowIcon />;
       weatherKey = 'snow';
     } else if (status === 4) {
-      WeatherIcon = <CloudIcon />;
       weatherKey = 'cloud';
     } else {
-      WeatherIcon = <SunIcon />;
       weatherKey = 'sun';
     }
   }
@@ -93,19 +91,20 @@ const Navbar = () => {
         <Content>
           <Wrap>
             <Grid
-              bg={theme.weatherColor[weatherKey]}
+              bg={pathName === '/' ? theme.weatherColor[weatherKey] : ''}
               justifyContent="center"
               width="100%"
               _onClick={openWeatherModal}
             >
-              <Icon color="#fff">{WeatherIcon}</Icon>
+              <Icon
+                color={pathName === '/' ? '#fff' : ''}
+                onClick={() => history.push('/')}
+              >
+                <HomeIcon />
+              </Icon>
             </Grid>
-
-            <Icon
-              color={pathName === '/' ? '#000' : ''}
-              onClick={() => history.push('/')}
-            >
-              {pathName === '/' ? <HomeFillIcon /> : <HomeIcon />}
+            <Icon>
+              <NavMap />
             </Icon>
 
             <Icon
@@ -181,7 +180,6 @@ const Icon = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
   svg {
     fill: ${({ color }) => color || '#A4A9B1'};
     margin-bottom: 7px;
