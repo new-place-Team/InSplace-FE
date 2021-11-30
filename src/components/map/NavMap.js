@@ -1,0 +1,78 @@
+/* eslint-disable */
+import React, { useState, useEffect } from 'react';
+import { Container, Grid } from '../../elements';
+import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import SwiperMap from '../../components/place/SwiperMap';
+import Map from '../../components/map/Map';
+import Header from '../../components/common/Header';
+import { useTranslation } from 'react-i18next';
+import { getLocationPlaceDB } from '../../redux/async/place';
+
+const MapContainer = () => {
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const location = useSelector(state => state.place.location);
+  console.log('location', location);
+  /* 장소 List */
+  let placeList = null;
+
+  const [latLonFocus, setLatLonFocus] = useState(null);
+  const [focusId, setFocusId] = useState(null);
+  const onChageFocus = latLon => {
+    setLatLonFocus({
+      lat: latLon.lat,
+      lon: latLon.lon,
+    });
+  };
+  const onChnageFocusId = focusId => {
+    setFocusId(focusId);
+  };
+
+  useEffect(() => {
+    if (location) {
+      const { latLon } = location;
+      dispatch(getLocationPlaceDB(latLon));
+    }
+  }, []);
+
+  return (
+    <>
+      <MapDiv>
+        <Header _back _content={t('placeMapPage.headerSubTitle')} />
+        <Container padding="66px 0 0 0">
+          <Map
+            width="100%"
+            height="100vh"
+            allPlaces={placeList}
+            latLonFocus={latLonFocus}
+            _onChnageFocusId={onChnageFocusId}
+          />
+          {/* <SwiperWrap> */}
+          <SwiperMap
+            list={placeList}
+            _onChageFocus={onChageFocus}
+            focusId={focusId}
+          />
+          {/* </SwiperWrap> */}
+        </Container>
+      </MapDiv>
+    </>
+  );
+};
+
+const MapDiv = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-y: hidden;
+`;
+const MapCategoryWrap = styled.div`
+  padding: 0 24px;
+`;
+const SwiperWrap = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+export default MapContainer;
