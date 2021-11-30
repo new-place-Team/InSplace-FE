@@ -118,7 +118,7 @@ const Main = () => {
         {/* Place Section */}
         <Grid>
           {/* 날씨에 따른 공간 */}
-          <Grid padding="0 0 48px 24px">
+          <Grid padding="0 0 48px 24px" margin="21px 0 0 0">
             <ContentsTitle
               title={t(
                 `mainPage.weatherInfo.${

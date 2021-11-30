@@ -11,6 +11,7 @@ import { ReactComponent as SnowIcon } from '../../images/weather/snow.svg';
 import { ReactComponent as CloudIcon } from '../../images/weather/cloud.svg';
 import { ReactComponent as Marker } from '../../images/Icon/ic_weather_map-pin.svg';
 import { ReactComponent as Particlulates } from '../../images/Icon/ic_weather_particulates.svg';
+import { ReactComponent as DoubleQuates } from '../../images/weather/ic_weather_talk.svg';
 // import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good_white.svg';
 import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good.svg';
 import { ReactComponent as WeatherSoso } from '../../images/Icon/ic_weather_soso.svg';
@@ -93,6 +94,36 @@ const WeatherBox = props => {
             </Grid> */}
           </WeatehrInfo>
         </WeatherContent>
+        <AbsolGrid>
+          <Icons width="24px" margin="0 12px 0 0">
+            <DoubleQuates />
+          </Icons>
+          {info && info.frontWeather === 1 && (
+            <Text color="#fff" fontSize="14px">
+              {t('WeatherBox.sunny.0')}
+              <br /> {t('WeatherBox.sunny.1')}
+            </Text>
+          )}
+          {info && info.frontWeather === 2 && (
+            <Text color="#fff" fontSize="14px">
+              {t('WeatherBox.rainy.0')}
+              <br /> {t('WeatherBox.rainy.1')}
+            </Text>
+          )}
+          {info && info.frontWeather === 3 && (
+            <Text color="#fff" fontSize="14px">
+              {t('WeatherBox.cloudy.0')}
+              <br /> {t('WeatherBox.cloudy.1')}
+            </Text>
+          )}
+          {info && info.frontWeather === 4 && (
+            <Text color="#fff" fontSize="14px">
+              {t('WeatherBox.snow.0')}
+              <br />
+              {t('WeatherBox.snow.1')}
+            </Text>
+          )}
+        </AbsolGrid>
       </WeatherWrap>
     </>
   );
@@ -102,6 +133,7 @@ const WeatherWrap = styled.div`
   width: 100%;
   height: 100%;
   padding: 86px 0 0 37px;
+  position: relative;
 `;
 
 const WeatherContent = styled.div`
@@ -163,6 +195,13 @@ const IconArea = styled.div`
     height: 40px;
     fill: #fff;
   }
+`;
+
+const AbsolGrid = styled.div`
+  display: flex;
+  align-items: flex-start;
+  position: absolute;
+  bottom: 54px;
 `;
 
 export default WeatherBox;
