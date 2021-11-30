@@ -62,7 +62,6 @@ const SwiperLB = props => {
 
   return (
     <SwiperWrap>
-      <div>a</div>
       <Swiper {...setting}>
         {list &&
           list.map(info => {
