@@ -39,7 +39,8 @@ function App() {
   useEffect(() => {
     // 현재위치를 받아보자
     if (!location) {
-      dispatch(getCurrentCoordinateWEB());
+      const lang = window.navigator.language;
+      dispatch(getCurrentCoordinateWEB(lang));
     }
     // 새로고침 했을때 토큰이 있으면 로그인 체크
     if (getTokenYn()) {

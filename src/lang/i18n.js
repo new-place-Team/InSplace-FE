@@ -13,13 +13,20 @@ const resource = {
   },
 };
 
+const getThisLang = () => {
+  let lang = 'ko-KR';
+  if (window.navigator.language !== 'ko') lang = 'en-US';
+  console.log('lang', lang);
+  return lang;
+};
+
 i18n
   .use(detector)
   .use(initReactI18next)
   .init({
     resources: resource,
     // 초기 설정 언어
-    lng: 'ko-KR',
+    lng: getThisLang(),
     fallbackLng: {
       'en-US': ['en-US'],
       default: ['ko-KR'],
