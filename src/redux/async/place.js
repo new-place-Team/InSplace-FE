@@ -451,7 +451,7 @@ export const reviewReportDB = createAsyncThunk(
 
 export const getLocationPlaceDB = createAsyncThunk(
   'place/locationPlace',
-  async (params, thunkAPI) => {
+  async params => {
     const response = await getMainMap(params);
     if (response) {
       return response;
