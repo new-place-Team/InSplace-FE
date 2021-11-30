@@ -276,7 +276,7 @@ const Detail = props => {
                 {detailData && detailData.address}
               </Text>
               <Text fontSize="14px" color="#3E4042">
-                <Grid _onClick={callToMarket}>
+                <Grid cursor="true" _onClick={callToMarket}>
                   <Span>{t('placeDetailPage.category.3')}</Span>
                   {detailData && detailData.contactNumber}
                 </Grid>
