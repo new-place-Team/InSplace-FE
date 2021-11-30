@@ -6,7 +6,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 const ReviewSwiper = props => {
   const { list } = props;
   const isMargin = list.length > 0;
-  console.log('isMargin ? ', isMargin);
   const setting = {
     slidesPerView: 3,
     spaceBetween: 12,

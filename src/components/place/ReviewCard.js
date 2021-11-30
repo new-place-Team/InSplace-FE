@@ -148,7 +148,10 @@ const ReviewCard = forwardRef((props, ref) => {
                 padding="5px 10px"
                 _onClick={() => showMoreModal(info.reviewId, userId, 'report')}
               >
-                <Image src={report} />
+                <Text color="#ff6b6b" fontSize="12px">
+                  신고하기
+                </Text>
+                {/* <Image src={report} /> */}
               </Button>
             ))}
         </Grid>
