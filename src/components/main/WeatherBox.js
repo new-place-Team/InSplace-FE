@@ -113,7 +113,7 @@ const WeatherContent = styled.div`
 const WeatehrInfo = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 60px;
+  margin-left: 96px;
   .weatherIcon {
     width: 40px;
     height: 40px;

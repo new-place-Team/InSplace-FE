@@ -1,6 +1,5 @@
 /* eslint-disable no-shadow */
-/* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Grid, Text } from '../../elements';
@@ -23,16 +22,16 @@ const SelectedContents = props => {
     if (type === 'gender') {
       setState({ ...state, gender: { selecteText: text, value } });
       const dataList = [...selectData];
-      const MemberCntIdx = dataList.findIndex(v => v.type === 'MemberCnt');
+      const numIdx = dataList.findIndex(v => v.type === 'num');
       if (value === 3) {
-        dataList[MemberCntIdx].list = [
+        dataList[numIdx].list = [
           { selecteText: t('SelectedContents.memberCount1.0'), value: 2 },
           { selecteText: t('SelectedContents.memberCount1.1'), value: 3 },
           { selecteText: t('SelectedContents.memberCount1.2'), value: 4 },
         ];
         setSelectData(dataList);
       } else {
-        dataList[MemberCntIdx].list = [
+        dataList[numIdx].list = [
           { selecteText: t('SelectedContents.memberCount2.0'), value: 1 },
           { selecteText: t('SelectedContents.memberCount2.1'), value: 2 },
           { selecteText: t('SelectedContents.memberCount2.2'), value: 3 },
@@ -40,8 +39,8 @@ const SelectedContents = props => {
         ];
         setSelectData(dataList);
       }
-    } else if (type === 'MemberCnt') {
-      setState({ ...state, MemberCnt: { selecteText: text, value } });
+    } else if (type === 'num') {
+      setState({ ...state, num: { selecteText: text, value } });
     } else {
       setState({ ...state, category: { selecteText: text, value } });
     }
@@ -174,4 +173,4 @@ const ReviewButton = styled.button`
     margin-right: 0;
   }
 `;
-export default SelectedContents;
+export default memo(SelectedContents);

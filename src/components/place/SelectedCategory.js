@@ -1,5 +1,3 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -22,10 +20,10 @@ const SelectedCategory = props => {
     <>
       <Grid isFlex margin={margin}>
         {categoryList &&
-          categoryList.map((item, idx) => {
+          Object.values(categoryList).map(item => {
             return (
-              <React.Fragment key={`key_${idx}`}>
-                <TagButton key={item.value}>{item}</TagButton>
+              <React.Fragment key={`key_${item.value}`}>
+                <TagButton key={item.value}>{item.selecteText}</TagButton>
               </React.Fragment>
             );
           })}

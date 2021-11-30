@@ -6,7 +6,6 @@ import { noImgDetail } from '../../images/index';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import { ReactComponent as Instagram } from '../../images/Icon/ic_instagram.svg';
-import { Icons } from '../../elements';
 
 SwiperCore.use([Pagination]);
 
@@ -38,9 +37,9 @@ const PlaceSwiper = props => {
               <SwiperSlide key={`card_${info}`}>
                 <EntireImage src={info} errImg={noImgDetail} />
                 <Source>
-                  <Icons margin="0 0 4px 0" color="#282828">
+                  <IconArea>
                     <Instagram />@{source}
-                  </Icons>
+                  </IconArea>
                 </Source>
               </SwiperSlide>
             );
@@ -93,6 +92,13 @@ const Source = styled.div`
   @media (max-width: 415px) {
     left: 24px;
   }
+`;
+
+const IconArea = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 4px 0;
 `;
 
 export default PlaceSwiper;
