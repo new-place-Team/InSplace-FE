@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { Button, Grid, Text, Image } from '../../elements/index';
-import { good, bad, profile1, report, more } from '../../images/index';
+import { good, bad, profile1, more } from '../../images/index';
 import { reviewLikeDB, reviewLikeCancelDB } from '../../redux/async/place';
 import ReviewSwiper from './ReviewSwiper';
 import { setMoreModalOn } from '../../redux/modules/commonSlice';
@@ -106,12 +106,7 @@ const ReviewCard = forwardRef((props, ref) => {
           </Grid>
         </Grid>
         <Grid isFlex width="50%">
-          <Text
-            margin="0 20px 0 0"
-            fontSize="14px"
-            color="#3E4042"
-            letterSpacing="-0.0008em"
-          >
+          <Text fontSize="14px" color="#3E4042" letterSpacing="-0.0008em">
             {t('ReviewCard.revisited')}
           </Text>
           <Grid>
@@ -119,10 +114,10 @@ const ReviewCard = forwardRef((props, ref) => {
           </Grid>
         </Grid>
         <ReviewDesc>{info.reviewDesc}</ReviewDesc>
-        <Grid margin="0 0 24px 0">
-          <ReviewSwiper list={info.reviewImages} />
-        </Grid>
-        <Grid justify="space-between">
+
+        <ReviewSwiper list={info.reviewImages} />
+
+        <Grid justify="space-between" margin="24px 0 0 0">
           <Grid isFlex>
             {info.likeState ? (
               <LikeButton className="active" onClick={handleLikesCancel}>
@@ -140,6 +135,12 @@ const ReviewCard = forwardRef((props, ref) => {
               </Text>
             )}
           </Grid>
+          {/* <Button
+            padding="5px 10px"
+            _onClick={() => showMoreModal(info.reviewId, userId, '')}
+          >
+            <Image src={more} />
+          </Button> */}
           {loginUser &&
             (userCheck ? (
               <Button
@@ -153,7 +154,10 @@ const ReviewCard = forwardRef((props, ref) => {
                 padding="5px 10px"
                 _onClick={() => showMoreModal(info.reviewId, userId, 'report')}
               >
-                <Image src={report} />
+                <Text fontSize="12px" color="#ff6b6b">
+                  신고하기
+                </Text>
+                {/* <Image src={report} /> */}
               </Button>
             ))}
         </Grid>
@@ -175,7 +179,7 @@ const Line = styled.span`
   }
 `;
 const ReviewDesc = styled.p`
-  margin: 16px 0 24px;
+  margin-top: 16px;
   font-size: 14px;
   color: #3e4042;
   letter-spacing: -0.0008em;
