@@ -99,3 +99,10 @@ export const setTodayCookie = () => {
   today.setHours(today.getHours() + 24);
   localStorage.setItem('closeBanner', today);
 };
+
+export const getDefaultLanguage = () => {
+  let lang;
+  if (window.navigator.language !== null) {
+    lang = window.navigator.language;
+  }
+};
