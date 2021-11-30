@@ -7,11 +7,6 @@ import { history } from '../../redux/configureStore';
 import { Grid } from '../../elements/index';
 import theme from '../../styles/theme';
 import WeatherDetail from './WeatherDetail';
-/* weather Icon */
-// import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
-// import { ReactComponent as CloudIcon } from '../../images/weather/cloud.svg';
-// import { ReactComponent as RainIcon } from '../../images/weather/rain.svg';
-// import { ReactComponent as SnowIcon } from '../../images/weather/snow.svg';
 
 /* Nav Icon */
 import { ReactComponent as HomeIcon } from '../../images/nav/ic_nav_home.svg';
@@ -21,7 +16,6 @@ import { ReactComponent as NavMapFill } from '../../images/nav/ic_nav_map-filled
 import { ReactComponent as FilterIcon } from '../../images/nav/ic_nav_fliter.svg';
 import { ReactComponent as HeartIcon } from '../../images/nav/ic_nav_heart.svg';
 import { ReactComponent as MypageIcon } from '../../images/nav/ic_nav_mypage.svg';
-
 // import { isLoginChk } from '../../shared/utils';
 import ConfirmModal from './ConfirmModal';
 
@@ -69,10 +63,6 @@ const Navbar = () => {
       return;
     }
     pageMove(url);
-    // if (!isLoginChk(isLogin)) {
-    //   return;
-    // }
-    // history.push(url);
   };
 
   return (
