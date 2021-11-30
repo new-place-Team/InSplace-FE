@@ -80,7 +80,7 @@ const Navbar = () => {
                 <HomeIcon />
               </Icon>
             </Grid>
-            <Icon>
+            <Icon onClick={() => history.push('/location')}>
               <NavMap />
             </Icon>
 
