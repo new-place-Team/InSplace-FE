@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
 import { Grid } from '../../elements/index';
 import theme from '../../styles/theme';
-import WeatherDetail from './WeatherDetail';
 
 /* Nav Icon */
 import { ReactComponent as HomeIcon } from '../../images/nav/ic_nav_home.svg';
@@ -25,7 +24,6 @@ const Navbar = () => {
   const isLogin = useSelector(state => state.user.isLogin);
   const userInfo = useSelector(state => state.user.userInfo);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
-  const [weatherModalShow, setWeatherModalShow] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
 
   let weatherKey = '';
@@ -41,13 +39,6 @@ const Navbar = () => {
       weatherKey = 'sun';
     }
   }
-  const openWeatherModal = () => {
-    setWeatherModalShow(true);
-  };
-
-  const closeWeatherModal = () => {
-    setWeatherModalShow(false);
-  };
 
   const pageMove = value => {
     if (value === undefined && !isLogin) {
@@ -74,9 +65,6 @@ const Navbar = () => {
           goToLogin
         />
       )}
-      {weatherModalShow && (
-        <WeatherDetail closeWeatherModal={closeWeatherModal} />
-      )}
       <Nav>
         <Content>
           <Wrap>
@@ -84,7 +72,6 @@ const Navbar = () => {
               bg={pathName === '/' ? theme.weatherColor[weatherKey] : ''}
               justifyContent="center"
               width="100%"
-              _onClick={openWeatherModal}
             >
               <Icon
                 color={pathName === '/' ? '#fff' : ''}
