@@ -178,6 +178,7 @@ const ContentWrap = styled.div`
   width: 100%;
   height: 100%;
   padding: 64px 0 0 40px;
+  z-index: -1;
   @media (max-width: 500px) {
     padding: 24px 0 0 20px;
   }

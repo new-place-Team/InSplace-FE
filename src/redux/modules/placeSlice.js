@@ -14,6 +14,7 @@ import {
   getReviewEditDB,
   getSearchConditionListDB,
   getWeatherDB,
+  getLocationPlaceDB,
 } from '../async/place';
 import { getCategoryArrText } from '../../shared/transferText';
 import loadedSlice from './loadedSlice';
@@ -320,6 +321,9 @@ const placeSlice = createSlice({
         // 최초 로드
         state.placeList = payload.posts;
       }
+    },
+    [getLocationPlaceDB.fulfilled]: (state, { payload }) => {
+      console.log('res', payload);
     },
   },
 });

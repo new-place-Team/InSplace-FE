@@ -6,12 +6,6 @@ import { useSelector } from 'react-redux';
 import { history } from '../../redux/configureStore';
 import { Grid } from '../../elements/index';
 import theme from '../../styles/theme';
-import WeatherDetail from './WeatherDetail';
-/* weather Icon */
-// import { ReactComponent as SunIcon } from '../../images/weather/sun-nav.svg';
-// import { ReactComponent as CloudIcon } from '../../images/weather/cloud.svg';
-// import { ReactComponent as RainIcon } from '../../images/weather/rain.svg';
-// import { ReactComponent as SnowIcon } from '../../images/weather/snow.svg';
 
 /* Nav Icon */
 import { ReactComponent as HomeIcon } from '../../images/nav/ic_nav_home.svg';
@@ -21,7 +15,6 @@ import { ReactComponent as NavMap } from '../../images/nav/ic_nav_map.svg';
 import { ReactComponent as FilterIcon } from '../../images/nav/ic_nav_fliter.svg';
 import { ReactComponent as HeartIcon } from '../../images/nav/ic_nav_heart.svg';
 import { ReactComponent as MypageIcon } from '../../images/nav/ic_nav_mypage.svg';
-
 // import { isLoginChk } from '../../shared/utils';
 import ConfirmModal from './ConfirmModal';
 
@@ -31,7 +24,6 @@ const Navbar = () => {
   const isLogin = useSelector(state => state.user.isLogin);
   const userInfo = useSelector(state => state.user.userInfo);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
-  const [weatherModalShow, setWeatherModalShow] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
 
   let weatherKey = '';
@@ -47,13 +39,6 @@ const Navbar = () => {
       weatherKey = 'sun';
     }
   }
-  const openWeatherModal = () => {
-    setWeatherModalShow(true);
-  };
-
-  const closeWeatherModal = () => {
-    setWeatherModalShow(false);
-  };
 
   const pageMove = value => {
     if (value === undefined && !isLogin) {
@@ -69,10 +54,6 @@ const Navbar = () => {
       return;
     }
     pageMove(url);
-    // if (!isLoginChk(isLogin)) {
-    //   return;
-    // }
-    // history.push(url);
   };
 
   return (
@@ -84,9 +65,6 @@ const Navbar = () => {
           goToLogin
         />
       )}
-      {weatherModalShow && (
-        <WeatherDetail closeWeatherModal={closeWeatherModal} />
-      )}
       <Nav>
         <Content>
           <Wrap>
@@ -94,7 +72,6 @@ const Navbar = () => {
               bg={pathName === '/' ? theme.weatherColor[weatherKey] : ''}
               justifyContent="center"
               width="100%"
-              _onClick={openWeatherModal}
             >
               <Icon
                 color={pathName === '/' ? '#fff' : ''}
@@ -103,7 +80,7 @@ const Navbar = () => {
                 <HomeIcon />
               </Icon>
             </Grid>
-            <Icon>
+            <Icon onClick={() => history.push('/location')}>
               <NavMap />
             </Icon>
 

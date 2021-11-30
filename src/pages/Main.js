@@ -16,12 +16,14 @@ import Navbar from '../components/common/Navbar';
 import ContentsTitle from '../components/common/ContentsTitle';
 import theme from '../styles/theme';
 import Banner from '../components/common/Banner';
+import WeatherDetail from '../components/common/WeatherDetail';
 
 const Main = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const mainLists = useSelector(state => state.place.mainLists);
   const [imgLoading, setImgLoading] = useState(false);
+  const [weatherModalShow, setWeatherModalShow] = useState(false);
   const [onTop, setOnTop] = useState(true);
   const imgRef = useRef(null);
   /* 현재 날씨에 따른 배경 색상 */
@@ -79,8 +81,19 @@ const Main = () => {
     return () => observer && observer.disconnect();
   }, []);
 
+  const openWeatherModal = () => {
+    setWeatherModalShow(true);
+  };
+
+  const closeWeatherModal = () => {
+    setWeatherModalShow(false);
+  };
+
   return (
     <>
+      {weatherModalShow && (
+        <WeatherDetail closeWeatherModal={closeWeatherModal} />
+      )}
       <Container padding="0">
         <Header
           _onBg
@@ -111,7 +124,7 @@ const Main = () => {
               </NextButton>
             </SelectTypeBtn>
           </>
-          <ArrowOutArea>
+          <ArrowOutArea onClick={openWeatherModal}>
             <ArrowOut />
           </ArrowOutArea>
         </SkeletonGrid>
