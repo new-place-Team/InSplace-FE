@@ -6,20 +6,17 @@ import styled from 'styled-components';
 import SwiperMap from '../../components/place/SwiperMap';
 import Map from '../../components/map/Map';
 import Header from '../../components/common/Header';
-import SelectedCategory from '../../components/place/SelectedCategory';
-import { history } from '../../redux/configureStore';
 import { useTranslation } from 'react-i18next';
+import { getLocationPlaceDB } from '../../redux/async/place';
 
 const MapContainer = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  /* 현재 URI Path 조회 */
-  const { pathname } = history.location;
-  /* Map에 보여줄 ListType */
-  const pathArr = pathname.split('/');
-  const type = pathArr[pathArr.length - 1];
+  const location = useSelector(state => state.place.location);
+  console.log('location', location);
   /* 장소 List */
   let placeList = null;
+
   const [latLonFocus, setLatLonFocus] = useState(null);
   const [focusId, setFocusId] = useState(null);
   const onChageFocus = latLon => {
@@ -31,6 +28,13 @@ const MapContainer = () => {
   const onChnageFocusId = focusId => {
     setFocusId(focusId);
   };
+
+  useEffect(() => {
+    if (location) {
+      const { latLon } = location;
+      dispatch(getLocationPlaceDB(latLon));
+    }
+  }, []);
 
   return (
     <>
