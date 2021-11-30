@@ -300,12 +300,9 @@
     "Americano": "Americano"
   },
   "WeatherBox": {
-    "sunny": ["How about hang around Seoul", "on sunny day?"],
+    "sunny": ["How about hang around", "on sunny day?"],
     "rainy": ["How about hang around", "umbrella on rainy day?"],
-    "cloudy": ["cup of coffee in a cozy cafe", "on cloudy day"],
-    "snow": [
-      "On a snowy day, climb to a high place",
-      "look down on the snowy view of Seoul "
-    ]
+    "cloudy": ["Cup of coffee in a cozy cafe", "on cloudy day"],
+    "snow": ["Enjoy Snowing with lovers", "and visit hot place"]
   }
 }

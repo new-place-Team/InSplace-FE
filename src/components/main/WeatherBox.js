@@ -112,15 +112,15 @@ const WeatherBox = props => {
           )}
           {info && info.frontWeather === 3 && (
             <Text color="#fff" fontSize="14px">
-              {t('WeatherBox.cloudy.0')}
-              <br /> {t('WeatherBox.cloudy.1')}
+              {t('WeatherBox.snow.0')}
+              <br /> {t('WeatherBox.snow.1')}
             </Text>
           )}
           {info && info.frontWeather === 4 && (
             <Text color="#fff" fontSize="14px">
-              {t('WeatherBox.snow.0')}
+              {t('WeatherBox.cloudy.0')}
               <br />
-              {t('WeatherBox.snow.1')}
+              {t('WeatherBox.cloudy.1')}
             </Text>
           )}
         </AbsolGrid>
@@ -201,7 +201,11 @@ const AbsolGrid = styled.div`
   display: flex;
   align-items: flex-start;
   position: absolute;
+  left: 15px;
   bottom: 54px;
+  @media (min-width: 376px) {
+    left: 60px;
+  }
 `;
 
 export default WeatherBox;
