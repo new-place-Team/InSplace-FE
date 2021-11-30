@@ -12,6 +12,7 @@ const initialState = {
   feedbackStatus: false,
   currentLanguage: null,
   errorStatus: false,
+  loginCheckStatus: false,
 };
 
 const commonSlice = createSlice({
@@ -58,6 +59,14 @@ const commonSlice = createSlice({
       state.errorStatus = true;
       state.modalInfo = payload;
     },
+    setLoginCheckModalOff: state => {
+      state.loginCheckStatus = false;
+      state.modalInfo = null;
+    },
+    setLoginCheckModalOn: (state, { payload }) => {
+      state.loginCheckStatus = true;
+      state.modalInfo = payload;
+    },
   },
 });
 
@@ -73,6 +82,8 @@ export const {
   setLanguage,
   setErrorModalOff,
   setErrorModalOn,
+  setLoginCheckModalOff,
+  setLoginCheckModalOn,
 } = commonSlice.actions;
 
 export default commonSlice;

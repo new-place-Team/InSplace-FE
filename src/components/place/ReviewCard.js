@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { Button, Grid, Text, Image } from '../../elements/index';
-import { good, bad, profile1, report, more } from '../../images/index';
+import { good, bad, profile1, more } from '../../images/index';
 import { reviewLikeDB, reviewLikeCancelDB } from '../../redux/async/place';
 import ReviewSwiper from './ReviewSwiper';
 import { setMoreModalOn } from '../../redux/modules/commonSlice';
@@ -135,6 +135,12 @@ const ReviewCard = forwardRef((props, ref) => {
               </Text>
             )}
           </Grid>
+          {/* <Button
+            padding="5px 10px"
+            _onClick={() => showMoreModal(info.reviewId, userId, '')}
+          >
+            <Image src={more} />
+          </Button> */}
           {loginUser &&
             (userCheck ? (
               <Button
@@ -148,7 +154,7 @@ const ReviewCard = forwardRef((props, ref) => {
                 padding="5px 10px"
                 _onClick={() => showMoreModal(info.reviewId, userId, 'report')}
               >
-                <Text color="#ff6b6b" fontSize="12px">
+                <Text fontSize="12px" color="#ff6b6b">
                   신고하기
                 </Text>
                 {/* <Image src={report} /> */}
