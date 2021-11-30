@@ -4,15 +4,16 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { history } from '../redux/configureStore';
-import WeatherBox from '../components/main/WeatherBox';
-import Header from '../components/common/Header';
-import ContentsTitle from '../components/common/ContentsTitle';
 import { Container, Grid, Text } from '../elements';
 import { getMainListDB } from '../redux/async/place';
-import Navbar from '../components/common/Navbar';
 import { ReactComponent as Right } from '../images/ic-next.svg';
+import { ReactComponent as ArrowOut } from '../images/weather/ic_arrowsout.svg';
 import Swiper from '../components/common/SwiperLB';
 import MainWeather from '../components/main/MainWeather';
+import WeatherBox from '../components/main/WeatherBox';
+import Header from '../components/common/Header';
+import Navbar from '../components/common/Navbar';
+import ContentsTitle from '../components/common/ContentsTitle';
 import theme from '../styles/theme';
 import Banner from '../components/common/Banner';
 
@@ -23,7 +24,7 @@ const Main = () => {
   const [imgLoading, setImgLoading] = useState(false);
   const [onTop, setOnTop] = useState(true);
   const imgRef = useRef(null);
-
+  /* 현재 날씨에 따른 배경 색상 */
   const getBg = info => {
     const status = info.frontWeather;
     let weatherKey = '';
@@ -110,11 +111,14 @@ const Main = () => {
               </NextButton>
             </SelectTypeBtn>
           </>
+          <ArrowOutArea>
+            <ArrowOut />
+          </ArrowOutArea>
         </SkeletonGrid>
         {/* Place Section */}
         <Grid>
           {/* 날씨에 따른 공간 */}
-          <Grid padding="0 0 48px 24px">
+          <Grid padding="0 0 48px 24px" margin="21px 0 0 0">
             <ContentsTitle
               title={t(
                 `mainPage.weatherInfo.${
@@ -184,5 +188,12 @@ const NextButton = styled.div`
 `;
 const BottomHeight = styled.div`
   height: 65px;
+`;
+
+const ArrowOutArea = styled.div`
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  cursor: pointer;
 `;
 export default Main;
