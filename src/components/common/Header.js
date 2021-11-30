@@ -52,7 +52,6 @@ const Header = props => {
   const goReplace = () => {
     history.replace('/');
   };
-
   if (_main) {
     return (
       <ContentBgArea OnTop={_onTop}>

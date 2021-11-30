@@ -144,12 +144,12 @@
       "yesOrNo": ["Yes", "No"]
     },
     "reviewTitle": "Please Write your Story",
-    "reviewPlaceholder": "Please write at least 15 letters",
-    "minText": "At least 15 letters",
+    "reviewPlaceholder": "Please write at least 5 letters",
+    "minText": "At least 5 letters",
     "uploadPhoto": "Please Upload Photo (Optional)",
     "EditOrRegister": ["Edit Review", "Upload Review"],
     "Modal": {
-      "minReview": "Please write at least 15 letters for the review.",
+      "minReview": "Please write at least 5 letters for the review.",
       "minPhoto": "You can register up to 3 images.",
       "errorPhoto": "There was an error reading the image.",
       "msg": "Review Uploaded"

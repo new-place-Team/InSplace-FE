@@ -24,7 +24,7 @@ const Main = () => {
   const [imgLoading, setImgLoading] = useState(false);
   const [onTop, setOnTop] = useState(true);
   const imgRef = useRef(null);
-
+  /* 현재 날씨에 따른 배경 색상 */
   const getBg = info => {
     const status = info.frontWeather;
     let weatherKey = '';

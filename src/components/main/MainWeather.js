@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import { main } from '../../images';
 import {
@@ -330,4 +330,4 @@ const CloudArea = styled.div`
   }
 `;
 
-export default MainWeather;
+export default memo(MainWeather);
