@@ -10,7 +10,6 @@ import theme from '../../styles/theme';
 
 /* Nav Icon */
 import { ReactComponent as HomeIcon } from '../../images/nav/ic_nav_home.svg';
-// import { ReactComponent as HomeFillIcon } from '../../images/nav/ic_nav_home-filled.svg';
 import { ReactComponent as NavMap } from '../../images/nav/ic_nav_map.svg';
 import { ReactComponent as NavMapFill } from '../../images/nav/ic_nav_map-filled.svg';
 import { ReactComponent as FilterIcon } from '../../images/nav/ic_nav_fliter.svg';

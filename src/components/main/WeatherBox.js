@@ -203,9 +203,6 @@ const AbsolGrid = styled.div`
   position: absolute;
   left: 15px;
   bottom: 54px;
-  @media (min-width: 376px) {
-    left: 60px;
-  }
 `;
 
 export default WeatherBox;
