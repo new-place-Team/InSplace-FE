@@ -50,7 +50,7 @@ const SearchTypeList = () => {
       <Container height="auto">
         <SelectedCategory margin="16px 0" />
         {/* 실내 리스트 */}
-        <Grid isFlex _onClick={() => onSearchConditionMore(1)} cursor>
+        <Grid isFlex _onClick={() => onSearchConditionMore(1)} cursor="true">
           <ContentsTitle
             title={
               inSideList && inSideList.length === 0
@@ -76,7 +76,7 @@ const SearchTypeList = () => {
         </Grid>
         {/* 실외 리스트  */}
         <Grid margin="28px 0 0 0" padding="0 0 100px 0">
-          <Grid isFlex _onClick={() => onSearchConditionMore(0)} cursor>
+          <Grid isFlex _onClick={() => onSearchConditionMore(0)} cursor="true">
             <ContentsTitle
               title={
                 outSideList && outSideList.length === 0

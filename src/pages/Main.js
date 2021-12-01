@@ -17,6 +17,7 @@ import ContentsTitle from '../components/common/ContentsTitle';
 import theme from '../styles/theme';
 import Banner from '../components/common/Banner';
 import WeatherDetail from '../components/common/WeatherDetail';
+import CommonModal from '../components/common/CommonModal';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,8 @@ const Main = () => {
   const [weatherModalShow, setWeatherModalShow] = useState(false);
   const [onTop, setOnTop] = useState(true);
   const imgRef = useRef(null);
+  const modal = useSelector(state => state.common.modalStatus);
+
   /* 현재 날씨에 따른 배경 색상 */
   const getBg = info => {
     const status = info.frontWeather;
@@ -94,6 +97,7 @@ const Main = () => {
       {weatherModalShow && (
         <WeatherDetail closeWeatherModal={closeWeatherModal} />
       )}
+      {modal && <CommonModal />}
       <Container padding="0">
         <Header
           _onBg
