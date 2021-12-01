@@ -54,6 +54,7 @@ const MapContainer = () => {
             list={locationPlaceList && locationPlaceList}
             _onChageFocus={onChageFocus}
             focusId={focusId}
+            padding="0 0 33px 24px"
           />
           {/* </SwiperWrap> */}
         </Container>

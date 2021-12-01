@@ -37,6 +37,7 @@ const ReviewList = props => {
   );
   const moreModalStatus = useSelector(state => state.common.moreModalStatus);
   const errorModalStatus = useSelector(state => state.common.errorStatus);
+  const loginCheckStatus = useSelector(state => state.common.loginCheckStatus);
   const [confirmModal, setConfirmModal] = useState(false);
 
   // 리뷰 무한 스크롤
@@ -148,6 +149,7 @@ const ReviewList = props => {
       {moreModalStatus && (
         <CommonModal type="more" showConfirmModal={showConfirmModal} />
       )}
+      {loginCheckStatus && <CommonModal type="loginCheck" />}
       {/* 신고되었다는 확인 메세지 */}
       {reportModalStatus && <CommonModal type="report" />}
       {/* error일때 모달 */}
