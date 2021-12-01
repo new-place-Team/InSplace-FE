@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { useState, useEffect } from 'react';
-import { Container, Grid } from '../elements';
+import { Container } from '../elements';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import SwiperMap from '../components/place/SwiperMap';
@@ -8,7 +8,10 @@ import Map from '../components/map/Map';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { useTranslation } from 'react-i18next';
-import { getLocationPlaceDB } from '../redux/async/place';
+import {
+  getLocationPlaceDB,
+  getCurrentCoordinateWEB,
+} from '../redux/async/place';
 
 const MapContainer = () => {
   const dispatch = useDispatch();
@@ -30,11 +33,16 @@ const MapContainer = () => {
   };
 
   useEffect(() => {
+    /* 현재 위치 정보 없을 경우 */
+    if (!location) {
+      dispatch(getCurrentCoordinateWEB());
+    }
+    /* 현재 위치기반 5km 내 장소 조회 */
     if (location) {
       const { latLon } = location;
       dispatch(getLocationPlaceDB(latLon));
     }
-  }, []);
+  }, [location]);
 
   return (
     <>
