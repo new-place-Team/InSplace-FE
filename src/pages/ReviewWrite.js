@@ -246,22 +246,22 @@ const ReviewWrite = props => {
       />
       <Container>
         <ReviewPostInfo postId={id} />
-        <Grid>
-          {selectData.map(item => {
-            return (
-              <SelectedContents
-                selectType="review"
-                key={`key-${item.title}`}
-                {...item}
-                state={state}
-                setState={setState}
-                selectData={selectData}
-                setSelectData={setSelectData}
-                actvie={selectData.type}
-              />
-            );
-          })}
-        </Grid>
+
+        {selectData.map(item => {
+          return (
+            <SelectedContents
+              selectType="review"
+              key={`key-${item.title}`}
+              {...item}
+              state={state}
+              setState={setState}
+              selectData={selectData}
+              setSelectData={setSelectData}
+              actvie={selectData.type}
+            />
+          );
+        })}
+
         <ReviewBox>
           <Text type="Title16">{t('ReviewWrite.reviewTitle')}</Text>
           <Textarea

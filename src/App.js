@@ -27,6 +27,7 @@ import Pick from './pages/Pick';
 import Notification from './pages/Notification';
 import SearchPage from './pages/SearchPage';
 import Setting from './pages/Setting';
+import NavMapPage from './pages/NavMapPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -39,7 +40,8 @@ function App() {
   useEffect(() => {
     // 현재위치를 받아보자
     if (!location) {
-      dispatch(getCurrentCoordinateWEB());
+      const lang = window.navigator.language;
+      dispatch(getCurrentCoordinateWEB(lang));
     }
     // 새로고침 했을때 토큰이 있으면 로그인 체크
     if (getTokenYn()) {
@@ -77,6 +79,7 @@ function App() {
             <Route path="/picklist" exact component={Pick} />
             <Route path="/setting" exact component={Setting} />
             <Route path="/notification" exact component={Notification} />
+            <Route path="/location" exact component={NavMapPage} />
           </Switch>
         </Analytics>
       </ThemeProvider>

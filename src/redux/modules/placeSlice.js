@@ -14,6 +14,7 @@ import {
   getReviewEditDB,
   getSearchConditionListDB,
   getWeatherDB,
+  getLocationPlaceDB,
 } from '../async/place';
 import { getCategoryArrText } from '../../shared/transferText';
 import loadedSlice from './loadedSlice';
@@ -41,6 +42,7 @@ const initialState = {
   reviewlikeState: false,
   focusCoord: {},
   map: null,
+  locationPlaceList: null,
 };
 
 const placeSlice = createSlice({
@@ -53,6 +55,7 @@ const placeSlice = createSlice({
     },
     setSelectedCategory: (state, { payload }) => {
       const objList = payload.replace('?', '').split('&');
+      // category 3개 고정
       const categoryArr = ['gender', 'num', 'category'];
       const newCategoryList = categoryArr.map(item => {
         let typeValue = 0;
@@ -62,10 +65,18 @@ const placeSlice = createSlice({
             typeValue = Number(objArr[1]);
           }
         });
-        return getCategoryArrText(item, typeValue);
+        const obj = {};
+        obj[item] = {
+          selecteText: getCategoryArrText(item, typeValue),
+          value: typeValue,
+        };
+        return obj;
       });
-      state.categoryList = newCategoryList;
+      state.categoryList = Object.assign({}, ...newCategoryList);
       state.categoryParams = payload;
+    },
+    setCategoryInit: state => {
+      state.categoryList = null;
     },
     setFocusCoord: (state, { payload }) => {
       payload;
@@ -315,6 +326,9 @@ const placeSlice = createSlice({
         state.placeList = payload.posts;
       }
     },
+    [getLocationPlaceDB.fulfilled]: (state, { payload }) => {
+      state.locationPlaceList = payload.data.posts;
+    },
   },
 });
 
@@ -329,6 +343,7 @@ export const {
   reviewLikesList,
   reviewLikesCancelList,
   setPlaceListInit,
+  setCategoryInit,
   resetReviewList,
   resetReviewLikeList,
   resetReviewPagination,

@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable import/no-unresolved */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +7,7 @@ import { getTokenYn } from '../shared/utils';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import { whiteRight, mypageNext } from '../images/index';
-import { Button, Container, Grid, Image } from '../elements';
+import { Button, Grid, Image } from '../elements';
 import sunbg from '../images/weather/sun_main_1x.jpg';
 import cloudbg from '../images/weather/cloud_main_1x.jpg';
 import snowbg from '../images/weather/snow_main_1x.png';
@@ -29,7 +27,6 @@ const MyPage = () => {
   const feedbackStatus = useSelector(state => state.common.feedbackStatus);
   const weatherInfo = useSelector(state => state.place.weatherStatus);
   const { t } = useTranslation();
-
   const pageMove = () => {
     history.push('/login');
   };
@@ -38,6 +35,7 @@ const MyPage = () => {
       setLoginModal(true);
     }
   }, []);
+
   /* 프로필 수정 페이지로 이동, 이동시 state 같이 전달 */
   const gotoDetailPage = () => {
     if (getTokenYn() === false) {
@@ -86,144 +84,144 @@ const MyPage = () => {
       )}
       {modalStatus && <CommonModal />}
       {feedbackStatus && <CommonModal type="feedback" />}
-      <Container padding="0" height="100%">
-        <Header _onBg _content="MyPage" _settings _color="#fff" />
-        <Bg src={weatherbg}>
-          <MyPageInfoGrid>
-            <MyPageFrofile>
-              <Image
-                type="circle"
-                width="100%"
-                height="100%"
-                f
-                src={userInfo.userImage}
-              />
-            </MyPageFrofile>
-            <UserInfoGrid>
-              <Grid isFlex margin="0 0 17px 0" border="2px solid ornage">
-                <Nicname>{userInfo.nickname}</Nicname>
-                <Button _onClick={gotoDetailPage}>
-                  <Image width="24px" height="24px" src={whiteRight} />
-                </Button>
-              </Grid>
-              <Grid isFlex>
-                {userInfo.mbti === '모름' ? null : <Mbti>{userInfo.mbti}</Mbti>}
-                <Email>{userInfo.email}</Email>
-              </Grid>
-            </UserInfoGrid>
-          </MyPageInfoGrid>
-          <InfoGrid>
-            <Info onClick={showModal}>
-              <Title>{t('MyPage.UpdateIssue')}</Title>
-              <BottomBox>
-                <TextBox>
-                  <MyPageIcon src={mypageNext} />
-                </TextBox>
-              </BottomBox>
-            </Info>
-            <Info onClick={feedbackModal}>
-              <Title>{t('MyPage.Opinion')}</Title>
-              <BottomBox>
-                <TextBox>
-                  <MyPageIcon src={mypageNext} />
-                </TextBox>
-              </BottomBox>
-            </Info>
-            <Info>
-              <Title>{t('MyPage.Version')}</Title>
-              <BottomBox>
-                <TextBox>V1.0.0</TextBox>
-              </BottomBox>
-            </Info>
-            <Info>
-              <Title>{t('MyPage.Donation')}</Title>
-              <BottomBox>
-                <TextBox>
-                  <Bank>{t('MyPage.KakaoBank')}</Bank>
-                  <BankNumber>7979-39-23429</BankNumber>
-                </TextBox>
-              </BottomBox>
-            </Info>
-            <InfoNav />
-          </InfoGrid>
-        </Bg>
-      </Container>
+      <MypageContainer>
+        <BackgroundWrap src={weatherbg}>
+          <Header _onBg _content="MyPage" _settings _color="#fff" />
+          <ContentWrap>
+            <Section>
+              <ProfileWrap>
+                <ProfileImageWrap>
+                  <ProfileImage type="circle" src={userInfo.userImage} />
+                </ProfileImageWrap>
+                <ProfileInfo>
+                  <Grid>
+                    <Grid isFlex>
+                      <Nicname>{userInfo.nickname}</Nicname>
+                      <Button _onClick={gotoDetailPage}>
+                        <Image width="24px" height="24px" src={whiteRight} />
+                      </Button>
+                    </Grid>
+                    <Grid isFlex margin="15px 0 0 0">
+                      {userInfo.mbti === '모름' ? null : (
+                        <Mbti>{userInfo.mbti}</Mbti>
+                      )}
+                      <Email>{userInfo.email}</Email>
+                    </Grid>
+                  </Grid>
+                </ProfileInfo>
+              </ProfileWrap>
+              <MypageContent>
+                <Content onClick={showModal}>
+                  <Title>{t('MyPage.UpdateIssue')}</Title>
+                  <BottomBox>
+                    <TextBox>
+                      <MyPageIcon src={mypageNext} />
+                    </TextBox>
+                  </BottomBox>
+                </Content>
+                <Content onClick={feedbackModal}>
+                  <Title>{t('MyPage.Opinion')}</Title>
+                  <BottomBox>
+                    <TextBox>
+                      <MyPageIcon src={mypageNext} />
+                    </TextBox>
+                  </BottomBox>
+                </Content>
+                <Content onClick={showModal}>
+                  <Title>{t('MyPage.Version')}</Title>
+                  <BottomBox>
+                    <TextBox>V1.0.0</TextBox>
+                  </BottomBox>
+                </Content>
+                <Content>
+                  <Title>{t('MyPage.Donation')}</Title>
+                  <BottomBox>
+                    <TextBox>
+                      <Bank>{t('MyPage.KakaoBank')}</Bank>
+                      <BankNumber>7979-39-23429</BankNumber>
+                    </TextBox>
+                  </BottomBox>
+                </Content>
+              </MypageContent>
+            </Section>
+          </ContentWrap>
+        </BackgroundWrap>
+      </MypageContainer>
       <Navbar />
     </>
   );
 };
-const Bg = styled.div`
-  width: 100%;
+const MypageContainer = styled.div`
+  position: relative;
+  width: 768px;
   height: 100vh;
+  margin: 0 auto;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+const BackgroundWrap = styled.div`
   position: absolute;
   top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url('${props => props.src}');
   background-size: cover;
   background-position: center;
+  z-index: 1;
+`;
+const ContentWrap = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 64px 0 0 40px;
   z-index: -1;
-  overflow-x: hidden;
-`;
-const MyPageInfoGrid = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  align-items: center;
-  width: 95.4%;
-  height: auto;
-  margin: 80px 0 52px auto;
-
   @media (max-width: 500px) {
-    margin: 50px 0 30px auto;
+    padding: 24px 0 0 20px;
   }
 `;
-const UserInfoGrid = styled.div`
+const Section = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+const ProfileWrap = styled.div`
   display: flex;
-  flex: 1;
-  flex-direction: column;
-  padding: 0px 10px 0px 46px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 40px 0;
+  box-sizing: border-box;
   @media (max-width: 500px) {
-    padding: 0px 10px 0px 24px;
+    padding: 0;
   }
 `;
-const MyPageFrofile = styled.div`
-  display: flex;
-  align-items: center;
-  width: auto;
-  min-width: 172px;
+const ProfileImageWrap = styled.div`
+  width: 172px;
   height: 172px;
   @media (max-width: 500px) {
-    min-width: 120px;
+    width: 110px;
+    height: 110px;
   }
 `;
-const InfoGrid = styled.div`
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 95.4%;
-  /* height: calc(100% / 30%) * 100; */
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 0 0 auto;
-  cursor: pointer;
-  overflow-y: hidden;
-`;
-const InfoNav = styled.div`
-  width: 100%;
-  height: 65px;
-`;
-const Info = styled.div`
+const ProfileImage = styled.img`
   position: relative;
-  width: 50%;
-  height: 100%;
-  padding: 40px 40px 20px;
-  background-color: #fff;
-  border: 1px solid #e6e9ec;
+  width: 172px;
+  height: 172px;
+  border-radius: 50%;
   @media (max-width: 500px) {
-    padding: 24px 24px 10px;
+    width: 110px;
+    height: 110px;
   }
-  @media (max-width: 375px) {
-    padding: 54px 24px 10px;
-  }
+`;
+const ProfileInfo = styled.div`
+  display: flex;
+  align-items: center;
+  flex: 1;
+  height: 172px;
+  margin-left: 46px;
 `;
 
 const Nicname = styled.h3`
@@ -254,6 +252,33 @@ const Email = styled.p`
     font-size: 13px;
   }
 `;
+const MypageContent = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  height: calc(100% - 316px);
+  @media (max-width: 500px) {
+    height: calc(100% - 235px);
+  }
+`;
+const Content = styled.div`
+  width: 50%;
+  height: 50%;
+  padding: 24px 20px;
+  background-color: #fff;
+  border: 1px solid #e6e9ec;
+  border-right: 0;
+  border-bottom: 0;
+  cursor: pointer;
+  &:nth-child(even) {
+    border-right: 1px solid #e6e9ec;
+  }
+  @media (max-width: 500px) {
+    padding: 24px 20px;
+  }
+`;
+
 const Title = styled.h5`
   font-size: 26px;
   font-weight: 700;
@@ -269,10 +294,7 @@ const BottomBox = styled.div`
   align-items: flex-end;
   flex-direction: column;
   height: 100%;
-  padding: 30px 0 10px 0;
-  @media (max-width: 500px) {
-    padding: 50px 0 10px 0;
-  }
+  padding: 20px 0;
   img {
     @media (max-width: 500px) {
       width: 32px;
@@ -280,14 +302,13 @@ const BottomBox = styled.div`
   }
 `;
 const TextBox = styled.div`
-  width: 100%;
-  height: 66px;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
   flex-direction: column;
+  width: 100%;
   font-size: 22px;
-  font-weight: bold;
+  font-weight: 600;
   @media (max-width: 500px) {
     font-size: 16px;
   }
@@ -300,4 +321,5 @@ const Bank = styled.p`
   color: #a3a6aa;
 `;
 const BankNumber = styled.p``;
+
 export default MyPage;
