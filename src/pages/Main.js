@@ -49,7 +49,7 @@ const Main = () => {
     }
     return theme.weatherBgColor[weatherKey];
   };
-
+  /* header sticky 처리 */
   const handleScroll = () => {
     if (window.scrollY > 66) {
       setOnTop(false);
@@ -134,6 +134,7 @@ const Main = () => {
               </NextButton>
             </SelectTypeBtn>
           </>
+          {/* 날씨 상세 확대 버튼 */}
           <ArrowOutArea onClick={openWeatherModal}>
             <ArrowOut />
           </ArrowOutArea>
@@ -151,7 +152,7 @@ const Main = () => {
             />
             <Swiper list={mainLists && mainLists.weatherPlace} />
           </Grid>
-          {/* 좋아요 순 추천 공간 */}
+          {/* 날씨 별 추천 공간 */}
           <Grid
             padding="0 0 48px 24px"
             bg={mainLists ? getBg(mainLists.weather)[0] : ''}

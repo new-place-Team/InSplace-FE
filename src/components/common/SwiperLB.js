@@ -15,27 +15,27 @@ const SwiperLB = props => {
       // mobile
       320: {
         slidesPerView: 1,
-        spaceBetween: type === 'selectResult' ? -45 : -45,
+        spaceBetween: -45,
       },
       360: {
         slidesPerView: 1,
-        spaceBetween: type === 'selectResult' ? -85 : -85,
+        spaceBetween: -85,
       },
       375: {
         slidesPerView: 1,
-        spaceBetween: type === 'selectResult' ? -100 : -100,
+        spaceBetween: -100,
       },
       410: {
         slidesPerView: 1,
-        spaceBetween: type === 'selectResult' ? -135 : -135,
+        spaceBetween: -135,
       },
       500: {
         slidesPerView: 2,
-        spaceBetween: type === 'selectResult' ? -9 : -9,
+        spaceBetween: -9,
       },
       768: {
         slidesPerView: 3,
-        spaceBetween: type === 'selectResult' ? 16 : 16,
+        spaceBetween: 16,
       },
     },
   };

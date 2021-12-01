@@ -27,13 +27,14 @@ const theme = {
   shadow: `box-shadow: 8px 8px 16px 4px rgba(133, 139, 146, 0.06)`,
   border_box: `box-sizing:border-box;`,
 
-  // 0번째 :좋아요 많이받은,  1번째 : MD's pick, 2번째
+  /* nav color */
   weatherColor: {
     sun: '#FEB544',
     cloud: '#423F44',
     rain: '#558ED0',
     snow: '#81BCDA',
   },
+  // 0번째 :인플러드 선택받은공간 ,  1번째 : MD's pick
   weatherBgColor: {
     sun: ['#FAF4E3', '#E9F1E8'],
     cloud: ['#F1F1F1', '#D8D8D8'],
