@@ -1,7 +1,4 @@
 /* eslint-disable */
-/* eslint-disable no-undef */
-/* eslint-disable import/no-cycle */
-/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import {
   addUserDB,

@@ -143,6 +143,7 @@ export const getCurrentCoordinateWEB = createAsyncThunk(
   async (_params, thunkAPI) => {
     try {
       /* 위도 경도 받기 */
+      thunkAPI.dispatch(getLoaded(true));
       const res = await getPosition().then(position => position);
       if (res) {
         const latLon = {
@@ -152,10 +153,12 @@ export const getCurrentCoordinateWEB = createAsyncThunk(
         /* 위도경도 기반으로 현재주소 조회 */
         const addressRes = await getLocationAddress(latLon, _params);
         const address = addressRes.data.documents[0].address_name;
+        thunkAPI.dispatch(getLoaded(false));
         return { latLon, address };
       }
     } catch (err) {
       console.log(err.response);
+      thunkAPI.dispatch(getLoaded(false));
       return thunkAPI.rejectWithValue(err);
     }
   },
@@ -449,9 +452,11 @@ export const reviewReportDB = createAsyncThunk(
 
 export const getLocationPlaceDB = createAsyncThunk(
   'place/locationPlace',
-  async params => {
+  async (params, thunkAPI) => {
+    thunkAPI.dispatch(getLoaded(true));
     const response = await getMainMap(params);
     if (response) {
+      thunkAPI.dispatch(getLoaded(false));
       return response;
     }
   },

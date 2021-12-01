@@ -12,6 +12,7 @@ import {
   getLocationPlaceDB,
   getCurrentCoordinateWEB,
 } from '../redux/async/place';
+import Spinner from '../components/common/Spinner';
 
 const MapContainer = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const MapContainer = () => {
   const location = useSelector(state => state.place.location);
   /* 현재 위치 기준 5km 반경 장소 */
   const locationPlaceList = useSelector(state => state.place.locationPlaceList);
+  const isLoading = useSelector(state => state.loaded.is_loaded);
 
   const [latLonFocus, setLatLonFocus] = useState(null);
   const [focusId, setFocusId] = useState(null);
@@ -46,6 +48,7 @@ const MapContainer = () => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <MapDiv>
         <Header _back _content={t('placeMapPage.headerSubTitle')} />
         <Container padding="66px 0 0 0">

@@ -17,7 +17,6 @@ import {
   getLocationPlaceDB,
 } from '../async/place';
 import { getCategoryArrText } from '../../shared/transferText';
-import loadedSlice from './loadedSlice';
 import { setCommonModalOn } from './commonSlice';
 /* init */
 const initialState = {
@@ -350,5 +349,5 @@ export const {
   initState,
 } = placeSlice.actions;
 
-export const { getLoaded } = loadedSlice.actions;
+// export const { getLoaded } = loadedSlice.actions;
 export default placeSlice;
