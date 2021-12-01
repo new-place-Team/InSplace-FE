@@ -160,7 +160,7 @@ const ReviewContent = styled.div`
   padding-top: 40px;
 `;
 const ReviewButton = styled.button`
-  margin: 0 12px 12px 0;
+  margin: 0 12px 0 0;
   padding: 12px 20px;
   border: 1px solid #7a7d81;
   color: ${({ isSelected }) => (isSelected ? '#fff' : `#282828`)};
@@ -171,6 +171,9 @@ const ReviewButton = styled.button`
   }
   &:last-child {
     margin-right: 0;
+  }
+  @media (max-width: 500px) {
+    margin: 0 12px 12px 0;
   }
 `;
 export default memo(SelectedContents);

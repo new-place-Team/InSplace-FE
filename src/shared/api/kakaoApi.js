@@ -10,7 +10,6 @@ const kakoApi = axios.create({
 });
 
 export const getLocationAddress = (latLon, _params) => {
-  console.log('aaaa', _params);
   let lang = 'ko';
   if (_params !== 'ko-KR' && _params !== 'ko') lang = 'en';
 

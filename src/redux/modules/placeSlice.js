@@ -42,6 +42,7 @@ const initialState = {
   reviewlikeState: false,
   focusCoord: {},
   map: null,
+  locationPlaceList: null,
 };
 
 const placeSlice = createSlice({
@@ -73,6 +74,9 @@ const placeSlice = createSlice({
       });
       state.categoryList = Object.assign({}, ...newCategoryList);
       state.categoryParams = payload;
+    },
+    setCategoryInit: state => {
+      state.categoryList = null;
     },
     setFocusCoord: (state, { payload }) => {
       payload;
@@ -323,7 +327,7 @@ const placeSlice = createSlice({
       }
     },
     [getLocationPlaceDB.fulfilled]: (state, { payload }) => {
-      console.log('res', payload);
+      state.locationPlaceList = payload.data.posts;
     },
   },
 });
@@ -339,6 +343,7 @@ export const {
   reviewLikesList,
   reviewLikesCancelList,
   setPlaceListInit,
+  setCategoryInit,
   resetReviewList,
   resetReviewLikeList,
   resetReviewPagination,

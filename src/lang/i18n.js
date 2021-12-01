@@ -17,7 +17,6 @@ const getThisLang = () => {
   let lang = 'ko-KR';
   const wLang = window.navigator.language;
   if (wLang !== 'ko-KR' && wLang !== 'ko') lang = 'en-US';
-  console.log('lang', lang);
   return lang;
 };
 
