@@ -39,7 +39,6 @@ const SwiperMap = React.memo(props => {
   return (
     <Wrap>
       <Swiper
-        perViewCnt
         className={perViewCnt === 1 ? 'mapSwiper mapSwiperFull' : 'mapSwiper'}
         // className="mapSwiper"
         /* 스와이프 했을떄 실행할 함수 */

@@ -22,7 +22,7 @@ const SelectedCategory = props => {
         {categoryList &&
           Object.values(categoryList).map(item => {
             return (
-              <React.Fragment key={`key_${item.value}`}>
+              <React.Fragment key={`key_${item.selecteText}`}>
                 <TagButton key={item.value}>{item.selecteText}</TagButton>
               </React.Fragment>
             );
