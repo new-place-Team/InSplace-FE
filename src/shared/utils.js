@@ -2,6 +2,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable import/no-cycle */
 import { history } from '../redux/configureStore';
+
 /* 개발모드에서 logger */
 export const logger = msg => {
   if (process.env.NODE_ENV === 'production') {

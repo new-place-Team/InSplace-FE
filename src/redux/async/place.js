@@ -20,6 +20,7 @@ import {
   reviewLikeCancel,
   getSearchConditionList,
   reviewReport,
+  getMainMap,
 } from '../../shared/api/placeApi';
 import { getLocationAddress } from '../../shared/api/kakaoApi';
 import { getPosition } from '../../shared/utils';
@@ -73,7 +74,6 @@ export const getWeatherDB = createAsyncThunk(
 export const getMainListDB = createAsyncThunk(
   'place/mainList',
   async (params, thunkAPI) => {
-    console.log('params', params);
     thunkAPI.dispatch(getLoaded(true));
     try {
       const response = await getMainList();
@@ -96,7 +96,6 @@ export const getMainListDB = createAsyncThunk(
 export const getSearchConditionDB = createAsyncThunk(
   'place/searchCondition',
   async (params, thunkAPI) => {
-    console.log('params', params);
     thunkAPI.dispatch(getLoaded(true));
     try {
       const response = await getSearchCondition(params);
@@ -444,6 +443,16 @@ export const reviewReportDB = createAsyncThunk(
       };
       thunkAPI.dispatch(setCommonModalOn(modalParams));
       return thunkAPI.rejectWithValue(err.response.data);
+    }
+  },
+);
+
+export const getLocationPlaceDB = createAsyncThunk(
+  'place/locationPlace',
+  async params => {
+    const response = await getMainMap(params);
+    if (response) {
+      return response;
     }
   },
 );

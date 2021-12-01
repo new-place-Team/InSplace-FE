@@ -67,7 +67,14 @@ const PlaceList = props => {
 
   return (
     <>
-      <Header _replace _content={t('placeList.headerSubTitle')} _map _search />
+      <Header
+        _typeReplace={
+          placeList && placeList.length > 0 && searchType !== 'condition'
+        } // 검색조건 결과가 없을 경우만 searchType props를 false로
+        _content={t('placeList.headerSubTitle')}
+        _map
+        _search
+      />
       <Container>
         {searchType !== 'total' && <SelectedCategory margin="16px 0" />}
         {placeList && placeList.length <= 0 ? (
@@ -128,9 +135,6 @@ const CardWrap = styled.div`
   }
 `;
 const ImageContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -47,6 +47,13 @@ const ListCard = forwardRef((props, ref) => {
 
   const setFavorites = e => {
     e.stopPropagation();
+    // if (!isLogin) {
+    //   const params = {
+    //     title: '로그인을 해야 이용할 수 있는 서비스입니다 로그인 하시겠습니까?',
+    //   };
+    //   dispatch(setCommonModalOn(params));
+    //   return;
+    // }
     if (!isLoginChk(isLogin)) {
       return;
     }

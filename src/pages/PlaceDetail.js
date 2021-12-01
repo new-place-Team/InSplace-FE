@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-undef */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -138,6 +139,10 @@ const Detail = props => {
     });
   };
 
+  const callToMarket = () => {
+    location.href = `tel:${detailData && detailData.contactNumber}`;
+  };
+
   return (
     <>
       {confirmModal && (
@@ -271,8 +276,10 @@ const Detail = props => {
                 {detailData && detailData.address}
               </Text>
               <Text fontSize="14px" color="#3E4042">
-                <Span>{t('placeDetailPage.category.3')}</Span>
-                {detailData && detailData.contactNumber}
+                <Grid cursor="true" _onClick={callToMarket}>
+                  <Span>{t('placeDetailPage.category.3')}</Span>
+                  {detailData && detailData.contactNumber}
+                </Grid>
               </Text>
             </Grid>
           </InfoGrid>

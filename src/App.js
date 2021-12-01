@@ -27,6 +27,7 @@ import Pick from './pages/Pick';
 import Notification from './pages/Notification';
 import SearchPage from './pages/SearchPage';
 import Setting from './pages/Setting';
+import NavMapPage from './pages/NavMapPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -78,6 +79,7 @@ function App() {
             <Route path="/picklist" exact component={Pick} />
             <Route path="/setting" exact component={Setting} />
             <Route path="/notification" exact component={Notification} />
+            <Route path="/location" exact component={NavMapPage} />
           </Switch>
         </Analytics>
       </ThemeProvider>

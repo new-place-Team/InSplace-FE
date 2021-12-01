@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { history } from '../redux/configureStore';
 import { Container, Grid, Text } from '../elements';
 import { getMainListDB } from '../redux/async/place';
+import { setCategoryInit } from '../redux/modules/placeSlice';
 import { ReactComponent as Right } from '../images/ic-next.svg';
 import { ReactComponent as ArrowOut } from '../images/weather/ic_arrowsout.svg';
 import Swiper from '../components/common/SwiperLB';
@@ -16,12 +17,14 @@ import Navbar from '../components/common/Navbar';
 import ContentsTitle from '../components/common/ContentsTitle';
 import theme from '../styles/theme';
 import Banner from '../components/common/Banner';
+import WeatherDetail from '../components/common/WeatherDetail';
 
 const Main = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const mainLists = useSelector(state => state.place.mainLists);
   const [imgLoading, setImgLoading] = useState(false);
+  const [weatherModalShow, setWeatherModalShow] = useState(false);
   const [onTop, setOnTop] = useState(true);
   const imgRef = useRef(null);
   /* 현재 날씨에 따른 배경 색상 */
@@ -79,8 +82,24 @@ const Main = () => {
     return () => observer && observer.disconnect();
   }, []);
 
+  const openWeatherModal = () => {
+    setWeatherModalShow(true);
+  };
+
+  const closeWeatherModal = () => {
+    setWeatherModalShow(false);
+  };
+
+  const goPlaceSearch = () => {
+    dispatch(setCategoryInit());
+    history.push('/select-type');
+  };
+
   return (
     <>
+      {weatherModalShow && (
+        <WeatherDetail closeWeatherModal={closeWeatherModal} />
+      )}
       <Container padding="0">
         <Header
           _onBg
@@ -100,7 +119,7 @@ const Main = () => {
             />
             <WeatherBox info={mainLists && mainLists.weather} />
             {/* 장소 추천받기 */}
-            <SelectTypeBtn onClick={() => history.push('/select-type')}>
+            <SelectTypeBtn onClick={goPlaceSearch}>
               <Grid height="22px" margin="19px 0 0 18px">
                 <Text fontSize="16px" color="#fff" bold>
                   {t('mainPage.recommend')}
@@ -111,7 +130,7 @@ const Main = () => {
               </NextButton>
             </SelectTypeBtn>
           </>
-          <ArrowOutArea>
+          <ArrowOutArea onClick={openWeatherModal}>
             <ArrowOut />
           </ArrowOutArea>
         </SkeletonGrid>
