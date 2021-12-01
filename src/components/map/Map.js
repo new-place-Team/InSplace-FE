@@ -38,6 +38,7 @@ const Map = React.memo(props => {
         lat: allPlaces[0].postLocationY,
         lon: allPlaces[0].postLocationX,
       };
+      //latLon = location.latLon;
     }
     const options = {
       center: new kakao.maps.LatLng(
@@ -102,19 +103,18 @@ const Map = React.memo(props => {
           _onChnageFocusId(el.postId);
         });
       }
-      /* 스와이프 시 지도 좌표로 이동 */
-      if (latLon) {
-        const { lat, lon } = latLon;
-        function panTo(lat, lon) {
-          const moveLatLon = new kakao.maps.LatLng(lat, lon);
-          // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-          map.panTo(moveLatLon);
-        }
-        panTo(lat, lon);
-      }
-
       return marker;
     });
+    /* 스와이프 시 지도 좌표로 이동 */
+    if (latLon) {
+      const { lat, lon } = latLon;
+      function panTo(lat, lon) {
+        const moveLatLon = new kakao.maps.LatLng(lat, lon);
+        // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+        map.panTo(moveLatLon);
+      }
+      panTo(lat, lon);
+    }
     setIsMarker(markers);
   };
 

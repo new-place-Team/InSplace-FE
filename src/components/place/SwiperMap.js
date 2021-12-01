@@ -8,7 +8,7 @@ import MapCard from '../map/MapCard';
 SwiperCore.use([Navigation, Pagination, History]);
 
 const SwiperMap = React.memo(props => {
-  const { list, _onChageFocus, focusId } = props;
+  const { list, _onChageFocus, focusId, padding } = props;
   const focusRef = useRef(null);
   let perViewCnt = 2;
   let loopYn = true;
@@ -37,9 +37,8 @@ const SwiperMap = React.memo(props => {
   }, [focusId]);
 
   return (
-    <Wrap>
+    <Wrap padding={padding}>
       <Swiper
-        perViewCnt
         className={perViewCnt === 1 ? 'mapSwiper mapSwiperFull' : 'mapSwiper'}
         // className="mapSwiper"
         /* 스와이프 했을떄 실행할 함수 */
@@ -73,10 +72,11 @@ const Wrap = styled.div`
   bottom: 50px;
   left: 50%;
   padding-left: 40px;
+  padding: ${({ padding }) => padding || '40px'};
   transform: translateX(-50%);
   z-index: 9;
   @media (max-width: 415px) {
-    padding-left: 24px;
+    padding: ${({ padding }) => padding || '24px'};
   }
   .mapSwiper {
     .swiper-slide {

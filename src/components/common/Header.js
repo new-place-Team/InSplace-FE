@@ -15,6 +15,7 @@ const Header = props => {
   const dispatch = useDispatch();
   const modalStatus = useSelector(state => state.user.modalStatus);
   const {
+    _typeReplace,
     _onBg,
     _back,
     _replace,
@@ -50,9 +51,8 @@ const Header = props => {
     history.goBack();
   };
   const goReplace = () => {
-    history.replace('/');
+    history.push('/');
   };
-
   if (_main) {
     return (
       <ContentBgArea OnTop={_onTop}>
@@ -167,6 +167,22 @@ const Header = props => {
             {_replace && (
               <Grid margin="0 13px 0 0">
                 <IconArea onClick={goReplace} color={_color}>
+                  <LeftIcon />
+                </IconArea>
+              </Grid>
+            )}
+            {/* 검색 조건 결과가 있을 경우 */}
+            {_typeReplace && (
+              <Grid margin="0 13px 0 0">
+                <IconArea onClick={goReplace} color={_color}>
+                  <LeftIcon />
+                </IconArea>
+              </Grid>
+            )}
+            {/* 검색조건 결과가 없고, 검색 유형 타입이 전체검색일 경우에만 */}
+            {!_typeReplace && !_back && (
+              <Grid margin="0 13px 0 0">
+                <IconArea onClick={goBack} color={_color}>
                   <LeftIcon />
                 </IconArea>
               </Grid>

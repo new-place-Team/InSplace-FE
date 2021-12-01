@@ -6,10 +6,12 @@
     "popularPlace": "Most Recommended",
     "adminPlace": "Admin's Pick",
     "hasNoLocation": "No current location information",
-    "weatherInfo": ["A space suitable for a sunny day",  
+    "weatherInfo": [
+      "A space suitable for a sunny day",
       "A place suitable for a rainy day",
-      "A place suitable for a snowy day", 
-      "A place suitable for a cloudy day"]
+      "A place suitable for a snowy day",
+      "A place suitable for a cloudy day"
+    ]
   },
   "selectTypePage": {
     "headerSubTitle": "Select type",
@@ -142,12 +144,12 @@
       "yesOrNo": ["Yes", "No"]
     },
     "reviewTitle": "Please Write your Story",
-    "reviewPlaceholder": "Please write at least 15 letters",
-    "minText": "At least 15 letters",
+    "reviewPlaceholder": "Please write at least 5 letters",
+    "minText": "At least 5 letters",
     "uploadPhoto": "Please Upload Photo (Optional)",
     "EditOrRegister": ["Edit Review", "Upload Review"],
     "Modal": {
-      "minReview": "Please write at least 15 letters for the review.",
+      "minReview": "Please write at least 5 letters for the review.",
       "minPhoto": "You can register up to 3 images.",
       "errorPhoto": "There was an error reading the image.",
       "msg": "Review Uploaded"
@@ -296,5 +298,11 @@
   "Banner": {
     "BannerSentence": "If you leave your opinion, Starbucks ",
     "Americano": "Americano"
+  },
+  "WeatherBox": {
+    "sunny": ["How about hang around", "on sunny day?"],
+    "rainy": ["How about hang around", "umbrella on rainy day?"],
+    "cloudy": ["Cup of coffee in a cozy cafe", "on cloudy day"],
+    "snow": ["Enjoy Snowing with lovers", "and visit hot place"]
   }
 }

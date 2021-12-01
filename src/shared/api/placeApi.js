@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 import api from './index';
 
+/* 날씨 정보 조회 */
 const getWeatherInfo = () => api.get('weather/info');
 
 const getMainList = () => api.get('main');
@@ -8,6 +9,7 @@ const getMainList = () => api.get('main');
 const getSearchCondition = params => api.get(`search/condition${params}`);
 
 const getSearchConditionList = params => api.get(`${params}`);
+
 const getPlaceDetail = params => api.get(`posts/${params}`);
 
 /* post 좋아요 */
@@ -63,6 +65,9 @@ const reviewReport = params =>
     `/posts/${params.postId}/reviews/${params.reviewId}/reports`,
     params,
   );
+// 현재위치 기반 지도
+const getMainMap = params =>
+  api.get(`/main/maps?x=${params.lat}&y=${params.lon}`);
 
 export {
   getWeatherInfo,
@@ -84,4 +89,5 @@ export {
   reviewLike,
   reviewLikeCancel,
   reviewReport,
+  getMainMap,
 };

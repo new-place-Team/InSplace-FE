@@ -35,6 +35,7 @@ const WeatherInfo = props => {
   const [imgLoading, setImgLoading] = useState(false);
   const imgRef = useRef(null);
   const weatherStatus = weatherInfo && weatherInfo.frontWeather;
+
   let weatherBg = SunFull768;
   let weatherLoading = SunLoading;
   let PmStatus = '';

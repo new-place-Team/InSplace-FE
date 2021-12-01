@@ -8,6 +8,8 @@ import {
   setFeedbackModalOff,
   setMoreModalOff,
   setReportModalOff,
+  setLoginCheckModalOn,
+  setLoginCheckModalOff,
 } from '../../redux/modules/commonSlice';
 import { Grid, Image, Text, Textarea } from '../../elements';
 import { history } from '../../redux/configureStore';
@@ -20,7 +22,7 @@ import { autoHypenPhone } from '../../shared/utils';
 const CommonModal = ({ type, showConfirmModal }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-
+  const isLogin = useSelector(state => state.user.isLogin);
   const modalInfo = useSelector(state => state.common.modalInfo);
   const goPage = useSelector(state => state.common.goPage);
   const moreInfo = useSelector(state => state.common.moreInfo);
@@ -46,6 +48,8 @@ const CommonModal = ({ type, showConfirmModal }) => {
       dispatch(setFeedbackModalOff());
     } else if (type === 'error') {
       dispatch(setErrorModalOff());
+    } else if (type === 'loginCheck') {
+      dispatch(setLoginCheckModalOff());
     } else {
       dispatch(setCommonModalOff());
     }
@@ -67,12 +71,28 @@ const CommonModal = ({ type, showConfirmModal }) => {
   };
 
   // 리뷰 삭제
-  const reviewDelete = () => {
+  const reviewDelete = e => {
+    if (!isLogin) {
+      MoreModalClose(e);
+      const params = {
+        title: '로그인 유저만 가능합니다.',
+      };
+      dispatch(setLoginCheckModalOn(params));
+      return;
+    }
     showConfirmModal();
   };
 
   // 리뷰 수정 버튼 클릭했을 때
-  const goToReviewEditPage = () => {
+  const goToReviewEditPage = e => {
+    if (!isLogin) {
+      MoreModalClose(e);
+      const params = {
+        title: '로그인 유저만 가능합니다.',
+      };
+      dispatch(setLoginCheckModalOn(params));
+      return;
+    }
     history.push({
       pathname: `/review/edit/${moreInfo.postId}`,
       state: moreInfo.reviewId,
@@ -139,6 +159,23 @@ const CommonModal = ({ type, showConfirmModal }) => {
     }
   };
 
+  // const onReport = e => {
+  //   if (!isLogin) {
+  //     MoreModalClose(e);
+  //     const params = {
+  //       title: '로그인 유저만 가능합니다.',
+  //     };
+  //     dispatch(setLoginCheckModalOn(params));
+  //     return;
+  //   }
+  //   const params = {
+  //     reviewId: moreInfo.reviewId,
+  //     userId: moreInfo.userId,
+  //     type: 'report',
+  //   };
+  //   dispatch(setMoreModalOn(params));
+  // };
+
   if (type === 'feedback') {
     return (
       <ModalContainer className="close" onClick={CloseModal}>
@@ -190,83 +227,85 @@ const CommonModal = ({ type, showConfirmModal }) => {
   // 더보기 버튼과 신고하기 버튼 타입일때
   if (type === 'more' || report) {
     return (
-      <MoreContainer className="close more" onClick={MoreModalClose}>
-        <MoreModalContent>
-          <Grid justify="space-between">
-            <Title>
-              {report
-                ? t('CommonModal.ReviewReport')
-                : t('CommonModal.ReviewSetting')}
-            </Title>
-            <CloseButton
-              className="close"
-              src={modalClose}
-              onClick={MoreModalClose}
-            />
-          </Grid>
-          <Grid>
-            {report ? (
-              <>
-                {reportText.map((item, idx) => {
-                  return (
-                    <MoreGrid
-                      onClick={() => reportTypeClick(idx)}
-                      key={`item-${item.value}`}
+      <>
+        <MoreContainer className="close more" onClick={MoreModalClose}>
+          <MoreModalContent>
+            <Grid justify="space-between">
+              <Title>
+                {report
+                  ? t('CommonModal.ReviewReport')
+                  : t('CommonModal.ReviewSetting')}
+              </Title>
+              <CloseButton
+                className="close"
+                src={modalClose}
+                onClick={MoreModalClose}
+              />
+            </Grid>
+            <Grid>
+              {report ? (
+                <>
+                  {reportText.map((item, idx) => {
+                    return (
+                      <MoreGrid
+                        onClick={() => reportTypeClick(idx)}
+                        key={`item-${item.value}`}
+                      >
+                        <Text size="16px">{item.text}</Text>
+                        {item.active && <Image src={checked} />}
+                      </MoreGrid>
+                    );
+                  })}
+                  <Grid margin="30px 0 0 0">
+                    <Text>신고내용</Text>
+                    <Textarea
+                      height="120px"
+                      padding="20px"
+                      margin="16px 0 0 0"
+                      border="1px solid #E6E9EC"
+                      placeholder="최소 15자 이상 써 주세요"
+                      _onChange={e =>
+                        setReportInfo({
+                          ...reportInfo,
+                          description: e.target.value,
+                        })
+                      }
+                    />
+                    <Text fontSize="12px" color="#ff4949">
+                      {errorMessage}
+                    </Text>
+                    <Text
+                      margin="12px 0 0 0"
+                      textAlign="right"
+                      fontSize="14px"
+                      color="#C2C6CB"
                     >
-                      <Text size="16px">{item.text}</Text>
-                      {item.active && <Image src={checked} />}
-                    </MoreGrid>
-                  );
-                })}
-                <Grid margin="30px 0 0 0">
-                  <Text>신고내용</Text>
-                  <Textarea
-                    height="120px"
-                    padding="20px"
-                    margin="16px 0 0 0"
-                    border="1px solid #E6E9EC"
-                    placeholder="최소 5자 이상 써 주세요"
-                    _onChange={e =>
-                      setReportInfo({
-                        ...reportInfo,
-                        description: e.target.value,
-                      })
-                    }
-                  />
-                  <Text fontSize="12px" color="#ff4949">
-                    {errorMessage}
-                  </Text>
-                  <Text
-                    margin="12px 0 0 0"
-                    textAlign="right"
-                    fontSize="14px"
-                    color="#C2C6CB"
-                  >
-                    {reportInfo.description.length} / 최소 15자
-                  </Text>
-                  <ModalButton
-                    className="fullButton"
-                    margin="32px 0 0 0"
-                    padding="15px"
-                    onClick={reportClick}
-                  >
-                    {t('CommonModal.singo')}
-                  </ModalButton>
-                </Grid>
-              </>
-            ) : (
-              <>
-                <MoreGrid onClick={goToReviewEditPage}>
-                  <Text>{t('CommonModal.edit')}</Text>
-                </MoreGrid>
-                <MoreGrid onClick={reviewDelete}>
-                  <Text>{t('CommonModal.delete')}</Text>
-                </MoreGrid>
-              </>
-            )}
-          </Grid>
-        </MoreModalContent>
-      </MoreContainer>
+                      {reportInfo.description.length} / 최소 15자
+                    </Text>
+                    <ModalButton
+                      className="fullButton"
+                      margin="32px 0 0 0"
+                      padding="15px"
+                      onClick={reportClick}
+                    >
+                      {t('CommonModal.singo')}
+                    </ModalButton>
+                  </Grid>
+                </>
+              ) : (
+                <>
+                  <MoreGrid onClick={goToReviewEditPage}>
+                    <Text>{t('CommonModal.edit')}</Text>
+                  </MoreGrid>
+                  <MoreGrid onClick={reviewDelete}>
+                    <Text>{t('CommonModal.delete')}</Text>
+                  </MoreGrid>
+                </>
+              )}
+            </Grid>
+          </MoreModalContent>
+        </MoreContainer>
+      </>
     );
   }
 

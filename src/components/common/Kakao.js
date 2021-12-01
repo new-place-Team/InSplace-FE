@@ -19,7 +19,7 @@ const Kakao = () => {
           <strong>카카오 로그인 중 입니다.</strong>
         </Text>
         <Image
-          width="70%"
+          width="50%"
           src="https://item.kakaocdn.net/do/4be9625c0426fb7d21c0bff1e8af2e1df43ad912ad8dd55b04db6a64cddaf76d"
         />
       </Div>
