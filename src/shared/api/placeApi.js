@@ -66,7 +66,8 @@ const reviewReport = params =>
     params,
   );
 // 현재위치 기반 지도
-const getMainMap = params => api.get(`/main/maps?x=${params.x}&y=${params.y}`);
+const getMainMap = params =>
+  api.get(`/main/maps?x=${params.lat}&y=${params.lon}`);
 
 export {
   getWeatherInfo,

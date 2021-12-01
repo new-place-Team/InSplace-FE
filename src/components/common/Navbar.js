@@ -2,23 +2,24 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { history } from '../../redux/configureStore';
 import { Grid } from '../../elements/index';
+import { setCategoryInit } from '../../redux/modules/placeSlice';
 import theme from '../../styles/theme';
 
 /* Nav Icon */
 import { ReactComponent as HomeIcon } from '../../images/nav/ic_nav_home.svg';
 // import { ReactComponent as HomeFillIcon } from '../../images/nav/ic_nav_home-filled.svg';
 import { ReactComponent as NavMap } from '../../images/nav/ic_nav_map.svg';
-// import { ReactComponent as NavMapFill } from '../../images/nav/ic_nav_map-filled.svg';
+import { ReactComponent as NavMapFill } from '../../images/nav/ic_nav_map-filled.svg';
 import { ReactComponent as FilterIcon } from '../../images/nav/ic_nav_fliter.svg';
 import { ReactComponent as HeartIcon } from '../../images/nav/ic_nav_heart.svg';
 import { ReactComponent as MypageIcon } from '../../images/nav/ic_nav_mypage.svg';
-// import { isLoginChk } from '../../shared/utils';
 import ConfirmModal from './ConfirmModal';
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const pathName = history.location.pathname;
   const { t } = useTranslation();
   const isLogin = useSelector(state => state.user.isLogin);
@@ -56,6 +57,12 @@ const Navbar = () => {
     pageMove(url);
   };
 
+  /* 장소 검색 카테고리 */
+  const goPlaceSearch = () => {
+    dispatch(setCategoryInit());
+    history.push('/select-type');
+  };
+
   return (
     <>
       {confirmModal && (
@@ -81,12 +88,12 @@ const Navbar = () => {
               </Icon>
             </Grid>
             <Icon onClick={() => history.push('/location')}>
-              <NavMap />
+              {pathName === '/location' ? <NavMapFill /> : <NavMap />}
             </Icon>
 
             <Icon
               color={pathName === '/select-type' ? '#000' : ''}
-              onClick={() => history.push('/select-type')}
+              onClick={goPlaceSearch}
             >
               <FilterIcon />
             </Icon>

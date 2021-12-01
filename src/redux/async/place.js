@@ -74,7 +74,6 @@ export const getWeatherDB = createAsyncThunk(
 export const getMainListDB = createAsyncThunk(
   'place/mainList',
   async (params, thunkAPI) => {
-    console.log('params', params);
     thunkAPI.dispatch(getLoaded(true));
     try {
       const response = await getMainList();
@@ -97,7 +96,6 @@ export const getMainListDB = createAsyncThunk(
 export const getSearchConditionDB = createAsyncThunk(
   'place/searchCondition',
   async (params, thunkAPI) => {
-    console.log('params', params);
     thunkAPI.dispatch(getLoaded(true));
     try {
       const response = await getSearchCondition(params);
