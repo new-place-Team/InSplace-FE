@@ -36,6 +36,8 @@ const ReviewCard = forwardRef((props, ref) => {
       reviewId,
       userId: id,
       type: typeValue,
+      userCheck,
+      loginUser,
     };
     dispatch(setMoreModalOn(moreParams));
   };
@@ -135,13 +137,19 @@ const ReviewCard = forwardRef((props, ref) => {
               </Text>
             )}
           </Grid>
+          <Button
+            padding="5px 10px"
+            _onClick={() => showMoreModal(info.reviewId, userId, '')}
+          >
+            <Image src={more} />
+          </Button>
           {/* <Button
             padding="5px 10px"
             _onClick={() => showMoreModal(info.reviewId, userId, '')}
           >
             <Image src={more} />
           </Button> */}
-          {loginUser &&
+          {/* {loginUser &&
             (userCheck ? (
               <Button
                 padding="5px 10px"
@@ -157,9 +165,8 @@ const ReviewCard = forwardRef((props, ref) => {
                 <Text fontSize="12px" color="#ff6b6b">
                   신고하기
                 </Text>
-                {/* <Image src={report} /> */}
               </Button>
-            ))}
+            ))} */}
         </Grid>
       </ReviewCardWrap>
     </>
