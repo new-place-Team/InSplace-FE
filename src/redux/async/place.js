@@ -20,6 +20,7 @@ import {
   reviewLikeCancel,
   getSearchConditionList,
   reviewReport,
+  userReviewReport,
   getMainMap,
 } from '../../shared/api/placeApi';
 import { getLocationAddress } from '../../shared/api/kakaoApi';
@@ -48,7 +49,6 @@ import {
   setCommonModalOn,
   setErrorModalOn,
   setMoreModalOff,
-  setReportModalOn,
 } from '../modules/commonSlice';
 
 export const getWeatherDB = createAsyncThunk(
@@ -287,6 +287,7 @@ export const addReviewDB = createAsyncThunk(
   'place/addReview',
   async (params, thunkAPI) => {
     try {
+      thunkAPI.dispatch(getLoaded(true));
       const config = {
         headers: {
           'content-type': 'multipart/form-data',
@@ -340,12 +341,14 @@ export const updateReviewDB = createAsyncThunk(
   'place/updateReview',
   async (params, thunkAPI) => {
     try {
+      thunkAPI.dispatch(getLoaded(true));
       const config = {
         headers: {
           'content-type': 'multipart/form-data',
         },
       };
       const response = await updateReview(params, config);
+      thunkAPI.dispatch(getLoaded(false));
       thunkAPI.dispatch(resetReviewPagination());
       const modalParams = {
         title: params.msg,
@@ -428,14 +431,25 @@ export const reviewReportDB = createAsyncThunk(
   'place/reviewReport',
   async (params, thunkAPI) => {
     try {
-      const response = await reviewReport(params);
+      await reviewReport(params);
       thunkAPI.dispatch(setMoreModalOff());
-      if (response) {
-        const modalParams = {
-          title: '신고가 접수되었습니다.',
-        };
-        return thunkAPI.dispatch(setReportModalOn(modalParams));
-      }
+    } catch (err) {
+      console.log(err.response);
+      const modalParams = {
+        title: `${err.response.data.errMsg}`,
+      };
+      thunkAPI.dispatch(setCommonModalOn(modalParams));
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  },
+);
+
+export const userReviewReportDB = createAsyncThunk(
+  'place/userReviewReport',
+  async (params, thunkAPI) => {
+    try {
+      await userReviewReport(params);
+      thunkAPI.dispatch(setMoreModalOff());
     } catch (err) {
       console.log(err.response);
       const modalParams = {

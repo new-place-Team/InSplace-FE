@@ -14,8 +14,11 @@ import {
 import { Grid, Image, Text, Textarea } from '../../elements';
 import { history } from '../../redux/configureStore';
 import { modalClose, checked, close } from '../../images';
-import { reviewReportText } from '../../shared/commonData';
-import { reviewReportDB } from '../../redux/async/place';
+import {
+  reviewReportText,
+  userReviewReportText,
+} from '../../shared/commonData';
+import { reviewReportDB, userReviewReportDB } from '../../redux/async/place';
 import { userFeedbacksDB } from '../../redux/async/user';
 import { autoHypenPhone } from '../../shared/utils';
 
@@ -27,12 +30,22 @@ const CommonModal = ({ type, showConfirmModal }) => {
   const goPage = useSelector(state => state.common.goPage);
   const moreInfo = useSelector(state => state.common.moreInfo);
   const [errorMessage, setErrorMessage] = useState('');
-  const report = moreInfo && moreInfo.type === 'report';
   const [reportText, setReportText] = useState(reviewReportText);
   const [reportInfo, setReportInfo] = useState({
     toUserId: moreInfo && moreInfo.userId,
     categoryNum: 1,
     description: '',
+  });
+  const [userReportText, setUserReportText] = useState(userReviewReportText);
+  const [userReportInfo, setUserReportInfo] = useState({
+    toUserId: moreInfo && moreInfo.userId,
+    categoryNum: 1,
+    description: '',
+  });
+  const [moreModalState, setMoreModalState] = useState({
+    moreInfo: false,
+    reviewReport: false,
+    userReport: false,
   });
 
   // 닫기 버튼 클릭했을때
@@ -159,22 +172,163 @@ const CommonModal = ({ type, showConfirmModal }) => {
     }
   };
 
-  // const onReport = e => {
-  //   if (!isLogin) {
-  //     MoreModalClose(e);
-  //     const params = {
-  //       title: '로그인 유저만 가능합니다.',
-  //     };
-  //     dispatch(setLoginCheckModalOn(params));
-  //     return;
-  //   }
-  //   const params = {
-  //     reviewId: moreInfo.reviewId,
-  //     userId: moreInfo.userId,
-  //     type: 'report',
-  //   };
-  //   dispatch(setMoreModalOn(params));
-  // };
+  const reviewReportModal = () => {
+    setMoreModalState({
+      ...moreModalState,
+      moreInfo: true,
+      reviewReport: true,
+      userReport: false,
+    });
+  };
+
+  const userReportModal = () => {
+    setMoreModalState({
+      ...moreModalState,
+      moreInfo: true,
+      userReport: true,
+      reviewReport: false,
+    });
+  };
+  // 유저 신고 타입 선택했을때
+  const userReporTypeClick = idx => {
+    const value = idx + 1;
+    // 체크 버튼 상태값 변경해주기
+    const newList = userReportText.map(item => {
+      return item.value === value
+        ? { ...item, active: true }
+        : { ...item, active: false };
+    });
+    setUserReportText(newList);
+    setUserReportInfo({ ...userReportInfo, categoryNum: value });
+  };
+  // 유저 신고하기 버튼을 클릭했을때
+  const userReportClick = () => {
+    const params = {
+      toUserId: userReportInfo.toUserId,
+      categoryNum: userReportInfo.categoryNum,
+    };
+    return dispatch(userReviewReportDB(params));
+  };
+
+  // 더보기 버튼과 신고하기 버튼 타입일때
+  if (type === 'more') {
+    return (
+      <>
+        {!moreModalState.moreInfo ? (
+          <MoreContainer className="close more" onClick={MoreModalClose}>
+            <MoreModalContent>
+              <Grid justify="space-between">
+                <Title>설정</Title>
+                <CloseButton
+                  className="close"
+                  src={modalClose}
+                  onClick={MoreModalClose}
+                />
+              </Grid>
+              <Grid>
+                {moreInfo.userCheck && (
+                  <>
+                    <MoreGrid onClick={goToReviewEditPage}>
+                      <Text>{t('CommonModal.edit')}</Text>
+                    </MoreGrid>
+                    <MoreGrid onClick={reviewDelete}>
+                      <Text>{t('CommonModal.delete')}</Text>
+                    </MoreGrid>
+                  </>
+                )}
+                <MoreGrid onClick={reviewReportModal}>
+                  <Text>리뷰 신고</Text>
+                </MoreGrid>
+                <MoreGrid onClick={userReportModal}>
+                  <Text>유저 신고</Text>
+                </MoreGrid>
+              </Grid>
+            </MoreModalContent>
+          </MoreContainer>
+        ) : (
+          <MoreContainer className="close more" onClick={MoreModalClose}>
+            <MoreModalContent>
+              {moreModalState.reviewReport && (
+                <Grid>
+                  {reportText.map((item, idx) => {
+                    return (
+                      <MoreGrid
+                        onClick={() => reportTypeClick(idx)}
+                        key={`item-${item.value}`}
+                      >
+                        <Text size="16px">{item.text}</Text>
+                        {item.active && <Image src={checked} />}
+                      </MoreGrid>
+                    );
+                  })}
+                  <Grid margin="30px 0 0 0">
+                    <Text>신고내용</Text>
+                    <Textarea
+                      height="120px"
+                      padding="20px"
+                      margin="16px 0 0 0"
+                      border="1px solid #E6E9EC"
+                      placeholder="최소 15자 이상 써 주세요"
+                      _onChange={e =>
+                        setReportInfo({
+                          ...reportInfo,
+                          description: e.target.value,
+                        })
+                      }
+                    />
+                    <Text fontSize="12px" color="#ff4949">
+                      {errorMessage}
+                    </Text>
+                    <Text
+                      margin="12px 0 0 0"
+                      textAlign="right"
+                      fontSize="14px"
+                      color="#C2C6CB"
+                    >
+                      {reportInfo.description.length} / 최소 15자
+                    </Text>
+                    <ModalButton
+                      className="fullButton"
+                      margin="32px 0 0 0"
+                      padding="15px"
+                      onClick={reportClick}
+                    >
+                      {t('CommonModal.singo')}
+                    </ModalButton>
+                  </Grid>
+                </Grid>
+              )}
+              {moreModalState.userReport && (
+                <>
+                  <Grid>
+                    {userReportText.map((item, idx) => {
+                      return (
+                        <MoreGrid
+                          onClick={() => userReporTypeClick(idx)}
+                          key={`item-${item.value}`}
+                        >
+                          <Text size="16px">{item.text}</Text>
+                          {item.active && <Image src={checked} />}
+                        </MoreGrid>
+                      );
+                    })}
+                  </Grid>
+                  <ModalButton
+                    className="fullButton"
+                    margin="32px 0 0 0"
+                    padding="15px"
+                    onClick={userReportClick}
+                  >
+                    {t('CommonModal.singo')}
+                  </ModalButton>
+                </>
+              )}
+            </MoreModalContent>
+          </MoreContainer>
+        )}
+      </>
+    );
+  }
 
   if (type === 'feedback') {
     return (
@@ -223,92 +377,6 @@ const CommonModal = ({ type, showConfirmModal }) => {
       </ModalContainer>
     );
   }
-
-  // 더보기 버튼과 신고하기 버튼 타입일때
-  if (type === 'more' || report) {
-    return (
-      <>
-        <MoreContainer className="close more" onClick={MoreModalClose}>
-          <MoreModalContent>
-            <Grid justify="space-between">
-              <Title>
-                {report
-                  ? t('CommonModal.ReviewReport')
-                  : t('CommonModal.ReviewSetting')}
-              </Title>
-              <CloseButton
-                className="close"
-                src={modalClose}
-                onClick={MoreModalClose}
-              />
-            </Grid>
-            <Grid>
-              {report ? (
-                <>
-                  {reportText.map((item, idx) => {
-                    return (
-                      <MoreGrid
-                        onClick={() => reportTypeClick(idx)}
-                        key={`item-${item.value}`}
-                      >
-                        <Text size="16px">{item.text}</Text>
-                        {item.active && <Image src={checked} />}
-                      </MoreGrid>
-                    );
-                  })}
-                  <Grid margin="30px 0 0 0">
-                    <Text>신고내용</Text>
-                    <Textarea
-                      height="120px"
-                      padding="20px"
-                      margin="16px 0 0 0"
-                      border="1px solid #E6E9EC"
-                      placeholder="최소 15자 이상 써 주세요"
-                      _onChange={e =>
-                        setReportInfo({
-                          ...reportInfo,
-                          description: e.target.value,
-                        })
-                      }
-                    />
-                    <Text fontSize="12px" color="#ff4949">
-                      {errorMessage}
-                    </Text>
-                    <Text
-                      margin="12px 0 0 0"
-                      textAlign="right"
-                      fontSize="14px"
-                      color="#C2C6CB"
-                    >
-                      {reportInfo.description.length} / 최소 15자
-                    </Text>
-                    <ModalButton
-                      className="fullButton"
-                      margin="32px 0 0 0"
-                      padding="15px"
-                      onClick={reportClick}
-                    >
-                      {t('CommonModal.singo')}
-                    </ModalButton>
-                  </Grid>
-                </>
-              ) : (
-                <>
-                  <MoreGrid onClick={goToReviewEditPage}>
-                    <Text>{t('CommonModal.edit')}</Text>
-                  </MoreGrid>
-                  <MoreGrid onClick={reviewDelete}>
-                    <Text>{t('CommonModal.delete')}</Text>
-                  </MoreGrid>
-                </>
-              )}
-            </Grid>
-          </MoreModalContent>
-        </MoreContainer>
-      </>
-    );
-  }
-
   // 기본 확인 모달
   return (
     <>
@@ -356,7 +424,7 @@ const ModalContent = styled.div`
 `;
 const Title = styled.h3`
   margin-bottom: 16px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.0038em;
   @media (max-width: 415px) {
