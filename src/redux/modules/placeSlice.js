@@ -88,7 +88,7 @@ const placeSlice = createSlice({
     /* 선택 결과 장소 , 검새 결과 장소 좋아요 */
     setConditionPlaces: (state, { payload }) => {
       const { postId } = payload;
-      const { conditionPlaces, placeList } = state;
+      const { conditionPlaces, placeList, locationPlaceList } = state;
       if (conditionPlaces) {
         for (const key in conditionPlaces) {
           if (key) {
@@ -109,6 +109,15 @@ const placeSlice = createSlice({
         const idx = placeList.findIndex(v => v.postId === postId);
         if (idx === -1) return;
         const target = placeList[idx];
+        target.favoriteState = !target.favoriteState;
+        target.favoriteState
+          ? (target.favoriteCnt += 1)
+          : (target.favoriteCnt -= 1);
+      }
+      if (locationPlaceList) {
+        const idx = locationPlaceList.findIndex(v => v.postId === postId);
+        if (idx === -1) return;
+        const target = locationPlaceList[idx];
         target.favoriteState = !target.favoriteState;
         target.favoriteState
           ? (target.favoriteCnt += 1)
