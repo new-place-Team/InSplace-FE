@@ -165,7 +165,7 @@ const Main = () => {
             <Swiper list={mainLists && mainLists.pickPlace} />
           </Grid>
         </Grid>
-        <Banner />
+        {/* <Banner /> */}
         <BottomHeight />
       </Container>
       <Navbar />

@@ -19,6 +19,7 @@ const SelectedContents = props => {
   const { t } = useTranslation();
   /* 버튼 선택 */
   const selectedBtn = (text, type, value) => {
+    /* 타입이 gender 이면 부모 전체 SelectData를 변경 */
     if (type === 'gender') {
       setState({ ...state, gender: { selecteText: text, value } });
       const dataList = [...selectData];
@@ -39,8 +40,10 @@ const SelectedContents = props => {
         ];
         setSelectData(dataList);
       }
+      /* 타입이 num 이면 State 그대로 */
     } else if (type === 'num') {
       setState({ ...state, num: { selecteText: text, value } });
+      /* 타입이 value 이면 State 그대로 */
     } else {
       setState({ ...state, category: { selecteText: text, value } });
     }
@@ -95,7 +98,11 @@ const SelectedContents = props => {
   }
 
   return (
+    /* 실제로 뷰를 그려주는  3개로 나줘짐 */
+
+    /* 배경 색상 (3가지) */
     <SelectedContent bgColor={bg}>
+      {/* 선택 항목의 제목들  */}
       <Text fontSize="20px" bold>
         {title}
       </Text>
@@ -104,6 +111,7 @@ const SelectedContents = props => {
           return (
             <React.Fragment key={`selected-${item.selecteText}`}>
               <Grid margin="10px 10px 0 0">
+                {/* 각 버튼들을 Map을 돌립니다.  */}
                 <SelectedButton
                   type="type"
                   width="auto"
