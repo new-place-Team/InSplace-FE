@@ -43,7 +43,6 @@ const ReviewList = props => {
   // 리뷰 무한 스크롤
   const [target, setTarget] = useState(null);
   const [likeTarget, setLikeTarget] = useState(null);
-
   const [active, setActive] = useState({
     likeList: false,
     newList: true,
@@ -63,10 +62,12 @@ const ReviewList = props => {
   };
 
   useEffect(() => {
+    // 맨처음 진입시
     if (!reviewList) {
       const qureryString = `/posts/${postId}/reviews/pages/${reviewPagination.page}/orders/latest`;
       dispatch(getReviewListDB(qureryString));
     }
+    // 컴포넌트를 빠져나갔을때 Pagination 정보를 초기화
     return () => {
       dispatch(resetReviewPagination());
     };
@@ -198,6 +199,7 @@ const ReviewList = props => {
         {reviewList && reviewList.length === 0 && (
           <NoReviews>아직 등록된 리뷰가 없습니다.</NoReviews>
         )}
+        {/* 리뷰 최신순 */}
         {active.newList === true &&
           reviewList &&
           reviewList.map((item, idx) => {
@@ -215,6 +217,7 @@ const ReviewList = props => {
               </>
             );
           })}
+        {/* 리뷰 추천순 */}
         {active.likeList === true &&
           reviewLikeList &&
           reviewLikeList.map((item, idx) => {

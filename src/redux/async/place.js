@@ -49,6 +49,7 @@ import {
   setCommonModalOn,
   setErrorModalOn,
   setMoreModalOff,
+  setReportModalOn,
 } from '../modules/commonSlice';
 
 export const getWeatherDB = createAsyncThunk(
@@ -436,12 +437,16 @@ export const reviewReportDB = createAsyncThunk(
     try {
       await reviewReport(params);
       thunkAPI.dispatch(setMoreModalOff());
+      const modalParams = {
+        title: '신고되었습니다.',
+      };
+      thunkAPI.dispatch(setReportModalOn(modalParams));
     } catch (err) {
       console.log(err.response);
       const modalParams = {
         title: `${err.response.data.errMsg}`,
       };
-      thunkAPI.dispatch(setCommonModalOn(modalParams));
+      thunkAPI.dispatch(setReportModalOn(modalParams));
       return thunkAPI.rejectWithValue(err.response.data);
     }
   },
@@ -453,12 +458,16 @@ export const userReviewReportDB = createAsyncThunk(
     try {
       await userReviewReport(params);
       thunkAPI.dispatch(setMoreModalOff());
+      const modalParams = {
+        title: '신고되었습니다.',
+      };
+      thunkAPI.dispatch(setReportModalOn(modalParams));
     } catch (err) {
       console.log(err.response);
       const modalParams = {
         title: `${err.response.data.errMsg}`,
       };
-      thunkAPI.dispatch(setCommonModalOn(modalParams));
+      thunkAPI.dispatch(setReportModalOn(modalParams));
       return thunkAPI.rejectWithValue(err.response.data);
     }
   },

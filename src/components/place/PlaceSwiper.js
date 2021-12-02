@@ -22,6 +22,7 @@ const PlaceSwiper = props => {
   const setting = {
     slidesPerView: 1,
     spaceBetween: 16,
+    navigation: true,
     autoplay: {
       delay: 3000, // 시간 설정
       disableOnInteraction: false, // false로 설정하면 스와이프 후 자동 재생이 비활성화 되지 않음
@@ -66,6 +67,16 @@ const StyledSlider = styled.div`
     .line {
       margin: 0px 1px;
     }
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: #fff;
+  }
+  .swiper-button-prev:after,
+  .swiper-container-rtl .swiper-button-next:after,
+  .swiper-button-next:after,
+  .swiper-container-rtl .swiper-button-prev:after {
+    font-size: 2rem;
   }
 `;
 

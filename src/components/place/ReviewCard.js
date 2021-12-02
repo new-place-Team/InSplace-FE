@@ -22,11 +22,11 @@ const ReviewCard = forwardRef((props, ref) => {
   };
 
   // 리뷰 좋아요
-  const handleLikes = async () => {
+  const handleLikes = () => {
     dispatch(reviewLikeDB(params));
   };
   // 리뷰 좋아요 취소
-  const handleLikesCancel = async () => {
+  const handleLikesCancel = () => {
     dispatch(reviewLikeCancelDB(params));
   };
 
@@ -57,7 +57,6 @@ const ReviewCard = forwardRef((props, ref) => {
               <Text fontSize="14px" color="#3E4042">
                 {info.nickname}
               </Text>
-
               {info.gender === null && info.mbti === '모름' ? (
                 <></>
               ) : (
@@ -79,6 +78,7 @@ const ReviewCard = forwardRef((props, ref) => {
             {date}
           </Text>
         </Grid>
+        {/* 장소 방문 정보 */}
         <Grid justify="space-between" margin="27px 0 0 0">
           <Grid isFlex width="50%">
             <Text
@@ -115,10 +115,9 @@ const ReviewCard = forwardRef((props, ref) => {
             <Image width="16px" src={info.revisitYN ? good : bad} />
           </Grid>
         </Grid>
+        {/* 리뷰내용 */}
         <ReviewDesc>{info.reviewDesc}</ReviewDesc>
-
         <ReviewSwiper list={info.reviewImages} />
-
         <Grid justify="space-between" margin="24px 0 0 0">
           <Grid isFlex>
             {info.likeState ? (
