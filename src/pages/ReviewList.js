@@ -205,16 +205,15 @@ const ReviewList = props => {
           reviewList.map((item, idx) => {
             const lastItem = idx === reviewList.length - 1;
             return (
-              <>
+              <React.Fragment key={item.reviewId}>
                 <ReviewCard
-                  key={item.reviewId}
                   loginUser={userInfo && userInfo.nickname}
                   postId={postId}
                   info={item}
                   userId={item.userId}
                   ref={lastItem ? setTarget : null}
                 />
-              </>
+              </React.Fragment>
             );
           })}
         {/* 리뷰 추천순 */}
@@ -223,17 +222,16 @@ const ReviewList = props => {
           reviewLikeList.map((item, idx) => {
             const lastItem = idx === reviewLikeList.length - 1;
             return (
-              <>
+              <React.Fragment key={item.reviewId}>
                 <ReviewCard
                   type="like"
-                  key={item.reviewId}
                   loginUser={userInfo.nickname}
                   postId={postId}
                   info={item}
                   userId={item.userId}
                   ref={lastItem ? setLikeTarget : null}
                 />
-              </>
+              </React.Fragment>
             );
           })}
       </ReviewWrap>

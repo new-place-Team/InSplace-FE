@@ -107,21 +107,23 @@ const placeSlice = createSlice({
       }
       if (placeList) {
         const idx = placeList.findIndex(v => v.postId === postId);
-        if (idx === -1) return;
-        const target = placeList[idx];
-        target.favoriteState = !target.favoriteState;
-        target.favoriteState
-          ? (target.favoriteCnt += 1)
-          : (target.favoriteCnt -= 1);
+        if (idx !== -1) {
+          const target = placeList[idx];
+          target.favoriteState = !target.favoriteState;
+          target.favoriteState
+            ? (target.favoriteCnt += 1)
+            : (target.favoriteCnt -= 1);
+        }
       }
       if (locationPlaceList) {
         const idx = locationPlaceList.findIndex(v => v.postId === postId);
-        if (idx === -1) return;
-        const target = locationPlaceList[idx];
-        target.favoriteState = !target.favoriteState;
-        target.favoriteState
-          ? (target.favoriteCnt += 1)
-          : (target.favoriteCnt -= 1);
+        if (idx !== -1) {
+          const target = locationPlaceList[idx];
+          target.favoriteState = !target.favoriteState;
+          target.favoriteState
+            ? (target.favoriteCnt += 1)
+            : (target.favoriteCnt -= 1);
+        }
       }
     },
     resetReviewList: state => {
