@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
+// import { BsFillArrowUpSquareFill } from 'react-icons/bs';
 import { Container, Text, Image } from '../elements';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
@@ -103,6 +104,12 @@ const PlaceList = props => {
                     </CardWrap>
                   );
                 })}
+
+              {/* <UpIcon>
+                <TextGrid>
+                  <BsFillArrowUpSquareFill />
+                </TextGrid>
+              </UpIcon> */}
             </PlaceGrid>
           </>
         )}
@@ -113,6 +120,7 @@ const PlaceList = props => {
 };
 
 const PlaceGrid = styled.div`
+  position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -151,4 +159,19 @@ const ImageContainer = styled.div`
     }
   }
 `;
+
+// const UpIcon = styled.div`
+//   position: absolute;
+//   position: fixed;
+//   bottom: 100px;
+//   right: 0;
+//   width: 32px;
+//   height: 32px;
+//   z-index: 10;
+//   border: 2px solid red;
+//   svg {
+//     width: 24px;
+//     height: 24px;
+//   }
+// `;
 export default PlaceList;
