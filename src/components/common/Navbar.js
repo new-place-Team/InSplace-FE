@@ -8,9 +8,11 @@ import { Grid } from '../../elements/index';
 import { setCategoryInit } from '../../redux/modules/placeSlice';
 import theme from '../../styles/theme';
 
+import { getCurrentCoordinateWEB } from '../../redux/async/place';
+import { setCommonModalOn } from '../../redux/modules/commonSlice';
+
 /* Nav Icon */
 import { ReactComponent as HomeIcon } from '../../images/nav/ic_nav_home.svg';
-// import { ReactComponent as HomeFillIcon } from '../../images/nav/ic_nav_home-filled.svg';
 import { ReactComponent as NavMap } from '../../images/nav/ic_nav_map.svg';
 import { ReactComponent as NavMapFill } from '../../images/nav/ic_nav_map-filled.svg';
 import { ReactComponent as FilterIcon } from '../../images/nav/ic_nav_fliter.svg';
@@ -25,6 +27,7 @@ const Navbar = () => {
   const isLogin = useSelector(state => state.user.isLogin);
   const userInfo = useSelector(state => state.user.userInfo);
   const weatherStatus = useSelector(state => state.place.weatherStatus);
+  const location = useSelector(state => state.place.location);
   const [confirmModal, setConfirmModal] = useState(false);
 
   let weatherKey = '';
@@ -63,6 +66,19 @@ const Navbar = () => {
     history.push('/select-type');
   };
 
+  /* 현재 위치 기반 장소 조회 */
+  const goLocationMap = async () => {
+    if (!location) {
+      const payload = await dispatch(getCurrentCoordinateWEB());
+      if (!payload.payload.address) {
+        const modalParams = { title: t('selectTypePage.pleaseCheckLocation') };
+        dispatch(setCommonModalOn(modalParams));
+        return;
+      }
+    }
+    history.push('/location');
+  };
+
   return (
     <>
       {confirmModal && (
@@ -87,7 +103,7 @@ const Navbar = () => {
                 <HomeIcon />
               </Icon>
             </Grid>
-            <Icon onClick={() => history.push('/location')}>
+            <Icon onClick={goLocationMap}>
               {pathName === '/location' ? <NavMapFill /> : <NavMap />}
             </Icon>
 

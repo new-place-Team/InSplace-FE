@@ -8,6 +8,17 @@ export const reviewReportText = [
   { text: '상업적 광고 및 판매', value: 5, active: false },
 ];
 
+export const userReviewReportText = [
+  { text: '괴롭힘 및 사이버 폭력', value: 1, active: true },
+  { text: '개인정보 침해', value: 2, active: false },
+  { text: '명의 도용', value: 3, active: false },
+  { text: '폭력적 위협', value: 4, active: false },
+  { text: '아동 학대', value: 5, active: false },
+  { text: '보호 대상 집단에 대한 증오심 표현', value: 6, active: false },
+  { text: '스팸 및 사기', value: 7, active: false },
+  { text: '나에게 해당하는 문제 없음', value: 8, active: false },
+];
+
 export const getMbtiList = () => {
   return [
     { mbtiId: 17, type: t('MbtiModal.noSelection') },

@@ -107,18 +107,18 @@ const SelectedContents = props => {
         {title}
       </Text>
       <SelectedGrid>
-        {list.map((item, idx) => {
+        {list.map(item => {
           return (
             <React.Fragment key={`selected-${item.selecteText}`}>
               <Grid margin="10px 10px 0 0">
                 {/* 각 버튼들을 Map을 돌립니다.  */}
                 <SelectedButton
+                  keys={item.value}
                   type="type"
                   width="auto"
                   value={item.selecteText}
-                  keys={item.value}
                   isSelected={state[type].value === item.value}
-                  isLast={list.length === idx}
+                  // isLast={list.length === idx}
                   onClick={() =>
                     selectedBtn(item.selecteText, type, item.value)
                   }

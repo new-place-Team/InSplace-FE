@@ -16,8 +16,9 @@ import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import ContentsTitle from '../components/common/ContentsTitle';
 import theme from '../styles/theme';
-import Banner from '../components/common/Banner';
 import WeatherDetail from '../components/common/WeatherDetail';
+import CommonModal from '../components/common/CommonModal';
+// import Banner from '../components/common/Banner';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,8 @@ const Main = () => {
   const [weatherModalShow, setWeatherModalShow] = useState(false);
   const [onTop, setOnTop] = useState(true);
   const imgRef = useRef(null);
+  const modal = useSelector(state => state.common.modalStatus);
+
   /* 현재 날씨에 따른 배경 색상 */
   const getBg = info => {
     const status = info.frontWeather;
@@ -46,7 +49,7 @@ const Main = () => {
     }
     return theme.weatherBgColor[weatherKey];
   };
-
+  /* header sticky 처리 */
   const handleScroll = () => {
     if (window.scrollY > 66) {
       setOnTop(false);
@@ -100,6 +103,7 @@ const Main = () => {
       {weatherModalShow && (
         <WeatherDetail closeWeatherModal={closeWeatherModal} />
       )}
+      {modal && <CommonModal />}
       <Container padding="0">
         <Header
           _onBg
@@ -130,6 +134,7 @@ const Main = () => {
               </NextButton>
             </SelectTypeBtn>
           </>
+          {/* 날씨 상세 확대 버튼 */}
           <ArrowOutArea onClick={openWeatherModal}>
             <ArrowOut />
           </ArrowOutArea>
@@ -147,7 +152,7 @@ const Main = () => {
             />
             <Swiper list={mainLists && mainLists.weatherPlace} />
           </Grid>
-          {/* 좋아요 순 추천 공간 */}
+          {/* 날씨 별 추천 공간 */}
           <Grid
             padding="0 0 48px 24px"
             bg={mainLists ? getBg(mainLists.weather)[0] : ''}
