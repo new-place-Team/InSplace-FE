@@ -65,6 +65,10 @@ const reviewReport = params =>
     `/posts/${params.postId}/reviews/${params.reviewId}/reports`,
     params,
   );
+
+// 유저 신고하기
+const userReviewReport = params => api.post(`users/reports`, params);
+
 // 현재위치 기반 지도
 const getMainMap = params =>
   api.get(`/main/maps?x=${params.lat}&y=${params.lon}`);
@@ -90,4 +94,5 @@ export {
   reviewLikeCancel,
   reviewReport,
   getMainMap,
+  userReviewReport,
 };

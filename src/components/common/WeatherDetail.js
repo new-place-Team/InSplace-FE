@@ -7,11 +7,11 @@ import styled from 'styled-components';
 import { ReactComponent as Close } from '../../images/Icon/ic_close.svg';
 import { ReactComponent as Marker } from '../../images/ic-marker.svg';
 import { ReactComponent as Particlulates } from '../../images/Icon/ic_weather_particulates.svg';
-import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_good.svg';
-import { ReactComponent as WeatherSoso } from '../../images/Icon/ic_weather_soso.svg';
-import { ReactComponent as WeatherBad } from '../../images/Icon/ic_weather_bad.svg';
-import { ReactComponent as WeatherSoBad } from '../../images/Icon/ic_weather_sobad.svg';
-import { ReactComponent as WeatherDanger } from '../../images/Icon/ic_weather_dangerous.svg';
+import { ReactComponent as WeatherGood } from '../../images/Icon/ic_weather_goodColor.svg';
+import { ReactComponent as WeatherSoso } from '../../images/Icon/ic_weather_sosoColor.svg';
+import { ReactComponent as WeatherBad } from '../../images/Icon/ic_weather_badColor.svg';
+import { ReactComponent as WeatherSoBad } from '../../images/Icon/ic_weather_sobadColor.svg';
+import { ReactComponent as WeatherDanger } from '../../images/Icon/ic_weather_dangerousColor.svg';
 import {
   SunFull768,
   RainFull768,
