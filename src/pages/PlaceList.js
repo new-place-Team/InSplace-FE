@@ -23,12 +23,6 @@ const PlaceList = props => {
 
   /* target 을 지켜보다 target이 정해진 threshold 비율만큼 지정 행동 */
   const [target, setTarget] = useState(null);
-  console.log('location', location);
-  console.log('match', match);
-  console.log('url', url);
-  console.log('searchType', searchType);
-  console.log('placeList', placeList);
-  console.log('pagination', pagination);
   let title = '';
   if (url.indexOf('inside=1') !== -1) {
     // 실내
