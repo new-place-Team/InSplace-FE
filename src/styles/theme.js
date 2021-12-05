@@ -7,6 +7,7 @@ const theme = {
   fontSize: {
     normal: '18px',
   },
+  // 글자 굵기
   fontWeight: {
     extraBold: 800,
     semiBold: 600,
