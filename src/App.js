@@ -40,7 +40,8 @@ function App() {
   useEffect(() => {
     // 현재위치를 받아보자
     if (!location) {
-      const lang = window.navigator.language;
+      // const lang = window.navigator.language;
+      const lang = 'ko';
       dispatch(getCurrentCoordinateWEB(lang));
     }
     // 새로고침 했을때 토큰이 있으면 로그인 체크
