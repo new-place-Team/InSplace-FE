@@ -170,15 +170,6 @@ const Signup = () => {
     if (userInfoDB.mbtiId === undefined) {
       userInfoDB.mbtiId = 17;
     }
-    // if (userInfoDB.maleYN === undefined) {
-    //   window.alert('성별을 선택해 주세요!');
-    //   return;
-    // }
-    // if (!userInfoDB.mbtiId) {
-    //   window.alert('mbti도 선택해 볼까요?!');
-    // }
-    // 회원정보 미들웨어로 dispatch
-    // console.log(userInfoDB);
     dispatch(addUserDB(userInfoDB));
     addReactGa();
   };

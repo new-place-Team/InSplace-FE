@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { useState, useEffect } from 'react';
-import { Container, Grid } from '../elements';
+import { Container } from '../elements';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import SwiperMap from '../components/place/SwiperMap';

@@ -20,6 +20,7 @@ const SelectedCategory = props => {
     <>
       <Grid isFlex margin={margin}>
         {categoryList &&
+          // Object.values 객체의 value들만 뽑아서 배열로 만듬
           Object.values(categoryList).map(item => {
             return (
               <React.Fragment key={`key_${item.selecteText}`}>

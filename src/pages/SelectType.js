@@ -30,13 +30,11 @@ const SelectedType = () => {
   const location = useSelector(state => state.place.location);
   const commomModal = useSelector(state => state.common.modalStatus);
   const categoryObj = useSelector(state => state.place.categoryList);
-
   const [guModal, setGuModal] = useState(false);
   const [currentGu, setCurrentGu] = useState({
     guId: 1,
     text: t('guList.all'),
   });
-
   const [categoryInfo, setCategoryInfo] = React.useState(
     categoryObj || {
       num: '',
@@ -44,12 +42,12 @@ const SelectedType = () => {
       category: '',
     },
   );
-
+  // 유형선택이 모두 빈값이면 true, 하나라도 채워지면 false
   const showCategory =
     categoryInfo.num === '' &&
     categoryInfo.gender === '' &&
     categoryInfo.category === '';
-
+  // 이 페이지의 전체 데이터를 selectData라는 State에 저장
   const [selectData, setSelectData] = React.useState([
     {
       title: t('selectTypePage.selectGender.selectTitle'),
@@ -129,6 +127,7 @@ const SelectedType = () => {
   };
   /* category 별 검색 */
   const goSearch = () => {
+    // 유형 선택 항목들이 빈 값이면 모달 "유형을 선택해주세요" 띄워줌.
     if (
       categoryInfo.gender === '' ||
       categoryInfo.num === '' ||
@@ -141,11 +140,13 @@ const SelectedType = () => {
       // window.alert(t('selectTypePage.alert'));
       return;
     }
-
+    // 선택한 유형들을 쿼리 스트링으로 서버에 데이터 요청
     let params = `?weather=${weatherStatus.status}&category=${categoryInfo.category.value}&num=${categoryInfo.num.value}&gender=${categoryInfo.gender.value}`;
+    // 구 선택 모달에서 현재 위치를 선택 했을때는 쿼리스트링에 현재 위도,경도를 붙여서 서버에 요청
     if (currentGu.guId === 0) {
       const { latLon } = location;
       params += `&x=${latLon.lat}&y=${latLon.lon}`;
+      // 구 선택 모달에서 특정 구를 선택 했을때는 쿼리스트링에 선택한 "구"명을 붙여서 서버에 요청
     } else if (currentGu.guId > 1) {
       params += `&area=${currentGu.text}`;
     }
@@ -168,6 +169,7 @@ const SelectedType = () => {
       />
       <Container padding="66px 0 0 0">
         <ChangeContainer>
+          {/* "구"를 선택하는 Area */}
           <SelectGuArea>
             <Grid padding="12px 24px 24px 24px">
               <Label type="form" marginBottom="0">
@@ -180,10 +182,12 @@ const SelectedType = () => {
               </GuArea>
             </Grid>
           </SelectGuArea>
+          {/* 실제 문장이 그려지는 Area */}
           <ChangeText className={!showCategory && 'hide'}>
             {categoryInfo.gender !== '' && (
               <Grid isFlex>
                 <Text bold fontSize="20px" border="2px solid #C0C0C0">
+                  {/* 선택한 유형에 따른 value를 Text로 변경해주는 함수 */}
                   {getGenderText(categoryInfo.gender.value)}
                 </Text>
               </Grid>
@@ -218,6 +222,7 @@ const SelectedType = () => {
             )}
           </ChangeText>
         </ChangeContainer>
+        {/* 유형을 선택하는 Area */}
         <SelectContainer className={showCategory && 'hide'}>
           {selectData.map(item => {
             return (
@@ -236,6 +241,7 @@ const SelectedType = () => {
           </NextButton>
         </SelectContainer>
         <Grid height="64px" padding="64px" />
+        {/* "구" 모달 */}
         {guModal && (
           <GuModal
             currentGu={currentGu}

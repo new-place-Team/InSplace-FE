@@ -23,17 +23,17 @@ const PlaceList = props => {
 
   /* target 을 지켜보다 target이 정해진 threshold 비율만큼 지정 행동 */
   const [target, setTarget] = useState(null);
-
   let title = '';
   if (url.indexOf('inside=1') !== -1) {
+    // 실내
     title = t('placeList.category.0');
   } else if (url.indexOf('inside=0') !== -1) {
+    // 실내
     title = t('placeList.category.1');
   } else if (url.indexOf('result') !== -1) {
     const findText = url.split('?result=').reverse()[0];
     title = decodeURIComponent(findText);
   }
-
   useEffect(() => {
     if (!placeList) {
       const qureryString = `search/pages/${pagination.page}/${searchType}${url}`;
