@@ -22,12 +22,10 @@ api.interceptors.request.use(async config => {
 /* interceptor를 통한 response 설정 */
 api.interceptors.response.use(
   async response => {
-    /* TODO 2021-10-30 - 추후 작업 */
     // if(response){}
     return response;
   },
   async error => {
-    /* TODO 2021-10-30 - 추후 작업 */
     console.log('통신에러 : ', error);
     return Promise.reject(error);
   },

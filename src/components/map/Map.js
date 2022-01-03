@@ -25,7 +25,6 @@ const Map = React.memo(props => {
 
   useEffect(() => {
     /* 페이지가 로드 시 지도 생성 */
-    console.log('allplaces', allPlaces);
     if (allPlaces) {
       mapscript(mapDiv, allPlaces, latLonFocus);
     }
@@ -34,7 +33,6 @@ const Map = React.memo(props => {
   const mapscript = (mapDiv, allPlaces, latLonObj) => {
     const { kakao } = window;
     let latLon = latLonObj;
-    console.log('latLon', latLon);
     if (!latLon) {
       if (allPlaces.length > 0) {
         latLon = {
