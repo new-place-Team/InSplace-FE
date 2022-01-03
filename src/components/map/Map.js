@@ -25,7 +25,6 @@ const Map = React.memo(props => {
 
   useEffect(() => {
     /* 페이지가 로드 시 지도 생성 */
-    console.log('allplaces', allPlaces);
     if (allPlaces) {
       mapscript(mapDiv, allPlaces, latLonFocus);
     }
